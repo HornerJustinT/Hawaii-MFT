@@ -1,6 +1,6 @@
 // React Imports
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 // Redux
 import { connect } from 'react-redux';
@@ -14,32 +14,61 @@ import "./NavBootstrap.css";
 // React-Bootstrap
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import Form from "react-bootstrap/Form";
-import FormControl from "react-bootstrap/FormControl";
-import Button from "react-bootstrap/Button";
+import Nav from 'react-bootstrap/Nav'
 
-const Nav = (props) => (
-  <Navbar bg="primary" variant="dark">
-    <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-      <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-        <NavDropdown.Divider />
-        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-      </NavDropdown>
-      <LogOutButton />
+const NavBar = (props) => (
+
+<>
+  <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+    <Navbar.Collapse id="responsive-navbar-nav">
+      <Nav className="mr-auto">
+        <NavDropdown title="Menu" id="collasible-nav-dropdown">
+
+          {/* Show the link to the SearchBar at /home whether or not user is logged in */}
+          <NavDropdown.Item href="#home">Search Directory</NavDropdown.Item>                
+            
+            {/* If user is logged in, show the link to the My Profile page, Contact page, and the Logout button */}
+            {/* If user is logged out, show the link to the Contact page and Login. */}
+            {props.user.id ?  
+              <>
+                <NavDropdown.Item href="#edit-profile">My Profile</NavDropdown.Item>
+                <NavDropdown.Item href="#contact">Contact Us</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item><LogOutButton/></NavDropdown.Item>
+              </>
+            :
+              <>
+                <NavDropdown.Item href="#contact">Contact Us</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#login">Login</NavDropdown.Item>
+              </>
+          }
+
+        </NavDropdown>
+        <Navbar.Brand href="#home">The Hawaiian Islands Marriage and Family Therapy Directory</Navbar.Brand>
+      </Nav>
+
+      {/* If the user is NOT logged show the Login and Register links; otherwise, show nothing.*/}
+      <Nav>
+        {!props.user.id &&
+        <>
+        <Nav.Link href="#login">Login</Nav.Link>
+        <Nav.Link eventKey={2} href="#register">
+          Register
+        </Nav.Link>
+        </>
+       }
+      </Nav>
+    </Navbar.Collapse>
   </Navbar>
+  </>
 );
 
-// Instead of taking everything from state, we just want the user
-// object to determine if they are logged in
-// if they are logged in, we show them a few more links 
-// if you wanted you could write this code like this:
-// const mapStateToProps = ({ user }) => ({ user });
+
 
 const mapStateToProps = state => ({
   user: state.user,
 });
 
-export default connect(mapStateToProps)(Nav);
+export default withRouter(connect(mapStateToProps)(NavBar));
