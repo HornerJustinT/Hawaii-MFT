@@ -1,17 +1,30 @@
-.flex-between {
-    display: flex;
-    justify-content: space-between;
-}
-
 .contact {
     text-align: right;
-}
-
-.search-result {
-    display: flex;
-    justify-content: space-evenly;
 }
 
 .center {
     text-align: center;
 }
+
+.number {
+    width: fit-content;
+    white-space: nowrap;
+}
+
+@media only screen and (max-width: 900px) {
+  /* For Small Screens */
+  .contact {
+    text-align: left;
+    width: 100%;
+    padding: 10px 0px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  /* For Smaller Screens */
+  .mobile-padding {
+      padding-bottom: 10px;
+  }
+}
+
+  

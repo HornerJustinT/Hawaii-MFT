@@ -1,68 +1,27 @@
+// React imports
 import React, { Component } from 'react';
 
+// React Boostrap
 import Card from "react-bootstrap/Card";
+
+// Styling
 import './SearchResults.css'
 
-
-const therapists = [
-  {
-    id: 1,
-    first_name: "Jane",
-    last_name: "Rain",
-    island: "O'ahu",
-    city: "Kailua",
-    phoneNumber: "808-123-4567",
-    type: "Counselor",
-    titles: ["MA", "ATR", "LPCC", "LAMFT"],
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit.",
-    email: "jane@familytherapy.com",
-    website: "familytherapy.com",
-  },
-  {
-    id: 2,
-    first_name: "Joe",
-    last_name: "Nagasaka",
-    island: "Maui",
-    city: "Kahului",
-    phoneNumber: "808-123-4567",
-    type: "Clinical Social Work/Therapist",
-    titles: ["MSW", "LAMFT"],
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit.",
-    email: "joe@openarms.com",
-    website: "openarms.com",
-  },
-  {
-    id: 3,
-    first_name: "Tepairu",
-    last_name: "Miller",
-    island: "Kauai",
-    city: "Lihue",
-    phoneNumber: "808-123-4567",
-    type: "Phychologist",
-    titles: ["PhD", "LP", "LAMFT"],
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit.",
-    email: "jill@relationalground.com",
-    website: "relationalground.com",
-  },
-];
-
 class SearchResults extends Component {
-    state = { 
-
-    }
-
-
     render() { 
         return (
           <>
-            {/* Muted text at the top showing the user the result count */}
-            <h5 className="text-muted center">
-                Your search resulted in {therapists.length} results.
-            </h5>
-            {therapists.map((therapist) => (
+            {/* 
+                Muted text at the top showing the user the result count.
+                Only shows if there is anything to show.
+            */}
+            {this.props.therapists[0] && (
+              <h5 className="text-muted center">
+                Your search resulted in {this.props.therapists.length} results.
+              </h5>
+            )}
+
+            {this.props.therapists.map((therapist) => (
               // I made it a div to encapsulate the Card instead of just
               // a Card so if needed we could add more to each result.
               // One thing we will add in the future is the small map
@@ -70,7 +29,7 @@ class SearchResults extends Component {
               // as of now however that doesnt exist so nothing shows in its place.
 
               // search-result is already a flexbox so adding something will auto-format
-              <div className="search-result">
+              <div className="flex-evenly">
                 <Card style={{ width: "80%", margin: "10px" }}>
                   <Card.Body>
                     {/* 
@@ -85,7 +44,7 @@ class SearchResults extends Component {
                             to the sides of the Card but it could be used later for 
                             other items if we decide to show more.
                          */}
-                      <div className="flex-between">
+                      <div className="flex-between mobile-padding">
                         {/* 
                             Due to how flexbox is each set of information is in
                             its own <div /> tag. I gave these all unique classes
@@ -125,7 +84,7 @@ class SearchResults extends Component {
                         the header and the body information.
                     */}
                     <Card.Subtitle className="mb-2 text-muted">
-                      <div className="flex-between">
+                      <div className="flex-between row-wrap">
                         <div className="titles">
                           {/* 
                             The amount of titles a therapist could have can
@@ -138,7 +97,7 @@ class SearchResults extends Component {
                       </div>
                     </Card.Subtitle>
                     <Card.Text>
-                      <div className="flex-between">
+                      <div className="flex-between row-wrap-reverse">
                         <div className="description">
                           {therapist.description}
                         </div>
@@ -165,7 +124,7 @@ class SearchResults extends Component {
                     </Card.Text>
                     {/* I dont know the links of each page so this is a placeholder */}
                     <Card.Link href={`#/profile/${therapist.id}`}>
-                      View Profile
+                    View Profile
                     </Card.Link>
                   </Card.Body>
                 </Card>
