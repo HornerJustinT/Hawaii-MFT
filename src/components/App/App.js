@@ -57,11 +57,9 @@ class App extends Component {
             <Route exact path="/register" component={RegisterPage} />
             {/*This is a route anyone can see, no login necessary */}
             <Route exact path="/login" component={LoginPage} />
-
             {/*User only sees these routes if logged in*/}
             <ProtectedRoute exact path="/edit-profile" component={ProfileEdit} />
             <ProtectedRoute exact path="/create-profile" component={ProfileCreate} />
-
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
