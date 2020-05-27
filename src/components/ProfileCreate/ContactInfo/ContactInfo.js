@@ -1,5 +1,8 @@
 import React,{ Component } from 'react';
 
+//React-bootstrap import
+import ProgressBar from 'react-bootstrap/ProgressBar'
+
 
 class ContactInfo extends Component{
 
@@ -24,6 +27,8 @@ class ContactInfo extends Component{
             <div className='container'>
             <header><h1>Contact Info</h1></header>
              <br/>
+            <ProgressBar now={50} />
+
              <label>Island</label>
              <br/>
              <select>
