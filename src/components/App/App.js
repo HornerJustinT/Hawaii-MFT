@@ -58,7 +58,6 @@ class App extends Component {
             {/* Visiting localhost:3000/contact will show the contact page.
             This is a route anyone can see, no login necessary */}
 
-            <ProtectedRoute exact path="/contact" component={ContactInfo} />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
@@ -75,6 +74,7 @@ class App extends Component {
             {/*User only sees these routes if logged in*/}
             <ProtectedRoute exact path="/edit-profile" component={ProfileEdit} />
             <ProtectedRoute exact path="/create-profile" component={ProfileCreate} />
+            <ProtectedRoute exact path="/contact-info" component={ContactInfo} />
             <ProtectedRoute exact path="/practice" component={PracticeInfo} />
             <ProtectedRoute exact path="/uploadImage" component={uploadImage} />
             <ProtectedRoute exact path="/info" component={InfoPage} />
