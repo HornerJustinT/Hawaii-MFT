@@ -1,12 +1,11 @@
-
--- USER is a reserved keyword with Postgres
--- You must use double quotes in every query that user is in:
--- ex. SELECT * FROM "user";
--- Otherwise you will have errors!
-CREATE TABLE "members" (
-	"username" VARCHAR(20) NOT NULL UNIQUE,
-	"password" VARCHAR(20) NOT NULL,
+-- builds original database frame
+CREATE TABLE "user"(
 	"id" SERIAL PRIMARY KEY,
+	"username" VARCHAR(20) NOT NULL UNIQUE,
+	"password" VARCHAR(20) NOT NULL
+	);
+CREATE TABLE "members" (
+	"id" INT NOT NULL UNIQUE,
 	"zip_code" INT,
 	"first_name" VARCHAR(20) NOT NULL,
 	"last_name" VARCHAR(20) NOT NULL,
@@ -16,9 +15,9 @@ CREATE TABLE "members" (
 	"license_expiration" VARCHAR(50),
 	"hiamft_member_account_info" VARCHAR(20),
 	"supervision_status" VARCHAR(255),
-	"fees" VARCHAR(255)	
+	"fees" VARCHAR(255),
+	FOREIGN KEY ("id") REFERENCES "user"("id")
 );
-
 
 CREATE TABLE "insurance_type" (
 	"insurance_type_id" SERIAL PRIMARY KEY,
@@ -164,7 +163,7 @@ CREATE TABLE "email_table"(
 	"member_id" INT NOT NULL,
 	FOREIGN KEY ("email_type_id") REFERENCES "email_type"("email_type_id"),
 	FOREIGN KEY ("member_id") REFERENCES "members"("id"));
-	
+-- Everything below is temporary data for our tables
 INSERT INTO "languages" 
     ("title")
 VALUES
@@ -233,8 +232,6 @@ VALUES
     ('UnitedHealthcare'),
     ('University Health Alliance'),
     ('WellCare');
-    
-    
 INSERT INTO "specialty" 
     ("title")
 VALUES
@@ -408,8 +405,6 @@ VALUES
     ('Adolescents'),
     ('Adults'),
     ('Elders');
-
-    
 INSERT INTO "client_focus" 
     ("title")
 VALUES
@@ -430,3 +425,83 @@ VALUES
     ('Pacific Islander'),
     ('People with Disabilities'),
     ('Women/Feminist');
+INSERT INTO "address_type"
+	("title")
+VALUES
+	('test');
+INSERT INTO "email_type"
+	("email_type_id", "title")
+VALUES
+	(1, 'test');
+INSERT INTO "island"
+	("island_id", "title")
+VALUES
+	(1,'test');
+INSERT INTO "phone_type"
+	("phone_type_id", "title")
+VALUES
+	(1,'test');
+INSERT INTO "license_type"
+	("license_type_id", "title")
+VALUES
+	(1,'test');
+INSERT INTO "session_format"
+	("session_format_id", "title")
+VALUES
+	(1,'test');
+	
+	
+	
+	
+-- insert new user info
+INSERT INTO "user"
+	("username","password")
+VALUES ('test','test');
+INSERT INTO "members" 
+	("id","zip_code","first_name", "last_name", "prefix", "age","license_state", "license_expiration", "hiamft_member_account_info", "supervision_status","fees")
+VALUES(1, NULL, 'test', 'test', NULL, NULL, NULL, NULL, NULL,NULL,NULL);
+INSERT INTO "session_format_pivot"
+	("session_format_id", "member_id")
+VALUES 
+	(1,1);
+INSERT INTO "specialty_pivot"
+	("specialty_id", "member_id")
+VALUES
+	(1,1);
+INSERT INTO "treatment_preferences_pivot"
+	("treatment_preferences_id","member_id")
+VALUES
+	(1,1);
+INSERT INTO "address_table"
+	("address", "address_type_id", "member_id")
+VALUES
+	('test',1, 1);
+INSERT INTO "email_table" 
+	("email_type_id", "member_id", "email")
+VALUES
+	(1,1,'test');
+INSERT INTO "island_pivot"
+	("island_id", "member_id")
+VALUES
+	(1,1);
+INSERT INTO "languages_pivot"
+	("language_id", "member_id")
+VALUES 
+	(1,1);
+INSERT INTO "license_type_pivot"
+	("license_type_id", "member_id")
+VALUES 
+	(1,1);
+INSERT INTO "phone_table"
+	("phone_type_id", "member_id","number")
+VALUES 
+	(1,1,1);
+INSERT INTO "age_groups_served_pivot"
+	("age_groups_served_id", "member_id")
+VALUES 
+	(1,1);
+
+INSERT INTO "client_focus_pivot"
+	("client_focus_id", "member_id")
+VALUES 
+	(1,1);
