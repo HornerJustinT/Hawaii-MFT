@@ -9,7 +9,7 @@ class ProfileCreate extends Component {
     
      handleNext = (event) => {
         event.preventDefault ()
-        this.props.history.push('/contact')
+        this.props.history.push('/contact-info')
     
     }
     render (){

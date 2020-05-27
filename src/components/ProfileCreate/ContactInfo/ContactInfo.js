@@ -5,7 +5,7 @@ class ContactInfo extends Component{
 
     handleBack = (event) => {
         event.preventDefault()
-        this.props.history.push('/CreateProfile')
+        this.props.history.push('/create-profile')
     }
 
     handleSave = (event) => {
