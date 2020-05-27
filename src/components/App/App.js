@@ -30,6 +30,7 @@ import ProfileCreate from '../ProfileCreate/ProfileCreate'
 import ContactInfo from '../ProfileCreate/ContactInfo/ContactInfo';
 import PracticeInfo from '../ProfileCreate/PracticeInfo/PracticeInfo';
 import uploadImage from '../ProfileCreate/UploadImage/UploadImage';
+import ProfileView from '../ProfileView/ProfileView'
 
 
 // CSS
@@ -73,6 +74,7 @@ class App extends Component {
             <Route exact path="/login" component={LoginPage} />
             {/*User only sees these routes if logged in*/}
             <ProtectedRoute exact path="/edit-profile" component={ProfileEdit} />
+            <ProtectedRoute exact path="/profile" component={ProfileView} />
             <ProtectedRoute exact path="/create-profile" component={ProfileCreate} />
             <ProtectedRoute exact path="/contact-info" component={ContactInfo} />
             <ProtectedRoute exact path="/practice" component={PracticeInfo} />

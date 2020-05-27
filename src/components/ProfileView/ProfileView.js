@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import './ProfileView.css';
 
 
 class ProfileView extends Component{
     render (){
         return (
             <>
-            <div className='container'>
+            <div className='profileView-container'>
                 <div className='leftside'>
                 <div className='bio'>
                 <button>Back to search Results</button>
@@ -123,7 +124,22 @@ class ProfileView extends Component{
                    <h1>Kailua, O'ahu</h1>
                    <button>Send Referral Email</button>
                    </div>
-                   <img/>
+                   <div>
+                   <img width ='200' height = '200' src ='avatar.png'/>
+                   </div>
+                   <div>
+                       <h2>Contact</h2>
+                       <ul>
+                           <p>808-123-4567</p>
+                           <p>jane@familytheraphy.com</p>
+                           <p>familytheraphy.com</p>
+                           <p>123 Dreamhouse Lane</p>
+                           <p>Kailua, Hawaii</p>
+                       </ul>
+                       <div>
+                           <img width ='200' height = '200' src='map-placeholder.jpg'/>
+                       </div>
+                   </div>
                 </div>
 
             </div>
