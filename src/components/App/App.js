@@ -59,7 +59,6 @@ class App extends Component {
             <ProtectedRoute exact path="/contact" component={ContactInfo} />
             <ProtectedRoute exact path="/practice" component={PracticeInfo} />
             <ProtectedRoute exact path="/uploadImage" component={uploadImage} />
-            <ProtectedRoute exact path="/profileReview" component={ProfileReview} />
             <ProtectedRoute exact path="/info" component={InfoPage} />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
