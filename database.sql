@@ -1,13 +1,11 @@
-
--- USER is a reserved keyword with Postgres
--- You must use double quotes in every query that user is in:
--- ex. SELECT * FROM "user";
--- Otherwise you will have errors!
 -- builds original database frame
-CREATE TABLE "members" (
-	"username" VARCHAR(20) NOT NULL UNIQUE,
-	"password" VARCHAR(20) NOT NULL,
+CREATE TABLE "user"(
 	"id" SERIAL PRIMARY KEY,
+	"username" VARCHAR(20) NOT NULL UNIQUE,
+	"password" VARCHAR(20) NOT NULL
+	);
+CREATE TABLE "members" (
+	"id" INT NOT NULL UNIQUE,
 	"zip_code" INT,
 	"first_name" VARCHAR(20) NOT NULL,
 	"last_name" VARCHAR(20) NOT NULL,
@@ -17,9 +15,9 @@ CREATE TABLE "members" (
 	"license_expiration" VARCHAR(50),
 	"hiamft_member_account_info" VARCHAR(20),
 	"supervision_status" VARCHAR(255),
-	"fees" VARCHAR(255)	
+	"fees" VARCHAR(255),
+	FOREIGN KEY ("id") REFERENCES "user"("id")
 );
-
 
 CREATE TABLE "insurance_type" (
 	"insurance_type_id" SERIAL PRIMARY KEY,
@@ -456,9 +454,12 @@ VALUES
 	
 	
 -- insert new user info
+INSERT INTO "user"
+	("username","password")
+VALUES ('test','test');
 INSERT INTO "members" 
-	("username","password","zip_code","first_name", "last_name", "prefix", "age","license_state", "license_expiration", "hiamft_member_account_info", "supervision_status","fees")
-VALUES('test', 'test', NULL, 'test', 'test', NULL, NULL, NULL, NULL, NULL,NULL,NULL);
+	("id","zip_code","first_name", "last_name", "prefix", "age","license_state", "license_expiration", "hiamft_member_account_info", "supervision_status","fees")
+VALUES(1, NULL, 'test', 'test', NULL, NULL, NULL, NULL, NULL,NULL,NULL);
 INSERT INTO "session_format_pivot"
 	("session_format_id", "member_id")
 VALUES 
