@@ -85,10 +85,79 @@ const therapists = [
   },
 ];
 
+const criteria = [
+  "state",
+  "specialization",
+  "supervision",
+  "insurance",
+  "treatment",
+  "age_focus",
+  "demo_focus",
+  "format",
+  "telehealth",
+];
+
 class SearchBar extends Component {
   state = {
-    advanced: false
+    advanced: false,
+    state: {},
+    specialization: {},
+    supervision: {},
+    insurance: {},
+    treatment: {},
+    age_focus: {},
+    demo_focus: {},
+    format: {},
+    telehealth: {},
   };
+
+  parseSearchData = (index, criteriaItem) => {
+    if (therapists[index]) {
+      if (criteria[criteriaItem]) {
+        if (
+          this.state[criteria[criteriaItem]][
+            therapists[index][criteria[criteriaItem]]
+          ]
+        ) {
+          this.setState(
+            {
+              [criteria[criteriaItem]]: {
+                ...this.state[criteria[criteriaItem]],
+                [therapists[index][criteria[criteriaItem]]]:
+                  this.state[criteria[criteriaItem]][
+                    therapists[index][criteria[criteriaItem]]
+                  ] + 1,
+              },
+            },
+            function () {
+              this.parseSearchData(index, criteriaItem + 1);
+            }
+          );
+        } else {
+            this.setState(
+            {
+              [criteria[criteriaItem]]: {
+                ...this.state[criteria[criteriaItem]],
+                [therapists[index][criteria[criteriaItem]]]:
+                  1,
+              },
+            },
+            function () {
+              this.parseSearchData(index, criteriaItem + 1);
+            });
+        }
+      } else {
+        this.parseSearchData(index + 1, 0);
+      }
+    }
+  };
+
+  componentDidMount() {
+    // This function only runs if theres search data
+    if (therapists[0]) {
+      this.parseSearchData(0, 0);
+    }
+  }
 
   switchChange = (event) => {
     this.setState({
@@ -102,7 +171,7 @@ class SearchBar extends Component {
         <Form style={{ width: "80%", margin: "20px auto" }}>
           {this.state.advanced ? (
             <div>
-              <div className="flex-evenly row-wrap">
+              <div className="flex-between row-wrap">
                 <Form.Group controlId="Advanced-zip" className="advanced-input">
                   <Form.Label>City or Zip Code</Form.Label>
                   <Form.Control type="text" placeholder="City or Zip Code" />
@@ -113,11 +182,11 @@ class SearchBar extends Component {
                 >
                   <Form.Label>Specialization</Form.Label>
                   <Form.Control as="select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    {Object.keys(this.state.specialization).map((key) => (
+                      <option>
+                        {key} ({this.state.specialization[key]})
+                      </option>
+                    ))}
                   </Form.Control>
                 </Form.Group>
                 <Form.Group
@@ -126,11 +195,11 @@ class SearchBar extends Component {
                 >
                   <Form.Label>Supervision Status</Form.Label>
                   <Form.Control as="select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    {Object.keys(this.state.supervision).map((key) => (
+                      <option>
+                        {key} ({this.state.supervision[key]})
+                      </option>
+                    ))}
                   </Form.Control>
                 </Form.Group>
                 <Form.Group
@@ -139,11 +208,11 @@ class SearchBar extends Component {
                 >
                   <Form.Label>Insurance Taken</Form.Label>
                   <Form.Control as="select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    {Object.keys(this.state.insurance).map((key) => (
+                      <option>
+                        {key} ({this.state.insurance[key]})
+                      </option>
+                    ))}
                   </Form.Control>
                 </Form.Group>
                 <Form.Group
@@ -152,11 +221,11 @@ class SearchBar extends Component {
                 >
                   <Form.Label>Treatment Approaches/Preferences</Form.Label>
                   <Form.Control as="select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    {Object.keys(this.state.treatment).map((key) => (
+                      <option>
+                        {key} ({this.state.treatment[key]})
+                      </option>
+                    ))}
                   </Form.Control>
                 </Form.Group>
                 <div className="flex-between advanced-input">
@@ -166,11 +235,11 @@ class SearchBar extends Component {
                   >
                     <Form.Label>Age Focus</Form.Label>
                     <Form.Control as="select">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
+                      {Object.keys(this.state.age_focus).map((key) => (
+                        <option>
+                          {key} ({this.state.age_focus[key]})
+                        </option>
+                      ))}
                     </Form.Control>
                   </Form.Group>
                   <Form.Group
@@ -179,11 +248,11 @@ class SearchBar extends Component {
                   >
                     <Form.Label>Demographic Focus</Form.Label>
                     <Form.Control as="select">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
+                      {Object.keys(this.state.demo_focus).map((key) => (
+                        <option>
+                          {key} ({this.state.demo_focus[key]})
+                        </option>
+                      ))}
                     </Form.Control>
                   </Form.Group>
                 </div>
@@ -193,11 +262,11 @@ class SearchBar extends Component {
                 >
                   <Form.Label>Session Format(s)</Form.Label>
                   <Form.Control as="select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    {Object.keys(this.state.format).map((key) => (
+                      <option>
+                        {key} ({this.state.format[key]})
+                      </option>
+                    ))}
                   </Form.Control>
                 </Form.Group>
                 <Form.Group
