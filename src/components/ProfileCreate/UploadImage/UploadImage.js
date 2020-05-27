@@ -1,21 +1,24 @@
 import React,{ Component } from 'react';
 
+//React-bootstrap import
+import ProgressBar from 'react-bootstrap/ProgressBar'
+
 
 class UploadImage extends Component{
 
     handleBack = (event) => {
-        event.preventDefault()
-        this.props.history.push('/practice')
+        event.preventDefault();
+        this.props.history.push('/practice');
     }
 
     handleSave = (event) => {
-        event.preventDefault()
+        event.preventDefault();
 
     }
 
     handleSubmit = (event) => {
-        event.preventDefault()
-        
+        event.preventDefault();
+        this.props.history.push('/edit-profile');
     }
 
     render (){
@@ -24,6 +27,7 @@ class UploadImage extends Component{
             <div className='container'>
 <header><h1>Upload an image</h1></header>
    <br/>
+    <ProgressBar now={100} />
    <br/>
    <img src=''></img>
    <br/>
@@ -33,7 +37,7 @@ class UploadImage extends Component{
    <br/>
     <button onClick={this.handleBack}>Back</button>
     <button onClick={this.handleSave}>Save</button>
-    <button onClick={this.handleSubmit}>Next Page</button>
+    <button onClick={this.handleSubmit}>I'm Done!</button>
 
             </div>
 
