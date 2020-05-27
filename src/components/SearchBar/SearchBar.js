@@ -9,6 +9,10 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 
+// CSS
+import './SearchBar.css'
+
+
 const therapists = [
   {
     id: 1,
@@ -86,42 +90,6 @@ class SearchBar extends Component {
     advanced: false
   };
 
-  setStateFromParser = (index, string) => {
-        this.setState({
-          check: 'hello',
-        });
-  }
-
-  // This function effectively parses the results and
-  // changes the stats above to reflect the answers possible
-  // This will set each object to reflect the options in
-  // that category as well as how many there are.
-  parseResults = () => {
-    let parseArray = [
-      "state",
-      "specialization",
-      "supervision",
-      "insurance",
-      "treatment",
-      "age_focus",
-      "demo_focus",
-      "format",
-      "telehealth",
-    ];
-
-    for (const index of therapists) {
-        for (const string of parseArray) {
-            this.setStateFromParser(index, string);
-        }
-    }
-
-    console.log(this.state)
-  }
-
-  componentDidMount() {
-      this.parseResults()
-  }
-
   switchChange = (event) => {
     this.setState({
       advanced: event.target.checked,
@@ -134,10 +102,115 @@ class SearchBar extends Component {
         <Form style={{ width: "80%", margin: "20px auto" }}>
           {this.state.advanced ? (
             <div>
-              <Form.Group controlId="Advanced-zip">
-                <Form.Label>Advanced Therapist Search</Form.Label>
-                <Form.Control type="text" placeholder="City or Zip Code" />
-              </Form.Group>
+              <div className="flex-evenly row-wrap">
+                <Form.Group controlId="Advanced-zip" className="advanced-input">
+                  <Form.Label>City or Zip Code</Form.Label>
+                  <Form.Control type="text" placeholder="City or Zip Code" />
+                </Form.Group>
+                <Form.Group
+                  controlId="exampleForm.ControlSelect1"
+                  className="advanced-input"
+                >
+                  <Form.Label>Specialization</Form.Label>
+                  <Form.Control as="select">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </Form.Control>
+                </Form.Group>
+                <Form.Group
+                  controlId="exampleForm.ControlSelect1"
+                  className="advanced-input"
+                >
+                  <Form.Label>Supervision Status</Form.Label>
+                  <Form.Control as="select">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </Form.Control>
+                </Form.Group>
+                <Form.Group
+                  controlId="exampleForm.ControlSelect1"
+                  className="advanced-input"
+                >
+                  <Form.Label>Insurance Taken</Form.Label>
+                  <Form.Control as="select">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </Form.Control>
+                </Form.Group>
+                <Form.Group
+                  controlId="exampleForm.ControlSelect1"
+                  className="advanced-input"
+                >
+                  <Form.Label>Treatment Approaches/Preferences</Form.Label>
+                  <Form.Control as="select">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </Form.Control>
+                </Form.Group>
+                <div className="flex-between advanced-input">
+                  <Form.Group
+                    controlId="exampleForm.ControlSelect1"
+                    className="advanced-input"
+                  >
+                    <Form.Label>Age Focus</Form.Label>
+                    <Form.Control as="select">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </Form.Control>
+                  </Form.Group>
+                  <Form.Group
+                    controlId="exampleForm.ControlSelect1"
+                    className="advanced-input"
+                  >
+                    <Form.Label>Demographic Focus</Form.Label>
+                    <Form.Control as="select">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </Form.Control>
+                  </Form.Group>
+                </div>
+                <Form.Group
+                  controlId="exampleForm.ControlSelect1"
+                  className="advanced-input"
+                >
+                  <Form.Label>Session Format(s)</Form.Label>
+                  <Form.Control as="select">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </Form.Control>
+                </Form.Group>
+                <Form.Group
+                  controlId="exampleForm.ControlSelect1"
+                  className="advanced-input"
+                >
+                  <Form.Label>Telehealth</Form.Label>
+                  <div>
+                    <Form.Check inline label="Yes" id={`true`} type="radio" />
+                    <Form.Check inline label="No" id={`false`} type="radio" />
+                  </div>
+                </Form.Group>
+              </div>
               <Button
                 variant="primary"
                 type="submit"
