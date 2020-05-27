@@ -1,5 +1,8 @@
 import React, { Component} from 'react';
 
+//React-bootstrap import
+import ProgressBar from 'react-bootstrap/ProgressBar'
+
 
 
 
@@ -16,8 +19,11 @@ class ProfileCreate extends Component {
         return (
             <>
             <div className='container'>
-         <header><h1>Create Profile</h1></header>
+         <header><h1>Create New Profile</h1></header>
          <br/>
+
+        <ProgressBar now={25} />
+
          <form>
          <h3>Basic Info</h3>
          <label>Prefix</label>

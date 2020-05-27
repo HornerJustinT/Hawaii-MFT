@@ -31,6 +31,7 @@ import ContactInfo from '../ProfileCreate/ContactInfo/ContactInfo';
 import PracticeInfo from '../ProfileCreate/PracticeInfo/PracticeInfo';
 import uploadImage from '../ProfileCreate/UploadImage/UploadImage';
 import ProfileView from '../ProfileView/ProfileView'
+import AdminPage from '../AdminPage/AdminPage'
 
 
 // CSS
@@ -80,6 +81,8 @@ class App extends Component {
             <ProtectedRoute exact path="/practice" component={PracticeInfo} />
             <ProtectedRoute exact path="/uploadImage" component={uploadImage} />
             <ProtectedRoute exact path="/info" component={InfoPage} />
+
+            <ProtectedRoute exact path="/admin" component={AdminPage} />
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />

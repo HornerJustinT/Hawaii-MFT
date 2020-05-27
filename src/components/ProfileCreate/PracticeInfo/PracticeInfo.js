@@ -1,5 +1,8 @@
 import React,{ Component } from 'react';
 
+//React-bootstrap import
+import ProgressBar from 'react-bootstrap/ProgressBar'
+
 
 class PracticeInfo extends Component{
 
@@ -21,6 +24,7 @@ class PracticeInfo extends Component{
             <div className='container'>
         <header><h1>Practice Info</h1></header>
         <br/>
+        <ProgressBar now={75} />
         <br/>
         <label>License Type</label><br/><select><option value='' defaultValue='Select License Type'>Select License Type</option></select>
         <br/>

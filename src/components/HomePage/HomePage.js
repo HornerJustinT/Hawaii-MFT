@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 
 import SearchBar from '../SearchBar/SearchBar'
+import EmailModal from '../EmailModal/EmailModal';
 
 
 class HomePage extends Component{
     render(){
         return(
+            <>
             <div>
                 <div>
-                    <p>
-                        Here is HomePage with Search Bar and everything!
-                    </p>
+                    <EmailModal/>
                 </div>
                 <SearchBar />
             </div>
+            </>
         );
     }
 }
