@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import SearchBar from '../SearchBar/SearchBar'
+
+
 class HomePage extends Component{
     render(){
         return(
@@ -9,6 +12,7 @@ class HomePage extends Component{
                         Here is HomePage with Search Bar and everything!
                     </p>
                 </div>
+                <SearchBar />
             </div>
         );
     }
