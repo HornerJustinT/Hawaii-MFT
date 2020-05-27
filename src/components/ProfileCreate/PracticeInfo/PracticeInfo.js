@@ -5,7 +5,7 @@ class PracticeInfo extends Component{
 
     handleBack = (event) => {
         event.preventDefault()
-        this.props.history.push('/contact')
+        this.props.history.push('/contact-info')
     }
     handleSave = (event) => {
         event.preventDefault()

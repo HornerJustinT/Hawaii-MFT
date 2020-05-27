@@ -13,9 +13,9 @@ class UploadImage extends Component{
 
     }
 
-    handleNext = (event) => {
+    handleSubmit = (event) => {
         event.preventDefault()
-        this.props.history.push('/profileReview')
+        
     }
 
     render (){
@@ -33,7 +33,7 @@ class UploadImage extends Component{
    <br/>
     <button onClick={this.handleBack}>Back</button>
     <button onClick={this.handleSave}>Save</button>
-    <button onClick={this.handleNext}>Next Page</button>
+    <button onClick={this.handleSubmit}>Next Page</button>
 
             </div>
 
