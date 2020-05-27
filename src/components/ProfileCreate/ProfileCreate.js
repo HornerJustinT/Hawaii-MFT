@@ -1,9 +1,6 @@
 import React, { Component} from 'react';
-import {HashRouter as Router, Route  } from 'react-router-dom';
-import ContactInfo from './ContactInfo/ContactInfo';
-import PracticeInfo from './PracticeInfo/PracticeInfo';
-import uploadImage from './UploadImage/UploadImage';
-import ProfileReview from './ProfileReview/ProfileReview';
+
+
 
 
 

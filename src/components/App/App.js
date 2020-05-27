@@ -23,6 +23,10 @@ import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import ProfileCreate from '../ProfileCreate/ProfileCreate'
+import ContactInfo from '../ProfileCreate/ContactInfo/ContactInfo';
+import PracticeInfo from '../ProfileCreate/PracticeInfo/PracticeInfo';
+import uploadImage from '../ProfileCreate/UploadImage/UploadImage';
+import ProfileReview from '../ProfileCreate/ProfileReview/ProfileReview';
 
 // CSS
 import './App.css';
@@ -51,9 +55,13 @@ class App extends Component {
             <ProtectedRoute exact path="/home" component={UserPage} />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
+             <ProtectedRoute exact path="/CreateProfile" component={ProfileCreate} />
+            <ProtectedRoute exact path="/contact" component={ContactInfo} />
+            <ProtectedRoute exact path="/practice" component={PracticeInfo} />
+            <ProtectedRoute exact path="/uploadImage" component={uploadImage} />
+            <ProtectedRoute exact path="/profileReview" component={ProfileReview} />
             <ProtectedRoute exact path="/info" component={InfoPage} />
             {/* If none of the other routes matched, we will show a 404. */}
-            <ProtectedRoute exact path="/CreateProfile" component={ProfileCreate} />
             <Route render={() => <h1>404</h1>} />
           </Switch>
           <Footer />
