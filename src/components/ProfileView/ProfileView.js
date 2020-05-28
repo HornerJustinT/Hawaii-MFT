@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './ProfileView.css';
+import avatar from '../ProfileView/avatar.png';
+import googleMap from '../ProfileView/map-placeholder.jpg';
 
 
 class ProfileView extends Component{
@@ -8,20 +10,20 @@ class ProfileView extends Component{
             <>
             <div className='profileView-container'>
                 <div className='leftside'>
-                <div className='bio'>
-                <button>Back to search Results</button>
-                <div>
-                    <h2>Jain Rain</h2>
+                <div className='bio-container'>
+                <button className='backSearch'>Back to search Results</button>
+                <div className='bio-title'>
+                    <h1>Jain Rain</h1>
                     <h3>Counselor, Ma, ATR, LPCC, LAMFT</h3>
                 </div>
-                <div><h3><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                <div className='bio'><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
                     Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
                     when an unknown printer took a galley of type and scrambled it to make a type
                     specimen book. It has survived not only five centuries, but also the leap into
                     electronic typesetting, remaining essentially unchanged. It was popularised in the
                     1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
                     recently with desktop publishing software like Aldus PageMaker including versions of
-                     Lorem Ipsum.</p></h3>
+                     Lorem Ipsum.</p>
                 </div>
                 </div>
                 <div>
@@ -29,13 +31,10 @@ class ProfileView extends Component{
                     <h2>Educations</h2>
                     </div>
                     <div>
-                        <h3>
-                            <ul>
-                                <p>Argosy University</p>
-                                <p>Year Graduated</p>
-                                <p>License and state</p>
-                            </ul>
-                        </h3>
+                     <p>Argosy University</p>
+                     <p>Year Graduated</p>
+                     <p>License and state</p>
+                            
                     </div>
 
                 </div>
@@ -67,33 +66,35 @@ class ProfileView extends Component{
                         <p>Addiction</p>
                     </ul>
                 </div>
-                <div>
+                <div className='insurance'>
                     <h2>Insurance Taken</h2>
-                    <ul>
+                    <div className='box1'>
                         <p>Hawaii Medical</p>
                         <p>Multiplan</p>
                         <p>TRICARE</p>
                         <p>University Health Alliance</p>
+                        </div>
+                        <div className='box2'>
                         <p>Services Association</p>
                         <p>Optum</p>
                         <p>UnitedHealthCare</p>
-                    </ul>
+                        </div>
                 </div>
                 <div>
                     <h2>Supervision Status</h2>
-                    <h3>AAMFT-approved</h3>
+                    <p>AAMFT-approved</p>
                 </div>
                 <div className='telehealth'>
                     <h2>Telehealth</h2>
-                    <h3>Yes, I am providing telehealth</h3>
+                    <p>Yes, I am providing telehealth</p>
                 </div>
                 <div className='clientFocus'>
                     <h2>Client Focus</h2>
-                    <div>
+                    <div className='clientAge'>
                         <h3>Age</h3>
                         <p>Any</p>
                     </div>
-                    <div>
+                    <div className='clientDemographics'>
                         <h3>Demographics</h3>
                         <ul>
                             <p>Any</p>
@@ -125,7 +126,7 @@ class ProfileView extends Component{
                    <button>Send Referral Email</button>
                    </div>
                    <div>
-                   <img width ='200' height = '200' src ='avatar.png'/>
+                   <img width ='200' height = '200' src = {avatar}/>
                    </div>
                    <div>
                        <h2>Contact</h2>
@@ -137,7 +138,7 @@ class ProfileView extends Component{
                            <p>Kailua, Hawaii</p>
                        </ul>
                        <div>
-                           <img width ='200' height = '200' src='map-placeholder.jpg'/>
+                           <img width ='200' height = '200' src={googleMap}/>
                        </div>
                    </div>
                 </div>
