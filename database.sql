@@ -1,9 +1,10 @@
 -- builds original database frame
-CREATE TABLE "user"(
-	"id" SERIAL PRIMARY KEY,
-	"username" VARCHAR(20) NOT NULL UNIQUE,
-	"password" VARCHAR(20) NOT NULL
-	);
+ CREATE TABLE "user" (
+    "id" SERIAL PRIMARY KEY,
+    "username" VARCHAR (80) UNIQUE NOT NULL,
+    "password" VARCHAR (1000) NOT NULL
+);
+
 CREATE TABLE "members" (
 	"id" INT NOT NULL UNIQUE,
 	"zip_code" INT,
