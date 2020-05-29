@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
  */
 router.post('/', (req, res) => {
     //define the queries
-    console.log(req.body);
+    console.log('this is the data in req.body',req.body);
     const id = req.body.id;
     const zip_code = req.body.zip_code;
     const first_name = req.body.first_name
