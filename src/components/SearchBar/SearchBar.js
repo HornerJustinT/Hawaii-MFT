@@ -13,85 +13,12 @@ import InputGroup from "react-bootstrap/InputGroup";
 // CSS
 import './SearchBar.css'
 
-
-const therapists = [
-  {
-    id: 1,
-    first_name: "Jane",
-    last_name: "Rain",
-    island: "O'ahu",
-    city: "Kailua",
-    phoneNumber: "808-123-4567",
-    type: "Counselor",
-    titles: ["MA", "ATR", "LPCC", "LAMFT"],
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit.",
-    email: "jane@familytherapy.com",
-    website: "familytherapy.com",
-    state: "MN",
-    specialization: "Coffee",
-    supervision: "Supervisor",
-    insurance: "Unicycle",
-    treatment: "Hypno",
-    age_focus: "Child",
-    demo_focus: "Women",
-    format: "Juggling",
-    telehealth: true,
-  },
-  {
-    id: 2,
-    first_name: "Joe",
-    last_name: "Nagasaka",
-    island: "Maui",
-    city: "Kahului",
-    phoneNumber: "808-123-4567",
-    type: "Clinical Social Work/Therapist",
-    titles: ["MSW", "LAMFT"],
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit.",
-    email: "joe@openarms.com",
-    website: "openarms.com",
-    state: "WI",
-    specialization: "Trinkets",
-    supervision: "Not a Supervisor",
-    insurance: "Unicorn",
-    treatment: "Electro",
-    age_focus: "Baby",
-    demo_focus: "Men",
-    format: "Juggling",
-    telehealth: true,
-  },
-  {
-    id: 3,
-    first_name: "Tepairu",
-    last_name: "Miller",
-    island: "Kauai",
-    city: "Lihue",
-    phoneNumber: "808-123-4567",
-    type: "Phychologist",
-    titles: ["PhD", "LP", "LAMFT"],
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit.",
-    email: "jill@relationalground.com",
-    website: "relationalground.com",
-    state: "NY",
-    specialization: "Coffee",
-    supervision: "Supervisor",
-    insurance: "Babies",
-    treatment: "Potions",
-    age_focus: "Adult",
-    demo_focus: "All",
-    format: "Fire Circle",
-    telehealth: false,
-  },
-];
-
-
 const criteria = [
   "specialty",
   "supervision_status",
   "insurance",
   "treatment_preferences",
+  "languages",
   "ages_served",
   "client_focus",
   "session_format"
@@ -102,6 +29,7 @@ class SearchBar extends Component {
     advanced: false,
     restart: true,
     therapists: [],
+    languages: {},
     specialty: {},
     supervision_status: {},
     insurance: {},
@@ -111,50 +39,32 @@ class SearchBar extends Component {
     session_format: {}
   };
 
+  // This function is recursive as is the other one
+  // for the same reason. Without this recursive nature
+  // the function would overwrite its state over and over.
   itemLoopFunction = (array, index, parse) => {
+    // Checks that theres anything left in the array
+    // if not it ends the function and doesnt call it again.
     if (array[index]){
       const item = array[index];
-      // Now that we are looping through we need to check if 
-      if (this.state[parse][item[parse]]) {
-        this.setState(
-          {
-            restart: false,
-            [parse]: {
-              ...this.state[parse],
-              [item]:
-                this.state[parse][item] + 1,
-            },
-          }, function() {
-            this.itemLoopFunction(array, index + 1, parse);
-          }
-        );
-      } else {
-        if (item) {
-          this.setState(
-            {
-              restart: false,
-              [parse]: {
-                ...this.state[parse],
-                [item]: 1,
-              },
-            }, function () {
-              this.itemLoopFunction(array, index + 1, parse);
-            });
-        } else {
-          this.setState(
-            {
-              restart: false,
-              [parse]: {
-                ...this.state[parse],
-                [item]: 1,
-              },
-            }, function () {
-              this.itemLoopFunction(array, index + 1, parse);
-            });
+
+      // "this.state[parse][item] + 1 || 1" adds one to the state
+      // if any of those exist already. If its the first of that kind
+      // it creates that property and then makes it 1.
+      this.setState(
+        {
+          restart: false,
+          [parse]: {
+            ...this.state[parse],
+            [item]:
+              this.state[parse][item] + 1 || 1,
+          },
+        }, function() {
+          // Calls the function again but for the next item in the array
+          this.itemLoopFunction(array, index + 1, parse);
         }
-      }
+      );
     }
-    
   }
 
   // Parses the data of the members and sorts them nicely.
@@ -196,47 +106,47 @@ class SearchBar extends Component {
           this.itemLoopFunction(therapist[parse], 0, parse);
 
         } else {
-          if (this.state[parse][therapist[parse]]) {
-            this.setState(
-              {
-                restart: false,
-                [parse]: {
-                  ...this.state[parse],
-                  [therapist[parse]]:
-                    this.state[parse][therapist[parse]] + 1,
-                },
-              }
-            );
-          } else {
-            if (therapist[parse]) {
-              this.setState(
-                {
 
-                  restart: false,
-                  [parse]: {
-                    ...this.state[parse],
-                    [therapist[parse]]: 1,
-                  },
-                });
+          // setState is an async function and doesnt happen instantly
+          // because of this we need something to slow it down
+          // so it doesnt overwrite itself constantly. However, 
+          // generally slowing down something is a bad thing so
+          // we have to slow it down as little as possible while
+          // keeping it slow enough to work. That is why we set
+          // restart to false here. That way later we can set it
+          // to true and time when that ends to move on.
 
-            } else {
-              this.setState(
-                {
-                  restart: false,
-                  [parse]: {
-                    ...this.state[parse],
-                    [therapist[parse]]: 1,
-                  },
-                });
+          // "this.state[parse][therapist[parse]] + 1 || 1" adds
+          // 1 to the count if theres been any before, if not it just
+          // creates it and makes it 1.
+          this.setState(
+            {
+              restart: false,
+              [parse]: {
+                ...this.state[parse],
+                [therapist[parse]]:
+                  this.state[parse][therapist[parse]] + 1 || 1,
+              },
             }
-
-          }
+          );
         }
+
+        // This calls the function again and progresses it to
+        // the next criteria on the list.
         this.parseSearchData(index, criteriaItem + 1);
       } else {
+
+        // This setState call is different and only useful as
+        // a slowdown method. It sets the state of restart to true
+        // then once its done it calls the function at the end. which
+        // 
+
         this.setState({
           restart: true,
         }, function () {
+          // this function restarts the count increasing the index but resetting the
+          // credential to 0. This effectively restarts the function on 
+          // the next member.
           this.parseSearchData(index + 1, 0);
         })
       }
@@ -267,10 +177,15 @@ class SearchBar extends Component {
   render() {
     return (
       <>
+      {/* NONE OF THIS IS FUNCTION YET */}
         <Form style={{ width: "80%", margin: "20px auto" }}>
           {this.state.advanced ? (
             <div>
               <div className="flex-between row-wrap">
+                <Form.Group controlId="Advanced-zip" className="advanced-input">
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control type="text" placeholder="Name" />
+                </Form.Group>
                 <Form.Group controlId="Advanced-zip" className="advanced-input">
                   <Form.Label>City or Zip Code</Form.Label>
                   <Form.Control type="text" placeholder="City or Zip Code" />
@@ -279,10 +194,27 @@ class SearchBar extends Component {
                   controlId="exampleForm.ControlSelect1"
                   className="advanced-input"
                 >
+                  <Form.Label>Languages</Form.Label>
+                  <Form.Control as="select">
+                    {Object.keys(this.state.languages).map((key) => (
+                      // Displays the option and the amount of that option
+                      // there are. Should be useful for the user.
+                      <option value={key}>
+                        {key} ({this.state.languages[key]})
+                      </option>
+                    ))}
+                  </Form.Control>
+                </Form.Group>
+                <Form.Group
+                  controlId="exampleForm.ControlSelect1"
+                  className="advanced-input"
+                >
                   <Form.Label>Specialization</Form.Label>
                   <Form.Control as="select">
                     {Object.keys(this.state.specialty).map((key) => (
-                      <option>
+                      // Displays the option and the amount of that option
+                      // there are. Should be useful for the user.
+                      <option value={key}>
                         {key} ({this.state.specialty[key]})
                       </option>
                     ))}
@@ -409,8 +341,7 @@ class SearchBar extends Component {
             onChange={this.switchChange}
           />
         </Form>
-        {/* REPLACE therapists */}
-        <SearchResults therapists={therapists} />
+        <SearchResults therapists={this.state.therapists} />
       </>
     );
   }
