@@ -5,7 +5,17 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 
 
 class ContactInfo extends Component{
-
+// create the state
+           state = {
+            phone_type_id:'',
+            title:'',
+            number:'',
+            island_id:'',
+            title:'',
+            email:'',
+            address:'',
+            languages:''
+           }
     handleBack = (event) => {
         event.preventDefault()
         this.props.history.push('/create-profile')
@@ -38,31 +48,52 @@ class ContactInfo extends Component{
              <br/>
              <label>Phone Number</label>
              <br/>
-             <input/>
+             <input type="number"
+                  name="number"
+                  value={this.state.age}
+                  onChange={this.handleInputChangeFor("number")}/>
              <br/>
              <label>Email Address</label>
              <br/>
-             <input/>
+             <input type="text"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.handleInputChangeFor("email")}/>
              <br/>
              <label>Email Address</label>
              <br/>
-             <input/>
+             <input type="text"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.handleInputChangeFor("email")}/>
              <br/>
              <label>Website</label>
              <br/>
-             <input/>
+             <input type="text"
+                  name="address"
+                  value={this.state.address}
+                  onChange={this.handleInputChangeFor("address")}/>
              <br/>
              <label>Address</label>
              <br/>
-             <input/>
+             <input type="text"
+                  name="age"
+                  value={this.state.age}
+                  onChange={this.handleInputChangeFor("age")}/>
              <br/>
              <label>Address</label>
              <br/>
-             <input/>
+             <input type="text"
+                  name="age"
+                  value={this.state.age}
+                  onChange={this.handleInputChangeFor("age")}/>
              <br/>
              <label>Address</label>
              <br/>
-             <input/>
+             <input type="text"
+                  name="age"
+                  value={this.state.age}
+                  onChange={this.handleInputChangeFor("age")}/>
              <br/>
              <br/>
             <button onClick={this.handleBack}>Back</button>
