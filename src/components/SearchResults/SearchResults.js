@@ -60,7 +60,7 @@ class SearchResults extends Component {
                             displayed in terms of city and island but its what was
                             shown in the wireframe so it is staying in the skeleton.
                           */}
-                          {therapist.city}, {therapist.island}
+                          {therapist.island[0]}
                         </div>
                       </div>
                     </Card.Title>
@@ -91,19 +91,19 @@ class SearchResults extends Component {
                             vary wildly. Using this join method I can display
                             them all nicely and without much effort.
                           */}
-                          {therapist.type}, {therapist.titles.join(", ")}
+                          {therapist.title}, {therapist.credentials}
                         </div>
-                        <div className="number">{therapist.phoneNumber}</div>
+                        <div className="number">{therapist.phone[0]}</div>
                       </div>
                     </Card.Subtitle>
                     <Card.Text>
                       <div className="flex-between row-wrap-reverse">
                         <div className="description">
-                          {therapist.description}
+                          {therapist.statement}
                         </div>
                         {/* Contact is aligned to the right for visual appeal */}
                         <div className="contact">
-                          {therapist.email} <br />
+                          {therapist.email[0]} <br />
                           {/*
                             The link here links to the page it mentions.
                             It does so by turning itself into an https link
