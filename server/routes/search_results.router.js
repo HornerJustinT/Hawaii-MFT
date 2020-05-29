@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 /**
- * GET route template
+ * GET search route
  */
 router.get('/', async (req, res) => {
     const connection = await pool.connect();
