@@ -77,23 +77,23 @@ class ContactInfo extends Component{
              <label>Address</label>
              <br/>
              <input type="text"
-                  name="age"
-                  value={this.state.age}
-                  onChange={this.handleInputChangeFor("age")}/>
+                  name="address"
+                  value={this.state.address}
+                  onChange={this.handleInputChangeFor("address")}/>
              <br/>
              <label>Address</label>
              <br/>
              <input type="text"
-                  name="age"
-                  value={this.state.age}
-                  onChange={this.handleInputChangeFor("age")}/>
+                  name="address"
+                  value={this.state.address}
+                  onChange={this.handleInputChangeFor("address")}/>
              <br/>
              <label>Address</label>
              <br/>
              <input type="text"
-                  name="age"
-                  value={this.state.age}
-                  onChange={this.handleInputChangeFor("age")}/>
+                  name="address"
+                  value={this.state.address}
+                  onChange={this.handleInputChangeFor("address")}/>
              <br/>
              <br/>
             <button onClick={this.handleBack}>Back</button>
