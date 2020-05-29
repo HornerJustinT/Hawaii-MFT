@@ -18,15 +18,6 @@ class ProfileCreate extends Component {
 	language_id:''
     }
 
-    "zip_code" INT,
-	
-	
-	"license_state" VARCHAR(50),
-	"license_expiration" VARCHAR(50),
-	
-	"supervision_status" VARCHAR(255),
-	"fees" VARCHAR(255),
-
     //take in the information from the input
     handleInputChangeFor = propertyName => (event) =>{
         this.setState({
