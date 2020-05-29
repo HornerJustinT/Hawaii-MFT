@@ -58,8 +58,8 @@ class PracticeInfo extends Component{
         <br/>
         <label>Are you providing telehealth?</label>
         <br/>
-        <lable>Yes</lable><input type='radio' className='choice' value='yes'/>
-        <lable>No</lable><input type='radio' className='choice' value='no'/>
+        <label>Yes</label><input type='radio' className='choice' value='yes'/>
+        <label>No</label><input type='radio' className='choice' value='no'/>
         <br/>
         <br/>
         <label>Treatment Approaches/Preferences</label><br/><select><option value='' defaultValue='Select an Approach'>Select an Approach</option></select>
