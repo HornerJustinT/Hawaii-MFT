@@ -425,22 +425,17 @@ VALUES
     ('Pacific Islander'),
     ('People with Disabilities'),
     ('Women/Feminist');
-INSERT INTO "address_type"
-	("title")
-VALUES
-	('test');
-INSERT INTO "email_type"
-	("email_type_id", "title")
-VALUES
-	(1, 'test');
+    
 INSERT INTO "island"
 	("island_id", "title")
 VALUES
-	(1,'test');
-INSERT INTO "phone_type"
-	("phone_type_id", "title")
-VALUES
-	(1,'test');
+	(1,'Kauai'),
+    (2,'Ohau'),
+    (3,'Maui'),
+    (4,'Hawaii Island'),
+    (5,'Lanai'),
+    (6,'Molokai');
+
 INSERT INTO "license_type"
 	("license_type_id", "title")
 VALUES
@@ -448,9 +443,12 @@ VALUES
 INSERT INTO "session_format"
 	("session_format_id", "title")
 VALUES
-	(1,'test');
+	(1,'Any'),
+(2,'Individual'),
+(3,'Couples'),
+(4,'Family'),
+(5,'Group');
 
-	
 	
 	
 	

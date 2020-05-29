@@ -1,5 +1,6 @@
 // React Imports
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 // Custom Components
 import SearchResults from "../SearchResults/SearchResults";
@@ -85,77 +86,175 @@ const therapists = [
   },
 ];
 
+
 const criteria = [
-  "state",
-  "specialization",
-  "supervision",
+  "specialty",
+  "supervision_status",
   "insurance",
-  "treatment",
-  "age_focus",
-  "demo_focus",
-  "format",
-  "telehealth",
+  "treatment_preferences",
+  "ages_served",
+  "client_focus",
+  "session_format"
 ];
 
 class SearchBar extends Component {
   state = {
     advanced: false,
-    state: {},
-    specialization: {},
-    supervision: {},
+    restart: true,
+    therapists: [],
+    specialty: {},
+    supervision_status: {},
     insurance: {},
-    treatment: {},
-    age_focus: {},
-    demo_focus: {},
-    format: {},
-    telehealth: {},
+    treatment_preferences: {},
+    ages_served: {},
+    client_focus: {},
+    session_format: {}
   };
 
-  parseSearchData = (index, criteriaItem) => {
-    if (therapists[index]) {
-      if (criteria[criteriaItem]) {
-        if (
-          this.state[criteria[criteriaItem]][
-            therapists[index][criteria[criteriaItem]]
-          ]
-        ) {
+  itemLoopFunction = (array, index, parse) => {
+    if (array[index]){
+      const item = array[index];
+      // Now that we are looping through we need to check if 
+      if (this.state[parse][item[parse]]) {
+        this.setState(
+          {
+            restart: false,
+            [parse]: {
+              ...this.state[parse],
+              [item]:
+                this.state[parse][item] + 1,
+            },
+          }, function() {
+            this.itemLoopFunction(array, index + 1, parse);
+          }
+        );
+      } else {
+        if (item) {
           this.setState(
             {
-              [criteria[criteriaItem]]: {
-                ...this.state[criteria[criteriaItem]],
-                [therapists[index][criteria[criteriaItem]]]:
-                  this.state[criteria[criteriaItem]][
-                    therapists[index][criteria[criteriaItem]]
-                  ] + 1,
+              restart: false,
+              [parse]: {
+                ...this.state[parse],
+                [item]: 1,
               },
-            },
-            function () {
-              this.parseSearchData(index, criteriaItem + 1);
-            }
-          );
+            }, function () {
+              this.itemLoopFunction(array, index + 1, parse);
+            });
         } else {
-            this.setState(
+          this.setState(
             {
-              [criteria[criteriaItem]]: {
-                ...this.state[criteria[criteriaItem]],
-                [therapists[index][criteria[criteriaItem]]]:
-                  1,
+              restart: false,
+              [parse]: {
+                ...this.state[parse],
+                [item]: 1,
               },
-            },
-            function () {
-              this.parseSearchData(index, criteriaItem + 1);
+            }, function () {
+              this.itemLoopFunction(array, index + 1, parse);
             });
         }
+      }
+    }
+    
+  }
+
+  // Parses the data of the members and sorts them nicely.
+  // This function is ugly and has a lot of recusion but
+  // it allows for a lot of state management that hopefully will
+  // finish before the user gets to using the advanced search
+
+  // That being said this function is a nightmare of recursion
+  // and looping that only gets worse the more users there are.
+  // I plan to break it down further as much as I can but
+  // this honestly might need a complete overhaul. 
+  parseSearchData = (index, criteriaItem) => {
+    // This function runs on recusion and keeping track of
+    // its own values. Basically a make-shift for loop
+    // thats looping through 2 loops at the same time.
+
+    // index is the index in the therapists array and 
+    // criteriaItem is the index of the criteria array
+    
+    // This if statement basically checks if the recursion can end.
+    // If there is nothing at the therapists index the function stops.
+    if (this.state.therapists[index]) {
+      const therapist = this.state.therapists[index];
+      const parse = criteria[criteriaItem];
+
+      // This checks that we havent reached the end of the criteria
+      // if this fails it calls the function again with a higher index
+      // and it resets the criteria index to 0
+      if (parse) {
+        
+        // Checks if the value we are reading is an array.
+        // really its just checking if its the supervisor one
+        // but if we decide to add more search/parse options
+        // this simplifies it for almost no cost.  
+        if (Array.isArray(therapist[parse])) {
+
+          // This loops through the array thats inside of
+          // the therapist object at the specified criteria
+          this.itemLoopFunction(therapist[parse], 0, parse);
+
+        } else {
+          if (this.state[parse][therapist[parse]]) {
+            this.setState(
+              {
+                restart: false,
+                [parse]: {
+                  ...this.state[parse],
+                  [therapist[parse]]:
+                    this.state[parse][therapist[parse]] + 1,
+                },
+              }
+            );
+          } else {
+            if (therapist[parse]) {
+              this.setState(
+                {
+
+                  restart: false,
+                  [parse]: {
+                    ...this.state[parse],
+                    [therapist[parse]]: 1,
+                  },
+                });
+
+            } else {
+              this.setState(
+                {
+                  restart: false,
+                  [parse]: {
+                    ...this.state[parse],
+                    [therapist[parse]]: 1,
+                  },
+                });
+            }
+
+          }
+        }
+        this.parseSearchData(index, criteriaItem + 1);
       } else {
-        this.parseSearchData(index + 1, 0);
+        this.setState({
+          restart: true,
+        }, function () {
+          this.parseSearchData(index + 1, 0);
+        })
       }
     }
   };
 
   componentDidMount() {
-    // This function only runs if theres search data
-    if (therapists[0]) {
-      this.parseSearchData(0, 0);
+    // Gets all members right away on loading
+    this.props.dispatch({ type: 'FETCH_MEMBERS' })
+  }
+
+  componentDidUpdate() {
+    if (this.state.therapists !== this.props.members) {
+      this.setState({
+        therapists: this.props.members
+      }, function() {
+          this.parseSearchData( 0, 0 );
+      })
     }
   }
 
@@ -182,9 +281,9 @@ class SearchBar extends Component {
                 >
                   <Form.Label>Specialization</Form.Label>
                   <Form.Control as="select">
-                    {Object.keys(this.state.specialization).map((key) => (
+                    {Object.keys(this.state.specialty).map((key) => (
                       <option>
-                        {key} ({this.state.specialization[key]})
+                        {key} ({this.state.specialty[key]})
                       </option>
                     ))}
                   </Form.Control>
@@ -195,9 +294,9 @@ class SearchBar extends Component {
                 >
                   <Form.Label>Supervision Status</Form.Label>
                   <Form.Control as="select">
-                    {Object.keys(this.state.supervision).map((key) => (
+                    {Object.keys(this.state.supervision_status).map((key) => (
                       <option>
-                        {key} ({this.state.supervision[key]})
+                        {key} ({this.state.supervision_status[key]})
                       </option>
                     ))}
                   </Form.Control>
@@ -221,9 +320,9 @@ class SearchBar extends Component {
                 >
                   <Form.Label>Treatment Approaches/Preferences</Form.Label>
                   <Form.Control as="select">
-                    {Object.keys(this.state.treatment).map((key) => (
+                    {Object.keys(this.state.treatment_preferences).map((key) => (
                       <option>
-                        {key} ({this.state.treatment[key]})
+                        {key} ({this.state.treatment_preferences[key]})
                       </option>
                     ))}
                   </Form.Control>
@@ -235,9 +334,9 @@ class SearchBar extends Component {
                   >
                     <Form.Label>Age Focus</Form.Label>
                     <Form.Control as="select">
-                      {Object.keys(this.state.age_focus).map((key) => (
+                      {Object.keys(this.state.ages_served).map((key) => (
                         <option>
-                          {key} ({this.state.age_focus[key]})
+                          {key} ({this.state.ages_served[key]})
                         </option>
                       ))}
                     </Form.Control>
@@ -248,9 +347,9 @@ class SearchBar extends Component {
                   >
                     <Form.Label>Demographic Focus</Form.Label>
                     <Form.Control as="select">
-                      {Object.keys(this.state.demo_focus).map((key) => (
+                      {Object.keys(this.state.client_focus).map((key) => (
                         <option>
-                          {key} ({this.state.demo_focus[key]})
+                          {key} ({this.state.client_focus[key]})
                         </option>
                       ))}
                     </Form.Control>
@@ -262,9 +361,9 @@ class SearchBar extends Component {
                 >
                   <Form.Label>Session Format(s)</Form.Label>
                   <Form.Control as="select">
-                    {Object.keys(this.state.format).map((key) => (
+                    {Object.keys(this.state.session_format).map((key) => (
                       <option>
-                        {key} ({this.state.format[key]})
+                        {key} ({this.state.session_format[key]})
                       </option>
                     ))}
                   </Form.Control>
@@ -310,10 +409,13 @@ class SearchBar extends Component {
             onChange={this.switchChange}
           />
         </Form>
+        {/* REPLACE therapists */}
         <SearchResults therapists={therapists} />
       </>
     );
   }
 }
+
+const mapStateToProps = ({ members }) => ({ members });
  
-export default SearchBar;
+export default connect(mapStateToProps)(SearchBar);
