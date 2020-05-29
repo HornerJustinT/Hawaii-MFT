@@ -1,6 +1,5 @@
 .header {
-    padding-top: 2em;
-    padding-left: 2em;
+    margin: 2em;
 }
 
 .body {
@@ -9,4 +8,3 @@
     padding-top: 0px;
     padding-bottom: 0px;
 }
-
