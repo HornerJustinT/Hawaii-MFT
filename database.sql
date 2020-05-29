@@ -103,16 +103,10 @@ CREATE TABLE "client_focus_pivot"(
 	FOREIGN KEY ("member_id") REFERENCES "members"("id"));
 
 
-CREATE TABLE "phone_type" (
-	"phone_type_id" SERIAL PRIMARY KEY,
-	"title" VARCHAR(255) NOT NULL
-);
-
 CREATE TABLE "phone_table"(
 	"number" INT NOT NULL,
 	"member_id" INT NOT NULL,
-	"phone_type_id" INT NOT NULL,
-	FOREIGN KEY ("phone_type_id") REFERENCES "phone_type"("phone_type_id"),
+	"business" BOOLEAN NOT NULL,
 	FOREIGN KEY ("member_id") REFERENCES "members"("id"));
 	
 	
@@ -128,16 +122,10 @@ CREATE TABLE "island_pivot"(
 	FOREIGN KEY ("member_id") REFERENCES "members"("id"));
 	
 	
-CREATE TABLE "address_type" (
-	"address_type_id" SERIAL PRIMARY KEY,
-	"title" VARCHAR(255) NOT NULL
-);
-
 CREATE TABLE "address_table"(
-	"address_type_id" INT NOT NULL,
+	"business" BOOLEAN NOT NULL,
 	"address" VARCHAR(255) NOT NULL,
 	"member_id" INT NOT NULL,
-	FOREIGN KEY ("address_type_id") REFERENCES "address_type"("address_type_id"),
 	FOREIGN KEY ("member_id") REFERENCES "members"("id"));
 
 
@@ -152,17 +140,10 @@ CREATE TABLE "specialty_pivot"(
 	FOREIGN KEY ("specialty_id") REFERENCES "specialty"("specialty_id"),
 	FOREIGN KEY ("member_id") REFERENCES "members"("id"));
 
-
-CREATE TABLE "email_type" (
-	"email_type_id" SERIAL PRIMARY KEY,
-	"title" VARCHAR(255) NOT NULL
-);
-
 CREATE TABLE "email_table"(
-	"email_type_id" INT NOT NULL,
+	"business" BOOLEAN NOT NULL,
 	"email" VARCHAR(255),
 	"member_id" INT NOT NULL,
-	FOREIGN KEY ("email_type_id") REFERENCES "email_type"("email_type_id"),
 	FOREIGN KEY ("member_id") REFERENCES "members"("id"));
 -- Everything below is temporary data for our tables
 INSERT INTO "languages" 
@@ -426,20 +407,8 @@ VALUES
     ('Pacific Islander'),
     ('People with Disabilities'),
     ('Women/Feminist');
-INSERT INTO "address_type"
-	("title")
-VALUES
-	('test');
-INSERT INTO "email_type"
-	("email_type_id", "title")
-VALUES
-	(1, 'test');
 INSERT INTO "island"
 	("island_id", "title")
-VALUES
-	(1,'test');
-INSERT INTO "phone_type"
-	("phone_type_id", "title")
 VALUES
 	(1,'test');
 INSERT INTO "license_type"
@@ -475,13 +444,13 @@ INSERT INTO "treatment_preferences_pivot"
 VALUES
 	(1,1);
 INSERT INTO "address_table"
-	("address", "address_type_id", "member_id")
+	("address", "business", "member_id")
 VALUES
-	('test',1, 1);
+	('test',TRUE, 1);
 INSERT INTO "email_table" 
-	("email_type_id", "member_id", "email")
+	("business", "member_id", "email")
 VALUES
-	(1,1,'test');
+	(TRUE,1,'test');
 INSERT INTO "island_pivot"
 	("island_id", "member_id")
 VALUES
@@ -495,9 +464,9 @@ INSERT INTO "license_type_pivot"
 VALUES 
 	(1,1);
 INSERT INTO "phone_table"
-	("phone_type_id", "member_id","number")
+	("business", "member_id","number")
 VALUES 
-	(1,1,1);
+	(TRUE,1,1);
 INSERT INTO "age_groups_served_pivot"
 	("age_groups_served_id", "member_id")
 VALUES 
@@ -510,7 +479,7 @@ INSERT INTO "insurance_pivot"
 	("insurance_type_id", "member_id")
 VALUES
 	(1,1);
-
+	
 
 -- sql queries for our gets
 SELECT * FROM members;

@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 function parseSelectData(member, result, result_name, special_name) {
-    // Creates .address array to be pushed to later
+    // Creates empty array to be pushed to later
     member[result_name] = [];
     for (let item of result) {
         if (item.member_id === member.id) {
@@ -18,7 +18,7 @@ function parseSelectData(member, result, result_name, special_name) {
 }
 
 /**
- * GET route template
+ * GET search route
  */
 router.get('/', async (req, res) => {
     const connection = await pool.connect();
