@@ -6,10 +6,11 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* createProfile(action) {
     console.log('in createProfile saga', action.payload.id)
     try {
-        yield axios.post(`/profile`, action.payload);
+       const response = yield axios.post(`/profile`, action.payload);
+       console.log('Getting new member info from the server',response)
         yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });
     } catch (error) {
-        console.log('createProfile saga POST request failed', error);
+        console.log('Error in fetching members info from the server', error);
     }
 }
 

@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar'
+import { connect } from 'react-redux';
 
 
 
@@ -30,10 +31,10 @@ class ProfileCreate extends Component {
      this.props.dispatch({
          type:'ADD_MEMBER',
          payload:{
-            prefix:'',
-            first_name:'',
-            last_name:'',
-            age:'',
+            prefix:this.state.prefix,
+            first_name:this.state.first_name,
+            last_name:this.state.last_name,
+            age:this.state.age,
          }
      })
     }
@@ -46,7 +47,7 @@ class ProfileCreate extends Component {
     render (){
         return (
             <>
-            <div className='container'>
+            <div className ='container'>
          <header><h1>Create New Profile</h1></header>
          <br/>
 
@@ -65,7 +66,7 @@ class ProfileCreate extends Component {
                   name="first_name"
                   value={this.state.first_name}
                   onChange={this.handleInputChangeFor("first_name")}/><br/>
-         <label>Last Name</label><br/><inpu type="text"
+         <label>Last Name</label><br/><input type="text"
                   name="last_name"
                   value={this.state.last_name}
                   onChange={this.handleInputChangeFor("last_name")}t/><br/>
@@ -94,5 +95,8 @@ class ProfileCreate extends Component {
         )
     }
 }
+const mapStateToProps = state => ({
+    state 
+  });
 
-export default ProfileCreate;
+export default connect(mapStateToProps)(ProfileCreate);
