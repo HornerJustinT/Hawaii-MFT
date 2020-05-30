@@ -1,7 +1,8 @@
 import React,{ Component } from 'react';
 
 //React-bootstrap import
-import ProgressBar from 'react-bootstrap/ProgressBar'
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import { connect } from 'react-redux';
 
 
 class ContactInfo extends Component{
@@ -30,6 +31,11 @@ class ContactInfo extends Component{
         event.preventDefault()
         this.props.history.push('/practice')
     }
+    handleInputChangeFor = propertyName => (event) =>{
+        this.setState({
+          [propertyName]:event.target.value
+        })
+      } 
 
     render (){
         return(
@@ -108,4 +114,7 @@ class ContactInfo extends Component{
     }
 
 }
-export default ContactInfo;
+const mapStateToProps = state => ({
+    state 
+  });
+export default connect (mapStateToProps)(ContactInfo);

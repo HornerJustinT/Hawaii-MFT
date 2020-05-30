@@ -17,6 +17,7 @@ class PracticeInfo extends Component{
         event.preventDefault()
         this.props.history.push('/uploadImage')
     }
+    
 
     render (){
         return(
@@ -35,7 +36,8 @@ class PracticeInfo extends Component{
         <label>License State of Issue</label><br/><select><option value='' defaultValue='Select State of Issue'>Select State of Issue</option></select>
         <br/>
         <br/>
-        <label>License Expiration Date</label><br/><input type='date'/>
+        <label>License Expiration Date</label><br/><input 
+                  type='date'/>
         <br/>
         <br/>
         <label>Specialization</label><br/><select><option value='' defaultValue='Select a Speciality'>Select a Speciality</option></select>

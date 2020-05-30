@@ -24,8 +24,19 @@ class ProfileCreate extends Component {
     handleInputChangeFor = propertyName => (event) =>{
         this.setState({
           [propertyName]:event.target.value
-        })
+        });
       } 
+      //reset the inputs once the value has been put
+      handleReset = () =>{
+          this.setState({
+            prefix:'',
+            first_name:'',
+            last_name:'',
+            age:'',
+            hiamft_member_account_info:'',
+            language_id:''
+          })
+      }
     //upload all the inputs into the members table
     addMembers = (event) =>{
      event.preventDefault();
@@ -37,7 +48,8 @@ class ProfileCreate extends Component {
             last_name:this.state.last_name,
             age:this.state.age,
          }
-     })
+     });
+    this.handleReset();
     }
     
      handleNext = (event) => {
@@ -75,6 +87,8 @@ class ProfileCreate extends Component {
                   name="age"
                   value={this.state.age}
                   onChange={this.handleInputChangeFor("age")}/>
+        <br/>
+        <br/>
          <label>Language Spoken</label><br/><select><option value='' defaultValue='Select a language'>Select a language</option></select>
         <br/>
         <br/>
