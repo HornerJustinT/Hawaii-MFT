@@ -38,7 +38,7 @@ class SearchBar extends Component {
     let data = {}
 
     // This first for...of loop is looping through each
-    // therapist in the system
+    // therapist in the system.
     for ( const therapist of this.state.therapists ) {
 
       // Now that we have the therapist we need to read each of

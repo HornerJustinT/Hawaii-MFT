@@ -15,9 +15,13 @@ class SearchSelect extends Component {
               {Object.keys(this.props.array).map((key) => (
                 // Displays the option and the amount of that option
                 // there are. Should be useful for the user.
-                <option value={key}>
-                  {key} ({this.props.array[key]})
-                </option>
+                <>
+                  {this.props.array[key] > 0 &&
+                    <option value={key}>
+                        {key} ({this.props.array[key]})
+                    </option>
+                  }
+                </>
               ))}
             </Form.Control>
           </Form.Group>
