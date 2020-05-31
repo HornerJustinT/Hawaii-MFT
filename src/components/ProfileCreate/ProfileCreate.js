@@ -98,7 +98,7 @@ componentDidMount(){
         <br/>
         <br/>
          <label>Language Spoken</label><br/><select>
-                   {this.props.profile &&
+                   {this.props.languages &&
                    
                    <>
                    <option value='' defaultValue='Select a language'>Select a language</option>
