@@ -15,6 +15,9 @@ class ContactInfo extends Component{
             address:'',
             languages:''
            }
+           componentDidMount (){
+               this.getIslands()
+           }
     handleBack = (event) => {
         event.preventDefault()
         this.props.history.push('/create-profile')
@@ -44,6 +47,12 @@ class ContactInfo extends Component{
               }
           })
       }
+      //fetch all the island names
+     getIslands = () =>{
+         this.props.dispatch({
+             type:'FETCH_ISLANDS'
+         })
+     }
 
     render (){
         return(
@@ -56,7 +65,17 @@ class ContactInfo extends Component{
              <label>Island</label>
              <br/>
              <select>
-                 <option defaultValue='Select your Island'>Select your Island</option>
+             {this.props.islands &&
+                   
+                   <>
+                   <option defaultValue='Select your Island'>Select your Island</option>
+                   {this.props.islands.map(island =>
+                    <option value={island.title}
+        
+                  key={island.id}>{island.id}{' '}{island.title}</option>
+                    )}
+                   </>
+                   } 
              </select>
              <br/>
              <br/>
@@ -132,7 +151,8 @@ class ContactInfo extends Component{
     }
 
 }
-const mapStateToProps = state => ({
-    state 
+const mapStateToProps = reduxstate => ({
+    reduxstate,
+    islands: reduxstate.islands
   });
 export default connect (mapStateToProps)(ContactInfo);

@@ -26,14 +26,25 @@ function* addMember(action) {
 }
 
 
-function*fetchLanguages(action){
+function* fetchLanguages(action){
     try{
         const response = yield axios.get(`/api/profile`)
         console.log(response)
         yield put ({type: 'SET_LANGUAGES', payload: response.data});
     }
     catch(error){
-        console.log('error in fetching Books', error)
+        console.log('error in fetching languages', error)
+    }
+}
+
+function* fetchISlands(action){
+    try{
+        const response = yield axios.get(`/api/profile/islands`)
+        console.log(response)
+        yield put ({type: 'SET_ISLANDS', payload: response.data});
+    }
+    catch(error){
+        console.log('error in fetching Islands', error)
     }
 }
 
@@ -41,6 +52,7 @@ function* createSaga() {
     yield takeLatest('CREATE_PROFILE', createProfile);
     yield takeLatest('ADD_MEMBER', addMember);
     yield takeLatest('FETCH_LANGUAGES', fetchLanguages);
+    yield takeLatest('FETCH_ISLANDS', fetchISlands);
 }
 
 export default createSaga;

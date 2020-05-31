@@ -4,7 +4,8 @@ import loginMode from './loginModeReducer';
 import members from './membersReducer';
 import profile from './profileReducer';
 import user from './userReducer';
-import languages from './fetchLanguages';
+import languages from './fetchlanguages';
+import islands from './IslandReducer';
 
 
 // rootReducer is the primary reducer for our entire project
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   profile, //will have specific user profile details
   user, // will have an id and username if someone is logged in
   languages,// will have all the language options when creating a profile
+  islands //will have all the islands names on ready 
 });
 
 export default rootReducer;

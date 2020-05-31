@@ -103,7 +103,7 @@ componentDidMount(){
                    <>
                    <option value='' defaultValue='Select a language'>Select a language</option>
                    {this.props.languages.map(language =>
-                    <option value={language.id}
+                    <option value={language.title}
         
                   key={language.id}>{language.id}{' '}{language.title}</option>
                     )}

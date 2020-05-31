@@ -19,6 +19,20 @@ router.get('/', (req, res) => {
    
 });
 
+router.get('/islands', (req, res) => {
+  
+    const queryText = `SELECT * FROM "island";`;
+        pool.query(queryText)
+            .then((result) => {
+                res.send(result.rows);
+                console.log(result.rows)
+            }).catch((error) => {
+                console.log('Error in getting islands', error);
+                res.sendStatus(500);
+            });
+   
+});
+
 /**
 // Handles POST request with new member data
  */
