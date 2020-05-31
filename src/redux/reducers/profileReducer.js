@@ -4,8 +4,9 @@ const profileReducer = (state = {}, action) => {
         return action.payload;
     } else if (action.type === 'PROFILE_RESET') {
         return action.payload
+    } else {
+     return state;
     }
-    return state;
 };
 
 export default profileReducer;

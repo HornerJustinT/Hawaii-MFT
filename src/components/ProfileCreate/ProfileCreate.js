@@ -19,14 +19,16 @@ class ProfileCreate extends Component {
     hiamft_member_account_info:'',
 	language_id:''
     }
-
+componentDidMount(){
+ this.getLanguages()
+}
     //take in the information from the input
     handleInputChangeFor = propertyName => (event) =>{
         this.setState({
           [propertyName]:event.target.value
         });
       } 
-      //reset the inputs once the value has been put
+      //reset the inputs once the value has been submitted
       handleReset = () =>{
           this.setState({
             prefix:'',
@@ -37,6 +39,7 @@ class ProfileCreate extends Component {
             language_id:''
           })
       }
+
     //upload all the inputs into the members table
     addMembers = (event) =>{
      event.preventDefault();
@@ -51,7 +54,12 @@ class ProfileCreate extends Component {
      });
     this.handleReset();
     }
-    
+    //get the languges
+    getLanguages = () =>{
+        this.props.dispatch({
+            type:'FETCH_LANGUAGES'});
+           
+    }
      handleNext = (event) => {
         event.preventDefault ()
         this.props.history.push('/contact-info')
@@ -89,7 +97,19 @@ class ProfileCreate extends Component {
                   onChange={this.handleInputChangeFor("age")}/>
         <br/>
         <br/>
-         <label>Language Spoken</label><br/><select><option value='' defaultValue='Select a language'>Select a language</option></select>
+         <label>Language Spoken</label><br/><select>
+                   {this.props.profile &&
+                   
+                   <>
+                   <option value='' defaultValue='Select a language'>Select a language</option>
+                   {this.props.languages.map(language =>
+                    <option value={language.id}
+        
+                  key={language.id}>{language.id}{' '}{language.title}</option>
+                    )}
+                   </>
+                   } 
+                    </select>
         <br/>
         <br/>
         <button>+</button><label>Add a Field</label>
@@ -110,8 +130,9 @@ class ProfileCreate extends Component {
         )
     }
 }
-const mapStateToProps = state => ({
-    state 
+const mapStateToProps = reduxstate => ({
+    reduxstate,
+    languages: reduxstate.languages,
   });
 
 export default connect(mapStateToProps)(ProfileCreate);

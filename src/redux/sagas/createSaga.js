@@ -25,9 +25,22 @@ function* addMember(action) {
     }
 }
 
+
+function*fetchLanguages(action){
+    try{
+        const response = yield axios.get(`/api/profile`)
+        console.log(response)
+        yield put ({type: 'SET_LANGUAGES', payload: response.data});
+    }
+    catch(error){
+        console.log('error in fetching Books', error)
+    }
+}
+
 function* createSaga() {
     yield takeLatest('CREATE_PROFILE', createProfile);
     yield takeLatest('ADD_MEMBER', addMember);
+    yield takeLatest('FETCH_LANGUAGES', fetchLanguages);
 }
 
 export default createSaga;
