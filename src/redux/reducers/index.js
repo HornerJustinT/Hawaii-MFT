@@ -6,7 +6,8 @@ import profile from './profileReducer';
 import user from './userReducer';
 import languages from './fetchlanguages';
 import islands from './IslandReducer';
-import practice from './practiceInfoReducer';
+import specialtys from './specialityReducer';
+import insuranceTaken from './insuranceTakenReducer';
 
 
 // rootReducer is the primary reducer for our entire project
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   languages,// will have all the language options when creating a profile
   islands, //will have all the islands names on ready 
-  practice //will have all the info about the practice for the members
+  specialtys, //will have all the info about the practice for the members
+  insuranceTaken //will have all insurance types used 
 });
 
 export default rootReducer;

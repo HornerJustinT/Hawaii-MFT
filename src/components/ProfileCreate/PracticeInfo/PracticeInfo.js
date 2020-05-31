@@ -8,7 +8,8 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 class PracticeInfo extends Component{
 
 componentDidMount (){
-    this.getSpecialization()
+    this.getSpecialization();
+    this.getInsuranceTaken();
 }
     handleBack = (event) => {
         event.preventDefault()
@@ -25,6 +26,17 @@ componentDidMount (){
     getSpecialization = () =>{
         this.props.dispatch({
             type:'FETCH_SPECIALTY'
+        })
+    }
+    getSupervisionStatus = () =>{
+        this.props.dispatch({
+            type:'FETCH_SUPERVISION_STATUS'
+        })
+    }
+
+    getInsuranceTaken = () =>{
+        this.props.dispatch({
+            type:'FETCH_INSURANCE_TAKEN'
         })
     }
 
@@ -50,12 +62,12 @@ componentDidMount (){
         <br/>
         <br/>
         <label>Specialization</label><br/><select>
-                {this.props.practice &&
+                {this.props.specialtys &&
                    
                    <>
                   
             <option value='' defaultValue='Select a Speciality'>Select a Speciality</option>
-                   {this.props.practice.map(specialty =>
+                   {this.props.specialtys.map(specialty =>
                     <option value={specialty.title}
         
                   key={specialty.id}>{specialty.id}{' '}{specialty.title}</option>
@@ -69,13 +81,26 @@ componentDidMount (){
         <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
-        <label>Supervision Status</label><br/><select><option value='' defaultValue='Select Status'>Select Status</option></select>
+        <label>Supervision Status</label><br/><select>
+                
+           </select>
         <br/>
         <br/>
         <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
-        <label>Insurance Taken</label><br/><select><option value='' defaultValue='Select Insurance Type'>Select Insurance Type</option></select>
+        <label>Insurance Taken</label><br/><select>
+        {this.props.insuranceTaken &&    
+                   <>
+                  <option value='' defaultValue='Select Insurance Type'>Select Insurance Type</option>
+                   {this.props.insuranceTaken.map(insurance =>
+                    <option value={insurance.title}
+        
+                  key={insurance.id}>{insurance.id}{' '}{insurance.title}</option>
+                    )}
+                   </>
+                   } 
+            </select>
         <br/>
         <br/>
         <button>+</button><label>Add a Field</label>
@@ -122,6 +147,7 @@ componentDidMount (){
 const mapStateToProps = reduxstate => ({
     reduxstate,
     languages: reduxstate.languages,
-    practice: reduxstate.practice,
+    specialtys: reduxstate.specialtys,
+    insuranceTaken: reduxstate.insuranceTaken,
   });
 export default connect(mapStateToProps)(PracticeInfo);

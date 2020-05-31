@@ -55,7 +55,29 @@ function* fetchSpecialty(action){
         yield put ({type: 'SET_SPECIALTY', payload: response.data});
     }
     catch(error){
+        console.log('error in fetching Specialty', error)
+    }
+}
+
+function* fetchSupervision(action){
+    try{
+        const response = yield axios.get(`/api/profile/supervision`)
+        console.log(response)
+        yield put ({type: 'SET_SUPERVISION_STATUS', payload: response.data});
+    }
+    catch(error){
         console.log('error in fetching Islands', error)
+    }
+}
+
+function* fetchInsuranceTaken (action){
+    try{
+        const response = yield axios.get(`/api/profile/insurance`)
+        console.log(response)
+        yield put ({type: 'SET_INSURANCE_TAKEN', payload: response.data});
+    }
+    catch(error){
+        console.log('error in fetching Insurance', error)
     }
 }
 
@@ -65,6 +87,8 @@ function* createSaga() {
     yield takeLatest('FETCH_LANGUAGES', fetchLanguages);
     yield takeLatest('FETCH_ISLANDS', fetchIslands);
     yield takeLatest('FETCH_SPECIALTY', fetchSpecialty);
+    yield takeLatest('FETCH_SUPERVISION_STATUS',fetchSupervision);
+    yield takeLatest('FETCH_INSURANCE_TAKEN',fetchInsuranceTaken);
 }
 
 export default createSaga;

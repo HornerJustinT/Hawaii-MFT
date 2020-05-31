@@ -47,6 +47,23 @@ router.get('/specialty', (req, res) => {
    
 });
 
+router.get('/insurance', (req, res) => {
+  
+    const queryText = `SELECT * FROM "insurance_type";`;
+        pool.query(queryText)
+            .then((result) => {
+                res.send(result.rows);
+                console.log(result.rows)
+            }).catch((error) => {
+                console.log('Error in getting insurance taken', error);
+                res.sendStatus(500);
+            });
+   
+});
+
+
+
+
 /**
 // Handles POST request with new member data
  */
