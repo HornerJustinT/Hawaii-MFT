@@ -37,7 +37,7 @@ function* fetchLanguages(action){
     }
 }
 
-function* fetchISlands(action){
+function* fetchIslands(action){
     try{
         const response = yield axios.get(`/api/profile/islands`)
         console.log(response)
@@ -48,11 +48,23 @@ function* fetchISlands(action){
     }
 }
 
+function* fetchSpecialty(action){
+    try{
+        const response = yield axios.get(`/api/profile/specialty`)
+        console.log(response)
+        yield put ({type: 'SET_SPECIALTY', payload: response.data});
+    }
+    catch(error){
+        console.log('error in fetching Islands', error)
+    }
+}
+
 function* createSaga() {
     yield takeLatest('CREATE_PROFILE', createProfile);
     yield takeLatest('ADD_MEMBER', addMember);
     yield takeLatest('FETCH_LANGUAGES', fetchLanguages);
-    yield takeLatest('FETCH_ISLANDS', fetchISlands);
+    yield takeLatest('FETCH_ISLANDS', fetchIslands);
+    yield takeLatest('FETCH_SPECIALTY', fetchSpecialty);
 }
 
 export default createSaga;

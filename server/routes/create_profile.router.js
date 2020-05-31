@@ -33,6 +33,20 @@ router.get('/islands', (req, res) => {
    
 });
 
+router.get('/specialty', (req, res) => {
+  
+    const queryText = `SELECT * FROM "specialty";`;
+        pool.query(queryText)
+            .then((result) => {
+                res.send(result.rows);
+                console.log(result.rows)
+            }).catch((error) => {
+                console.log('Error in getting specialty', error);
+                res.sendStatus(500);
+            });
+   
+});
+
 /**
 // Handles POST request with new member data
  */

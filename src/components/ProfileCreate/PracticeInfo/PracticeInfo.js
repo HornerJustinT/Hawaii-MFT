@@ -1,4 +1,5 @@
 import React,{ Component } from 'react';
+import { connect } from 'react-redux';
 
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar'
@@ -6,6 +7,9 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 
 class PracticeInfo extends Component{
 
+componentDidMount (){
+    this.getSpecialization()
+}
     handleBack = (event) => {
         event.preventDefault()
         this.props.history.push('/contact-info')
@@ -18,6 +22,11 @@ class PracticeInfo extends Component{
         this.props.history.push('/uploadImage')
     }
     
+    getSpecialization = () =>{
+        this.props.dispatch({
+            type:'FETCH_SPECIALTY'
+        })
+    }
 
     render (){
         return(
@@ -40,7 +49,21 @@ class PracticeInfo extends Component{
                   type='date'/>
         <br/>
         <br/>
-        <label>Specialization</label><br/><select><option value='' defaultValue='Select a Speciality'>Select a Speciality</option></select>
+        <label>Specialization</label><br/><select>
+                {this.props.practice &&
+                   
+                   <>
+                  
+            <option value='' defaultValue='Select a Speciality'>Select a Speciality</option>
+                   {this.props.practice.map(specialty =>
+                    <option value={specialty.title}
+        
+                  key={specialty.id}>{specialty.id}{' '}{specialty.title}</option>
+                    )}
+                   </>
+                   } 
+            
+            </select>
         <br/>
         <br/>
         <button>+</button><label>Add a Field</label>
@@ -95,4 +118,10 @@ class PracticeInfo extends Component{
     }
 
 }
-export default PracticeInfo;
+
+const mapStateToProps = reduxstate => ({
+    reduxstate,
+    languages: reduxstate.languages,
+    practice: reduxstate.practice,
+  });
+export default connect(mapStateToProps)(PracticeInfo);
