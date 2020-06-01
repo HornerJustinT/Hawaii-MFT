@@ -20,10 +20,8 @@ componentDidMount (){
     this.props.dispatch({type:'FETCH_TREATMENT_APPROACHES'});
     this.props.dispatch({type:'FETCH_LICENSE_TYPE'});
     this.props.dispatch({type:'FETCH_DEMOGRPHICS'});
-    this.props.dispatch({type:'FETCH_DEMOGRPHICS'});
+    this.props.dispatch({type:'FETCH_AGE_GROUPS'});
     
- 
-
 }
 
 //take in the information from the input
@@ -167,13 +165,13 @@ handleInputChangeFor = propertyName => (event) =>{
                    } 
             </select>
         <select>
-        {this.props.license &&    
+        {this.props.ageGroups &&    
                    <>
                 <option value='' defaultValue='Select an Age Group'>Select an Age Group</option>
-                   {this.props.license.map(licensetype =>
-                    <option value={licensetype.title}
+                   {this.props.ageGroups.map(agegroup=>
+                    <option value={agegroup.title}
         
-                  key={licensetype.id}>{licensetype.id}{' '}{licensetype.title}</option>
+                  key={agegroup.id}>{agegroup.id}{' '}{agegroup.title}</option>
                     )}
                    </>
                    } 
@@ -221,5 +219,6 @@ const mapStateToProps = reduxstate => ({
     license: reduxstate.license,
     treatmentPreferences:reduxstate.treatmentPreferences,
     demographics:reduxstate.demographics,
+    ageGroups:reduxstate.ageGroups
   });
 export default connect(mapStateToProps)(PracticeInfo);

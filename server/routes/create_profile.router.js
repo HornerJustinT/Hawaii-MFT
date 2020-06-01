@@ -103,6 +103,20 @@ router.get('/demographics', (req, res) => {
    
 });
 
+router.get('/age', (req, res) => {
+  
+    const queryText = `SELECT * FROM "age_groups_served";`;
+        pool.query(queryText)
+            .then((result) => {
+                res.send(result.rows);
+                console.log(result.rows)
+            }).catch((error) => {
+                console.log('Error in getting age groups served', error);
+                res.sendStatus(500);
+            });
+   
+});
+
 
 
 
