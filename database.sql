@@ -417,10 +417,6 @@ VALUES
     (4,'Hawaii Island'),
     (5,'Lanai'),
     (6,'Molokai');
-INSERT INTO "license_type"
-	("license_type_id", "title")
-VALUES
-	(1,'test');
 INSERT INTO "session_format"
 	("session_format_id", "title")
 VALUES
@@ -429,6 +425,20 @@ VALUES
     (3,'Couples'),
     (4,'Family'),
     (5,'Group');
+
+INSERT INTO "license_type"
+    ("license_type_id", "title")
+VALUES
+    (1, 'LMFT'),
+    (2, 'LMHC'),
+    (3, 'LP'),
+    (4, 'LCSW'),
+    (5, 'LSW'),
+    (6, 'LPC'),
+    (7, 'LPCC'),
+    (8, 'Student'),
+    (9, 'Pre-Licensed (but no longer a student)'),
+    (10, 'Other');
 
 	
 	
