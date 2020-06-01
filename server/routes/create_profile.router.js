@@ -89,6 +89,20 @@ router.get('/treatment', (req, res) => {
    
 });
 
+router.get('/demographics', (req, res) => {
+  
+    const queryText = `SELECT * FROM "client_focus";`;
+        pool.query(queryText)
+            .then((result) => {
+                res.send(result.rows);
+                console.log(result.rows)
+            }).catch((error) => {
+                console.log('Error in getting demographics', error);
+                res.sendStatus(500);
+            });
+   
+});
+
 
 
 

@@ -14,10 +14,16 @@ class PracticeInfo extends Component{
      }
 
 componentDidMount (){
-    this.getSpecialization();
-    this.getInsuranceTaken();
-    this.getLicenseType();
-    this.getTreatment();
+    this.props.dispatch({type:'FETCH_INSURANCE_TAKEN'});
+    this.props.dispatch({type:'FETCH_SPECIALTY'});
+    this.props.dispatch({type:'FETCH_SUPERVISION_STATUS'});
+    this.props.dispatch({type:'FETCH_TREATMENT_APPROACHES'});
+    this.props.dispatch({type:'FETCH_LICENSE_TYPE'});
+    this.props.dispatch({type:'FETCH_DEMOGRPHICS'});
+    this.props.dispatch({type:'FETCH_DEMOGRPHICS'});
+    
+ 
+
 }
 
 //take in the information from the input
@@ -38,33 +44,7 @@ handleInputChangeFor = propertyName => (event) =>{
         this.props.history.push('/uploadImage')
     }
     
-    getSpecialization = () =>{
-        this.props.dispatch({
-            type:'FETCH_SPECIALTY'
-        })
-    }
-    getSupervisionStatus = () =>{
-        this.props.dispatch({
-            type:'FETCH_SUPERVISION_STATUS'
-        })
-    }
-
-    getInsuranceTaken = () =>{
-        this.props.dispatch({
-            type:'FETCH_INSURANCE_TAKEN'
-        })
-    }
-    getLicenseType = () =>{
-        this.props.dispatch({
-            type:'FETCH_LICENSE_TYPE'
-        })
-    }
-
-    getTreatment = () =>{
-        this.props.dispatch({
-            type:'FETCH_TREATMENT_APPROACHES'
-        })
-    }
+  
 
     render (){
         return(
@@ -174,13 +154,14 @@ handleInputChangeFor = propertyName => (event) =>{
         <br/>
         <br/>
         <label>Client Focus</label><br/><select>
-        {this.props.license &&    
+        {this.props.demographics &&    
                    <>
-                <option value='' defaultValue='Select an Age Group'>Select an Age Group</option>
-                   {this.props.license.map(licensetype =>
-                    <option value={licensetype.title}
+               
+                <option value='' defaultValue='Select a Demographic'>Select a Demographic</option>
+                   {this.props.demographics.map(group =>
+                    <option value={group.title}
         
-                  key={licensetype.id}>{licensetype.id}{' '}{licensetype.title}</option>
+                  key={group.id}>{group.id}{' '}{group.title}</option>
                     )}
                    </>
                    } 
@@ -188,7 +169,7 @@ handleInputChangeFor = propertyName => (event) =>{
         <select>
         {this.props.license &&    
                    <>
-                <option value='' defaultValue='Select a Demographic'>Select a Demographic</option>
+                <option value='' defaultValue='Select an Age Group'>Select an Age Group</option>
                    {this.props.license.map(licensetype =>
                     <option value={licensetype.title}
         
@@ -238,6 +219,7 @@ const mapStateToProps = reduxstate => ({
     specialtys: reduxstate.specialtys,
     insuranceTaken: reduxstate.insuranceTaken,
     license: reduxstate.license,
-    treatmentPreferences: reduxstate.treatmentPreferences
+    treatmentPreferences:reduxstate.treatmentPreferences,
+    demographics:reduxstate.demographics,
   });
 export default connect(mapStateToProps)(PracticeInfo);

@@ -103,6 +103,16 @@ function* fetchTreatmentApproaches (action){
     }
 }
 
+function* fetchDemographics (action){
+    try{
+        const response = yield axios.get(`/api/profile/demographics`)
+        console.log(response)
+        yield put ({type: 'SET_DEMOGRPHICS', payload: response.data});
+    }
+    catch(error){
+        console.log('error in fetching demographics', error)
+    }
+}
 function* createSaga() {
     yield takeLatest('CREATE_PROFILE', createProfile);
     yield takeLatest('ADD_MEMBER', addMember);
@@ -113,6 +123,7 @@ function* createSaga() {
     yield takeLatest('FETCH_INSURANCE_TAKEN',fetchInsuranceTaken);
     yield takeLatest('FETCH_LICENSE_TYPE',fetchLicenseType);
     yield takeLatest('FETCH_TREATMENT_APPROACHES',fetchTreatmentApproaches);
+    yield takeLatest('FETCH_DEMOGRPHICS',fetchDemographics);
 }
 
 export default createSaga;

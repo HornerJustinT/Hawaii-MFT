@@ -10,6 +10,7 @@ import specialtys from './specialityReducer';
 import insuranceTaken from './insuranceTakenReducer';
 import license from './fetchLicenseType';
 import treatmentPreferences from './treatmentReducer';
+import demographics from './clientFocusReducer';
 
 
 // rootReducer is the primary reducer for our entire project
@@ -29,7 +30,8 @@ const rootReducer = combineReducers({
   specialtys, //will have all the info about the practice for the members
   insuranceTaken, //will have all insurance types used 
   license, //will have all the licesne types members have
-  treatmentPreferences // will have all the treament approaches 
+  treatmentPreferences, // will have all the treament approaches 
+  demographics, //will have all the client focus demographics
 });
 
 export default rootReducer;
