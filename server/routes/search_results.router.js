@@ -20,6 +20,7 @@ router.get('/', async (req, res) => {
 	array_agg(DISTINCT specialty.title) AS specialty,
 	array_agg(DISTINCT treatment_preferences.title) AS treatment_preferences,
 	ARRAY(SELECT DISTINCT phone_table.number FROM phone_table WHERE phone_table.business = true AND phone_table.member_id = m.id) AS phone,
+	ARRAY(SELECT DISTINCT address_table.address FROM address_table WHERE address_table.business = true AND address_table.member_id = m.id) AS address,
 	ARRAY(SELECT DISTINCT email_table.email FROM email_table WHERE email_table.business = true AND email_table.member_id = m.id) AS email
 
 	FROM members m
@@ -51,7 +52,7 @@ router.get('/', async (req, res) => {
 	JOIN treatment_preferences_pivot ON treatment_preferences_pivot.member_id = m.id
 	JOIN treatment_preferences ON treatment_preferences.treatment_preferences_id = treatment_preferences_pivot.treatment_preferences_id		
 		
-		GROUP BY m.id, m.zip_code, m.first_name, m.last_name, m.prefix, m.age, m.license_state, m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials, m.telehealth, m.statement, m.website, m.title;`;
+		GROUP BY m.id, m.zip_code, m.first_name, m.last_name, m.prefix, m.age, m.license_state, m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials, m.telehealth, m.statement, m.website, m.title, m.city;`;
         const members = await connection.query(query);
 
         await connection.query('COMMIT;');

@@ -30,7 +30,7 @@ class SearchResults extends Component {
 
               // search-result is already a flexbox so adding something will auto-format
               <div className="flex-evenly">
-                <Card style={{ width: "80%", margin: "10px" }}>
+                <Card style={{ width: "80%", margin: "10px" }} className="card">
                   <Card.Body>
                     {/* 
                         The name and location of the therapist
