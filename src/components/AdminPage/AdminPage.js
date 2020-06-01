@@ -15,9 +15,22 @@ import './AdminPage.css'
 
 
 class AdminPage extends Component {
+  state = {
+    input: ''
+  }
   
   componentDidMount() {
-    this.props.dispatch({ type: "FETCH_MEMBERS_ADMIN" });
+    this.props.dispatch({ type: "ADMIN_FETCH_MEMBERS" });
+  }
+
+  onDropdownClick = (type) => {
+    this.props.dispatch({ type: "ADMIN_FETCH_MEMBERS", payload: {type, search: this.state.input} });
+  }
+
+  onSelectChange = (event) => {
+    this.setState({
+      input: event.target.value
+    })
   }
 
   render() { 
@@ -29,6 +42,7 @@ class AdminPage extends Component {
               placeholder="Search"
               aria-label="Search"
               aria-describedby="basic-addon2"
+              onChange={this.onSelectChange}
             />
             {/* This is the dropdown that selects the type of search they want to do */}
             <DropdownButton
@@ -37,10 +51,18 @@ class AdminPage extends Component {
               title="Search By"
               id="input-group-dropdown-2"
             >
-              {/* TODO: Connect these to onClick that begins the search */}
-              <Dropdown.Item>ID</Dropdown.Item>
-              <Dropdown.Item>License Number</Dropdown.Item>
-              <Dropdown.Item>Name</Dropdown.Item>
+              <Dropdown.Item onClick={() => this.onDropdownClick("id")}>
+                ID
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => this.onDropdownClick("name")}>
+                Name
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => this.onDropdownClick("license")}>
+                License Number
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => this.onDropdownClick("type")}>
+                License Type
+              </Dropdown.Item>
             </DropdownButton>
           </InputGroup>
         </div>
@@ -48,25 +70,28 @@ class AdminPage extends Component {
           <Table striped bordered hover variant="dark">
             <thead>
               <tr>
-                <th>#</th>
+                <th>ID</th>
                 <th>Name</th>
+                <th>License #</th>
                 <th>License</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              {this.props.members[0] && this.props.members.map((therapist) => (
-                <tr>
-                  <td>{therapist.id}</td>
-                  <td>
-                    {therapist.first_name} {therapist.last_name}
-                  </td>
-                  <td>{therapist.license_number[0]}</td>
-                  <td style={{ textAlign: "right" }}>
-                    <Button variant="danger">View</Button>
-                  </td>
-                </tr>
-              ))}
+              {this.props.members[0] &&
+                this.props.members.map((therapist) => (
+                  <tr>
+                    <td>{therapist.id}</td>
+                    <td>
+                      {therapist.first_name} {therapist.last_name}
+                    </td>
+                    <td>{therapist.license_number}</td>
+                    <td>{therapist.title}</td>
+                    <td style={{ textAlign: "right" }}>
+                      <Button variant="danger">View</Button>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </Table>
         </div>
