@@ -20,6 +20,7 @@ router.get('/', async (req, res) => {
 	array_agg(DISTINCT specialty.title) AS specialty,
 	array_agg(DISTINCT treatment_preferences.title) AS treatment_preferences,
 	ARRAY(SELECT DISTINCT phone_table.number FROM phone_table WHERE phone_table.business = true AND phone_table.member_id = m.id) AS phone,
+	ARRAY(SELECT DISTINCT address_table.address FROM address_table WHERE address_table.business = true AND address_table.member_id = m.id) AS address,
 	ARRAY(SELECT DISTINCT email_table.email FROM email_table WHERE email_table.business = true AND email_table.member_id = m.id) AS email
 
 	FROM members m
