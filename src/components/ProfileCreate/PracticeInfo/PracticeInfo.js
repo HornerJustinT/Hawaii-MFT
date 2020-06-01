@@ -17,6 +17,7 @@ componentDidMount (){
     this.getSpecialization();
     this.getInsuranceTaken();
     this.getLicenseType();
+    this.getTreatment();
 }
 
 //take in the information from the input
@@ -59,6 +60,11 @@ handleInputChangeFor = propertyName => (event) =>{
         })
     }
 
+    getTreatment = () =>{
+        this.props.dispatch({
+            type:'FETCH_TREATMENT_APPROACHES'
+        })
+    }
 
     render (){
         return(
@@ -151,13 +157,13 @@ handleInputChangeFor = propertyName => (event) =>{
         <br/>
         <br/>
         <label>Treatment Approaches/Preferences</label><br/><select>
-        {this.props.license &&    
+        {this.props.treatmentPreferences &&    
                    <>
                 <option value='' defaultValue='Select an Approach'>Select an Approach</option>
-                   {this.props.license.map(licensetype =>
-                    <option value={licensetype.title}
+                   {this.props.treatmentPreferences.map(treatment =>
+                    <option value={treatment.title}
         
-                  key={licensetype.id}>{licensetype.id}{' '}{licensetype.title}</option>
+                  key={treatment.id}>{treatment.id}{' '}{treatment.title}</option>
                     )}
                    </>
                    } 
@@ -167,15 +173,48 @@ handleInputChangeFor = propertyName => (event) =>{
         <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
-        <label>Client Focus</label><br/><select><option value='' defaultValue='Select an Age Group'>Select an Age Group</option></select>
-        <select><option value='' defaultValue='Select a Demographic'>Select a Demographic</option></select>
+        <label>Client Focus</label><br/><select>
+        {this.props.license &&    
+                   <>
+                <option value='' defaultValue='Select an Age Group'>Select an Age Group</option>
+                   {this.props.license.map(licensetype =>
+                    <option value={licensetype.title}
+        
+                  key={licensetype.id}>{licensetype.id}{' '}{licensetype.title}</option>
+                    )}
+                   </>
+                   } 
+            </select>
+        <select>
+        {this.props.license &&    
+                   <>
+                <option value='' defaultValue='Select a Demographic'>Select a Demographic</option>
+                   {this.props.license.map(licensetype =>
+                    <option value={licensetype.title}
+        
+                  key={licensetype.id}>{licensetype.id}{' '}{licensetype.title}</option>
+                    )}
+                   </>
+                   } 
+           </select>
         <br/>
         <br/>
         <button>+</button><label>Add a Field</label>
         <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
-        <label>Session Format(s)</label><br/><select><option value='' defaultValue='Select a Session Format'>Select a Session Format</option></select>
+        <label>Session Format(s)</label><br/><select>
+        {this.props.license &&    
+                   <>
+                <option value='' defaultValue='Select a Demographic'>Select a Demographic</option>
+                   {this.props.license.map(licensetype =>
+                    <option value={licensetype.title}
+        
+                  key={licensetype.id}>{licensetype.id}{' '}{licensetype.title}</option>
+                    )}
+                   </>
+                   } 
+            <option value='' defaultValue='Select a Session Format'>Select a Session Format</option></select>
         <br/>
         <br/>
         <button>+</button><label>Add a Field</label>
@@ -198,6 +237,7 @@ const mapStateToProps = reduxstate => ({
     languages: reduxstate.languages,
     specialtys: reduxstate.specialtys,
     insuranceTaken: reduxstate.insuranceTaken,
-    license: reduxstate.license
+    license: reduxstate.license,
+    treatmentPreferences: reduxstate.treatmentPreferences
   });
 export default connect(mapStateToProps)(PracticeInfo);

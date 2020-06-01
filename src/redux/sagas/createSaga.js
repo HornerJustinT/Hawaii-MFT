@@ -92,6 +92,17 @@ function* fetchLicenseType (action){
     }
 }
 
+function* fetchTreatmentApproaches (action){
+    try{
+        const response = yield axios.get(`/api/profile/treatment`)
+        console.log(response)
+        yield put ({type: 'SET_TREATMENT_APPROACHES', payload: response.data});
+    }
+    catch(error){
+        console.log('error in fetching treatment approaches', error)
+    }
+}
+
 function* createSaga() {
     yield takeLatest('CREATE_PROFILE', createProfile);
     yield takeLatest('ADD_MEMBER', addMember);
@@ -101,6 +112,7 @@ function* createSaga() {
     yield takeLatest('FETCH_SUPERVISION_STATUS',fetchSupervision);
     yield takeLatest('FETCH_INSURANCE_TAKEN',fetchInsuranceTaken);
     yield takeLatest('FETCH_LICENSE_TYPE',fetchLicenseType);
+    yield takeLatest('FETCH_TREATMENT_APPROACHES',fetchTreatmentApproaches);
 }
 
 export default createSaga;

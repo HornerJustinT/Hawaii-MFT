@@ -75,6 +75,20 @@ router.get('/license', (req, res) => {
    
 });
 
+router.get('/treatment', (req, res) => {
+  
+    const queryText = `SELECT * FROM "treatment_preferences";`;
+        pool.query(queryText)
+            .then((result) => {
+                res.send(result.rows);
+                console.log(result.rows)
+            }).catch((error) => {
+                console.log('Error in getting treatment approaches', error);
+                res.sendStatus(500);
+            });
+   
+});
+
 
 
 

@@ -9,6 +9,7 @@ import islands from './IslandReducer';
 import specialtys from './specialityReducer';
 import insuranceTaken from './insuranceTakenReducer';
 import license from './fetchLicenseType';
+import treatmentPreferences from './treatmentReducer';
 
 
 // rootReducer is the primary reducer for our entire project
@@ -27,7 +28,8 @@ const rootReducer = combineReducers({
   islands, //will have all the islands names on ready 
   specialtys, //will have all the info about the practice for the members
   insuranceTaken, //will have all insurance types used 
-  license //will have all the licesne types members have
+  license, //will have all the licesne types members have
+  treatmentPreferences // will have all the treament approaches 
 });
 
 export default rootReducer;
