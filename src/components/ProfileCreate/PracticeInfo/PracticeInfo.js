@@ -21,6 +21,7 @@ componentDidMount (){
     this.props.dispatch({type:'FETCH_LICENSE_TYPE'});
     this.props.dispatch({type:'FETCH_DEMOGRPHICS'});
     this.props.dispatch({type:'FETCH_AGE_GROUPS'});
+    this.props.dispatch({type:'FETCH_SESSION_FORMAT'});
     
 }
 
@@ -183,17 +184,17 @@ handleInputChangeFor = propertyName => (event) =>{
         <br/>
         <br/>
         <label>Session Format(s)</label><br/><select>
-        {this.props.license &&    
+        {this.props.sessionFormats &&    
                    <>
-                <option value='' defaultValue='Select a Demographic'>Select a Demographic</option>
-                   {this.props.license.map(licensetype =>
-                    <option value={licensetype.title}
+                 <option value='' defaultValue='Select a Session Format'>Select a Session Format</option>
+                   {this.props.sessionFormats.map(session =>
+                    <option value={session.title}
         
-                  key={licensetype.id}>{licensetype.id}{' '}{licensetype.title}</option>
+                  key={session.id}>{session.id}{' '}{session.title}</option>
                     )}
                    </>
                    } 
-            <option value='' defaultValue='Select a Session Format'>Select a Session Format</option></select>
+           </select>
         <br/>
         <br/>
         <button>+</button><label>Add a Field</label>
@@ -219,6 +220,7 @@ const mapStateToProps = reduxstate => ({
     license: reduxstate.license,
     treatmentPreferences:reduxstate.treatmentPreferences,
     demographics:reduxstate.demographics,
-    ageGroups:reduxstate.ageGroups
+    ageGroups:reduxstate.ageGroups,
+    sessionFormats:reduxstate.sessionFormats
   });
 export default connect(mapStateToProps)(PracticeInfo);

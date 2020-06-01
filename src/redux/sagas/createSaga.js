@@ -124,6 +124,18 @@ function* fetchAgeGroups (action){
         console.log('error in fetching age group served', error)
     }
 }
+
+function* fetchSessionFormat (action){
+    try{
+        const response = yield axios.get(`/api/profile/session`)
+        console.log(response)
+        yield put ({type: 'SET_SESSION_FORMAT', payload: response.data});
+    }
+    catch(error){
+        console.log('error in fetching session format', error)
+    }
+}
+
 function* createSaga() {
     yield takeLatest('CREATE_PROFILE', createProfile);
     yield takeLatest('ADD_MEMBER', addMember);
@@ -136,6 +148,7 @@ function* createSaga() {
     yield takeLatest('FETCH_TREATMENT_APPROACHES',fetchTreatmentApproaches);
     yield takeLatest('FETCH_DEMOGRPHICS',fetchDemographics);
     yield takeLatest('FETCH_AGE_GROUPS', fetchAgeGroups);
+    yield takeLatest('FETCH_SESSION_FORMAT', fetchSessionFormat);
 }
 
 export default createSaga;

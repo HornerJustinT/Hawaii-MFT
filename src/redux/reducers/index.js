@@ -12,6 +12,7 @@ import license from './fetchLicenseType';
 import treatmentPreferences from './treatmentReducer';
 import demographics from './clientFocusReducer';
 import ageGroups from './ageGroupsReducer';
+import sessionFormats from './sessionFormatReducer';
 
 
 // rootReducer is the primary reducer for our entire project
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   treatmentPreferences, // will have all the treament approaches 
   demographics, //will have all the client focus demographics
   ageGroups, //will have all the age group served 
+  sessionFormats,// will have all the session formats
 });
 
 export default rootReducer;

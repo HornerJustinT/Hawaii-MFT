@@ -117,7 +117,19 @@ router.get('/age', (req, res) => {
    
 });
 
-
+router.get('/session', (req, res) => {
+  
+    const queryText = `SELECT * FROM "session_format";`;
+        pool.query(queryText)
+            .then((result) => {
+                res.send(result.rows);
+                console.log(result.rows)
+            }).catch((error) => {
+                console.log('Error in getting session format', error);
+                res.sendStatus(500);
+            });
+   
+});
 
 
 /**
