@@ -23,6 +23,8 @@ CREATE TABLE "members" (
     "website" TEXT, 
     "title" TEXT,
     "city" TEXT,
+    "license_number" TEXT,
+    "license_type" INTEGER,
 	FOREIGN KEY ("id") REFERENCES "user"("id")
 );
 
@@ -426,7 +428,15 @@ VALUES
 INSERT INTO "license_type"
 	("license_type_id", "title")
 VALUES
-	(1,'test');
+    (1,'LMFT'),
+    (2,'LMHC'),
+    (3,'LP'),
+    (4,'LCSW'),
+    (5,'LSW'),
+    (6,'LPC'),
+    (7,'LPCC'),
+    (8,'Student'),
+    (9,'Pre-Licensed(but no longer a student)');
 INSERT INTO "session_format"
 	("session_format_id", "title")
 VALUES

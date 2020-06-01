@@ -13,19 +13,9 @@ function* fetchMembers(action) {
     }
 }
 
-function* fetchMembersAdmin(action) {
-  console.log("in fetchMembersAdmin saga", action.payload);
-  try {
-    const response = yield axios.get(`/api/admin`);
-    yield put({ type: "GET_MEMBERS_REDUCER", payload: response.data });
-  } catch (error) {
-    console.log("fetchMembersAdmin saga GET request failed", error);
-  }
-}
 
 function* fetchMemberSaga() {
     yield takeLatest('FETCH_MEMBERS', fetchMembers);
-    yield takeLatest('FETCH_MEMBERS_ADMIN', fetchMembersAdmin);
 }
 
 export default fetchMemberSaga;
