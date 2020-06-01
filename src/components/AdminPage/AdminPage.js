@@ -13,26 +13,6 @@ import Button from "react-bootstrap/Button";
 // CSS
 import './AdminPage.css'
 
-const therapists = [
-  {
-    id: 1,
-    first_name: "Jane",
-    last_name: "Rain",
-    license: "asadsadjadjsabd",
-  },
-  {
-    id: 2,
-    first_name: "Joe",
-    last_name: "Nagasaka",
-    license: "asadsadjadjsabd",
-  },
-  {
-    id: 3,
-    first_name: "Tepairu",
-    last_name: "Miller",
-    license: "asadsadjadjsabd",
-  },
-];
 
 class AdminPage extends Component {
   
