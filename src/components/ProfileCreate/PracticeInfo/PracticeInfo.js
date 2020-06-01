@@ -10,6 +10,7 @@ class PracticeInfo extends Component{
 
      state = {
          state:'',
+         supervision_status:''
      }
 
 componentDidMount (){
@@ -114,7 +115,7 @@ handleInputChangeFor = propertyName => (event) =>{
         <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
-        <label>Supervision Status</label><br/><select>
+        <label>Supervision Status</label><br/><select onChange={(event) => {this.handleInputChange(event,'supervision_status')}}>
                    <option value="None">None</option>
                    <option value="Hawai'i qualified">Hawai'i qualified</option>
                    <option value="MFT supervisor">MFT supervisor</option>
@@ -149,7 +150,18 @@ handleInputChangeFor = propertyName => (event) =>{
         <label>No</label><input type='radio' className='choice' value='no'/>
         <br/>
         <br/>
-        <label>Treatment Approaches/Preferences</label><br/><select><option value='' defaultValue='Select an Approach'>Select an Approach</option></select>
+        <label>Treatment Approaches/Preferences</label><br/><select>
+        {this.props.license &&    
+                   <>
+                <option value='' defaultValue='Select an Approach'>Select an Approach</option>
+                   {this.props.license.map(licensetype =>
+                    <option value={licensetype.title}
+        
+                  key={licensetype.id}>{licensetype.id}{' '}{licensetype.title}</option>
+                    )}
+                   </>
+                   } 
+          </select>
         <br/>
         <br/>
         <button>+</button><label>Add a Field</label>
