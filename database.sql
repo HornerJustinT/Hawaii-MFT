@@ -40,6 +40,7 @@ CREATE TABLE "license_type" (
 CREATE TABLE "license_type_pivot"(
 	"license_type_id" INT NOT NULL,
 	"member_id" INT NOT NULL,
+    "license_number" VARCHAR(255),
 	FOREIGN KEY ("license_type_id") REFERENCES "license_type"("license_type_id"),
 	FOREIGN KEY ("member_id") REFERENCES "members"("id"));
 
@@ -424,10 +425,10 @@ INSERT INTO "session_format"
 	("session_format_id", "title")
 VALUES
 	(1,'Any'),
-(2,'Individual'),
-(3,'Couples'),
-(4,'Family'),
-(5,'Group');
+    (2,'Individual'),
+    (3,'Couples'),
+    (4,'Family'),
+    (5,'Group');
 
 	
 	
