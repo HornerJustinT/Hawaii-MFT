@@ -4,7 +4,7 @@ import loginMode from './loginModeReducer';
 import members from './membersReducer';
 import profile from './profileReducer';
 import user from './userReducer';
-import languages from './fetchlanguages';
+import languages from './fetchLanguages';
 import islands from './IslandReducer';
 import specialtys from './specialityReducer';
 import insuranceTaken from './insuranceTakenReducer';
