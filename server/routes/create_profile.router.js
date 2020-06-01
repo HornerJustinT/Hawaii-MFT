@@ -61,6 +61,20 @@ router.get('/insurance', (req, res) => {
    
 });
 
+router.get('/license', (req, res) => {
+  
+    const queryText = `SELECT * FROM "license_type";`;
+        pool.query(queryText)
+            .then((result) => {
+                res.send(result.rows);
+                console.log(result.rows)
+            }).catch((error) => {
+                console.log('Error in getting license type', error);
+                res.sendStatus(500);
+            });
+   
+});
+
 
 
 

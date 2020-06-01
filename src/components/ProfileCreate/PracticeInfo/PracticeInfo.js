@@ -6,11 +6,24 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 
 
 class PracticeInfo extends Component{
+     //create local state
+
+     state = {
+         state:'',
+     }
 
 componentDidMount (){
     this.getSpecialization();
     this.getInsuranceTaken();
+    this.getLicenseType();
 }
+
+//take in the information from the input
+handleInputChangeFor = propertyName => (event) =>{
+    this.setState({
+      [propertyName]:event.target.value
+    });
+  } 
     handleBack = (event) => {
         event.preventDefault()
         this.props.history.push('/contact-info')
@@ -39,6 +52,12 @@ componentDidMount (){
             type:'FETCH_INSURANCE_TAKEN'
         })
     }
+    getLicenseType = () =>{
+        this.props.dispatch({
+            type:'FETCH_LICENSE_TYPE'
+        })
+    }
+
 
     render (){
         return(
@@ -48,13 +67,27 @@ componentDidMount (){
         <br/>
         <ProgressBar now={75} />
         <br/>
-        <label>License Type</label><br/><select><option value='' defaultValue='Select License Type'>Select License Type</option></select>
+        <label>License Type</label><br/><select>
+        {this.props.license &&    
+                   <>
+                   <option value='' defaultValue='Select License Type'>Select License Type</option>
+                   {this.props.license.map(licensetype =>
+                    <option value={licensetype.title}
+        
+                  key={licensetype.id}>{licensetype.id}{' '}{licensetype.title}</option>
+                    )}
+                   </>
+                   } 
+           </select>
         <br/>
         <br/>
         <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
-        <label>License State of Issue</label><br/><select><option value='' defaultValue='Select State of Issue'>Select State of Issue</option></select>
+        <label>License State of Issue</label><br/><input type="text"
+                  name="state"
+                  value={this.state.state}
+                  onChange={this.handleInputChangeFor("state")}/>
         <br/>
         <br/>
         <label>License Expiration Date</label><br/><input 
@@ -82,7 +115,11 @@ componentDidMount (){
         <br/>
         <br/>
         <label>Supervision Status</label><br/><select>
-                
+                   <option value="None">None</option>
+                   <option value="Hawai'i qualified">Hawai'i qualified</option>
+                   <option value="MFT supervisor">MFT supervisor</option>
+                   <option value="AAMFT approved">AAMFT approved</option>
+                   <option value="Supervisor">Supervisor</option>
            </select>
         <br/>
         <br/>
@@ -149,5 +186,6 @@ const mapStateToProps = reduxstate => ({
     languages: reduxstate.languages,
     specialtys: reduxstate.specialtys,
     insuranceTaken: reduxstate.insuranceTaken,
+    license: reduxstate.license
   });
 export default connect(mapStateToProps)(PracticeInfo);
