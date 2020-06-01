@@ -60,6 +60,7 @@ class SearchResults extends Component {
                             displayed in terms of city and island but its what was
                             shown in the wireframe so it is staying in the skeleton.
                           */}
+                          {therapist.city},{' '}
                           {therapist.island[0]}
                         </div>
                       </div>
@@ -98,9 +99,7 @@ class SearchResults extends Component {
                     </Card.Subtitle>
                     <Card.Text>
                       <div className="flex-between row-wrap-reverse">
-                        <div className="description">
-                          {therapist.statement}
-                        </div>
+                        <div className="description">{therapist.statement}</div>
                         {/* Contact is aligned to the right for visual appeal */}
                         <div className="contact">
                           {therapist.email[0]} <br />
@@ -124,7 +123,7 @@ class SearchResults extends Component {
                     </Card.Text>
                     {/* I dont know the links of each page so this is a placeholder */}
                     <Card.Link href={`#/profile/${therapist.id}`}>
-                    View Profile
+                      View Profile
                     </Card.Link>
                   </Card.Body>
                 </Card>
