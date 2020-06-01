@@ -10,10 +10,10 @@ import {
   GoogleApiWrapper,
   google,
 } from "google-maps-react";
-
+const API_KEY = process.env.GOOGLE_MAPS_KEY;
 const mapStyles = {
-  width: "199px",
-  height: "199px",
+  width: "250px",
+  height: "250px",
 };
 class ProfileView extends Component {
   state = {
@@ -201,6 +201,7 @@ class ProfileView extends Component {
                     lat: this.state.lat,
                     lng: this.state.lng,
                   }}
+                  zoom={11}
                 >
                   <Marker
                     title={"The marker`s title will appear as a tooltip."}
