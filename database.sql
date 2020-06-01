@@ -17,6 +17,12 @@ CREATE TABLE "members" (
 	"hiamft_member_account_info" VARCHAR(20),
 	"supervision_status" VARCHAR(255),
 	"fees" VARCHAR(255),
+    "credentials" TEXT,
+    "telehealth" BOOLEAN,
+    "statement" VARCHAR(255),
+    "website" TEXT, 
+    "title" TEXT,
+    "city" TEXT,
 	FOREIGN KEY ("id") REFERENCES "user"("id")
 );
 
