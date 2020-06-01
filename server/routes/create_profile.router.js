@@ -6,8 +6,131 @@ const router = express.Router();
  * GET route template
  */
 router.get('/', (req, res) => {
-    
+  
+    const queryText = `SELECT * FROM "languages";`;
+        pool.query(queryText)
+            .then((result) => {
+                res.send(result.rows);
+                console.log(result.rows)
+            }).catch((error) => {
+                console.log('Error in getting languages', error);
+                res.sendStatus(500);
+            });
+   
 });
+
+router.get('/islands', (req, res) => {
+  
+    const queryText = `SELECT * FROM "island";`;
+        pool.query(queryText)
+            .then((result) => {
+                res.send(result.rows);
+                console.log(result.rows)
+            }).catch((error) => {
+                console.log('Error in getting islands', error);
+                res.sendStatus(500);
+            });
+   
+});
+
+router.get('/specialty', (req, res) => {
+  
+    const queryText = `SELECT * FROM "specialty";`;
+        pool.query(queryText)
+            .then((result) => {
+                res.send(result.rows);
+                console.log(result.rows)
+            }).catch((error) => {
+                console.log('Error in getting specialty', error);
+                res.sendStatus(500);
+            });
+   
+});
+
+router.get('/insurance', (req, res) => {
+  
+    const queryText = `SELECT * FROM "insurance_type";`;
+        pool.query(queryText)
+            .then((result) => {
+                res.send(result.rows);
+                console.log(result.rows)
+            }).catch((error) => {
+                console.log('Error in getting insurance taken', error);
+                res.sendStatus(500);
+            });
+   
+});
+
+router.get('/license', (req, res) => {
+  
+    const queryText = `SELECT * FROM "license_type";`;
+        pool.query(queryText)
+            .then((result) => {
+                res.send(result.rows);
+                console.log(result.rows)
+            }).catch((error) => {
+                console.log('Error in getting license type', error);
+                res.sendStatus(500);
+            });
+   
+});
+
+router.get('/treatment', (req, res) => {
+  
+    const queryText = `SELECT * FROM "treatment_preferences";`;
+        pool.query(queryText)
+            .then((result) => {
+                res.send(result.rows);
+                console.log(result.rows)
+            }).catch((error) => {
+                console.log('Error in getting treatment approaches', error);
+                res.sendStatus(500);
+            });
+   
+});
+
+router.get('/demographics', (req, res) => {
+  
+    const queryText = `SELECT * FROM "client_focus";`;
+        pool.query(queryText)
+            .then((result) => {
+                res.send(result.rows);
+                console.log(result.rows)
+            }).catch((error) => {
+                console.log('Error in getting demographics', error);
+                res.sendStatus(500);
+            });
+   
+});
+
+router.get('/age', (req, res) => {
+  
+    const queryText = `SELECT * FROM "age_groups_served";`;
+        pool.query(queryText)
+            .then((result) => {
+                res.send(result.rows);
+                console.log(result.rows)
+            }).catch((error) => {
+                console.log('Error in getting age groups served', error);
+                res.sendStatus(500);
+            });
+   
+});
+
+router.get('/session', (req, res) => {
+  
+    const queryText = `SELECT * FROM "session_format";`;
+        pool.query(queryText)
+            .then((result) => {
+                res.send(result.rows);
+                console.log(result.rows)
+            }).catch((error) => {
+                console.log('Error in getting session format', error);
+                res.sendStatus(500);
+            });
+   
+});
+
 
 /**
 // Handles POST request with new member data
