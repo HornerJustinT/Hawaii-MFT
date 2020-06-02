@@ -28,10 +28,20 @@ const criteria = [
 
 class SearchBar extends Component {
   state = {
-    advanced: false,
     restart: true,
     therapists: [],
+    basic_search: ''
   };
+
+  onSearchChange = (event) => {
+    this.setState({
+      basic_search: event.target.value
+    })
+  };
+
+  onSearchClicked = () => {
+    this.props.dispatch({ type: "FETCH_MEMBERS", payload: this.state.basic_search });
+  }
 
   parseSearchData = () => {
     // Makes the data variable exist for later use
@@ -178,9 +188,10 @@ class SearchBar extends Component {
                   placeholder="City or Zip Code"
                   aria-label="City or Zip Code"
                   aria-describedby="basic-addon2"
+                  onChange={this.onSearchChange}
                 />
                 <InputGroup.Append>
-                  <Button variant="primary">Search</Button>
+                  <Button variant="primary" onClick={this.onSearchClicked}>Search</Button>
                 </InputGroup.Append>
               </InputGroup>
             </Form.Group>
