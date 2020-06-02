@@ -165,7 +165,7 @@ class SearchBar extends Component {
                   />
                 </Form.Group>
                 <Form.Group controlId="Advanced-zip" className="advanced-input">
-                  <Form.Label>City or Zip Code</Form.Label>
+                  <Form.Label>Island, City or Zip Code</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="City or Zip Code"
@@ -264,7 +264,7 @@ class SearchBar extends Component {
               <Form.Label>Find a Therapist</Form.Label>
               <InputGroup className="mb-3">
                 <Form.Control
-                  placeholder="City or Zip Code"
+                  placeholder="Island, City or Zip Code"
                   aria-label="City or Zip Code"
                   aria-describedby="basic-addon2"
                   onChange={this.onSearchChange}
