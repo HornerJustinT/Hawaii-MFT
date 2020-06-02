@@ -380,6 +380,162 @@ class ProfileEdit extends Component {
             </Form>
           </div>
         )}
+
+        {/**Here is Practice Info render */}
+        {this.state.clickPractice ? (
+          <div className="body">
+            <Button
+              className="flex-between row-wrap"
+              onClick={() => this.handleSavePractice()}
+            >
+              Save Changes
+            </Button>
+            <Form className="flex-between row-wrap">
+              <Form.Group>
+                <Form.Label variant="flat" className="label">
+                  Treatment & Approaches
+                </Form.Label>
+                <Form.Control
+                  defaultValue={this.props.profile.treatmentPreferences}
+                  onChange={(event) =>
+                    this.handleChange(event, "treatmentPreferences")
+                  }
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label variant="flat" className="label">
+                  Specialties
+                </Form.Label>
+                <Form.Control
+                  defaultValue={this.props.profile.specialties}
+                  onChange={(event) => this.handleChange(event, "specialties")}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label variant="flat" className="label">
+                  Insurances Taken
+                </Form.Label>
+                <Form.Control
+                  defaultValue={this.props.profile.insurance}
+                  onChange={(event) => this.handleChange(event, "insurance")}
+                />
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label className="label">Supervision Status</Form.Label>
+                <Form.Control
+                  defaultValue={this.props.profile.supervisionStatus}
+                  onChange={(event) =>
+                    this.handleChange(event, "supervisionStatus")
+                  }
+                />
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label className="label">Telehealth</Form.Label>
+                <Form.Control
+                  defaultValue={this.props.profile.telehealth}
+                  onChange={(event) => this.handleChange(event, "telehealth")}
+                />
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label className="label">Client Focus</Form.Label>
+                <Form.Control
+                  defaultValue={this.props.profile.clientFocus}
+                  onChange={(event) => this.handleChange(event, "clientFocus")}
+                />
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label className="label">Session Format</Form.Label>
+                <Form.Control
+                  defaultValue={this.props.profile.sessionFormat}
+                  onChange={(event) =>
+                    this.handleChange(event, "sessionFormat")
+                  }
+                />
+              </Form.Group>
+            </Form>
+          </div>
+        ) : (
+          <div className="body">
+            <Button
+              className="flex-between row-wrap"
+              onClick={() => this.handleEditPractice()}
+            >
+              Edit Practice Info
+            </Button>
+            <Form className="flex-between row-wrap">
+              <Form.Group>
+                <Form.Label variant="flat" className="label">
+                  Treatment & Approaches
+                </Form.Label>
+                <Form.Control
+                  plaintext
+                  readOnly
+                  defaultValue={this.props.profile.treatmentPreferences}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label variant="flat" className="label">
+                  Specialties
+                </Form.Label>
+                <Form.Control
+                  plaintext
+                  readOnly
+                  defaultValue={this.props.profile.specialties}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label variant="flat" className="label">
+                  Insurances Taken
+                </Form.Label>
+                <Form.Control
+                  plaintext
+                  readOnly
+                  defaultValue={this.props.profile.insurance}
+                />
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label className="label">Supervision Status</Form.Label>
+                <Form.Control
+                  plaintext
+                  readOnly
+                  defaultValue={this.props.profile.supervisionStatus}
+                />
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label className="label">Telehealth</Form.Label>
+                <Form.Control
+                  plaintext
+                  readOnly
+                  defaultValue={this.props.profile.telehealth}
+                />
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label className="label">Client Focus</Form.Label>
+                <Form.Control
+                  plaintext
+                  readOnly
+                  defaultValue={this.props.profile.clientFocus}
+                />
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label className="label">Session Format</Form.Label>
+                <Form.Control
+                  plaintext
+                  readOnly
+                  defaultValue={this.props.profile.sessionFormat}
+                />
+              </Form.Group>
+            </Form>
+          </div>
+        )}
       </>
     );
   }
