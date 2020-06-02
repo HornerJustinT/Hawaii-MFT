@@ -10,22 +10,24 @@ class ContactInfo extends Component{
            state = {
             phone_type_id:'',
             number:'',
-            island_id:'',
+            island:'',
             email:'',
             address:'',
-            languages:''
+            languages:'',
+            zip_code:'',
            }
+/**
+  "zip_code" INT,
+  
+ */
            componentDidMount (){
-               this.getIslands()
+            this.props.dispatch({
+                type:'FETCH_ISLANDS'
+            })
            }
     handleBack = (event) => {
         event.preventDefault()
         this.props.history.push('/create-profile')
-    }
-
-    handleSave = (event) => {
-        event.preventDefault()
-       
     }
 
     handleNext = (event) => {
@@ -38,22 +40,28 @@ class ContactInfo extends Component{
         })
       } 
 
-      addContact = (event) =>{
-          event.preventDefault();
+      handleSave =(event) =>{
+        event.preventDefault();
+        this.addContact();
+        this.addZipCode();
+      }
+      addContact = () =>{
           this.props.dispatch({
               type:'ADD_CONTACT',
               payload:{
-
+               island: this.state.island
               }
           })
       }
-      //fetch all the island names
-     getIslands = () =>{
-         this.props.dispatch({
-             type:'FETCH_ISLANDS'
-         })
-     }
-
+    
+       addZipCode = () =>{
+        this.props.dispatch({
+            type:'ADD_ZIP_CODE',
+            payload:{
+                zip_code: this.state.zip_code
+            }
+        })
+       }
     render (){
         return(
             <>
@@ -61,10 +69,10 @@ class ContactInfo extends Component{
             <header><h1>Contact Info</h1></header>
              <br/>
             <ProgressBar now={50} />
-            <form onSubmit={this.addContact}>
+            <form onSubmit={this.handleSave}>
              <label>Island</label>
              <br/>
-             <select>
+             <select onChange={this.handleInputChangeFor("island")}>
              {this.props.islands &&
                    
                    <>
@@ -79,6 +87,13 @@ class ContactInfo extends Component{
              </select>
              <br/>
              <br/>
+             <label>Zip Code</label>
+             <br/>
+             <input type="number"
+                  name="zip_code"
+                  value={this.state.zip_code}
+                  onChange={this.handleInputChangeFor("zip_code")}/>
+                <br/>
              <label>Phone Number - Business</label>
              <br/>
              <input type="number"
@@ -138,7 +153,7 @@ class ContactInfo extends Component{
              <br/>
              <br/>
             
-            <button onClick={this.handleSave}>Save</button>
+            <button>Save</button>
             </form>
             <button onClick={this.handleBack}>Back</button>
             <button onClick={this.handleNext}>Next Page</button>

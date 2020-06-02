@@ -13,6 +13,8 @@ import treatmentPreferences from './treatmentReducer';
 import demographics from './clientFocusReducer';
 import ageGroups from './ageGroupsReducer';
 import sessionFormats from './sessionFormatReducer';
+import createProfile from './profileCreateReducer';
+import contactInfo from './contactInfoReducer';
 
 
 // rootReducer is the primary reducer for our entire project
@@ -36,6 +38,8 @@ const rootReducer = combineReducers({
   demographics, //will have all the client focus demographics
   ageGroups, //will have all the age group served 
   sessionFormats,// will have all the session formats
+  createProfile, // will have some of the inputs for members table from createProfile page
+  contactInfo//will have zipCode for memberstable
 });
 
 export default rootReducer;
