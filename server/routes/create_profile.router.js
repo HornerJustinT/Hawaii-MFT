@@ -11,7 +11,6 @@ router.get('/', (req, res) => {
         pool.query(queryText)
             .then((result) => {
                 res.send(result.rows);
-                console.log(result.rows)
             }).catch((error) => {
                 console.log('Error in getting languages', error);
                 res.sendStatus(500);
@@ -155,7 +154,7 @@ router.post('/', (req, res) => {
          ("id","zip_code","first_name", "last_name", "prefix", "age","license_state", "license_expiration", "hiamft_member_account_info", "supervision_status","fees")
      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`;
         pool.query(queryText, [id, zip_code,first_name, last_name, prefix, age, license_state, license_expiration, hiamft_member_account_info, supervision_status, fees])
-          .then((result) => res.sendStatus(200))
+          .then((result) => res.sendStatus(req.body))
           .catch((error) => {console.log(error);
              res.sendStatus(500)});
     });

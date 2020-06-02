@@ -9,9 +9,15 @@ class PracticeInfo extends Component{
      //create local state
 
      state = {
-         state:'',
-         supervision_status:''
+             license_state:'',
+         supervision_status:'',
+         fees:'',
+         license_expiration:'',
+         specialty:'',
      }
+
+
+
 
 componentDidMount (){
     this.props.dispatch({type:'FETCH_INSURANCE_TAKEN'});
@@ -43,8 +49,31 @@ handleInputChangeFor = propertyName => (event) =>{
         this.props.history.push('/uploadImage')
     }
     
-  
-
+    addPracticeInfo = (event) =>{
+      event.preventDefault()
+        this.props.dispatch({type:'ADD_MEMBER',
+         payload:{
+          prefix:this.state.prefix,
+          first_name:this.state.first_name,
+          last_name:this.state.last_name,
+          age:this.state.age,
+          hiamft_member_account_info:this.state. hiamft_member_account_info,
+          license_state:this.state.license_state,
+          supervision_status:this.state.supervision_status,
+          fees:this.state.fees,
+          license_expiration:this.state.license_expiration,
+         }
+        })
+        this.handleReset()
+    }
+    handleReset = ()=>{
+      this.setState({
+        license_state:'',
+          supervision_status:'',
+          fees:'',
+          license_expiration:'',
+      })
+    }
     render (){
         return(
             <>
@@ -53,7 +82,8 @@ handleInputChangeFor = propertyName => (event) =>{
         <br/>
         <ProgressBar now={75} />
         <br/>
-        <label>License Type</label><br/><select>
+        <form onSubmit={this.addPracticeInfo}>
+        <label>License Type</label><br/><select onChange={this.handleInputChangeFor("language")}>
         {this.props.license &&    
                    <>
                    <option value='' defaultValue='Select License Type'>Select License Type</option>
@@ -71,15 +101,24 @@ handleInputChangeFor = propertyName => (event) =>{
         <br/>
         <br/>
         <label>License State of Issue</label><br/><input type="text"
-                  name="state"
-                  value={this.state.state}
-                  onChange={this.handleInputChangeFor("state")}/>
+                  name="license_state"
+                  value={this.state.license_state}
+                  onChange={this.handleInputChangeFor("license_state")}/>
         <br/>
         <br/>
         <label>License Expiration Date</label><br/><input 
-                  type='date'/>
+                  type='date'
+                  name="license_expiration"
+                  value={this.state.license_expiration}
+                  onChange={this.handleInputChangeFor("license_expiration")}/>
         <br/>
         <br/>
+        <label>Fees</label><br/><input type="text"
+                  name="fees"
+                  value={this.state.fees}
+                  onChange={this.handleInputChangeFor("fees")}/>
+                   <br/>
+                   <br/>
         <label>Specialization</label><br/><select>
                 {this.props.specialtys &&
                    
@@ -100,7 +139,7 @@ handleInputChangeFor = propertyName => (event) =>{
         <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
-        <label>Supervision Status</label><br/><select onChange={(event) => {this.handleInputChange(event,'supervision_status')}}>
+        <label>Supervision Status</label><br/><select onChange={this.handleInputChangeFor("supervision_status")}>
                    <option value="None">None</option>
                    <option value="Hawai'i qualified">Hawai'i qualified</option>
                    <option value="MFT supervisor">MFT supervisor</option>
@@ -200,8 +239,10 @@ handleInputChangeFor = propertyName => (event) =>{
         <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
+        <button>Save</button>
+        </form>
             <button onClick={this.handleBack}>Back</button>
-            <button onClick={this.handleSave}>Save</button>
+           
             <button onClick={this.handleNext}>Next Page</button>
 
             </div>
@@ -221,6 +262,8 @@ const mapStateToProps = reduxstate => ({
     treatmentPreferences:reduxstate.treatmentPreferences,
     demographics:reduxstate.demographics,
     ageGroups:reduxstate.ageGroups,
-    sessionFormats:reduxstate.sessionFormats
+    sessionFormats:reduxstate.sessionFormats,
+    createProfile: reduxstate.createProfile,
+    contactInfo: reduxstate.contactInfo
   });
 export default connect(mapStateToProps)(PracticeInfo);
