@@ -3,7 +3,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 // will be fired on "EDIT_PROFILE" actions
 function* editProfile(action) {
-    console.log('in editProfile saga', action.payload.id)
+    console.log('in editProfile saga', action.payload)
     try {
         yield axios.put('/profile', action.payload);
         yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload });

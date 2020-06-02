@@ -14,6 +14,12 @@ import "../App/App.css";
 
 
 class ProfileEdit extends Component {
+  state = {
+    clickBasic: false,
+    clickContact: false,
+    clickPractice: false,
+  };
+  
   componentDidMount() {
     this.props.dispatch({
       type: "FETCH_PROFILE",
@@ -21,40 +27,42 @@ class ProfileEdit extends Component {
     });
   }
 
-  state = {
-    clickBasic: false,
-    clickContact: false,
-    clickPractice: false,
-    prefix: this.props.profile.prefix,
-    firstName: this.props.profile.first_name,
-    lastName: this.props.profile.last_name,
-    title: this.props.profile.title,
-    age: this.props.profile.age,
-    phone: this.props.profile.phone,
-    address: this.props.profile.address,
-    city: this.props.profile.city,
-    island: this.props.profile.island,
-    email: this.props.profile.email,
-    zipCode: this.props.profile.zip_code,
-    website: this.props.profile.website,
-    credentials: this.props.profile.credentials,
-    licenseState: this.props.profile.license_state,
-    licenseExpiration: this.props.profile.license_expiration,
-    licenseNumber: this.props.profile.license_number,
-    licenseType: this.props.profile.license_type,
-    hiamftMemberInfo: this.props.profile.hiamft_member_account_info,
-    supervisionStatus: this.props.profile.supervision_status,
-    fees: this.props.profile.fees,
-    telehealth: this.props.profile.telehealth,
-    statement: this.props.profile.statement,
-    languages: this.props.profile.languages,
-    agesServed: this.props.profile.ages_served,
-    clientFocus: this.props.profile.client_focus,
-    insurance: this.props.profile.insurance,
-    sessionFormat: this.props.profile.session_format,
-    specialty: this.props.profile.speciaty,
-    treatmentPreferences: this.props.profile.treatment_preferences,
-  };
+  componentDidUpdate() {
+    if (this.state.id !== this.props.match.params) {
+      this.setState({
+        id: this.props.match.params,
+        prefix: this.props.profile.prefix,
+        firstName: this.props.profile.first_name,
+        lastName: this.props.profile.last_name,
+        title: this.props.profile.title,
+        age: this.props.profile.age,
+        phone: this.props.profile.phone,
+        address: this.props.profile.address,
+        city: this.props.profile.city,
+        island: this.props.profile.island,
+        email: this.props.profile.email,
+        zipCode: this.props.profile.zip_code,
+        website: this.props.profile.website,
+        credentials: this.props.profile.credentials,
+        licenseState: this.props.profile.license_state,
+        licenseExpiration: this.props.profile.license_expiration,
+        licenseNumber: this.props.profile.license_number,
+        licenseType: this.props.profile.license_type,
+        hiamftMemberInfo: this.props.profile.hiamft_member_account_info,
+        supervisionStatus: this.props.profile.supervision_status,
+        fees: this.props.profile.fees,
+        telehealth: this.props.profile.telehealth,
+        statement: this.props.profile.statement,
+        languages: this.props.profile.languages,
+        agesServed: this.props.profile.ages_served,
+        clientFocus: this.props.profile.client_focus,
+        insurance: this.props.profile.insurance,
+        sessionFormat: this.props.profile.session_format,
+        specialty: this.props.profile.speciaty,
+        treatmentPreferences: this.props.profile.treatment_preferences,
+      });
+    }
+  }
 
   handleEditBasic = () => {
     this.setState({
@@ -65,6 +73,10 @@ class ProfileEdit extends Component {
   handleSaveBasic = () => {
     this.setState({
       clickBasic: false,
+    });
+    this.props.dispatch({
+      type: "EDIT_PROFILE",
+      payload: this.state,
     });
   };
 
@@ -94,11 +106,12 @@ class ProfileEdit extends Component {
 
   handleChange = (event, propertyName) => {
     this.setState({
-        [propertyName]: event.target.value
-    })
-}
+      [propertyName]: event.target.value,
+    });
+  };
 
   render() {
+    console.log("here is state:", this.state);
     return (
       <>
         <div className="header">
@@ -182,6 +195,7 @@ class ProfileEdit extends Component {
               <Form.Group>
                 <Form.Label className="label">Prefix</Form.Label>
                 <Form.Control
+                  disabled="true"
                   plaintext
                   readOnly
                   defaultValue={this.props.profile.prefix}
@@ -190,6 +204,7 @@ class ProfileEdit extends Component {
               <Form.Group>
                 <Form.Label className="label">First Name</Form.Label>
                 <Form.Control
+                  disabled="true"
                   plaintext
                   readOnly
                   defaultValue={this.props.profile.first_name}
@@ -198,6 +213,7 @@ class ProfileEdit extends Component {
               <Form.Group>
                 <Form.Label className="label">Last Name</Form.Label>
                 <Form.Control
+                  disabled="true"
                   plaintext
                   readOnly
                   defaultValue={this.props.profile.last_name}
@@ -206,6 +222,7 @@ class ProfileEdit extends Component {
               <Form.Group>
                 <Form.Label className="label">Age</Form.Label>
                 <Form.Control
+                  disabled="true"
                   plaintext
                   readOnly
                   defaultValue={this.props.profile.age}
@@ -214,6 +231,7 @@ class ProfileEdit extends Component {
               <Form.Group>
                 <Form.Label className="label">Languages Spoken</Form.Label>
                 <Form.Control
+                  disabled="true"
                   plaintext
                   readOnly
                   defaultValue={this.props.profile.languages}
@@ -223,6 +241,7 @@ class ProfileEdit extends Component {
               <Form.Group>
                 <Form.Label className="label">About You</Form.Label>
                 <Form.Control
+                  disabled="true"
                   plaintext
                   readOnly
                   defaultValue={this.props.profile.statement}
@@ -316,6 +335,7 @@ class ProfileEdit extends Component {
                   Island
                 </Form.Label>
                 <Form.Control
+                  disabled="true"
                   plaintext
                   readOnly
                   defaultValue={this.props.profile.island}
@@ -326,6 +346,7 @@ class ProfileEdit extends Component {
                   City
                 </Form.Label>
                 <Form.Control
+                  disabled="true"
                   plaintext
                   readOnly
                   defaultValue={this.props.profile.city}
@@ -336,6 +357,7 @@ class ProfileEdit extends Component {
                   Zip Code
                 </Form.Label>
                 <Form.Control
+                  disabled="true"
                   plaintext
                   readOnly
                   defaultValue={this.props.profile.zip}
@@ -345,6 +367,7 @@ class ProfileEdit extends Component {
               <Form.Group>
                 <Form.Label className="label">Phone Number</Form.Label>
                 <Form.Control
+                  disabled="true"
                   plaintext
                   readOnly
                   defaultValue={this.props.profile.phone}
@@ -354,6 +377,7 @@ class ProfileEdit extends Component {
               <Form.Group>
                 <Form.Label className="label">Email Address</Form.Label>
                 <Form.Control
+                  disabled="true"
                   plaintext
                   readOnly
                   defaultValue={this.props.profile.email}
@@ -363,6 +387,7 @@ class ProfileEdit extends Component {
               <Form.Group>
                 <Form.Label className="label">Website</Form.Label>
                 <Form.Control
+                  disabled="true"
                   plaintext
                   readOnly
                   defaultValue={this.props.profile.website}
@@ -372,6 +397,7 @@ class ProfileEdit extends Component {
               <Form.Group>
                 <Form.Label className="label">Address</Form.Label>
                 <Form.Control
+                  disabled="true"
                   plaintext
                   readOnly
                   defaultValue={this.props.profile.address}
@@ -472,6 +498,7 @@ class ProfileEdit extends Component {
                   Treatment & Approaches
                 </Form.Label>
                 <Form.Control
+                  disabled="true"
                   plaintext
                   readOnly
                   defaultValue={this.props.profile.treatmentPreferences}
@@ -482,6 +509,7 @@ class ProfileEdit extends Component {
                   Specialties
                 </Form.Label>
                 <Form.Control
+                  disabled="true"
                   plaintext
                   readOnly
                   defaultValue={this.props.profile.specialties}
@@ -492,6 +520,7 @@ class ProfileEdit extends Component {
                   Insurances Taken
                 </Form.Label>
                 <Form.Control
+                  disabled="true"
                   plaintext
                   readOnly
                   defaultValue={this.props.profile.insurance}
@@ -501,6 +530,7 @@ class ProfileEdit extends Component {
               <Form.Group>
                 <Form.Label className="label">Supervision Status</Form.Label>
                 <Form.Control
+                  disabled="true"
                   plaintext
                   readOnly
                   defaultValue={this.props.profile.supervisionStatus}
@@ -510,6 +540,7 @@ class ProfileEdit extends Component {
               <Form.Group>
                 <Form.Label className="label">Telehealth</Form.Label>
                 <Form.Control
+                  disabled="true"
                   plaintext
                   readOnly
                   defaultValue={this.props.profile.telehealth}
@@ -519,6 +550,7 @@ class ProfileEdit extends Component {
               <Form.Group>
                 <Form.Label className="label">Client Focus</Form.Label>
                 <Form.Control
+                  disabled="true"
                   plaintext
                   readOnly
                   defaultValue={this.props.profile.clientFocus}
@@ -528,6 +560,7 @@ class ProfileEdit extends Component {
               <Form.Group>
                 <Form.Label className="label">Session Format</Form.Label>
                 <Form.Control
+                  disabled="true"
                   plaintext
                   readOnly
                   defaultValue={this.props.profile.sessionFormat}
