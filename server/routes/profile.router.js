@@ -15,7 +15,6 @@ router.get("/:id", async (req, res) => {
 			array_agg(DISTINCT client_focus.title) AS client_focus,
 			array_agg(DISTINCT insurance_type.title) AS insurance,
 			array_agg(DISTINCT island.title) AS island,
-			array_agg(DISTINCT license_type.title) AS license_type,
 			array_agg(DISTINCT session_format.title) AS session_format,
 			array_agg(DISTINCT specialty.title) AS specialty,
 			array_agg(DISTINCT treatment_preferences.title) AS treatment_preferences,
@@ -51,12 +50,12 @@ router.get("/:id", async (req, res) => {
         
             WHERE id = $1
 
-			GROUP BY m.id, m.zip_code, m.first_name, m.last_name, m.prefix, m.age, m.license_state,
+			GROUP BY m.id, m.zip_code, m.first_name, m.last_name, m.prefix, m.age, m.license_state, m.license_type, m.license_number,
 			m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials,
 			m.telehealth, m.statement, m.website, m.title, m.city;`;
     const members = await connection.query(query, [req.params.id]);
     
-    res.send(members.rows);
+    res.send(members.rows[0]);
   } catch (error) {
     console.log(`Error Selecting members`, error);
     res.sendStatus(500);
