@@ -9,6 +9,7 @@ import loginSaga from './loginSaga';
 import registrationSaga from './registrationSaga';
 import userSaga from "./userSaga";
 import fetchAdminMembers from "./adminFetchSaga";
+import fetchMemberSageAdvanced from "./fetchMemberSageAdvanced";
 
 
 // rootSaga is the primary saga.
@@ -28,6 +29,7 @@ export default function* rootSaga() {
     loginSaga(),
     registrationSaga(),
     userSaga(),
-    fetchAdminMembers()
+    fetchAdminMembers(),
+    fetchMemberSageAdvanced()
   ]);
 }
