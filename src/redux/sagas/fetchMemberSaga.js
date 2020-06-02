@@ -6,8 +6,14 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* fetchMembers(action) {
     console.log('in fetchMember saga', action.payload)
     try {
-        const response = yield axios.get(`/api/search`)
-        yield put({ type: 'GET_MEMBERS_REDUCER', payload: response.data });
+        
+        if (action.payload) {
+            const response = yield axios.get(`/api/search/${action.payload}`)
+            yield put({ type: 'GET_MEMBERS_REDUCER', payload: response.data });
+        } else {
+            const response = yield axios.get(`/api/search`)
+            yield put({ type: 'GET_MEMBERS_REDUCER', payload: response.data });
+        }
     } catch (error) {
         console.log('fetchMembers saga GET request failed', error);
     }
