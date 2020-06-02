@@ -14,6 +14,17 @@ function* createProfile(action) {
     }
 }
 
+function* addMember(action) {
+    console.log('in addMember Saga', action.payload)
+    try {
+       const response = yield axios.post(`api/profile`, action.payload);
+       console.log('Sending new member info from the server',response)
+        yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });
+    } catch (error) {
+        console.log('Error in sending members info to the server', error);
+    }
+}
+
 function* addCreateProfile (action) {
     console.log('in createProfile saga', action.payload)
     try {
@@ -158,6 +169,7 @@ function* createSaga() {
     yield takeLatest('FETCH_AGE_GROUPS', fetchAgeGroups);
     yield takeLatest('FETCH_SESSION_FORMAT', fetchSessionFormat);
     yield takeLatest('ADD_ZIP_CODE', addZipCode);
+    yield takeLatest('ADD_MEMBER', addMember);
 }
 
 export default createSaga;

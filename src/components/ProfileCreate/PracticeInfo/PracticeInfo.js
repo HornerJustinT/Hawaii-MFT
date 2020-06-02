@@ -53,11 +53,12 @@ handleInputChangeFor = propertyName => (event) =>{
       event.preventDefault()
         this.props.dispatch({type:'ADD_MEMBER',
          payload:{
-          prefix:this.state.prefix,
-          first_name:this.state.first_name,
-          last_name:this.state.last_name,
-          age:this.state.age,
-          hiamft_member_account_info:this.state. hiamft_member_account_info,
+          prefix:this.props.createProfile.prefix,
+          first_name:this.props.createProfile.first_name,
+          last_name:this.props.createProfile.last_name,
+          age:this.props.createProfile.age,
+          hiamft_member_account_info:this.props.createProfile.hiamft_member_account_info,
+          zip_code: this.props.contactInfo.zip_code,
           license_state:this.state.license_state,
           supervision_status:this.state.supervision_status,
           fees:this.state.fees,
