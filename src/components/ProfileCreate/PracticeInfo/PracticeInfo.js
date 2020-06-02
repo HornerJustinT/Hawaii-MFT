@@ -53,6 +53,7 @@ handleInputChangeFor = propertyName => (event) =>{
       event.preventDefault()
         this.props.dispatch({type:'ADD_MEMBER',
          payload:{
+           id: this.props.user.id,
           prefix:this.props.createProfile.prefix,
           first_name:this.props.createProfile.first_name,
           last_name:this.props.createProfile.last_name,
@@ -265,6 +266,7 @@ const mapStateToProps = reduxstate => ({
     ageGroups:reduxstate.ageGroups,
     sessionFormats:reduxstate.sessionFormats,
     createProfile: reduxstate.createProfile,
-    contactInfo: reduxstate.contactInfo
+    contactInfo: reduxstate.contactInfo,
+    user: reduxstate.user
   });
 export default connect(mapStateToProps)(PracticeInfo);

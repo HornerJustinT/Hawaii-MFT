@@ -51,7 +51,7 @@ componentDidMount(){
             first_name:this.state.first_name,
             last_name:this.state.last_name,
             age:this.state.age,
-            hiamft_member_account_info:this.state. hiamft_member_account_info
+            hiamft_member_account_info:this.state.hiamft_member_account_info
          }
      });
      this.addLanguage();
