@@ -50,6 +50,7 @@ class ProfileEdit extends Component{
             <>
             <div className="header">
                 <h3>My Profile</h3>
+                {JSON.stringify(this.props.profile)}
             </div> 
                 {this.state.click ? 
                     <div className="body">
