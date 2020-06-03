@@ -10,7 +10,7 @@ class ContactInfo extends Component{
            state = {
             phone_type_id:'',
             number:'',
-            island:'',
+            island_id:'',
             email:'',
             address:'',
             languages:'',
@@ -47,9 +47,11 @@ class ContactInfo extends Component{
       }
       addContact = () =>{
           this.props.dispatch({
-              type:'ADD_CONTACT',
+              type:'ADD_ISLAND',
               payload:{
-               island: this.state.island
+               island_id: this.state.island_id,
+               member_id: this.props.user.id
+
               }
           })
       }
@@ -72,15 +74,15 @@ class ContactInfo extends Component{
             <form onSubmit={this.handleSave}>
              <label>Island</label>
              <br/>
-             <select onChange={this.handleInputChangeFor("island")}>
+             <select onChange={this.handleInputChangeFor("island_id")}>
              {this.props.islands &&
                    
                    <>
                    <option defaultValue='Select your Island'>Select your Island</option>
                    {this.props.islands.map(island =>
-                    <option value={island.title}
+                    <option value={island.island_id}
         
-                  key={island.id}>{island.id}{' '}{island.title}</option>
+                  key={island.island_id}>{island.title}</option>
                     )}
                    </>
                    } 
@@ -168,6 +170,7 @@ class ContactInfo extends Component{
 }
 const mapStateToProps = reduxstate => ({
     reduxstate,
-    islands: reduxstate.islands
+    islands: reduxstate.islands,
+    user: reduxstate.user
   });
 export default connect (mapStateToProps)(ContactInfo);

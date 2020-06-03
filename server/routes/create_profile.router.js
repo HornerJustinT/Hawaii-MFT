@@ -168,5 +168,21 @@ router.post('/language', (req, res) => {
   
 
 });
+
+router.post('/islands', (req, res) => {
+    //define the queries
+    console.log('this is the data in req.body',req.body);
+    const island_id = req.body.island_id;
+    const member_id = req.body.member_id;
+   
+         const queryText = `INSERT INTO "island_pivot"("island_id", "member_id")
+                        VALUES($1,$2);`;
+        pool.query(queryText, [island_id,member_id])
+          .then((result) => res.sendStatus(200))
+          .catch((error) => {console.log(error);
+             res.sendStatus(500)});
+  
+
+});
 module.exports = router;
 

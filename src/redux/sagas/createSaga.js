@@ -36,6 +36,17 @@ function* addLanguage(action) {
     }
 }
 
+function* addIsland(action) {
+    console.log('in addIsland Saga', action.payload)
+    try {
+       const response = yield axios.post(`api/profile/islands`, action.payload);
+       console.log('Sending new member island info to the server',response)
+        yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });
+    } catch (error) {
+        console.log('Error in sending new member island info to the server', error);
+    }
+}
+
 function* addCreateProfile (action) {
     console.log('in createProfile saga', action.payload)
     try {
@@ -182,6 +193,7 @@ function* createSaga() {
     yield takeLatest('ADD_ZIP_CODE', addZipCode);
     yield takeLatest('ADD_MEMBER', addMember);
     yield takeLatest('ADD_LANGUAGE', addLanguage);
+    yield takeLatest('ADD_ISLAND', addIsland);
 }
 
 export default createSaga;
