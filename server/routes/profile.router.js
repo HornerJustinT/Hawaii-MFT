@@ -66,10 +66,62 @@ router.get("/:id", async (req, res) => {
 
 
 /**
- * POST route template
+ * PUT route template
  */
-router.post('/', (req, res) => {
+router.put('/', async (req, res) => {
+  console.log("made it to server");
 
-});
+  const connection = await pool.connect();
+
+  try {
+    await connection.query('BEGIN;')
+    const memberQuery = `UPDATE "members" 
+        SET ("prefix", "first_name", "last_name", "title", "age", "city", "zip_code",
+            "website", "statement",
+            "license_state", 
+            "license_expiration", "hiamft_member_account_info", 
+            "supervision_status","fees", "credentials","telehealth", 
+             "license_number", "license_type")
+        = 
+            ($1, $2, $3, $4, $5, $6, $7, $8,
+            $9, $10, $11, $12, $13, 
+            $14, $15, $16, $17, $18)
+        WHERE id = $19;`;
+
+    await connection.query(memberQuery, [
+      req.body.prefix,
+      req.body.firstName,
+      req.body.lastName,
+      req.body.title,
+      req.body.age,
+      req.body.city,
+      req.body.zipCode,
+      req.body.website,
+      req.body.statement,
+      req.body.licenseState,
+      req.body.licenseExpiration,
+      req.body.hiamftMemberInfo,
+      req.body.supervisionStatus,
+      req.body.fees,
+      req.body.credentials,
+      req.body.telehealth,
+      req.body.licenseNumber,
+      req.body.licenseType,
+      req.body.id.id,
+    ]);
+
+    await connection.query('COMMIT;');
+    res.sendStatus(200);
+  }
+  catch (error) {
+    console.log(`Error on transaction`, error);
+    await connection.query('ROLLBACK;');
+    res.sendStatus(500);
+  }
+  finally {
+    connection.release();
+  }
+})
+
 
 module.exports = router;

@@ -53,7 +53,7 @@ class ProfileEdit extends Component {
         fees: this.props.profile.fees,
         telehealth: this.props.profile.telehealth,
         statement: this.props.profile.statement,
-        languages: this.props.profile.languages,
+        languages: [this.props.profile.languages],
         agesServed: this.props.profile.ages_served,
         clientFocus: this.props.profile.client_focus,
         insurance: this.props.profile.insurance,
@@ -110,8 +110,13 @@ class ProfileEdit extends Component {
     });
   };
 
+  handleObjectChange = (event, propertyName) => {
+    this.setState({
+      [propertyName]: event.target.value
+    });
+  };
+
   render() {
-    console.log("here is state:", this.state);
     return (
       <>
         <div className="header">
@@ -158,6 +163,7 @@ class ProfileEdit extends Component {
               <Form.Group>
                 <Form.Label className="label">Age</Form.Label>
                 <Form.Control
+                  type="number"
                   defaultValue={this.props.profile.age}
                   onChange={(event) => this.handleChange(event, "age")}
                 />
@@ -168,10 +174,46 @@ class ProfileEdit extends Component {
 
               <Form.Group>
                 <Form.Label className="label">Languages Spoken</Form.Label>
-                <Form.Control
+                <Form.Control as="select"
                   defaultValue={this.props.profile.languages}
-                  onChange={(event) => this.handleChange(event, "languages")}
-                />
+                  onChange={(event) => this.handleObjectChange(event, "languages")}>
+                  <option>ASL</option>
+                  <option>Arabic</option>
+                  <option>Armenian</option>
+                  <option>Bosnian</option>
+                  <option>Cantonese</option>
+                  <option>Croation</option>
+                  <option>Dutch</option>
+                  <option>Farsi</option>
+                  <option>Filipino</option>
+                  <option>French</option>
+                  <option>English</option>
+                  <option>German</option>
+                  <option>Greek</option>
+                  <option>Gujarati</option>
+                  <option>Hebrew</option>
+                  <option>Hindi</option>
+                  <option>Hungarian</option>
+                  <option>Italian</option>
+                  <option>Japanese</option>
+                  <option>Korean</option>
+                  <option>Mandarin</option>
+                  <option>Polish</option>
+                  <option>Portuguese</option>
+                  <option>Punjabi</option>
+                  <option>Romanian</option>
+                  <option>Russian</option>
+                  <option>Serbian</option>
+                  <option>Sinhalese</option>
+                  <option>Spanish</option>
+                  <option>Swedish</option>
+                  <option>Tagalog</option>
+                  <option>Turkish</option>
+                  <option>Ukrainian</option>
+                  <option>Urdu</option>
+                  <option>Vietnamese</option>
+                  <option>Yiddish</option>
+                </Form.Control>
               </Form.Group>
 
               <Form.Group>
