@@ -11,7 +11,8 @@ const criteria = [
   "ages_served",
   "client_focus",
   "session_format",
-  "supervision_status"
+  "supervision_status",
+  "license_type"
 ];
 
 
@@ -96,6 +97,30 @@ router.get('/', async (req, res) => {
 			OR LOWER(m.city) LIKE $${paramCount}
 			OR LOWER(m.island) LIKE $${paramCount})`;
 			parameters.push("%" + req.query.zip.toLowerCase() + "%");
+			paramCount++;
+		}
+
+		if (req.query.license_number) {
+			if (!where) {
+				whereQuery += `\nWHERE `;
+				where = true;
+			} else {
+				whereQuery += `\nAND `;
+			}
+			whereQuery += `(CAST(m.license_number AS VARCHAR) LIKE $${paramCount})`;
+			parameters.push("%" + req.query.license_number.toLowerCase() + "%");
+			paramCount++;
+		}
+
+		if (req.query.id) {
+			if (!where) {
+				whereQuery += `\nWHERE `;
+				where = true;
+			} else {
+				whereQuery += `\nAND `;
+			}
+			whereQuery += `(CAST(m.id AS VARCHAR) LIKE $${paramCount})`;
+			parameters.push("%" + req.query.id.toLowerCase() + "%");
 			paramCount++;
 		}
 
