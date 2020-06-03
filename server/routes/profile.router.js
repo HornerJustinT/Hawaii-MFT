@@ -68,7 +68,7 @@ router.get("/:id", async (req, res) => {
 /**
  * PUT route template
  */
-router.put('/', async (req, res) => {
+router.put('/', rejectUnauthenticated, async (req, res) => {
   console.log("made it to server");
 
   const connection = await pool.connect();

@@ -53,7 +53,7 @@ class ProfileEdit extends Component {
         fees: this.props.profile.fees,
         telehealth: this.props.profile.telehealth,
         statement: this.props.profile.statement,
-        languages: [this.props.profile.languages],
+        languages: [],
         agesServed: this.props.profile.ages_served,
         clientFocus: this.props.profile.client_focus,
         insurance: this.props.profile.insurance,
@@ -111,8 +111,10 @@ class ProfileEdit extends Component {
   };
 
   handleObjectChange = (event, propertyName) => {
+    console.log( 'here is event & propname', event, propertyName);
+    
     this.setState({
-      [propertyName]: event.target.value
+      [propertyName]: [...this.state[propertyName], event.target.value]
     });
   };
 
@@ -175,6 +177,7 @@ class ProfileEdit extends Component {
               <Form.Group>
                 <Form.Label className="label">Languages Spoken</Form.Label>
                 <Form.Control as="select"
+                  multiple="true"
                   defaultValue={this.props.profile.languages}
                   onChange={(event) => this.handleObjectChange(event, "languages")}>
                   <option>ASL</option>
