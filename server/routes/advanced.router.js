@@ -92,7 +92,9 @@ router.get('/', async (req, res) => {
 			} else {
 				whereQuery += `\nAND `;
 			}
-			whereQuery += `(CAST(m.zip_code AS VARCHAR) LIKE $${paramCount} OR LOWER(m.city) LIKE $${paramCount})`;
+			whereQuery += `(CAST(m.zip_code AS VARCHAR) LIKE $${paramCount}
+			OR LOWER(m.city) LIKE $${paramCount}
+			OR LOWER(m.island) LIKE $${paramCount})`;
 			parameters.push("%" + req.query.zip.toLowerCase() + "%");
 			paramCount++;
 		}
@@ -133,7 +135,7 @@ router.get('/', async (req, res) => {
 		}
 
 		let query = startQuery + whereQuery + endQuery;
-		
+
         const members = await connection.query(query, parameters);
         res.send(members.rows)
 
