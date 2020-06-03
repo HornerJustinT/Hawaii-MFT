@@ -1,8 +1,12 @@
 import React, { Component} from 'react';
+import { connect } from 'react-redux';
 
 //React-bootstrap import
-import ProgressBar from 'react-bootstrap/ProgressBar'
-import { connect } from 'react-redux';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import InputGroup from "react-bootstrap/InputGroup";
+
 
 
 
@@ -17,7 +21,7 @@ class ProfileCreate extends Component {
 	last_name:'',
     age:'',
     hiamft_member_account_info:'',
-	language:''
+	language_id:''
     }
 componentDidMount(){
  this.getLanguages()
@@ -36,7 +40,7 @@ componentDidMount(){
             last_name:'',
             age:'',
             hiamft_member_account_info:'',
-            language:''
+            language_id:''
           })
       }
 
@@ -58,10 +62,11 @@ componentDidMount(){
     this.handleReset();
     }
 
-    addLanguage = (event) =>{
+    addLanguage = () =>{
         this.props.dispatch({ type:'ADD_LANGUAGE',
         payload:{
-            language:this.state.language
+            language_id:this.state.language_id,
+            member_id: this.props.user.id
         }
     })
     }
@@ -85,38 +90,44 @@ componentDidMount(){
 
         <ProgressBar now={25} />
 
-         <form onSubmit={this.addMembers}>
+         <Form onSubmit={this.addMembers}>
          <h3>Basic Info</h3>
          <label>Prefix</label>
          <br/>
-         <input type="text"
+         <input 
+                  type="text"
                   name="prefix"
                   value={this.state.prefix}
                   onChange={this.handleInputChangeFor("prefix")}/><br/>
-         <label>First Name</label>
-         <br/><input type="text"
+         <Form.Label>First Name</Form.Label>
+         <br/><input 
+                  type="text"
                   name="first_name"
                   value={this.state.first_name}
                   onChange={this.handleInputChangeFor("first_name")}/><br/>
-         <label>Last Name</label><br/><input type="text"
+         <label>Last Name</label><br/>
+         <input 
+                  type="text"
                   name="last_name"
                   value={this.state.last_name}
                   onChange={this.handleInputChangeFor("last_name")}/><br/>
-         <label>Age</label><br/><input type="text"
+         <label>Age</label><br/>
+         <input 
+                   type="text"
                   name="age"
                   value={this.state.age}
                   onChange={this.handleInputChangeFor("age")}/>
         <br/>
         <br/>
-         <label>Language Spoken</label><br/><select onChange={this.handleInputChangeFor("language")}>
+         <label>Language Spoken</label><br/><select onChange={this.handleInputChangeFor("language_id")}>
                    {this.props.languages &&
                    
                    <>
                    <option defaultValue='Select a language'>Select a language</option>
                    {this.props.languages.map(language =>
-                    <option value={language.title}
+                    <option value={language.language_id}
         
-                  key={language.id}>{language.id}{' '}{language.title}</option>
+                  key={language.language_id}>{language.title}</option>
                     )}
                    </>
                    } 
@@ -134,7 +145,7 @@ componentDidMount(){
                   onChange={this.handleInputChangeFor("hiamft_member_account_info")}/>
         <br/>
         <button>Save</button>
-         </form>
+         </Form>
          <button onClick={this.handleNext}>Save and Next Page</button>
             </div>
             </>
@@ -144,6 +155,7 @@ componentDidMount(){
 const mapStateToProps = reduxstate => ({
     reduxstate,
     languages: reduxstate.languages,
+    user: reduxstate.user
   });
 
 export default connect(mapStateToProps)(ProfileCreate);

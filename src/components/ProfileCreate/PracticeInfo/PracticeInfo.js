@@ -9,7 +9,7 @@ class PracticeInfo extends Component{
      //create local state
 
      state = {
-             license_state:'',
+         license_state:'',
          supervision_status:'',
          fees:'',
          license_expiration:'',
@@ -256,7 +256,6 @@ handleInputChangeFor = propertyName => (event) =>{
 }
 
 const mapStateToProps = reduxstate => ({
-    reduxstate,
     languages: reduxstate.languages,
     specialtys: reduxstate.specialtys,
     insuranceTaken: reduxstate.insuranceTaken,

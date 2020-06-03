@@ -153,5 +153,20 @@ router.post('/', (req, res) => {
 
 });
 
+router.post('/language', (req, res) => {
+    //define the queries
+    console.log('this is the data in req.body',req.body);
+    const language_id = req.body.language_id;
+    const member_id = req.body.member_id;
+   
+         const queryText = `INSERT INTO "languages_pivot" ("language_id", "member_id")
+           VALUES ($1,$2);`;
+        pool.query(queryText, [language_id,member_id])
+          .then((result) => res.sendStatus(200))
+          .catch((error) => {console.log(error);
+             res.sendStatus(500)});
+  
+
+});
 module.exports = router;
 
