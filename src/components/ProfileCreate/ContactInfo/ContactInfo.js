@@ -12,6 +12,8 @@ class ContactInfo extends Component{
             number:'',
             island_id:'',
             email:'',
+            personal_email:'',
+            business:'',
             address:'',
             languages:'',
             zip_code:'',
@@ -42,28 +44,29 @@ class ContactInfo extends Component{
 
       handleSave =(event) =>{
         event.preventDefault();
-        this.addContact();
-        this.addZipCode();
+        this.addContactInfo();
+       
       }
-      addContact = () =>{
-          this.props.dispatch({
-              type:'ADD_ISLAND',
-              payload:{
-               island_id: this.state.island_id,
-               member_id: this.props.user.id
+      addContactInfo = () =>{
+        this.props.dispatch({type:'ADD_ZIP_CODE',
+                          payload:{zip_code: this.state.zip_code}})
+          this.props.dispatch({type:'ADD_CONTACTINFO', 
+                                 payload:{island_id: this.state.island_id, 
+                                  email: this.state.email,
+                                  personal_email:this.state.personal_email
+                                           }});
+         
+          this.props.dispatch({type:'ADD_EMAIL',
+                               payload:{
+                                       business:true }})
+          this.props.dispatch({type:'ADD_PERSONAL_EMAIL',
+                            payload:{email: this.state.email, 
+                                   business:false, 
+                                 member_id: this.props.user.id}})                              
 
-              }
-          })
       }
     
-       addZipCode = () =>{
-        this.props.dispatch({
-            type:'ADD_ZIP_CODE',
-            payload:{
-                zip_code: this.state.zip_code
-            }
-        })
-       }
+      
     render (){
         return(
             <>
@@ -121,9 +124,9 @@ class ContactInfo extends Component{
              <label>Email Address - Personal</label>
              <br/>
              <input type="text"
-                  name="email"
-                  value={this.state.email}
-                  onChange={this.handleInputChangeFor("email")}/>
+                  name="personal_email"
+                  value={this.state.personal_email}
+                  onChange={this.handleInputChangeFor("personal_email")}/>
              <br/>
              <label>Website</label>
              <br/>

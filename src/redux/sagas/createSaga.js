@@ -47,6 +47,17 @@ function* addIsland(action) {
     }
 }
 
+function* addEmail(action) {
+    console.log('in addEmail Saga', action.payload)
+    try {
+       const response = yield axios.post(`api/profile/email`, action.payload);
+       console.log('Sending new member email info to the server',response)
+        yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });
+    } catch (error) {
+        console.log('Error in sending new member email info to the server', error);
+    }
+}
+
 function* addCreateProfile (action) {
     console.log('in createProfile saga', action.payload)
     try {
@@ -194,6 +205,7 @@ function* createSaga() {
     yield takeLatest('ADD_MEMBER', addMember);
     yield takeLatest('ADD_LANGUAGE', addLanguage);
     yield takeLatest('ADD_ISLAND', addIsland);
+    yield takeLatest('ADD_EMAIL', addEmail);
 }
 
 export default createSaga;

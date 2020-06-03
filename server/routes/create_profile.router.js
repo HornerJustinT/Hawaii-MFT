@@ -1,6 +1,7 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 /**
  * GET route template
@@ -126,7 +127,7 @@ router.get('/session', (req, res) => {
 /**
 // Handles POST request with new member data
  */
-router.post('/', (req, res) => {
+router.post('/',rejectUnauthenticated, (req, res) => {
     //define the queries
     console.log('this is the data in req.body',req.body);
     const id = req.body.id;
@@ -153,27 +154,30 @@ router.post('/', (req, res) => {
 
 });
 
-router.post('/language', (req, res) => {
+router.post('/language', rejectUnauthenticated, (req, res) => {
     //define the queries
     console.log('this is the data in req.body',req.body);
     const language_id = req.body.language_id;
-    const member_id = req.body.member_id;
+    const member_id = req.user.id;
    
-         const queryText = `INSERT INTO "languages_pivot" ("language_id", "member_id")
+    const queryText = `INSERT INTO "languages_pivot" ("language_id", "member_id")
            VALUES ($1,$2);`;
         pool.query(queryText, [language_id,member_id])
           .then((result) => res.sendStatus(200))
-          .catch((error) => {console.log(error);
-             res.sendStatus(500)});
+          .catch((error) =>  { 
+            console.log(error);
+             res.sendStatus(500)
+                   
+          });
   
 
 });
 
-router.post('/islands', (req, res) => {
+router.post('/islands', rejectUnauthenticated, (req, res) => {
     //define the queries
     console.log('this is the data in req.body',req.body);
     const island_id = req.body.island_id;
-    const member_id = req.body.member_id;
+    const member_id = req.user.id;
    
          const queryText = `INSERT INTO "island_pivot"("island_id", "member_id")
                         VALUES($1,$2);`;
@@ -184,5 +188,7 @@ router.post('/islands', (req, res) => {
   
 
 });
+
+
 module.exports = router;
 

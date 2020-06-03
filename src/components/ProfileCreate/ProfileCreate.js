@@ -66,7 +66,6 @@ componentDidMount(){
         this.props.dispatch({ type:'ADD_LANGUAGE',
         payload:{
             language_id:this.state.language_id,
-            member_id: this.props.user.id
         }
     })
     }
@@ -119,7 +118,8 @@ componentDidMount(){
                   onChange={this.handleInputChangeFor("age")}/>
         <br/>
         <br/>
-         <label>Language Spoken</label><br/><select onChange={this.handleInputChangeFor("language_id")}>
+         <label>Language Spoken</label><br/>
+         <select onChange={this.handleInputChangeFor("language_id")}>
                    {this.props.languages &&
                    
                    <>
@@ -131,7 +131,7 @@ componentDidMount(){
                     )}
                    </>
                    } 
-                    </select>
+         </select>
         <br/>
         <br/>
         <button>+</button><label>Add a Field</label>
