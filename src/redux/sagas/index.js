@@ -8,7 +8,6 @@ import fetchProfileSaga from './fetchProfileSaga';
 import loginSaga from './loginSaga';
 import registrationSaga from './registrationSaga';
 import userSaga from "./userSaga";
-import fetchAdminMembers from "./adminFetchSaga";
 import fetchMemberSageAdvanced from "./fetchMemberSageAdvanced";
 
 
@@ -29,7 +28,6 @@ export default function* rootSaga() {
     loginSaga(),
     registrationSaga(),
     userSaga(),
-    fetchAdminMembers(),
     fetchMemberSageAdvanced()
   ]);
 }
