@@ -15,16 +15,35 @@ function* createProfile(action) {
 }
 
 function* addMember(action) {
-    console.log('in createProfile saga', action.payload.id)
+    console.log('in addMember Saga', action.payload)
     try {
-       const response = yield axios.post(`/api/profile`, action.payload);
-       console.log('Sending new member info to the server',response)
+       const response = yield axios.post(`api/profile`, action.payload);
+       console.log('Sending new member info from the server',response)
         yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });
     } catch (error) {
-        console.log('createProfile saga POST request failed', error);
+        console.log('Error in sending members info to the server', error);
     }
 }
 
+function* addCreateProfile (action) {
+    console.log('in createProfile saga', action.payload)
+    try {
+     
+       yield put ({type: 'SET_CREATE_PROFILE', payload: action.payload});
+    } catch (error) {
+        console.log('createProfile reducer failed', error);
+    }
+}
+
+function* addZipCode(action) {
+    console.log('in createProfile saga', action.payload)
+    try {
+     
+       yield put ({type: 'SET_ZIP_CODE', payload: action.payload});
+    } catch (error) {
+        console.log('Contact Info reducer failed', error);
+    }
+}
 
 function* fetchLanguages(action){
     try{
@@ -138,7 +157,7 @@ function* fetchSessionFormat (action){
 
 function* createSaga() {
     yield takeLatest('CREATE_PROFILE', createProfile);
-    yield takeLatest('ADD_MEMBER', addMember);
+    yield takeLatest('ADD_CREATE_PROFILE', addCreateProfile);
     yield takeLatest('FETCH_LANGUAGES', fetchLanguages);
     yield takeLatest('FETCH_ISLANDS', fetchIslands);
     yield takeLatest('FETCH_SPECIALTY', fetchSpecialty);
@@ -149,6 +168,8 @@ function* createSaga() {
     yield takeLatest('FETCH_DEMOGRPHICS',fetchDemographics);
     yield takeLatest('FETCH_AGE_GROUPS', fetchAgeGroups);
     yield takeLatest('FETCH_SESSION_FORMAT', fetchSessionFormat);
+    yield takeLatest('ADD_ZIP_CODE', addZipCode);
+    yield takeLatest('ADD_MEMBER', addMember);
 }
 
 export default createSaga;

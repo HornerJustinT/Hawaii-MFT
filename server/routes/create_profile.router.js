@@ -11,7 +11,6 @@ router.get('/', (req, res) => {
         pool.query(queryText)
             .then((result) => {
                 res.send(result.rows);
-                console.log(result.rows)
             }).catch((error) => {
                 console.log('Error in getting languages', error);
                 res.sendStatus(500);
@@ -25,7 +24,6 @@ router.get('/islands', (req, res) => {
         pool.query(queryText)
             .then((result) => {
                 res.send(result.rows);
-                console.log(result.rows)
             }).catch((error) => {
                 console.log('Error in getting islands', error);
                 res.sendStatus(500);
@@ -39,7 +37,6 @@ router.get('/specialty', (req, res) => {
         pool.query(queryText)
             .then((result) => {
                 res.send(result.rows);
-                console.log(result.rows)
             }).catch((error) => {
                 console.log('Error in getting specialty', error);
                 res.sendStatus(500);
@@ -53,7 +50,6 @@ router.get('/insurance', (req, res) => {
         pool.query(queryText)
             .then((result) => {
                 res.send(result.rows);
-                console.log(result.rows)
             }).catch((error) => {
                 console.log('Error in getting insurance taken', error);
                 res.sendStatus(500);
@@ -67,7 +63,6 @@ router.get('/license', (req, res) => {
         pool.query(queryText)
             .then((result) => {
                 res.send(result.rows);
-                console.log(result.rows)
             }).catch((error) => {
                 console.log('Error in getting license type', error);
                 res.sendStatus(500);
@@ -81,7 +76,6 @@ router.get('/treatment', (req, res) => {
         pool.query(queryText)
             .then((result) => {
                 res.send(result.rows);
-                console.log(result.rows)
             }).catch((error) => {
                 console.log('Error in getting treatment approaches', error);
                 res.sendStatus(500);
@@ -95,7 +89,6 @@ router.get('/demographics', (req, res) => {
         pool.query(queryText)
             .then((result) => {
                 res.send(result.rows);
-                console.log(result.rows)
             }).catch((error) => {
                 console.log('Error in getting demographics', error);
                 res.sendStatus(500);
@@ -109,7 +102,6 @@ router.get('/age', (req, res) => {
         pool.query(queryText)
             .then((result) => {
                 res.send(result.rows);
-                console.log(result.rows)
             }).catch((error) => {
                 console.log('Error in getting age groups served', error);
                 res.sendStatus(500);
@@ -123,7 +115,6 @@ router.get('/session', (req, res) => {
         pool.query(queryText)
             .then((result) => {
                 res.send(result.rows);
-                console.log(result.rows)
             }).catch((error) => {
                 console.log('Error in getting session format', error);
                 res.sendStatus(500);
@@ -150,53 +141,17 @@ router.post('/', (req, res) => {
     const supervision_status = req.body.supervision_status
     const fees= req.body.fees
     
-    router.post('/', async (req, res) => {
+   
          const queryText = `INSERT INTO "members" 
          ("id","zip_code","first_name", "last_name", "prefix", "age","license_state", "license_expiration", "hiamft_member_account_info", "supervision_status","fees")
-     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`;
-        pool.query(queryText, [id, zip_code,first_name, last_name, prefix, age, license_state, license_expiration, hiamft_member_account_info, supervision_status, fees])
+     VALUES($1,$2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`;
+        pool.query(queryText, [id,zip_code, first_name, last_name, prefix, age, license_state, license_expiration, hiamft_member_account_info, supervision_status, fees])
           .then((result) => res.sendStatus(200))
           .catch((error) => {console.log(error);
              res.sendStatus(500)});
-    });
+  
 
 });
 
 module.exports = router;
 
-
-/**
- * const member = await pool.connect();
-    
-        try {
-            const {
-                customer_name,
-                street_address,
-                city,
-                zip,
-                type,
-                total,
-                pizzas
-            } = req.body;
-            await member.query('BEGIN')
-            const memberInputResults = await member.query(`INSERT INTO "orders" ("customer_name", "street_address", "city", "zip", "type", "total")
-            VALUES ($1, $2, $3, $4, $5, $6)
-            RETURNING id;`, [customer_name, street_address, city, zip, type, total]);
-            const orderId = memberInputResults.rows[0].id;
-    
-            await Promise.all(members.map(member => {
-                const insertLineItemText = `INSERT INTO "line_item" ("order_id", "pizza_id", "quantity") VALUES ($1, $2, $3)`;
-                const insertLineItemValues = [orderId, pizza.id, pizza.quantity];
-                return client.query(insertLineItemText, insertLineItemValues);
-            }));
-    
-            await member.query('COMMIT')
-            res.sendStatus(201);
-        } catch (error) {
-            await member.query('ROLLBACK')
-            console.log('Error POST /api/order', error);
-            res.sendStatus(500);
-        } finally {
-            member.release()
-        }
- */

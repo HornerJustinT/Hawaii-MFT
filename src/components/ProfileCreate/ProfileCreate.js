@@ -17,7 +17,7 @@ class ProfileCreate extends Component {
 	last_name:'',
     age:'',
     hiamft_member_account_info:'',
-	language_id:''
+	language:''
     }
 componentDidMount(){
  this.getLanguages()
@@ -36,23 +36,34 @@ componentDidMount(){
             last_name:'',
             age:'',
             hiamft_member_account_info:'',
-            language_id:''
+            language:''
           })
       }
 
+      
     //upload all the inputs into the members table
     addMembers = (event) =>{
      event.preventDefault();
      this.props.dispatch({
-         type:'ADD_MEMBER',
+         type:'ADD_CREATE_PROFILE',
          payload:{
             prefix:this.state.prefix,
             first_name:this.state.first_name,
             last_name:this.state.last_name,
             age:this.state.age,
+            hiamft_member_account_info:this.state.hiamft_member_account_info
          }
      });
+     this.addLanguage();
     this.handleReset();
+    }
+
+    addLanguage = (event) =>{
+        this.props.dispatch({ type:'ADD_LANGUAGE',
+        payload:{
+            language:this.state.language
+        }
+    })
     }
     //get the languges
     getLanguages = () =>{
@@ -90,18 +101,18 @@ componentDidMount(){
          <label>Last Name</label><br/><input type="text"
                   name="last_name"
                   value={this.state.last_name}
-                  onChange={this.handleInputChangeFor("last_name")}t/><br/>
+                  onChange={this.handleInputChangeFor("last_name")}/><br/>
          <label>Age</label><br/><input type="text"
                   name="age"
                   value={this.state.age}
                   onChange={this.handleInputChangeFor("age")}/>
         <br/>
         <br/>
-         <label>Language Spoken</label><br/><select>
+         <label>Language Spoken</label><br/><select onChange={this.handleInputChangeFor("language")}>
                    {this.props.languages &&
                    
                    <>
-                   <option value='' defaultValue='Select a language'>Select a language</option>
+                   <option defaultValue='Select a language'>Select a language</option>
                    {this.props.languages.map(language =>
                     <option value={language.title}
         
