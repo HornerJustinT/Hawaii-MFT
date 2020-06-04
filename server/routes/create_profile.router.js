@@ -184,21 +184,80 @@ VALUES ($1,$2);`;
 
 });
 
-router.post('/islands', rejectUnauthenticated, (req, res) => {
+router.post('/contactinfo', rejectUnauthenticated, (req, res) => {
     //define the queries
-    console.log('this is the data in req.body',req.body);
+    const member = await pool.connect();
+    try {
+        const {
+            island_id, 
+            email,
+            personal_email,
+            business_number,
+            personal_number,
+            address_office,
+            address_home,
+            address_mailing
+        } = req.body;
+        await member.query('BEGIN')
+        const insertIsland = await member.query(`INSERT INTO "island_pivot"
+        ("island_id", "member_id") VALUES ($1,$2)`);
+        const insertEmail = await member.query(`INSERT INTO "email_table" 
+        ("business", "member_id", "email") VALUES (TRUE,$1,$2)`);
+        const insertPersonalEmail = await member.query(`INSERT INTO "email_table" 
+        ("business", "member_id", "email") VALUES (False,$1,$2)`);
+        const insertBusinessNumber = await member.query(`INSERT INTO "phone_table"
+        ("business", "member_id","number") VALUES (TRUE,$1,$2)`);
+        const insertPersonalNumber = await member.query(`INSERT INTO "phone_table"
+        ("business", "member_id","number") VALUES (TRUE,$1,$2)`);
+        const insertAddressOffice = await member.query(`INSERT INTO "address_table"
+        ("address", "business", "member_id") VALUES ('$1',TRUE, $2);`);
+        const insertAddressHome = await member.query(`INSERT INTO "address_table"
+        ("address", "business", "member_id") VALUES ('$1',false, $2);`);
+        const insertAddressMailing = await member.query(`INSERT INTO "address_table"
+        ("address", "business", "member_id") VALUES ('$1',false, $2);`);
+        
+        await member.query('COMMIT')
+        res.sendStatus(201);
+    }catch(error) {
+        await member.query('ROLLBACK')
+        console.log('Error POST /api/contactInfo', error);
+        res.sendStatus(500);
+    } finally {
+        member.release()
+    }
+
+
+/**
+ *  
+
+   
+      
+        
+       
+
+        await Promise.all(pizzas.map(pizza => {
+            const insertLineItemText = `INSERT INTO "line_item" ("order_id", "pizza_id", "quantity") VALUES ($1, $2, $3)`;
+            const insertLineItemValues = [orderId, pizza.id, pizza.quantity];
+            return client.query(insertLineItemText, insertLineItemValues);
+        }));
+
+   
+ */
+
+
+/**
+ * console.log('this is the data in req.body',req.body);
     const island_id = req.body.island_id;
     const member_id = req.user.id;
-   
          const queryText = `INSERT INTO "island_pivot"("island_id", "member_id")
                         VALUES($1,$2);`;
         pool.query(queryText, [island_id,member_id])
           .then((result) => res.sendStatus(200))
           .catch((error) => {console.log(error);
              res.sendStatus(500)});
-  
+ */
 
-});
+
 
 
 module.exports = router;

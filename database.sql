@@ -475,7 +475,7 @@ VALUES
 INSERT INTO "email_table" 
 	("business", "member_id", "email")
 VALUES
-	(TRUE,1,'test');
+	(TRUE,1,'test')
 INSERT INTO "island_pivot"
 	("island_id", "member_id")
 VALUES

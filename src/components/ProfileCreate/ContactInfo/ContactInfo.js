@@ -55,11 +55,11 @@ class ContactInfo extends Component{
                               payload:{island_id: this.state.island_id, 
                                         email: this.state.email,
                                         personal_email:this.state.personal_email,
-                                        business_number:'',
-                                        personal_number:'',
-                                        address_office:'',
-                                        address_home:'',
-                                        address_mailing:'',
+                                        business_number:this.state.business_number,
+                                        personal_number:this.state.personal_number,
+                                        address_office:this.state.address_office,
+                                        address_home:this.state.address_home,
+                                        address_mailing:this.state.address_mailing,
           }});
                         
      }
