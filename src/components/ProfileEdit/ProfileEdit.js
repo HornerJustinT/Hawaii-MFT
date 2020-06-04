@@ -18,6 +18,10 @@ class ProfileEdit extends Component {
     clickBasic: false,
     clickContact: false,
     clickPractice: false,
+    languages: [],
+    languagesEdit: [],
+    islands: [],
+    treatmentApproaches: [],
   };
   
   componentDidMount() {
@@ -27,8 +31,12 @@ class ProfileEdit extends Component {
     });
   }
 
+//
   componentDidUpdate() {
-    if (this.state.id !== this.props.match.params) {
+    if (this.state.id !== this.props.match.params && this.props.languages.length > 0) {
+      const updatedLanguages = this.syncDataEdit("languages", "languages");
+      const updatedIsland = this.syncDataEditIsland("islands", "island");
+      // const updatedTreatments = this.syncDataEditTreatments("treatmentApproaches", "treatmentApproaches");
       this.setState({
         id: this.props.match.params,
         prefix: this.props.profile.prefix,
@@ -40,6 +48,7 @@ class ProfileEdit extends Component {
         address: this.props.profile.address,
         city: this.props.profile.city,
         island: this.props.profile.island,
+        islandEdit: updatedIsland,
         email: this.props.profile.email,
         zipCode: this.props.profile.zip_code,
         website: this.props.profile.website,
@@ -53,7 +62,10 @@ class ProfileEdit extends Component {
         fees: this.props.profile.fees,
         telehealth: this.props.profile.telehealth,
         statement: this.props.profile.statement,
-        languages: [],
+        languages: this.props.profile.languages,
+        languagesEdit: updatedLanguages,
+        treatmentApproaches: this.props.treatmentPreferences,
+        // treatmentAproachesEdit: updatedTreatments,
         agesServed: this.props.profile.ages_served,
         clientFocus: this.props.profile.client_focus,
         insurance: this.props.profile.insurance,
@@ -63,6 +75,45 @@ class ProfileEdit extends Component {
       });
     }
   }
+
+//using syncDataEdit in componentDidUpdate to get IDs on values for Edit
+//the reducerName is the reducer that holds the array of object with ids & values
+//the profileName is the property in the profile that holds just the values
+//If Mark changes query returning profile results, this could be generic (see: language_id -> id)
+  syncDataEdit = (reducerName, profileName) => {
+    const updatedLanguages = this.props.profile[profileName].map(lang => {
+      const results = this.props[reducerName].filter(object => object.title === lang)
+      console.log('heres results !!!!!!!', results);
+      return (
+        results[0].language_id
+      );
+    })
+    return updatedLanguages;
+  }
+
+  syncDataEditIsland = (reducerName, profileName) => {
+    const updatedIsland = this.props.profile[profileName].map(island => {
+      const results = this.props[reducerName].filter(object => object.title === island)
+      console.log('heres results !!!!!!!', results);
+      return (
+        results
+        // results[0].island_id
+      );
+    })
+    return updatedIsland;
+  }
+
+  // syncDataEditTreatments = (reducerName, profileName) => {
+  //   const updatedIsland = this.props.profile[profileName].map(island => {
+  //     const results = this.props[reducerName].filter(object => object.title === island)
+  //     console.log('heres results !!!!!!!', results);
+  //     return (
+  //       results
+  //       // results[0].island_id
+  //     );
+  //   })
+  //   return updatedIsland;
+  // }
 
   handleEditBasic = () => {
     this.setState({
@@ -90,6 +141,10 @@ class ProfileEdit extends Component {
     this.setState({
       clickContact: false,
     });
+    this.props.dispatch({
+      type: "EDIT_PROFILE",
+      payload: this.state,
+    });
   };
 
   handleEditPractice = () => {
@@ -110,13 +165,122 @@ class ProfileEdit extends Component {
     });
   };
 
-  handleObjectChange = (event, propertyName) => {
-    console.log( 'here is event & propname', event, propertyName);
-    
+  //every multiselect needs its own handleObjectChange
+  handleLangChange = (event, editPropertyName, viewPropertyName) => {
+    const array = [];
+    for(let option of event.target.selectedOptions){
+      array.push(Number(option.value))
+    }
+    const updatedLanguages = array.map(id => {
+      const results = this.props.languages.filter(object => object.language_id === id)
+      return (
+        results[0].title
+      );
+    })
     this.setState({
-      [propertyName]: [...this.state[propertyName], event.target.value]
+      [editPropertyName]: array,
+      [viewPropertyName]: updatedLanguages,
     });
   };
+
+  handleIslandChange = (event, editPropertyName, viewPropertyName) => {
+    console.log('here is event.target.selected.options &&&&&&&', event.target.selectedOptions);
+    const array = [];
+    for (let option of event.target.selectedOptions) {
+      array.push(Number(option.value))
+    }
+    const updatedIsland = array.map(id => {
+      const results = this.props.islands.filter(object => object.island_id === id)
+      console.log('heres results !!!!!!!', results)
+      return (
+        results[0].title
+      );
+    })
+    console.log('heres updatedIsland $$$$$$$', updatedIsland)
+    this.setState({
+      [editPropertyName]: array,
+      [viewPropertyName]: updatedIsland,
+    });
+  };
+
+  displayLanguages = () => {
+    if(this.state.clickBasic){
+      return(
+          <Form.Group>
+            <Form.Label className="label">Languages Spoken</Form.Label>
+            <Form.Control as="select"
+              multiple="true"
+              value={this.state.languagesEdit}
+              onChange={(event) => this.handleLangChange(event, "languagesEdit", "languages")}>
+              {this.props.languages.map(lang => {
+                return (
+                  <>
+                    <option key={lang.language_id} value={lang.language_id}>{lang.title}</option>
+                  </>
+                );
+              })}
+            </Form.Control>
+          </Form.Group>
+      );
+    }else{
+      return(
+      <Form.Group>
+        <Form.Label className="label">Languages Spoken</Form.Label>
+        <div>
+          <ul>
+            {this.state.languages.map((lang) => {
+              return (
+                <>
+                  <li>{lang}</li>
+                </>
+              );
+            })
+            }
+          </ul>
+        </div>
+      </Form.Group>
+      );
+    }
+  }
+
+  displayIslands = () => {
+    if (this.state.clickContact) {
+      return (
+          <Form.Group>
+            <Form.Label variant="flat" className="label">
+              Island
+                </Form.Label>
+            <Form.Control as="select"
+              value={this.state.islandEdit}
+              onChange={(event) => this.handleIslandChange(event, "islandEdit", "island")}>
+              {this.props.islands.map(island => {
+                return (
+                  <>
+                    <option key={island.island_id} value={island.island_id}>{island.title}</option>
+                  </>
+                );
+              })}
+            </Form.Control>
+          </Form.Group>
+      );
+    } else {
+      return (
+        <Form.Group>
+          <Form.Label variant="flat" className="label">
+            Island
+          </Form.Label>
+          <Form.Control
+            disabled="true"
+            plaintext
+            readOnly
+            defaultValue={this.state.island}
+          />
+        </Form.Group>
+      );
+    }
+  }
+
+
 
   render() {
     return (
@@ -124,7 +288,13 @@ class ProfileEdit extends Component {
         <div className="header">
           <h3>My Profile</h3>
           {/* {JSON.stringify(this.props.profile)} */}
-          {JSON.stringify(this.state)}
+          {/* <br></br>
+          <br/> */}
+          {/* {JSON.stringify(this.state)} */}
+{/* 
+          <br/>
+          <br/> */}
+          {/* {JSON.stringify(this.props.treatments)} */}
         </div>
         {/**Here is Basic Info render */}
         {this.state.clickBasic ? (
@@ -173,52 +343,7 @@ class ProfileEdit extends Component {
                   Not Listed - HIAMFT-Use Only
                 </Form.Text>
               </Form.Group>
-
-              <Form.Group>
-                <Form.Label className="label">Languages Spoken</Form.Label>
-                <Form.Control as="select"
-                  multiple="true"
-                  defaultValue={this.props.profile.languages}
-                  onChange={(event) => this.handleObjectChange(event, "languages")}>
-                  <option>ASL</option>
-                  <option>Arabic</option>
-                  <option>Armenian</option>
-                  <option>Bosnian</option>
-                  <option>Cantonese</option>
-                  <option>Croation</option>
-                  <option>Dutch</option>
-                  <option>Farsi</option>
-                  <option>Filipino</option>
-                  <option>French</option>
-                  <option>English</option>
-                  <option>German</option>
-                  <option>Greek</option>
-                  <option>Gujarati</option>
-                  <option>Hebrew</option>
-                  <option>Hindi</option>
-                  <option>Hungarian</option>
-                  <option>Italian</option>
-                  <option>Japanese</option>
-                  <option>Korean</option>
-                  <option>Mandarin</option>
-                  <option>Polish</option>
-                  <option>Portuguese</option>
-                  <option>Punjabi</option>
-                  <option>Romanian</option>
-                  <option>Russian</option>
-                  <option>Serbian</option>
-                  <option>Sinhalese</option>
-                  <option>Spanish</option>
-                  <option>Swedish</option>
-                  <option>Tagalog</option>
-                  <option>Turkish</option>
-                  <option>Ukrainian</option>
-                  <option>Urdu</option>
-                  <option>Vietnamese</option>
-                  <option>Yiddish</option>
-                </Form.Control>
-              </Form.Group>
-
+              {this.displayLanguages()}
               <Form.Group>
                 <Form.Label className="label">About You</Form.Label>
                 <Form.Control
@@ -272,17 +397,11 @@ class ProfileEdit extends Component {
                   readOnly
                   defaultValue={this.props.profile.age}
                 />
+                <Form.Text className="text-muted">
+                    Not Listed - HIAMFT-Use Only
+                </Form.Text>
               </Form.Group>
-              <Form.Group>
-                <Form.Label className="label">Languages Spoken</Form.Label>
-                <Form.Control
-                  disabled="true"
-                  plaintext
-                  readOnly
-                  defaultValue={this.props.profile.languages}
-                />
-              </Form.Group>
-
+              {this.displayLanguages()}
               <Form.Group>
                 <Form.Label className="label">About You</Form.Label>
                 <Form.Control
@@ -295,7 +414,9 @@ class ProfileEdit extends Component {
             </Form>
           </div>
         )}
+
         {/**Here is Contact Info render */}
+
         {this.state.clickContact ? (
           <div className="body">
             <Button
@@ -305,15 +426,7 @@ class ProfileEdit extends Component {
               Save Changes
             </Button>
             <Form className="flex-between row-wrap">
-              <Form.Group>
-                <Form.Label variant="flat" className="label">
-                  Island
-                </Form.Label>
-                <Form.Control
-                  defaultValue={this.props.profile.island}
-                  onChange={(event) => this.handleChange(event, "island")}
-                />
-              </Form.Group>
+            {this.displayIslands()}
               <Form.Group>
                 <Form.Label variant="flat" className="label">
                   City
@@ -328,8 +441,8 @@ class ProfileEdit extends Component {
                   Zip Code
                 </Form.Label>
                 <Form.Control
-                  defaultValue={this.props.profile.zip}
-                  onChange={(event) => this.handleChange(event, "zip")}
+                  defaultValue={this.props.profile.zip_code}
+                  onChange={(event) => this.handleChange(event, "zipCode")}
                 />
               </Form.Group>
 
@@ -339,6 +452,9 @@ class ProfileEdit extends Component {
                   defaultValue={this.props.profile.phone}
                   onChange={(event) => this.handleChange(event, "phone")}
                 />
+                <Form.Text className="text-muted">
+                 Business - Listed
+                </Form.Text>
               </Form.Group>
 
               <Form.Group>
@@ -347,6 +463,9 @@ class ProfileEdit extends Component {
                   defaultValue={this.props.profile.email}
                   onChange={(event) => this.handleChange(event, "email")}
                 />
+                <Form.Text className="text-muted">
+                  Business - Listed
+                </Form.Text>
               </Form.Group>
 
               <Form.Group>
@@ -363,7 +482,11 @@ class ProfileEdit extends Component {
                   defaultValue={this.props.profile.address}
                   onChange={(event) => this.handleChange(event, "address")}
                 />
+                <Form.Text className="text-muted">
+                  Business - Listed
+                </Form.Text>
               </Form.Group>
+
             </Form>
           </div>
         ) : (
@@ -375,17 +498,7 @@ class ProfileEdit extends Component {
               Edit Contact Info
             </Button>
             <Form className="flex-between row-wrap">
-              <Form.Group>
-                <Form.Label variant="flat" className="label">
-                  Island
-                </Form.Label>
-                <Form.Control
-                  disabled="true"
-                  plaintext
-                  readOnly
-                  defaultValue={this.props.profile.island}
-                />
-              </Form.Group>
+              {this.displayIslands()}
               <Form.Group>
                 <Form.Label variant="flat" className="label">
                   City
@@ -405,7 +518,7 @@ class ProfileEdit extends Component {
                   disabled="true"
                   plaintext
                   readOnly
-                  defaultValue={this.props.profile.zip}
+                  defaultValue={this.props.profile.zip_code}
                 />
               </Form.Group>
 
@@ -415,8 +528,11 @@ class ProfileEdit extends Component {
                   disabled="true"
                   plaintext
                   readOnly
-                  defaultValue={this.props.profile.phone}
+                  defaultValue={this.state.phone}
                 />
+                <Form.Text className="text-muted">
+                  Business - Listed
+                </Form.Text>
               </Form.Group>
 
               <Form.Group>
@@ -427,6 +543,9 @@ class ProfileEdit extends Component {
                   readOnly
                   defaultValue={this.props.profile.email}
                 />
+                <Form.Text className="text-muted">
+                    Business - Listed
+                </Form.Text>
               </Form.Group>
 
               <Form.Group>
@@ -447,6 +566,9 @@ class ProfileEdit extends Component {
                   readOnly
                   defaultValue={this.props.profile.address}
                 />
+                <Form.Text className="text-muted">
+                    Business - Listed
+                </Form.Text>
               </Form.Group>
             </Form>
           </div>
@@ -538,6 +660,7 @@ class ProfileEdit extends Component {
               Edit Practice Info
             </Button>
             <Form className="flex-between row-wrap">
+            
               <Form.Group>
                 <Form.Label variant="flat" className="label">
                   Treatment & Approaches
@@ -614,7 +737,7 @@ class ProfileEdit extends Component {
             </Form>
           </div>
         )}
-      </>
+      </> 
     );
   }
 }
@@ -622,6 +745,9 @@ class ProfileEdit extends Component {
 const putReduxStateOnProps = (reduxStore) => ({
     user: reduxStore.user,
     profile: reduxStore.profile,
+    languages: reduxStore.languages,
+    islands: reduxStore.islands,
+    treatments: reduxStore.treatmentPreferences
 });
 
 export default withRouter(connect(putReduxStateOnProps)(ProfileEdit));
