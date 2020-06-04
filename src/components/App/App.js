@@ -74,8 +74,8 @@ class App extends Component {
             {/*This is a route anyone can see, no login necessary */}
             <Route exact path="/login" component={LoginPage} />
             {/*User only sees these routes if logged in*/}
-            <Route exact path="/edit-profile/:id" component={ProfileEdit} />
-            <ProtectedRoute exact path="/profile" component={ProfileView} />
+            <ProtectedRoute exact path="/edit-profile/:id" component={ProfileEdit} />
+            <Route exact path="/profile/:id" component={ProfileView} />
             <ProtectedRoute exact path="/create-profile" component={ProfileCreate} />
             <ProtectedRoute exact path="/contact-info" component={ContactInfo} />
             <ProtectedRoute exact path="/practice" component={PracticeInfo} />

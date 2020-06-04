@@ -2,19 +2,18 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
-
-/**
- * GET route template
- */
-router.get("/:id", async (req, res) => {
-  const connection = await pool.connect();
-  try {
-    let query = `SELECT m.*, 
+// GET ROUTE for specific members gets all the info on a single person based on the param id
+router.get('/:id', async (req, res) => {
+    const connection = await pool.connect();
+    try {
+        let query = `SELECT m.*, 
 			array_agg(DISTINCT languages.title) AS languages,
 			array_agg(DISTINCT age_groups_served.title) AS ages_served,
 			array_agg(DISTINCT client_focus.title) AS client_focus,
 			array_agg(DISTINCT insurance_type.title) AS insurance,
 			array_agg(DISTINCT island.title) AS island,
+			array_agg(DISTINCT license_type.title) AS license_type,
+
 			array_agg(DISTINCT session_format.title) AS session_format,
 			array_agg(DISTINCT specialty.title) AS specialty,
 			array_agg(DISTINCT treatment_preferences.title) AS treatment_preferences,
@@ -39,6 +38,8 @@ router.get("/:id", async (req, res) => {
 			JOIN island_pivot ON island_pivot.member_id = m.id
 			JOIN island ON island.island_id = island_pivot.island_id
 			
+			JOIN license_type_pivot ON license_type_pivot.member_id = m.id
+			JOIN license_type ON license_type.license_type_id = license_type_pivot.license_type_id
 			JOIN session_format_pivot ON session_format_pivot.member_id = m.id
 			JOIN session_format ON session_format.session_format_id = session_format_pivot.session_format_id
 			
@@ -47,24 +48,20 @@ router.get("/:id", async (req, res) => {
 			
 			JOIN treatment_preferences_pivot ON treatment_preferences_pivot.member_id = m.id
 			JOIN treatment_preferences ON treatment_preferences.treatment_preferences_id = treatment_preferences_pivot.treatment_preferences_id		
-        
-            WHERE id = $1
-
-			GROUP BY m.id, m.zip_code, m.first_name, m.last_name, m.prefix, m.age, m.license_state, m.license_type, m.license_number,
+            WHERE m.id =$1
+			GROUP BY m.id, m.zip_code, m.first_name, m.last_name, m.prefix, m.age, m.license_state,
 			m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials,
 			m.telehealth, m.statement, m.website, m.title, m.city;`;
-    const members = await connection.query(query, [req.params.id]);
-    
-    res.send(members.rows[0]);
-  } catch (error) {
-    console.log(`Error Selecting members`, error);
-    res.sendStatus(500);
-  } finally {
-    connection.release();
-  }
+        const members = await connection.query(query, [req.params.id]);
+        res.send(members.rows)
+
+      } catch (error) {
+        console.log(`Error Selecting members`, error)
+        res.sendStatus(500);
+      } finally {
+        connection.release();
+      }
 });
-
-
 /**
  * PUT route template
  */
@@ -163,6 +160,4 @@ router.put('/', rejectUnauthenticated, async (req, res) => {
     connection.release();
   }
 })
-
-
 module.exports = router;
