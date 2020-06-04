@@ -69,7 +69,7 @@ router.get("/:id", async (req, res) => {
  * PUT route template
  */
 router.put('/', rejectUnauthenticated, async (req, res) => {
-  console.log("made it to server");
+  console.log("made it to server", req.body.languagesEdit);
 
   const connection = await pool.connect();
 
@@ -87,6 +87,10 @@ router.put('/', rejectUnauthenticated, async (req, res) => {
             $9, $10, $11, $12, $13, 
             $14, $15, $16, $17, $18)
         WHERE id = $19;`;
+
+    const languageQuery = `INSERT INTO "languages_pivot" ("language_id", "member_id") VALUES ($1, $2)`;
+    const languageDeleteQuery = `DELETE FROM languages_pivot WHERE member_id = $1;`;
+    const languages = req.body.languagesEdit;
 
     await connection.query(memberQuery, [
       req.body.prefix,
@@ -110,6 +114,12 @@ router.put('/', rejectUnauthenticated, async (req, res) => {
       req.body.id.id,
     ]);
 
+    await connection.query(languageDeleteQuery, [req.user.id]);
+
+    for (let i=0; i<languages.length; i++){
+      await connection.query(languageQuery, [languages[i], req.user.id]);
+    }
+    
     await connection.query('COMMIT;');
     res.sendStatus(200);
   }
