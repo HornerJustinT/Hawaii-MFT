@@ -6,21 +6,18 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 router.get('/:id', async (req, res) => {
     const connection = await pool.connect();
     try {
-        let query = `SELECT m.*, 
+         let query = `SELECT m.*, 
 			array_agg(DISTINCT languages.title) AS languages,
 			array_agg(DISTINCT age_groups_served.title) AS ages_served,
 			array_agg(DISTINCT client_focus.title) AS client_focus,
 			array_agg(DISTINCT insurance_type.title) AS insurance,
-			array_agg(DISTINCT island.title) AS island,
-			array_agg(DISTINCT license_type.title) AS license_type,
-
+			island.title AS island,
 			array_agg(DISTINCT session_format.title) AS session_format,
 			array_agg(DISTINCT specialty.title) AS specialty,
 			array_agg(DISTINCT treatment_preferences.title) AS treatment_preferences,
 			ARRAY(SELECT DISTINCT phone_table.number FROM phone_table WHERE phone_table.business = true AND phone_table.member_id = m.id) AS phone,
 			ARRAY(SELECT DISTINCT address_table.address FROM address_table WHERE address_table.business = true AND address_table.member_id = m.id) AS address,
 			ARRAY(SELECT DISTINCT email_table.email FROM email_table WHERE email_table.business = true AND email_table.member_id = m.id) AS email
-
 			FROM members m
 			
 			JOIN languages_pivot ON languages_pivot.member_id = m.id
@@ -38,8 +35,6 @@ router.get('/:id', async (req, res) => {
 			JOIN island_pivot ON island_pivot.member_id = m.id
 			JOIN island ON island.island_id = island_pivot.island_id
 			
-			JOIN license_type_pivot ON license_type_pivot.member_id = m.id
-			JOIN license_type ON license_type.license_type_id = license_type_pivot.license_type_id
 			JOIN session_format_pivot ON session_format_pivot.member_id = m.id
 			JOIN session_format ON session_format.session_format_id = session_format_pivot.session_format_id
 			
@@ -48,9 +43,11 @@ router.get('/:id', async (req, res) => {
 			
 			JOIN treatment_preferences_pivot ON treatment_preferences_pivot.member_id = m.id
 			JOIN treatment_preferences ON treatment_preferences.treatment_preferences_id = treatment_preferences_pivot.treatment_preferences_id		
-            WHERE m.id =$1
-			GROUP BY m.id, m.zip_code, m.first_name, m.last_name, m.prefix, m.age, m.license_state,
+        
+            WHERE id = $1
+			GROUP BY m.id, m.zip_code, m.first_name, m.last_name, m.prefix, m.age, m.license_state, m.license_type, m.license_number,
 			m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials,
+
 			m.telehealth, m.statement, m.website, m.title, m.city, m.license_number, m.license_type;`;
         const members = await connection.query(query, [req.params.id]);
         res.send(members.rows)
@@ -97,13 +94,13 @@ router.put('/', rejectUnauthenticated, async (req, res) => {
     const phoneQuery = `INSERT INTO "phone_table" ("number", "member_id", "business") VALUES ($1, $2, $3)`;
     const phoneDeleteQuery = `DELETE FROM phone_table WHERE member_id = $1;`;
 
-    const email = req.body.email;
-    const emailQuery = `INSERT INTO "email_table" ("email", "member_id", "business") VALUES ($1, $2, $3)`;
-    const emailDeleteQuery = `DELETE FROM email_table WHERE member_id = $1;`;
+    // const email = req.body.email;
+    // const emailQuery = `INSERT INTO "email_table" ("email", "member_id", "business") VALUES ($1, $2, $3)`;
+    // const emailDeleteQuery = `DELETE FROM email_table WHERE member_id = $1;`;
     
-    const address = req.body.address;
-    const addressQuery = `INSERT INTO "address_table" ("address", "member_id", "business") VALUES ($1, $2, $3)`;
-    const addressDeleteQuery = `DELETE FROM address_table WHERE member_id = $1;`;
+    // const address = req.body.address;
+    // const addressQuery = `INSERT INTO "address_table" ("address", "member_id", "business") VALUES ($1, $2, $3)`;
+    // const addressDeleteQuery = `DELETE FROM address_table WHERE member_id = $1;`;
 
     await connection.query(memberQuery, [
       req.body.prefix,
@@ -137,17 +134,18 @@ router.put('/', rejectUnauthenticated, async (req, res) => {
     await connection.query(islandDeleteQuery, [req.user.id]);
     await connection.query(islandQuery, [island[0], req.user.id]);
 
-  //Phone PUT & DELETE
+  // Phone PUT & DELETE
     await connection.query(phoneDeleteQuery, [req.user.id]);
     await connection.query(phoneQuery, [phone, req.user.id, 'TRUE']);
     
-  //Email PUT & DELETE
-    await connection.query(emailDeleteQuery, [req.user.id]);
-    await connection.query(emailQuery, [email, req.user.id, 'TRUE']);
+//   //Email PUT & DELETE
+//     await connection.query(emailDeleteQuery, [req.user.id]);
+//     await connection.query(emailQuery, [email, req.user.id, 'TRUE']);
     
-    //Address PUT & DELETE
-    await connection.query(addressDeleteQuery, [req.user.id]);
-    await connection.query(addressQuery, [address, req.user.id, 'TRUE']);
+//     //Address PUT & DELETE
+//     await connection.query(addressDeleteQuery, [req.user.id]);
+//     await connection.query(addressQuery, [address, req.user.id, 'TRUE']);
+
     await connection.query('COMMIT;');
     res.sendStatus(200);
   }

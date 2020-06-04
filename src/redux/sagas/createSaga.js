@@ -47,7 +47,7 @@ function* addZipCode(action) {
 
 function* fetchLanguages(action){
     try{
-        const response = yield axios.get(`/api/profile`)
+        const response = yield axios.get(`/api/profile/languages`)
         yield put ({type: 'SET_LANGUAGES', payload: response.data});
     }
     catch(error){

@@ -20,7 +20,6 @@ class ProfileEdit extends Component {
     clickPractice: false,
     languages: [],
     languagesEdit: [],
-    islands: [],
     treatmentApproaches: [],
   };
   
@@ -32,8 +31,10 @@ class ProfileEdit extends Component {
   }
 
 //
-  componentDidUpdate() {
-    if (this.state.id !== this.props.match.params && this.props.languages.length > 0) {
+  componentDidUpdate(previousProps) {
+    console.log( '@$@$@$@', this.state.id, this.props.match.params.id, this.props.profile.id, this.props.languages);
+    
+    if ((this.state.id !== this.props.match.params.id && previousProps.profile.id !== this.props.profile.id)) {
       const updatedLanguages = this.syncDataEdit("languages", "languages");
       const updatedIsland = this.syncDataEditIsland("islands", "island");
       // const updatedTreatments = this.syncDataEditTreatments("treatmentApproaches", "treatmentApproaches");
@@ -80,27 +81,25 @@ class ProfileEdit extends Component {
 //the reducerName is the reducer that holds the array of object with ids & values
 //the profileName is the property in the profile that holds just the values
 //If Mark changes query returning profile results, this could be generic (see: language_id -> id)
-  syncDataEdit = (reducerName, profileName) => {
-    const updatedLanguages = this.props.profile[profileName].map(lang => {
-      const results = this.props[reducerName].filter(object => object.title === lang)
-      console.log('heres results !!!!!!!', results);
-      return (
-        results[0].language_id
-      );
-    })
-    return updatedLanguages;
+  syncDataEdit = () => {
+    if(this.props.profile.languages){
+        const updatedLanguages = this.props.profile.languages.map((lang) => {
+        const results = this.props.languages.filter((object) => object.title === lang);
+        console.log("heres results !!!!!!!", results);
+        return (results[0].language_id);
+      });
+      return updatedLanguages;
+    }
   }
 
-  syncDataEditIsland = (reducerName, profileName) => {
-    const updatedIsland = this.props.profile[profileName].map(island => {
-      const results = this.props[reducerName].filter(object => object.title === island)
+  syncDataEditIsland = () => {
+    if(this.props.profile.island){
+      const results = this.props.islands.filter(object => object.title === this.props.profile.island)
       console.log('heres results !!!!!!!', results);
       return (
-        results
-        // results[0].island_id
+        results[0].island_id
       );
-    })
-    return updatedIsland;
+    }    
   }
 
   // syncDataEditTreatments = (reducerName, profileName) => {
@@ -223,6 +222,7 @@ class ProfileEdit extends Component {
           </Form.Group>
       );
     }else{
+      console.log( 'here is state.languages KRISTEN AND MARY', this.state.languages);
       return(
       <Form.Group>
         <Form.Label className="label">Languages Spoken</Form.Label>
@@ -287,10 +287,10 @@ class ProfileEdit extends Component {
       <>
         <div className="header">
           <h3>My Profile</h3>
-          {/* {JSON.stringify(this.props.profile)} */}
-          {/* <br></br>
-          <br/> */}
-          {/* {JSON.stringify(this.state)} */}
+          {JSON.stringify(this.props.profile)}
+          <br></br>
+          <br/>
+         {JSON.stringify(this.state)} 
 {/* 
           <br/>
           <br/> */}
