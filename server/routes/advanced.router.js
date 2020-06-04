@@ -187,14 +187,14 @@ router.get('/', async (req, res) => {
 				// name of the query. This fixes that issue by manually
 				// setting those instead of automating it.
 				if (parse === "ages_served") {
-					whereQuery += `LOWER(age_groups_served.title LIKE LOWER($${paramCount})`;
-				} else if (parse === "LOWER(insurance") {
-					whereQuery += `LOWER(insurance_type.title LIKE LOWER($${paramCount})`;
+					whereQuery += `LOWER(age_groups_served.title) LIKE LOWER($${paramCount})`;
+				} else if (parse === "insurance") {
+					whereQuery += `LOWER(insurance_type.title) LIKE LOWER($${paramCount})`;
 				} else if (parse === "supervision_status") {
 					// This one isnt a table name change but is instead on the member table
 					// The search is simple enough however there was no reason to give
 					// it its own section above.
-					whereQuery += `LOWER(m.supervision_status LIKE LOWER($${paramCount})`;
+					whereQuery += `LOWER(m.supervision_status) LIKE LOWER($${paramCount})`;
 				} else {
 					// If it doesnt need a special table name it automatically sets
 					// the name to be the same as the query name.
