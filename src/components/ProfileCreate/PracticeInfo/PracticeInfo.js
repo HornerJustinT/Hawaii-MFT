@@ -62,13 +62,11 @@ handleInputChangeFor = propertyName => (event) =>{
       event.preventDefault()
         this.props.dispatch({type:'ADD_MEMBER',
          payload:{
-           id: this.props.user.id,
           prefix:this.props.createProfile.prefix,
           first_name:this.props.createProfile.first_name,
           last_name:this.props.createProfile.last_name,
           age:this.props.createProfile.age,
           hiamft_member_account_info:this.props.createProfile.hiamft_member_account_info,
-          zip_code: this.props.contactInfo.zip_code,
           license_state:this.state.license_state,
           supervision_status:this.state.supervision_status,
           fees:this.state.fees,
@@ -79,8 +77,9 @@ handleInputChangeFor = propertyName => (event) =>{
           telehealth:this.state.telehealth,
           statement:this.state.statement,
           title:this.state.title,
-          website:this.props.reduxstate.website,
-             city:this.props.reduxstate.city
+          website:this.props.contactAddress.website,
+             city:this.props.contactAddress.city,
+             zip_code: this.props.contactAddress.zip_code,
 
           
  /*     */
@@ -91,9 +90,16 @@ handleInputChangeFor = propertyName => (event) =>{
     handleReset = ()=>{
       this.setState({
         license_state:'',
-          supervision_status:'',
-          fees:'',
-          license_expiration:'',
+        license_number:'',
+        license_type:'',
+       supervision_status:'',
+        fees:'',
+        license_expiration:'',
+        specialty:'',
+        credentials:'',
+        telehealth:'',
+        statement:'',
+        title:'',
       })
     }
     render (){
@@ -105,7 +111,21 @@ handleInputChangeFor = propertyName => (event) =>{
         <ProgressBar now={75} />
         <br/>
         <form onSubmit={this.addPracticeInfo}>
-        <label>License Type</label><br/><select onChange={this.handleInputChangeFor("language")}>
+        <br/>
+        <br/>
+        <label>Title </label><br/><input type="text"
+                  name="title"
+                  value={this.state.title}
+                  onChange={this.handleInputChangeFor("title")}/>
+        <br/>
+        <br/>
+        <label>Credentials </label><br/><input type="text"
+                  name="title"
+                  value={this.state.credentials}
+                  onChange={this.handleInputChangeFor("credentials")}/>
+        <br/>
+        <br/>
+        <label>License Type</label><br/><select onChange={this.handleInputChangeFor("license_type")}>
         {this.props.license &&    
                    <>
                    <option value='' defaultValue='Select License Type'>Select License Type</option>
@@ -128,6 +148,12 @@ handleInputChangeFor = propertyName => (event) =>{
                   onChange={this.handleInputChangeFor("license_state")}/>
         <br/>
         <br/>
+        <label>License Number</label><br/><input type="number"
+                  name="license_number"
+                  value={this.state.license_number}
+                  onChange={this.handleInputChangeFor("license_number")}/>
+        <br/>
+        <br/>
         <label>License Expiration Date</label><br/><input 
                   type='date'
                   name="license_expiration"
@@ -135,6 +161,12 @@ handleInputChangeFor = propertyName => (event) =>{
                   onChange={this.handleInputChangeFor("license_expiration")}/>
         <br/>
         <br/>
+        <label>Statement</label><br/><input type="text"
+                  name="statement"
+                  value={this.state.statement}
+                  onChange={this.handleInputChangeFor("statement")}/>
+                   <br/>
+                   <br/>
         <label>Fees</label><br/><input type="text"
                   name="fees"
                   value={this.state.fees}
@@ -192,8 +224,16 @@ handleInputChangeFor = propertyName => (event) =>{
         <br/>
         <label>Are you providing telehealth?</label>
         <br/>
-        <label>Yes</label><input type='radio' className='choice' value='yes'/>
-        <label>No</label><input type='radio' className='choice' value='no'/>
+        <label>Yes</label><input 
+                              type='radio' 
+                              name='choice' 
+                              value='yes' 
+                              onChange={this.handleInputChangeFor("telehealth")}/>
+        <label>No</label><input 
+                              type='radio' 
+                              name='choice' 
+                              value='no'
+                              onChange={this.handleInputChangeFor("telehealth")}/>
         <br/>
         <br/>
         <label>Treatment Approaches/Preferences</label><br/><select>
@@ -285,7 +325,7 @@ const mapStateToProps = reduxstate => ({
     ageGroups:reduxstate.ageGroups,
     sessionFormats:reduxstate.sessionFormats,
     createProfile: reduxstate.createProfile,
-    contactInfo: reduxstate.contactInfo,
+    contactAddress: reduxstate.contactAddress,
     user: reduxstate.user
   });
 export default connect(mapStateToProps)(PracticeInfo);

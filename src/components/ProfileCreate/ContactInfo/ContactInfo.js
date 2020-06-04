@@ -47,21 +47,24 @@ class ContactInfo extends Component{
       handleSave =(event) =>{
         event.preventDefault();
         this.addContactInfo();
-       
+       this.addAddress()
       }
       addContactInfo = () =>{
-        this.props.dispatch({type:'ADD_ZIP_CODE',
-                          payload:{zip_code: this.state.zip_code}})
           this.props.dispatch({type:'ADD_CONTACTINFO', 
                                  payload:{island_id: this.state.island_id, 
                                   email: this.state.email,
                                   personal_email:this.state.personal_email
                                            }});
-         
-                                    
-
+                        
       }
-    
+    addAddress = () =>{
+      this.props.dispatch({type:'ADD_ADDRESS',
+                          payload:{zip_code: this.state.zip_code,
+                                       city: this.state.city,
+                                        website:this.state.website}})
+    }
+
+  
       
     render (){
         return(
@@ -153,11 +156,19 @@ class ContactInfo extends Component{
                   onChange={this.handleInputChangeFor("mailing_address")}/>
              <br/>
              <br/>
+             <label>City</label>
+             <br/>
+             <input type="text"
+                  name="city"
+                  value={this.state.city}
+                  onChange={this.handleInputChangeFor("city")}/>
+             <br/>
             
-            <button>Save</button>
+           <button>Save</button>
             </form>
             <button onClick={this.handleBack}>Back</button>
-            <button onClick={this.handleNext}>Next Page</button>
+            <button onClick={this.handleNext}>Save and Next Page</button>
+           
 
             </div>
            

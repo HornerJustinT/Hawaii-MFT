@@ -151,8 +151,9 @@ router.post('/',rejectUnauthenticated, (req, res) => {
     const license_type = req.body.license_type
 
          const queryText = `INSERT INTO "members" 
-         ("id","zip_code","first_name", "last_name", "prefix", "age","license_state", "license_expiration", "hiamft_member_account_info", "supervision_status","fees")
-     VALUES($1,$2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`;
+         ("id","zip_code","first_name", "last_name", "prefix", "age","license_state", "license_expiration", "hiamft_member_account_info", "supervision_status","fees", 
+         "credentials", "telehealth", "statement", "website", "title", "city", "license_number", "license_type")
+     VALUES($1,$2, $3, $4, $5, $6, $7, $8, $9, $10, $11,$12,$13,$14,$15,$16,$17,$18,$19);`;
         pool.query(queryText, [id,zip_code, first_name, last_name, prefix, age, license_state, license_expiration, 
         hiamft_member_account_info, supervision_status, fees, credentials, telehealth, statement, website, title, city, license_number, license_type])
           .then((result) => res.sendStatus(200))

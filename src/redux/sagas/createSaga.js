@@ -68,11 +68,11 @@ function* addCreateProfile (action) {
     }
 }
 
-function* addZipCode(action) {
+function* addAddress(action) {
     console.log('in createProfile saga', action.payload)
     try {
      
-       yield put ({type: 'SET_ZIP_CODE', payload: action.payload});
+       yield put ({type: 'SET_ADDRESS', payload: action.payload});
     } catch (error) {
         console.log('Contact Info reducer failed', error);
     }
@@ -201,7 +201,7 @@ function* createSaga() {
     yield takeLatest('FETCH_DEMOGRPHICS',fetchDemographics);
     yield takeLatest('FETCH_AGE_GROUPS', fetchAgeGroups);
     yield takeLatest('FETCH_SESSION_FORMAT', fetchSessionFormat);
-    yield takeLatest('ADD_ZIP_CODE', addZipCode);
+    yield takeLatest('ADD_ADDRESS', addAddress);
     yield takeLatest('ADD_MEMBER', addMember);
     yield takeLatest('ADD_LANGUAGE', addLanguage);
     yield takeLatest('ADD_ISLAND', addIsland);
