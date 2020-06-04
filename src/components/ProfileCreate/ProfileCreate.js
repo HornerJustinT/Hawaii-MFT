@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Dropdown from 'react-bootstrap/Dropdown'
 import InputGroup from "react-bootstrap/InputGroup";
 
 
@@ -120,7 +119,8 @@ componentDidMount(){
         <br/>
         <br/>
          <Form.Label>Language Spoken</Form.Label><br/>
-         <select onChange={this.handleInputChangeFor("language_id")}>
+         <Form.Control
+          as="select" onChange={this.handleInputChangeFor("language_id")}>
                    {this.props.languages &&
                    
                    <>
@@ -132,7 +132,7 @@ componentDidMount(){
                     )}
                    </>
                    } 
-         </select> 
+         </Form.Control> 
         <br/>
         <br/>
         <button>+</button><label>Add a Field</label>
@@ -145,7 +145,7 @@ componentDidMount(){
                   value={this.state.hiamft_member_account_info}
                   onChange={this.handleInputChangeFor("hiamft_member_account_info")}/>
         <br/>
-        <Button>Save</Button>
+        <button>Save</button>
          </Form>
          <Button onClick={this.handleNext}>Save and Next Page</Button>
             </div>

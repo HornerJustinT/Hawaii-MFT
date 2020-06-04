@@ -12,22 +12,19 @@ import InputGroup from "react-bootstrap/InputGroup";
 class ContactInfo extends Component{
 // create the state
            state = {
-            phone_type_id:'',
-            number:'',
-            island_id:'',
+               island_id:'',
+               zip_code:'',
+            business_number:'',
+            personal_number:'',
             email:'',
             personal_email:'',
-            address:'',
-            languages:'',
-            zip_code:'',
             website:'',
+            address_office:'',
+            address_home:'',
+            address_mailing:'',
             city:'',
-            
            }
-/**
-  "zip_code" INT,
-  
- */
+
            componentDidMount (){
             this.props.dispatch({
                 type:'FETCH_ISLANDS'
@@ -55,17 +52,22 @@ class ContactInfo extends Component{
       }
       addContactInfo = () =>{
           this.props.dispatch({type:'ADD_CONTACTINFO', 
-                                 payload:{island_id: this.state.island_id, 
-                                  email: this.state.email,
-                                  personal_email:this.state.personal_email
-                                           }});
+                              payload:{island_id: this.state.island_id, 
+                                        email: this.state.email,
+                                        personal_email:this.state.personal_email,
+                                        business_number:'',
+                                        personal_number:'',
+                                        address_office:'',
+                                        address_home:'',
+                                        address_mailing:'',
+          }});
                         
-      }
+     }
     addAddress = () =>{
       this.props.dispatch({type:'ADD_ADDRESS',
                           payload:{zip_code: this.state.zip_code,
                                        city: this.state.city,
-                                        website:this.state.website}})
+                                    website: this.state.website}})
     }
 
   
@@ -80,7 +82,8 @@ class ContactInfo extends Component{
             <Form onSubmit={this.handleSave}>
              <label>Island</label>
              <br/>
-             <select onChange={this.handleInputChangeFor("island_id")}>
+             <Form.Control
+                 as="select" onChange={this.handleInputChangeFor("island_id")}>
              {this.props.islands &&
                    
                    <>
@@ -92,17 +95,17 @@ class ContactInfo extends Component{
                     )}
                    </>
                    } 
-             </select>
+             </Form.Control>
              <br/>
              <br/>
-             <label>Zip Code</label>
+             <Form.Label>Zip Code</Form.Label>
              <br/>
              <input type="number"
                   name="zip_code"
                   value={this.state.zip_code}
                   onChange={this.handleInputChangeFor("zip_code")}/>
                 <br/>
-             <label>Phone Number - Business</label>
+             <Form.Label>Phone Number - Business</Form.Label>
              <br/>
              <input type="number"
                   name="number"
@@ -110,49 +113,49 @@ class ContactInfo extends Component{
                   onChange={this.handleInputChangeFor("number")}/>
              <br/>
              <br/>
-             <label>Phone Number - Personal</label>
+             <Form.Label>Phone Number - Personal</Form.Label>
              <br/>
              <input type="number"
                   name="number"
                   value={this.state.personal_number}
                   onChange={this.handleInputChangeFor("personal_number")}/>
                 <br/>
-             <label>Email Address - Business</label>
+             <Form.Label>Email Address - Business</Form.Label>
              <br/>
              <input type="text"
                   name="email"
                   value={this.state.email}
                   onChange={this.handleInputChangeFor("email")}/>
              <br/>
-             <label>Email Address - Personal</label>
+             <Form.Label>Email Address - Personal</Form.Label>
              <br/>
              <input type="text"
                   name="personal_email"
                   value={this.state.personal_email}
                   onChange={this.handleInputChangeFor("personal_email")}/>
              <br/>
-             <label>Website</label>
+             <Form.Label>Website</Form.Label>
              <br/>
              <input type="text"
                   name="website"
                   value={this.state.website}
                   onChange={this.handleInputChangeFor("website")}/>
              <br/>
-             <label>Address - Office</label>
+             <Form.Label>Address - Office</Form.Label>
              <br/>
              <input type="text"
                   name="address"
                   value={this.state.address}
                   onChange={this.handleInputChangeFor("address")}/>
              <br/>
-             <label>Address - Home</label>
+             <Form.Label>Address - Home</Form.Label>
              <br/>
              <input type="text"
                   name="home_address"
                   value={this.state.home_address}
                   onChange={this.handleInputChangeFor("homeaddress")}/>
              <br/>
-             <label>Address - Mailing</label>
+             <Form.Label>Address - Mailing</Form.Label>
              <br/>
              <input type="text"
                   name="mailing_address"
@@ -160,18 +163,19 @@ class ContactInfo extends Component{
                   onChange={this.handleInputChangeFor("mailing_address")}/>
              <br/>
              <br/>
-             <label>City</label>
+             <Form.Label>City</Form.Label>
              <br/>
              <input type="text"
                   name="city"
                   value={this.state.city}
                   onChange={this.handleInputChangeFor("city")}/>
              <br/>
+             <br/>
             
            <button>Save</button>
             </Form>
-            <button onClick={this.handleBack}>Back</button>
-            <button onClick={this.handleNext}>Save and Next Page</button>
+            <Button onClick={this.handleBack}>Back</Button>
+            <Button onClick={this.handleNext}>Save and Next Page</Button>
            
 
             </div>

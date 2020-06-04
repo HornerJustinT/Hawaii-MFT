@@ -2,7 +2,10 @@ import React,{ Component } from 'react';
 import { connect } from 'react-redux';
 
 //React-bootstrap import
-import ProgressBar from 'react-bootstrap/ProgressBar'
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import InputGroup from "react-bootstrap/InputGroup";
 
 
 class PracticeInfo extends Component{
@@ -110,70 +113,70 @@ handleInputChangeFor = propertyName => (event) =>{
         <br/>
         <ProgressBar now={75} />
         <br/>
-        <form onSubmit={this.addPracticeInfo}>
+        <Form onSubmit={this.addPracticeInfo}>
         <br/>
         <br/>
-        <label>Title </label><br/><input type="text"
+        <Form.Label>Title </Form.Label><br/><input type="text"
                   name="title"
                   value={this.state.title}
                   onChange={this.handleInputChangeFor("title")}/>
         <br/>
         <br/>
-        <label>Credentials </label><br/><input type="text"
+        <Form.Label>Credentials </Form.Label><br/><input type="text"
                   name="title"
                   value={this.state.credentials}
                   onChange={this.handleInputChangeFor("credentials")}/>
         <br/>
         <br/>
-        <label>License Type</label><br/><select onChange={this.handleInputChangeFor("license_type")}>
+        <Form.Label>License Type</Form.Label><br/><Form.Control as="select" onChange={this.handleInputChangeFor("license_type")}>
         {this.props.license &&    
                    <>
                    <option value='' defaultValue='Select License Type'>Select License Type</option>
                    {this.props.license.map(licensetype =>
-                    <option value={licensetype.title}
+                    <option value={licensetype.license_type_id}
         
-                  key={licensetype.id}>{licensetype.id}{' '}{licensetype.title}</option>
+                  key={licensetype.id}>{licensetype.title}</option>
                     )}
                    </>
                    } 
-           </select>
+           </Form.Control>
         <br/>
         <br/>
         <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
-        <label>License State of Issue</label><br/><input type="text"
+        <Form.Label>License State of Issue</Form.Label><br/><input type="text"
                   name="license_state"
                   value={this.state.license_state}
                   onChange={this.handleInputChangeFor("license_state")}/>
         <br/>
         <br/>
-        <label>License Number</label><br/><input type="number"
+        <Form.Label>License Number</Form.Label><br/><input type="number"
                   name="license_number"
                   value={this.state.license_number}
                   onChange={this.handleInputChangeFor("license_number")}/>
         <br/>
         <br/>
-        <label>License Expiration Date</label><br/><input 
+        <Form.Label>License Expiration Date</Form.Label><br/><input 
                   type='date'
                   name="license_expiration"
                   value={this.state.license_expiration}
                   onChange={this.handleInputChangeFor("license_expiration")}/>
         <br/>
         <br/>
-        <label>Statement</label><br/><input type="text"
+        <Form.Label>Statement</Form.Label><br/><input type="text"
                   name="statement"
                   value={this.state.statement}
                   onChange={this.handleInputChangeFor("statement")}/>
                    <br/>
                    <br/>
-        <label>Fees</label><br/><input type="text"
+        <Form.Label>Fees</Form.Label><br/><input type="text"
                   name="fees"
                   value={this.state.fees}
                   onChange={this.handleInputChangeFor("fees")}/>
                    <br/>
                    <br/>
-        <label>Specialization</label><br/><select>
+        <Form.Label>Specialization</Form.Label><br/><select>
                 {this.props.specialtys &&
                    
                    <>
@@ -193,7 +196,7 @@ handleInputChangeFor = propertyName => (event) =>{
         <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
-        <label>Supervision Status</label><br/><select onChange={this.handleInputChangeFor("supervision_status")}>
+        <Form.Label>Supervision Status</Form.Label><br/><select onChange={this.handleInputChangeFor("supervision_status")}>
                    <option value="None">None</option>
                    <option value="Hawai'i qualified">Hawai'i qualified</option>
                    <option value="MFT supervisor">MFT supervisor</option>
@@ -205,7 +208,7 @@ handleInputChangeFor = propertyName => (event) =>{
         <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
-        <label>Insurance Taken</label><br/><select>
+        <Form.Label>Insurance Taken</Form.Label><br/><select>
         {this.props.insuranceTaken &&    
                    <>
                   <option value='' defaultValue='Select Insurance Type'>Select Insurance Type</option>
@@ -222,7 +225,7 @@ handleInputChangeFor = propertyName => (event) =>{
         <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
-        <label>Are you providing telehealth?</label>
+        <Form.Label>Are you providing telehealth?</Form.Label>
         <br/>
         <label>Yes</label><input 
                               type='radio' 
@@ -236,7 +239,7 @@ handleInputChangeFor = propertyName => (event) =>{
                               onChange={this.handleInputChangeFor("telehealth")}/>
         <br/>
         <br/>
-        <label>Treatment Approaches/Preferences</label><br/><select>
+        <Form.Label>Treatment Approaches/Preferences</Form.Label><br/><select>
         {this.props.treatmentPreferences &&    
                    <>
                 <option value='' defaultValue='Select an Approach'>Select an Approach</option>
@@ -253,7 +256,7 @@ handleInputChangeFor = propertyName => (event) =>{
         <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
-        <label>Client Focus</label><br/><select>
+        <Form.Label>Client Focus</Form.Label><br/><select>
         {this.props.demographics &&    
                    <>
                
@@ -284,7 +287,7 @@ handleInputChangeFor = propertyName => (event) =>{
         <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
-        <label>Session Format(s)</label><br/><select>
+        <Form.Label>Session Format(s)</Form.Label><br/><select>
         {this.props.sessionFormats &&    
                    <>
                  <option value='' defaultValue='Select a Session Format'>Select a Session Format</option>
@@ -302,7 +305,7 @@ handleInputChangeFor = propertyName => (event) =>{
         <br/>
         <br/>
         <button>Save</button>
-        </form>
+        </Form>
             <button onClick={this.handleBack}>Back</button>
            
             <button onClick={this.handleNext}>Next Page</button>

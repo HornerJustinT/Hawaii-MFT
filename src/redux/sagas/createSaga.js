@@ -205,7 +205,7 @@ function* createSaga() {
     yield takeLatest('ADD_MEMBER', addMember);
     yield takeLatest('ADD_LANGUAGE', addLanguage);
     yield takeLatest('ADD_ISLAND', addIsland);
-    yield takeLatest('ADD_EMAIL', addEmail);
+   
 }
 
 export default createSaga;
