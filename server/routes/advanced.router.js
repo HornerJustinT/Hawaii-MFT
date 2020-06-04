@@ -2,7 +2,10 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-
+// This is a list of possible querys that are
+// all basically the same to search through.
+// using an array like this simplifies code later
+// into a for loop instead of a lot of if statements in a row.
 const criteria = [
   "specialty",
   "insurance",
@@ -20,12 +23,17 @@ const criteria = [
  * GET search route
  */
 router.get('/', async (req, res) => {
-    const connection = await pool.connect();
+	// Allows us to use SQL much nicer.
+	const connection = await pool.connect();
+
     try {
+		// Creating variables for use later
 		const parameters = [];
 		let paramCount = 1;
-		let where = false;
-        const startQuery = `SELECT m.*, license_type.title AS license_title,
+
+		// This is the start of the query before the 'WHERE' part would happen
+		// Its basically just a lot of things to select and JOIN
+		const startQuery = `SELECT m.*, license_type.title AS license_title,
 			array_agg(DISTINCT languages.title) AS languages,
 			array_agg(DISTINCT age_groups_served.title) AS ages_served,
 			array_agg(DISTINCT client_focus.title) AS client_focus,
@@ -66,110 +74,169 @@ router.get('/', async (req, res) => {
 			JOIN treatment_preferences_pivot ON treatment_preferences_pivot.member_id = m.id
 			JOIN treatment_preferences ON treatment_preferences.treatment_preferences_id = treatment_preferences_pivot.treatment_preferences_id`;
 
+		// This is the end part of the query for after the 'WHERE'
+		// portion of a query.
 		const endQuery = `\nGROUP BY m.id, license_type.title, m.zip_code, m.first_name, m.last_name, m.prefix, m.age, m.license_state,
 			m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials,
 			m.telehealth, m.statement, m.website, m.title, m.city, m.license_number, m.license_type;`;
 
-		let whereQuery = ''
+		// This is the 'WHERE' part of the query. It's the only one
+		// that uses let instead of const because it's very likely to
+		// change. If it doesnt change however the SQL still works and
+		// simply returns all results instead.
+		// This is used on the advanced search and admin pages as soon
+		// as the page loads to give you a list of all users on load.
+		let whereQuery = "";
 
+		// If the query exists then we need to add the SQL to the
+		// whereQuery variable.
 		if (req.query.name) {
-			if (!where){
-				whereQuery += `\nWHERE `
-				where = true;
+		// This determines if its the first one of if its adding
+		// to another query thats already been loaded.
+			if (!parameters[0]) {
+				// If first start the SQL WHERE with a 'WHERE' statement.
+
+				// \n is used to add a new line preventing possible conflicts
+				// with other parts of the query by ensuring they are on
+				// different lines.
+				whereQuery += `\nWHERE `;
 			} else {
+				// If not first it needs to add an 'AND' to the SQL
 				whereQuery += `\nAND `;
 			}
-			whereQuery += `(LOWER(m.first_name) LIKE $${paramCount} 
-							OR LOWER(m.last_name) LIKE $${paramCount}
-							OR LOWER(CONCAT_WS( ' ', m.first_name, m.last_name )) LIKE $${paramCount})`;
-			parameters.push("%" + req.query.name.toLowerCase() + "%");
+			// This is adding the SQL itself to the whereQuery variable.
+
+			// The variable paramCount is being used to ensure that the
+			// $1, $2, $3, etc parts of the SQL are added properly to
+			// the SQL and correctly match the parameters.
+			whereQuery += `(LOWER(m.first_name) LIKE LOWER($${paramCount}) 
+				OR LOWER(m.last_name) LIKE LOWER($${paramCount})
+				OR LOWER(CONCAT_WS( ' ', m.first_name, m.last_name )) LIKE LOWER($${paramCount}))`;
+
+			// Wrapping everything in LOWER() ensures that the search
+			// isn't case sensitive. Without this it would mean someone
+			// searching john wouldnt find John because they forgot to
+			// capitalize the first letter.
+
+			// This pushes the value of the query to the parameters array.
+			// % is added to both sides to allow the query to use 'LIKE'
+			// and search through all parts of the word not just the beginning
+			// or the end.
+			parameters.push("%" + req.query.name + "%");
+
+			// Adds to paramcount to keep future params correct.
 			paramCount++;
 		}
 
+		// The SQL can vary based on the query being used, however
+		// the basic idea remains.
 		if (req.query.zip) {
-			if (!where) {
+			if (!parameters[0]) {
 				whereQuery += `\nWHERE `;
-				where = true;
 			} else {
 				whereQuery += `\nAND `;
 			}
-			whereQuery += `(CAST(m.zip_code AS VARCHAR) LIKE $${paramCount}
-			OR LOWER(m.city) LIKE $${paramCount}
-			OR LOWER(m.island) LIKE $${paramCount})`;
-			parameters.push("%" + req.query.zip.toLowerCase() + "%");
+
+			// Wrapping the zip_code in CAST() turns the int type
+			// variable into a string we can use in the search. 
+			// Without using CAST this would error because 'LIKE'
+			// doesnt work with int variables.
+			whereQuery += `(LOWER(CAST(m.zip_code AS VARCHAR)) LIKE LOWER($${paramCount})
+				OR LOWER(m.city) LIKE LOWER($${paramCount})
+				OR LOWER(m.island) LIKE LOWER($${paramCount}))`;
+			parameters.push("%" + req.query.zip + "%");
 			paramCount++;
 		}
 
 		if (req.query.license_number) {
-			if (!where) {
+			if (!parameters[0]) {
 				whereQuery += `\nWHERE `;
-				where = true;
 			} else {
 				whereQuery += `\nAND `;
 			}
-			whereQuery += `(CAST(m.license_number AS VARCHAR) LIKE $${paramCount})`;
-			parameters.push("%" + req.query.license_number.toLowerCase() + "%");
+			whereQuery += `(LOWER(CAST(m.license_number AS VARCHAR)) LIKE LOWER($${paramCount}))`;
+			parameters.push("%" + req.query.license_number + "%");
 			paramCount++;
 		}
 
 		if (req.query.id) {
-			if (!where) {
+			if (!parameters[0]) {
 				whereQuery += `\nWHERE `;
-				where = true;
 			} else {
 				whereQuery += `\nAND `;
 			}
-			whereQuery += `(CAST(m.id AS VARCHAR) LIKE $${paramCount})`;
-			parameters.push("%" + req.query.id.toLowerCase() + "%");
+			whereQuery += `(LOWER(CAST(m.id AS VARCHAR)) LIKE LOWER($${paramCount}))`;
+			parameters.push("%" + req.query.id + "%");
 			paramCount++;
 		}
 
+		// This loops through the criteria array thats hard coded
+		// at the top of the file and basically runs the previous
+		// events but with a larger group (with small changes).
 		for (let parse of criteria) {
+
+			// Checks that the query exists.
 			if (req.query[parse]) {
-				if (!where) {
+				if (!parameters[0]) {
 					whereQuery += `\nWHERE `;
-					where = true;
 				} else {
 					whereQuery += `\nAND `;
 				}
 
+				// Some queries have different table names to the
+				// name of the query. This fixes that issue by manually
+				// setting those instead of automating it.
 				if (parse === "ages_served") {
-					whereQuery += `LOWER(age_groups_served.title LIKE LOWER($${paramCount})`;
-				} else if (parse === "LOWER(insurance") {
-                 whereQuery += `LOWER(insurance_type.title LIKE LOWER($${paramCount})`;
-               } else if (parse === "supervision_status") {
-                 whereQuery += `LOWER(m.supervision_status LIKE LOWER($${paramCount})`;
-               } else {
-                 whereQuery += `LOWER(${parse}.title) LIKE LOWER($${paramCount})`;
-               }
+					whereQuery += `LOWER(age_groups_served.title) LIKE LOWER($${paramCount})`;
+				} else if (parse === "insurance") {
+					whereQuery += `LOWER(insurance_type.title) LIKE LOWER($${paramCount})`;
+				} else if (parse === "supervision_status") {
+					// This one isnt a table name change but is instead on the member table
+					// The search is simple enough however there was no reason to give
+					// it its own section above.
+					whereQuery += `LOWER(m.supervision_status) LIKE LOWER($${paramCount})`;
+				} else {
+					// If it doesnt need a special table name it automatically sets
+					// the name to be the same as the query name.
+					whereQuery += `LOWER(${parse}.title) LIKE LOWER($${paramCount})`;
+				}
 
 				parameters.push("%" + req.query[parse] + "%");
 				paramCount++;
 			}
 		}
 
+		// Telehealth is boolean either true or false.
+		// This both checks if its there AND if its listed as true
+		// because an undefined variable and a variable that is false
+		// both will not pass an 'if' like this.
 		if (req.query.telehealth) {
-			if (!where) {
+			if (!parameters[0]) {
 				whereQuery += `\nWHERE `;
-				where = true;
 			} else {
 				whereQuery += `\nAND `;
 			}
 
+			// Since it is true this is all thats needed.
 			whereQuery += `m.telehealth = true`;
+
+			// There is no need to edit parameters for this one
 		}
 
+		// This stitches the final query together
 		let query = startQuery + whereQuery + endQuery;
 
-        const members = await connection.query(query, parameters);
-        res.send(members.rows)
+		// Sends the query to the database
+		const members = await connection.query(query, parameters);
 
-      } catch (error) {
-        console.log(`Error Selecting members`, error)
-        res.sendStatus(500);
-      } finally {
-        connection.release();
-      }
+		// Returns the search results to the page
+		res.send(members.rows);
+	} catch (error) {
+		console.log(`Error Selecting members`, error)
+		res.sendStatus(500);
+	} finally {
+		connection.release();
+	}
 });
 
 module.exports = router;

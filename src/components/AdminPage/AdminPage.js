@@ -17,8 +17,13 @@ import './AdminPage.css'
 
 
 class AdminPage extends Component {
+
+  // therapists is an array of therapists to loop through later
+
+  // Criteria is all the possible search options the server allows.
+  // They start as null and as filters are added they become strings.
+  // This allows for the adding and removing filters seen later.
   state = {
-    input: "",
     therapists: [],
     criteria: {
       name: null,
@@ -37,36 +42,51 @@ class AdminPage extends Component {
     },
   };
 
+  // When the page loads
   componentDidMount() {
+    // Grab a complete list of members.
     this.props.dispatch({ type: "FETCH_MEMBERS_ADVANCED", payload: "" });
   }
 
+  // Parses the state and makes the url query then sends the search
   searchTherapists = () => {
+    // Starts with an empty query string
     let query = "";
+
+    // Loops through the possible search criteria in state
     for (const key in this.state.criteria) {
+
+      // Makes sure the property actually exists (NEEDED)
       if (this.state.criteria.hasOwnProperty(key)) {
         const element = this.state.criteria[key];
+
+        // Checks if the criteria has information to search
         if (element) {
+          // If not the first item in the query
           if (query !== "") {
             query += "&";
           }
+
+          // island_city_zip is named zip server side so this renames it
           if (key === "island_city_zip") {
             query += "zip" + "=" + element;
           } else {
+            // Adds the key and value to the query in a url query
+            // useable fashion.
             query += key + "=" + element.replace(" ", "+");
           }
         }
       }
     }
 
-    console.log(query);
-
+    // Sends the dispatch
     this.props.dispatch({
       type: "FETCH_MEMBERS_ADVANCED",
       payload: query,
     });
   };
 
+  // Sets the state of the specific search criteria
   onSearchChange = (event, Mainkey) => {
     this.setState({
       criteria: {
@@ -76,6 +96,9 @@ class AdminPage extends Component {
     });
   };
 
+  // Replaces the criteria values as needed. 
+  // First it sets the new value to the same as the old one
+  // then it sets the old one to null.
   onSelectChange = (event, Mainkey) => {
     this.setState({
       criteria: {
@@ -86,6 +109,7 @@ class AdminPage extends Component {
     });
   };
 
+  // Sets the criteria to null essentially removing it
   deleteFilter = (Mainkey) => {
     this.setState({
       criteria: {
@@ -95,10 +119,14 @@ class AdminPage extends Component {
     });
   };
 
+  // Shows another bar on the page
   addFilter = () => {
+    // Loops through the criteria in the state
     for (const key in this.state.criteria) {
       if (this.state.criteria.hasOwnProperty(key)) {
         const element = this.state.criteria[key];
+        // If the element doesn't have a value yet
+        // give it an empty string as a value.
         if (element === null) {
           this.setState({
             criteria: {
@@ -106,20 +134,30 @@ class AdminPage extends Component {
               [key]: "",
             },
           });
+
+          // Ends the for loop once the bar has been added.
           break;
         }
       }
     }
   };
 
+
+  // Converts an array of objects to CSV and makes it ready for download
   objectToCsv = (data) => {
+    // Ensures any data exists to parse
     if (data[0]) {
+      // Starts with an empty array
       const csvRows = [];
 
+      // The keys of the objects are used as the headers for the CSV
       const headers = Object.keys(data[0]);
       csvRows.push(headers.join(","));
 
+      // Loops through the rows in the array
       for (const row of data) {
+        // maps through the header to know the values to
+        // parse the rest of the objects with.
         const values = headers.map((header) => {
           const escaped = ("" + row[header]).replace(/"/g, '\\"');
           return `"${escaped}"`;

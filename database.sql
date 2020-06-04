@@ -113,7 +113,7 @@ CREATE TABLE "client_focus_pivot"(
 
 
 CREATE TABLE "phone_table"(
-	"number" INT NOT NULL,
+	"number" VARCHAR(20) NOT NULL,
 	"member_id" INT NOT NULL,
 	"business" BOOLEAN,
 	FOREIGN KEY ("member_id") REFERENCES "members"("id"));
