@@ -51,7 +51,7 @@ router.get('/:id', async (req, res) => {
             WHERE m.id =$1
 			GROUP BY m.id, m.zip_code, m.first_name, m.last_name, m.prefix, m.age, m.license_state,
 			m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials,
-			m.telehealth, m.statement, m.website, m.title, m.city;`;
+			m.telehealth, m.statement, m.website, m.title, m.city, m.license_number, m.license_type;`;
         const members = await connection.query(query, [req.params.id]);
         res.send(members.rows)
 
