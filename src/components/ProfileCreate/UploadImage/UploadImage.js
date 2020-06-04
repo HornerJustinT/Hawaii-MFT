@@ -18,7 +18,7 @@ class UploadImage extends Component{
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.history.push('/edit-profile');
+        this.props.history.push(`/edit-profile/${user.id}`);
     }
 
     render (){
