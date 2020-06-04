@@ -153,7 +153,7 @@ class ContactInfo extends Component{
              <input type="text"
                   name="home_address"
                   value={this.state.home_address}
-                  onChange={this.handleInputChangeFor("homeaddress")}/>
+                  onChange={this.handleInputChangeFor("home_address")}/>
              <br/>
              <Form.Label>Address - Mailing</Form.Label>
              <br/>
