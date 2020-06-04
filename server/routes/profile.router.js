@@ -2,7 +2,6 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
-
 // GET ROUTE for specific members gets all the info on a single person based on the param id
 router.get('/:id', async (req, res) => {
     const connection = await pool.connect();
@@ -14,6 +13,7 @@ router.get('/:id', async (req, res) => {
 			array_agg(DISTINCT insurance_type.title) AS insurance,
 			array_agg(DISTINCT island.title) AS island,
 			array_agg(DISTINCT license_type.title) AS license_type,
+
 			array_agg(DISTINCT session_format.title) AS session_format,
 			array_agg(DISTINCT specialty.title) AS specialty,
 			array_agg(DISTINCT treatment_preferences.title) AS treatment_preferences,
@@ -40,7 +40,6 @@ router.get('/:id', async (req, res) => {
 			
 			JOIN license_type_pivot ON license_type_pivot.member_id = m.id
 			JOIN license_type ON license_type.license_type_id = license_type_pivot.license_type_id
-			
 			JOIN session_format_pivot ON session_format_pivot.member_id = m.id
 			JOIN session_format ON session_format.session_format_id = session_format_pivot.session_format_id
 			
@@ -63,5 +62,61 @@ router.get('/:id', async (req, res) => {
         connection.release();
       }
 });
+/**
+ * PUT route template
+ */
+router.put('/', rejectUnauthenticated, async (req, res) => {
+  console.log("made it to server");
 
+  const connection = await pool.connect();
+
+  try {
+    await connection.query('BEGIN;')
+    const memberQuery = `UPDATE "members" 
+        SET ("prefix", "first_name", "last_name", "title", "age", "city", "zip_code",
+            "website", "statement",
+            "license_state", 
+            "license_expiration", "hiamft_member_account_info", 
+            "supervision_status","fees", "credentials","telehealth", 
+             "license_number", "license_type")
+        = 
+            ($1, $2, $3, $4, $5, $6, $7, $8,
+            $9, $10, $11, $12, $13, 
+            $14, $15, $16, $17, $18)
+        WHERE id = $19;`;
+
+    await connection.query(memberQuery, [
+      req.body.prefix,
+      req.body.firstName,
+      req.body.lastName,
+      req.body.title,
+      req.body.age,
+      req.body.city,
+      req.body.zipCode,
+      req.body.website,
+      req.body.statement,
+      req.body.licenseState,
+      req.body.licenseExpiration,
+      req.body.hiamftMemberInfo,
+      req.body.supervisionStatus,
+      req.body.fees,
+      req.body.credentials,
+      req.body.telehealth,
+      req.body.licenseNumber,
+      req.body.licenseType,
+      req.body.id.id,
+    ]);
+
+    await connection.query('COMMIT;');
+    res.sendStatus(200);
+  }
+  catch (error) {
+    console.log(`Error on transaction`, error);
+    await connection.query('ROLLBACK;');
+    res.sendStatus(500);
+  }
+  finally {
+    connection.release();
+  }
+})
 module.exports = router;
