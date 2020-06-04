@@ -101,7 +101,7 @@ class SearchResults extends Component {
                       <div className="flex-between row-wrap-reverse">
                         <div className="description">{therapist.statement}</div>
                         {/* Contact is aligned to the right for visual appeal */}
-                        <div className="contact">
+                        <div className="contact-info">
                           {therapist.email[0]} <br />
                           {/*
                             The link here links to the page it mentions.
