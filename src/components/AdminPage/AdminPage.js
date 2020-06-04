@@ -1,6 +1,7 @@
 // React Imports
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
 
 // Libraries
 import FileSaver from "file-saver";
@@ -227,7 +228,14 @@ class AdminPage extends Component {
                     <td>{therapist.license_number}</td>
                     <td>{therapist.license_title}</td>
                     <td style={{ textAlign: "right" }}>
-                      <Button variant="danger">View</Button>
+                      <Button
+                        variant="danger"
+                        onClick={() =>
+                          this.props.history.push(`/profile/${therapist.id}`)
+                        }
+                      >
+                        View
+                      </Button>
                     </td>
                   </tr>
                 ))}
@@ -248,4 +256,4 @@ class AdminPage extends Component {
 
 const mapStateToProps = ({ members }) => ({ members });
 
-export default connect(mapStateToProps)(AdminPage);
+export default withRouter(connect(mapStateToProps)(AdminPage));

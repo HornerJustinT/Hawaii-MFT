@@ -134,14 +134,14 @@ router.get('/', async (req, res) => {
 				}
 
 				if (parse === "ages_served") {
-					whereQuery += `age_groups_served.title LIKE $${paramCount}`;
-				} else if (parse === "insurance") {
-					whereQuery += `insurance_type.title LIKE $${paramCount}`;
-				} else if (parse === "supervision_status") {
-					whereQuery += `m.supervision_status LIKE $${paramCount}`;
-				} else {
-					whereQuery += `${parse}.title LIKE $${paramCount}`;
-				}
+					whereQuery += `LOWER(age_groups_served.title LIKE LOWER($${paramCount})`;
+				} else if (parse === "LOWER(insurance") {
+                 whereQuery += `LOWER(insurance_type.title LIKE LOWER($${paramCount})`;
+               } else if (parse === "supervision_status") {
+                 whereQuery += `LOWER(m.supervision_status LIKE LOWER($${paramCount})`;
+               } else {
+                 whereQuery += `LOWER(${parse}.title) LIKE LOWER($${paramCount})`;
+               }
 
 				parameters.push("%" + req.query[parse] + "%");
 				paramCount++;
