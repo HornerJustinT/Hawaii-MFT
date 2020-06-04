@@ -10,12 +10,21 @@ class PracticeInfo extends Component{
 
      state = {
          license_state:'',
-         supervision_status:'',
+         license_number:'',
+         license_type:'',
+        supervision_status:'',
          fees:'',
          license_expiration:'',
          specialty:'',
-     }
+         credentials:'',
+         telehealth:'',
+         statement:'',
+         title:'',
 
+
+
+     }
+   
 
 
 
@@ -64,6 +73,17 @@ handleInputChangeFor = propertyName => (event) =>{
           supervision_status:this.state.supervision_status,
           fees:this.state.fees,
           license_expiration:this.state.license_expiration,
+          license_number:this.state.license_number,
+          license_type:this.state.license_type,
+          credentials:this.state.credentials,
+          telehealth:this.state.telehealth,
+          statement:this.state.statement,
+          title:this.state.title,
+          website:this.props.reduxstate.website,
+             city:this.props.reduxstate.city
+
+          
+ /*     */
          }
         })
         this.handleReset()

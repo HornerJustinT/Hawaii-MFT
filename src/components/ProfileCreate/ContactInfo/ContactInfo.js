@@ -13,10 +13,12 @@ class ContactInfo extends Component{
             island_id:'',
             email:'',
             personal_email:'',
-            business:'',
             address:'',
             languages:'',
             zip_code:'',
+            website:'',
+            city:'',
+            
            }
 /**
   "zip_code" INT,
@@ -56,13 +58,7 @@ class ContactInfo extends Component{
                                   personal_email:this.state.personal_email
                                            }});
          
-          this.props.dispatch({type:'ADD_EMAIL',
-                               payload:{
-                                       business:true }})
-          this.props.dispatch({type:'ADD_PERSONAL_EMAIL',
-                            payload:{email: this.state.email, 
-                                   business:false, 
-                                 member_id: this.props.user.id}})                              
+                                    
 
       }
     
@@ -103,7 +99,7 @@ class ContactInfo extends Component{
              <br/>
              <input type="number"
                   name="number"
-                  value={this.state.age}
+                  value={this.state.number}
                   onChange={this.handleInputChangeFor("number")}/>
              <br/>
              <br/>
@@ -111,8 +107,8 @@ class ContactInfo extends Component{
              <br/>
              <input type="number"
                   name="number"
-                  value={this.state.age}
-                  onChange={this.handleInputChangeFor("number")}/>
+                  value={this.state.personal_number}
+                  onChange={this.handleInputChangeFor("personal_number")}/>
                 <br/>
              <label>Email Address - Business</label>
              <br/>
@@ -131,9 +127,9 @@ class ContactInfo extends Component{
              <label>Website</label>
              <br/>
              <input type="text"
-                  name="address"
-                  value={this.state.address}
-                  onChange={this.handleInputChangeFor("address")}/>
+                  name="website"
+                  value={this.state.website}
+                  onChange={this.handleInputChangeFor("website")}/>
              <br/>
              <label>Address - Office</label>
              <br/>
@@ -145,16 +141,16 @@ class ContactInfo extends Component{
              <label>Address - Home</label>
              <br/>
              <input type="text"
-                  name="address"
-                  value={this.state.address}
-                  onChange={this.handleInputChangeFor("address")}/>
+                  name="home_address"
+                  value={this.state.home_address}
+                  onChange={this.handleInputChangeFor("homeaddress")}/>
              <br/>
              <label>Address - Mailing</label>
              <br/>
              <input type="text"
-                  name="address"
-                  value={this.state.address}
-                  onChange={this.handleInputChangeFor("address")}/>
+                  name="mailing_address"
+                  value={this.state.mailing_address}
+                  onChange={this.handleInputChangeFor("mailing_address")}/>
              <br/>
              <br/>
             

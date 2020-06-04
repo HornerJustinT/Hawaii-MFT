@@ -130,7 +130,7 @@ router.get('/session', (req, res) => {
 router.post('/',rejectUnauthenticated, (req, res) => {
     //define the queries
     console.log('this is the data in req.body',req.body);
-    const id = req.body.id;
+    const id = req.user.id;
     const zip_code = req.body.zip_code;
     const first_name = req.body.first_name
     const last_name = req.body.last_name
@@ -140,13 +140,21 @@ router.post('/',rejectUnauthenticated, (req, res) => {
     const license_expiration = req.body.license_expiration
     const hiamft_member_account_info = req.body.hiamft_member_account_info
     const supervision_status = req.body.supervision_status
-    const fees= req.body.fees
-    
-   
+    const fees = req.body.fees
+    const credentials = req.body.credentials
+    const telehealth = req.body.telehealth
+    const statement = req.body.statement
+    const website = req.body.website
+    const title = req.body.title
+    const city = req.body.city
+    const license_number = req.body.license_number
+    const license_type = req.body.license_type
+
          const queryText = `INSERT INTO "members" 
          ("id","zip_code","first_name", "last_name", "prefix", "age","license_state", "license_expiration", "hiamft_member_account_info", "supervision_status","fees")
      VALUES($1,$2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`;
-        pool.query(queryText, [id,zip_code, first_name, last_name, prefix, age, license_state, license_expiration, hiamft_member_account_info, supervision_status, fees])
+        pool.query(queryText, [id,zip_code, first_name, last_name, prefix, age, license_state, license_expiration, 
+        hiamft_member_account_info, supervision_status, fees, credentials, telehealth, statement, website, title, city, license_number, license_type])
           .then((result) => res.sendStatus(200))
           .catch((error) => {console.log(error);
              res.sendStatus(500)});
