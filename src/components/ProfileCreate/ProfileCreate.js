@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Dropdown from 'react-bootstrap/Dropdown'
 import InputGroup from "react-bootstrap/InputGroup";
 
 
@@ -104,13 +105,13 @@ componentDidMount(){
                   name="first_name"
                   value={this.state.first_name}
                   onChange={this.handleInputChangeFor("first_name")}/><br/>
-         <label>Last Name</label><br/>
+         <Form.Label>Last Name</Form.Label><br/>
          <input 
                   type="text"
                   name="last_name"
                   value={this.state.last_name}
                   onChange={this.handleInputChangeFor("last_name")}/><br/>
-         <label>Age</label><br/>
+         <Form.Label>Age</Form.Label><br/>
          <input 
                    type="text"
                   name="age"
@@ -118,7 +119,7 @@ componentDidMount(){
                   onChange={this.handleInputChangeFor("age")}/>
         <br/>
         <br/>
-         <label>Language Spoken</label><br/>
+         <Form.Label>Language Spoken</Form.Label><br/>
          <select onChange={this.handleInputChangeFor("language_id")}>
                    {this.props.languages &&
                    
@@ -131,22 +132,22 @@ componentDidMount(){
                     )}
                    </>
                    } 
-         </select>
+         </select> 
         <br/>
         <br/>
         <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
-        <label>About You</label>
+        <Form.Label>About You</Form.Label>
         <br/>
         <textarea type="text"
                   name="hiamft_member_account_info"
                   value={this.state.hiamft_member_account_info}
                   onChange={this.handleInputChangeFor("hiamft_member_account_info")}/>
         <br/>
-        <button>Save</button>
+        <Button>Save</Button>
          </Form>
-         <button onClick={this.handleNext}>Save and Next Page</button>
+         <Button onClick={this.handleNext}>Save and Next Page</Button>
             </div>
             </>
         )

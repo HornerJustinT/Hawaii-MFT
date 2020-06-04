@@ -166,11 +166,13 @@ router.post('/',rejectUnauthenticated, (req, res) => {
 router.post('/language', rejectUnauthenticated, (req, res) => {
     //define the queries
     console.log('this is the data in req.body',req.body);
+    console.log('this is what is in req.user.id', req.user.id)
     const language_id = req.body.language_id;
     const member_id = req.user.id;
    
-    const queryText = `INSERT INTO "languages_pivot" ("language_id", "member_id")
-           VALUES ($1,$2);`;
+    const queryText = `INSERT INTO "languages_pivot"
+	("language_id", "member_id")
+VALUES ($1,$2);`;
         pool.query(queryText, [language_id,member_id])
           .then((result) => res.sendStatus(200))
           .catch((error) =>  { 

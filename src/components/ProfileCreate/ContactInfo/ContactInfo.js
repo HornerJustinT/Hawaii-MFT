@@ -1,8 +1,12 @@
 import React,{ Component } from 'react';
+import { connect } from 'react-redux';
 
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import { connect } from 'react-redux';
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import InputGroup from "react-bootstrap/InputGroup";
+
 
 
 class ContactInfo extends Component{
@@ -73,7 +77,7 @@ class ContactInfo extends Component{
             <header><h1>Contact Info</h1></header>
              <br/>
             <ProgressBar now={50} />
-            <form onSubmit={this.handleSave}>
+            <Form onSubmit={this.handleSave}>
              <label>Island</label>
              <br/>
              <select onChange={this.handleInputChangeFor("island_id")}>
@@ -165,7 +169,7 @@ class ContactInfo extends Component{
              <br/>
             
            <button>Save</button>
-            </form>
+            </Form>
             <button onClick={this.handleBack}>Back</button>
             <button onClick={this.handleNext}>Save and Next Page</button>
            
