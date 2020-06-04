@@ -69,7 +69,7 @@ router.get("/:id", async (req, res) => {
  * PUT route template
  */
 router.put('/', rejectUnauthenticated, async (req, res) => {
-  console.log("made it to server", req.body.languagesEdit);
+  console.log("made it to server", req.body);
 
   const connection = await pool.connect();
 
@@ -88,9 +88,25 @@ router.put('/', rejectUnauthenticated, async (req, res) => {
             $14, $15, $16, $17, $18)
         WHERE id = $19;`;
 
+    const languages = req.body.languagesEdit;
     const languageQuery = `INSERT INTO "languages_pivot" ("language_id", "member_id") VALUES ($1, $2)`;
     const languageDeleteQuery = `DELETE FROM languages_pivot WHERE member_id = $1;`;
-    const languages = req.body.languagesEdit;
+
+    const island = req.body.islandEdit;
+    const islandQuery = `INSERT INTO "island_pivot" ("island_id", "member_id") VALUES ($1, $2)`;
+    const islandDeleteQuery = `DELETE FROM island_pivot WHERE member_id = $1;`;
+
+    const phone = req.body.phone;
+    const phoneQuery = `INSERT INTO "phone_table" ("number", "member_id", "business") VALUES ($1, $2, $3)`;
+    const phoneDeleteQuery = `DELETE FROM phone_table WHERE member_id = $1;`;
+
+    const email = req.body.email;
+    const emailQuery = `INSERT INTO "email_table" ("email", "member_id", "business") VALUES ($1, $2, $3)`;
+    const emailDeleteQuery = `DELETE FROM email_table WHERE member_id = $1;`;
+    
+    const address = req.body.address;
+    const addressQuery = `INSERT INTO "address_table" ("address", "member_id", "business") VALUES ($1, $2, $3)`;
+    const addressDeleteQuery = `DELETE FROM address_table WHERE member_id = $1;`;
 
     await connection.query(memberQuery, [
       req.body.prefix,
@@ -113,13 +129,28 @@ router.put('/', rejectUnauthenticated, async (req, res) => {
       req.body.licenseType,
       req.body.id.id,
     ]);
-
+//Languages PUT & DELETE Queries
     await connection.query(languageDeleteQuery, [req.user.id]);
 
     for (let i=0; i<languages.length; i++){
       await connection.query(languageQuery, [languages[i], req.user.id]);
     }
+
+ //Islands PUT & DELETE queries
+    await connection.query(islandDeleteQuery, [req.user.id]);
+    await connection.query(islandQuery, [island[0], req.user.id]);
+
+  //Phone PUT & DELETE
+    await connection.query(phoneDeleteQuery, [req.user.id]);
+    await connection.query(phoneQuery, [phone, req.user.id, 'TRUE']);
     
+  //Email PUT & DELETE
+    await connection.query(emailDeleteQuery, [req.user.id]);
+    await connection.query(emailQuery, [email, req.user.id, 'TRUE']);
+    
+    //Address PUT & DELETE
+    await connection.query(addressDeleteQuery, [req.user.id]);
+    await connection.query(addressQuery, [address, req.user.id, 'TRUE']);
     await connection.query('COMMIT;');
     res.sendStatus(200);
   }

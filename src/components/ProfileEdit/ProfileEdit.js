@@ -21,6 +21,7 @@ class ProfileEdit extends Component {
     languages: [],
     languagesEdit: [],
     islands: [],
+    treatmentApproaches: [],
   };
   
   componentDidMount() {
@@ -33,7 +34,9 @@ class ProfileEdit extends Component {
 //
   componentDidUpdate() {
     if (this.state.id !== this.props.match.params && this.props.languages.length > 0) {
-      const updatedLanguages = this.syncDataEdit("languages", "languages")
+      const updatedLanguages = this.syncDataEdit("languages", "languages");
+      const updatedIsland = this.syncDataEditIsland("islands", "island");
+      // const updatedTreatments = this.syncDataEditTreatments("treatmentApproaches", "treatmentApproaches");
       this.setState({
         id: this.props.match.params,
         prefix: this.props.profile.prefix,
@@ -45,6 +48,7 @@ class ProfileEdit extends Component {
         address: this.props.profile.address,
         city: this.props.profile.city,
         island: this.props.profile.island,
+        islandEdit: updatedIsland,
         email: this.props.profile.email,
         zipCode: this.props.profile.zip_code,
         website: this.props.profile.website,
@@ -60,6 +64,8 @@ class ProfileEdit extends Component {
         statement: this.props.profile.statement,
         languages: this.props.profile.languages,
         languagesEdit: updatedLanguages,
+        treatmentApproaches: this.props.treatmentPreferences,
+        // treatmentAproachesEdit: updatedTreatments,
         agesServed: this.props.profile.ages_served,
         clientFocus: this.props.profile.client_focus,
         insurance: this.props.profile.insurance,
@@ -77,13 +83,37 @@ class ProfileEdit extends Component {
   syncDataEdit = (reducerName, profileName) => {
     const updatedLanguages = this.props.profile[profileName].map(lang => {
       const results = this.props[reducerName].filter(object => object.title === lang)
-      console.log('heres results !!!!!!!', results)
+      console.log('heres results !!!!!!!', results);
       return (
         results[0].language_id
       );
     })
     return updatedLanguages;
   }
+
+  syncDataEditIsland = (reducerName, profileName) => {
+    const updatedIsland = this.props.profile[profileName].map(island => {
+      const results = this.props[reducerName].filter(object => object.title === island)
+      console.log('heres results !!!!!!!', results);
+      return (
+        results
+        // results[0].island_id
+      );
+    })
+    return updatedIsland;
+  }
+
+  // syncDataEditTreatments = (reducerName, profileName) => {
+  //   const updatedIsland = this.props.profile[profileName].map(island => {
+  //     const results = this.props[reducerName].filter(object => object.title === island)
+  //     console.log('heres results !!!!!!!', results);
+  //     return (
+  //       results
+  //       // results[0].island_id
+  //     );
+  //   })
+  //   return updatedIsland;
+  // }
 
   handleEditBasic = () => {
     this.setState({
@@ -111,6 +141,10 @@ class ProfileEdit extends Component {
     this.setState({
       clickContact: false,
     });
+    this.props.dispatch({
+      type: "EDIT_PROFILE",
+      payload: this.state,
+    });
   };
 
   handleEditPractice = () => {
@@ -132,23 +166,40 @@ class ProfileEdit extends Component {
   };
 
   //every multiselect needs its own handleObjectChange
-  handleObjectChange = (event, editPropertyName, viewPropertyName) => {
-    console.log('here is event.target.selected.options &&&&&&&', event.target.selectedOptions);
+  handleLangChange = (event, editPropertyName, viewPropertyName) => {
     const array = [];
     for(let option of event.target.selectedOptions){
       array.push(Number(option.value))
     }
     const updatedLanguages = array.map(id => {
       const results = this.props.languages.filter(object => object.language_id === id)
+      return (
+        results[0].title
+      );
+    })
+    this.setState({
+      [editPropertyName]: array,
+      [viewPropertyName]: updatedLanguages,
+    });
+  };
+
+  handleIslandChange = (event, editPropertyName, viewPropertyName) => {
+    console.log('here is event.target.selected.options &&&&&&&', event.target.selectedOptions);
+    const array = [];
+    for (let option of event.target.selectedOptions) {
+      array.push(Number(option.value))
+    }
+    const updatedIsland = array.map(id => {
+      const results = this.props.islands.filter(object => object.island_id === id)
       console.log('heres results !!!!!!!', results)
       return (
         results[0].title
       );
     })
-    console.log('heres updatedLangs $$$$$$$', updatedLanguages)
+    console.log('heres updatedIsland $$$$$$$', updatedIsland)
     this.setState({
       [editPropertyName]: array,
-      [viewPropertyName]: updatedLanguages,
+      [viewPropertyName]: updatedIsland,
     });
   };
 
@@ -160,7 +211,7 @@ class ProfileEdit extends Component {
             <Form.Control as="select"
               multiple="true"
               value={this.state.languagesEdit}
-              onChange={(event) => this.handleObjectChange(event, "languagesEdit", "languages")}>
+              onChange={(event) => this.handleLangChange(event, "languagesEdit", "languages")}>
               {this.props.languages.map(lang => {
                 return (
                   <>
@@ -192,58 +243,58 @@ class ProfileEdit extends Component {
     }
   }
 
-    displayLanguages = () => {
-    if(this.state.clickBasic){
-      return(
+  displayIslands = () => {
+    if (this.state.clickContact) {
+      return (
           <Form.Group>
-            <Form.Label className="label">Languages Spoken</Form.Label>
+            <Form.Label variant="flat" className="label">
+              Island
+                </Form.Label>
             <Form.Control as="select"
-              multiple="true"
-              value={this.state.languagesEdit}
-              onChange={(event) => this.handleObjectChange(event, "languagesEdit", "languages")}>
-              {this.props.languages.map(lang => {
+              value={this.state.islandEdit}
+              onChange={(event) => this.handleIslandChange(event, "islandEdit", "island")}>
+              {this.props.islands.map(island => {
                 return (
                   <>
-                    <option key={lang.language_id} value={lang.language_id}>{lang.title}</option>
+                    <option key={island.island_id} value={island.island_id}>{island.title}</option>
                   </>
                 );
               })}
             </Form.Control>
           </Form.Group>
       );
-    }else{
-      return(
-      <Form.Group>
-        <Form.Label className="label">Languages Spoken</Form.Label>
-        <div>
-          <ul>
-            {this.state.languages.map((lang) => {
-              return (
-                <>
-                  <li>{lang}</li>
-                </>
-              );
-            })
-            }
-          </ul>
-        </div>
-      </Form.Group>
+    } else {
+      return (
+        <Form.Group>
+          <Form.Label variant="flat" className="label">
+            Island
+          </Form.Label>
+          <Form.Control
+            disabled="true"
+            plaintext
+            readOnly
+            defaultValue={this.state.island}
+          />
+        </Form.Group>
       );
     }
   }
+
+
 
   render() {
     return (
       <>
         <div className="header">
           <h3>My Profile</h3>
-          {JSON.stringify(this.props.profile)}
-          <br></br>
+          {/* {JSON.stringify(this.props.profile)} */}
+          {/* <br></br>
+          <br/> */}
+          {/* {JSON.stringify(this.state)} */}
+{/* 
           <br/>
-          {JSON.stringify(this.state)}
-
-          
-          {JSON.stringify(this.props.islands)}
+          <br/> */}
+          {/* {JSON.stringify(this.props.treatments)} */}
         </div>
         {/**Here is Basic Info render */}
         {this.state.clickBasic ? (
@@ -346,6 +397,9 @@ class ProfileEdit extends Component {
                   readOnly
                   defaultValue={this.props.profile.age}
                 />
+                <Form.Text className="text-muted">
+                    Not Listed - HIAMFT-Use Only
+                </Form.Text>
               </Form.Group>
               {this.displayLanguages()}
               <Form.Group>
@@ -360,7 +414,9 @@ class ProfileEdit extends Component {
             </Form>
           </div>
         )}
+
         {/**Here is Contact Info render */}
+
         {this.state.clickContact ? (
           <div className="body">
             <Button
@@ -370,15 +426,7 @@ class ProfileEdit extends Component {
               Save Changes
             </Button>
             <Form className="flex-between row-wrap">
-              <Form.Group>
-                <Form.Label variant="flat" className="label">
-                  Island
-                </Form.Label>
-                <Form.Control
-                  defaultValue={this.props.profile.island}
-                  onChange={(event) => this.handleChange(event, "island")}
-                />
-              </Form.Group>
+            {this.displayIslands()}
               <Form.Group>
                 <Form.Label variant="flat" className="label">
                   City
@@ -393,8 +441,8 @@ class ProfileEdit extends Component {
                   Zip Code
                 </Form.Label>
                 <Form.Control
-                  defaultValue={this.props.profile.zip}
-                  onChange={(event) => this.handleChange(event, "zip")}
+                  defaultValue={this.props.profile.zip_code}
+                  onChange={(event) => this.handleChange(event, "zipCode")}
                 />
               </Form.Group>
 
@@ -404,6 +452,9 @@ class ProfileEdit extends Component {
                   defaultValue={this.props.profile.phone}
                   onChange={(event) => this.handleChange(event, "phone")}
                 />
+                <Form.Text className="text-muted">
+                 Business - Listed
+                </Form.Text>
               </Form.Group>
 
               <Form.Group>
@@ -412,6 +463,9 @@ class ProfileEdit extends Component {
                   defaultValue={this.props.profile.email}
                   onChange={(event) => this.handleChange(event, "email")}
                 />
+                <Form.Text className="text-muted">
+                  Business - Listed
+                </Form.Text>
               </Form.Group>
 
               <Form.Group>
@@ -428,7 +482,11 @@ class ProfileEdit extends Component {
                   defaultValue={this.props.profile.address}
                   onChange={(event) => this.handleChange(event, "address")}
                 />
+                <Form.Text className="text-muted">
+                  Business - Listed
+                </Form.Text>
               </Form.Group>
+
             </Form>
           </div>
         ) : (
@@ -440,17 +498,7 @@ class ProfileEdit extends Component {
               Edit Contact Info
             </Button>
             <Form className="flex-between row-wrap">
-              <Form.Group>
-                <Form.Label variant="flat" className="label">
-                  Island
-                </Form.Label>
-                <Form.Control
-                  disabled="true"
-                  plaintext
-                  readOnly
-                  defaultValue={this.props.islands}
-                />
-              </Form.Group>
+              {this.displayIslands()}
               <Form.Group>
                 <Form.Label variant="flat" className="label">
                   City
@@ -470,7 +518,7 @@ class ProfileEdit extends Component {
                   disabled="true"
                   plaintext
                   readOnly
-                  defaultValue={this.props.profile.zip}
+                  defaultValue={this.props.profile.zip_code}
                 />
               </Form.Group>
 
@@ -480,8 +528,11 @@ class ProfileEdit extends Component {
                   disabled="true"
                   plaintext
                   readOnly
-                  defaultValue={this.props.profile.phone}
+                  defaultValue={this.state.phone}
                 />
+                <Form.Text className="text-muted">
+                  Business - Listed
+                </Form.Text>
               </Form.Group>
 
               <Form.Group>
@@ -492,6 +543,9 @@ class ProfileEdit extends Component {
                   readOnly
                   defaultValue={this.props.profile.email}
                 />
+                <Form.Text className="text-muted">
+                    Business - Listed
+                </Form.Text>
               </Form.Group>
 
               <Form.Group>
@@ -512,13 +566,16 @@ class ProfileEdit extends Component {
                   readOnly
                   defaultValue={this.props.profile.address}
                 />
+                <Form.Text className="text-muted">
+                    Business - Listed
+                </Form.Text>
               </Form.Group>
             </Form>
           </div>
         )}
 
         {/**Here is Practice Info render */}
-        {/* {this.state.clickPractice ? (
+        {this.state.clickPractice ? (
           <div className="body">
             <Button
               className="flex-between row-wrap"
@@ -679,7 +736,7 @@ class ProfileEdit extends Component {
               </Form.Group>
             </Form>
           </div>
-        )} */}
+        )}
       </> 
     );
   }
@@ -690,6 +747,7 @@ const putReduxStateOnProps = (reduxStore) => ({
     profile: reduxStore.profile,
     languages: reduxStore.languages,
     islands: reduxStore.islands,
+    treatments: reduxStore.treatmentPreferences
 });
 
 export default withRouter(connect(putReduxStateOnProps)(ProfileEdit));
