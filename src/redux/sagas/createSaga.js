@@ -6,7 +6,6 @@ function* addMember(action) {
     console.log('in addMember Saga', action.payload)
     try {
        const response = yield axios.post(`api/profile`, action.payload);
-       console.log('Sending new member info to the server',response)
         yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });
     } catch (error) {
         console.log('Error in sending members info to the server', error);
@@ -17,7 +16,6 @@ function* addLanguage(action) {
     console.log('in addLanguage Saga', action.payload)
     try {
        const response = yield axios.post(`api/profile/language`, action.payload);
-       console.log('Sending new member language to the server',response)
         yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });
     } catch (error) {
         console.log('Error in sending new member language info to the server', error);
@@ -50,7 +48,6 @@ function* addContactInfo(action) {
     console.log('in addContactInfo Saga', action.payload)
     try {
        const response = yield axios.post(`api/profile/contactinfo`, action.payload);
-       console.log('Sending new member contact info to the server',response)
         yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });
     } catch (error) {
         console.log('Error in sending members contact info to the server', error);
@@ -61,7 +58,6 @@ function* addPracticeInfo(action) {
     console.log('in addPracticeInfo Saga', action.payload)
     try {
        const response = yield axios.post(`api/profile/practiceinfo`, action.payload);
-       console.log('Sending new member practice info to the server',response)
         yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });
     } catch (error) {
         console.log('Error in sending members practice info to the server', error);
@@ -82,7 +78,6 @@ function* fetchLanguages(action){
 function* fetchIslands(action){
     try{
         const response = yield axios.get(`/api/profile/islands`)
-        console.log(response)
         yield put ({type: 'SET_ISLANDS', payload: response.data});
     }
     catch(error){
@@ -93,7 +88,6 @@ function* fetchIslands(action){
 function* fetchSpecialty(action){
     try{
         const response = yield axios.get(`/api/profile/specialty`)
-        console.log(response)
         yield put ({type: 'SET_SPECIALTY', payload: response.data});
     }
     catch(error){
@@ -104,7 +98,6 @@ function* fetchSpecialty(action){
 function* fetchSupervision(action){
     try{
         const response = yield axios.get(`/api/profile/supervision`)
-        console.log(response)
         yield put ({type: 'SET_SUPERVISION_STATUS', payload: response.data});
     }
     catch(error){
@@ -115,7 +108,6 @@ function* fetchSupervision(action){
 function* fetchInsuranceTaken (action){
     try{
         const response = yield axios.get(`/api/profile/insurance`)
-        console.log(response)
         yield put ({type: 'SET_INSURANCE_TAKEN', payload: response.data});
     }
     catch(error){
@@ -126,7 +118,6 @@ function* fetchInsuranceTaken (action){
 function* fetchLicenseType (action){
     try{
         const response = yield axios.get(`/api/profile/license`)
-        console.log(response)
         yield put ({type: 'SET_LICENSE_TYPE', payload: response.data});
     }
     catch(error){
@@ -137,7 +128,6 @@ function* fetchLicenseType (action){
 function* fetchTreatmentApproaches (action){
     try{
         const response = yield axios.get(`/api/profile/treatment`)
-        console.log('in XXX FETCH TREATMENT', response.data)
         yield put ({type: 'SET_TREATMENT_APPROACHES', payload: response.data});
     }
     catch(error){
@@ -148,7 +138,6 @@ function* fetchTreatmentApproaches (action){
 function* fetchDemographics (action){
     try{
         const response = yield axios.get(`/api/profile/demographics`)
-        console.log(response)
         yield put ({type: 'SET_DEMOGRPHICS', payload: response.data});
     }
     catch(error){
@@ -159,7 +148,6 @@ function* fetchDemographics (action){
 function* fetchAgeGroups (action){
     try{
         const response = yield axios.get(`/api/profile/age`)
-        console.log(response)
         yield put ({type: 'SET_AGE_GROUPS', payload: response.data});
     }
     catch(error){
@@ -170,7 +158,6 @@ function* fetchAgeGroups (action){
 function* fetchSessionFormat (action){
     try{
         const response = yield axios.get(`/api/profile/session`)
-        console.log(response)
         yield put ({type: 'SET_SESSION_FORMAT', payload: response.data});
     }
     catch(error){
