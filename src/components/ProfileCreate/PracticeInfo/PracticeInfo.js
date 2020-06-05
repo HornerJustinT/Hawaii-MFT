@@ -18,13 +18,15 @@ class PracticeInfo extends Component{
         supervision_status:'',
          fees:'',
          license_expiration:'',
-         specialty:'',
          credentials:'',
          telehealth:'',
          statement:'',
          title:'',
-
-
+         session_format_id:'',
+         client_focus_id:'',
+         specialty_id:'',
+         treatment_preferences_id:'',
+         age_groups_served_id:'',
 
      }
    
@@ -55,45 +57,50 @@ handleInputChangeFor = propertyName => (event) =>{
     }
     handleSave = (event) => {
         event.preventDefault()
+        
     }
     handleNext = (event) => {
         event.preventDefault()
         this.props.history.push('/uploadImage')
     }
     
-    addPracticeInfo = (event) =>{
-      event.preventDefault()
-        this.props.dispatch({type:'ADD_MEMBER',
-         payload:{
-          prefix:this.props.createProfile.prefix,
-          first_name:this.props.createProfile.first_name,
-          last_name:this.props.createProfile.last_name,
-          age:this.props.createProfile.age,
-          hiamft_member_account_info:this.props.createProfile.hiamft_member_account_info,
-          license_state:this.state.license_state,
-          supervision_status:this.state.supervision_status,
-          fees:this.state.fees,
-          license_expiration:this.state.license_expiration,
-          license_number:this.state.license_number,
-          license_type:this.state.license_type,
-          credentials:this.state.credentials,
-          telehealth:this.state.telehealth,
-          statement:this.state.statement,
-          title:this.state.title,
-          website:this.props.contactAddress.website,
-             city:this.props.contactAddress.city,
-             zip_code: this.props.contactAddress.zip_code,
-         }
-        })
-        this.handleReset()
-    }
+    // addMembersInfo = (event) =>{
+    //   event.preventDefault()
+    //     this.props.dispatch({type:'ADD_MEMBER',
+    //      payload:{
+    //       prefix:this.props.createProfile.prefix,
+    //       first_name:this.props.createProfile.first_name,
+    //       last_name:this.props.createProfile.last_name,
+    //       age:this.props.createProfile.age,
+    //       hiamft_member_account_info:this.props.createProfile.hiamft_member_account_info,
+    //       license_state:this.state.license_state,
+    //       supervision_status:this.state.supervision_status,
+    //       fees:this.state.fees,
+    //       license_expiration:this.state.license_expiration,
+    //       license_number:this.state.license_number,
+    //       license_type:this.state.license_type,
+    //       credentials:this.state.credentials,
+    //       telehealth:this.state.telehealth,
+    //       statement:this.state.statement,
+    //       title:this.state.title,
+    //       website:this.props.contactAddress.website,
+    //          city:this.props.contactAddress.city,
+    //          zip_code: this.props.contactAddress.zip_code,
+    //      }
+    //     })
+    //     this.handleReset()
+    // }
 
     addPracticeInfo = () =>{
       this.props.dispatch({type:'ADD_PRACTICEINFO',
                         payload:{
-                          
+                          session_format_id:this.state.session_format_id,
+                          client_focus_id:this.state.client_focus_id,
+                          specialty_id:this.state.specialty_id,
+                          treatment_preferences_id:this.state.treatment_preferences_id,
+                          age_groups_served_id:this.state.age_groups_served_id,
+                          insurance_type_id:this.state.insurance_type_id,
                         }
-
       })
     }
 
@@ -114,6 +121,12 @@ handleInputChangeFor = propertyName => (event) =>{
         telehealth:'',
         statement:'',
         title:'',
+        // session_format_id:'',
+        //  client_focus_id:'',
+        //  specialty_id:'',
+        //  treatment_preferences_id:'',
+        //  age_groups_served_id:'',
+        //  insurance_type_id:'',
       })
     }
     render (){
@@ -139,14 +152,14 @@ handleInputChangeFor = propertyName => (event) =>{
                   onChange={this.handleInputChangeFor("credentials")}/>
         <br/>
         <br/>
-        <Form.Label>License Type</Form.Label><br/><Form.Control as="select" onChange={this.handleInputChangeFor("license_type")}>
+        <Form.Label>License Type</Form.Label><br/><Form.Control as="select" onChange={this.handleInputChangeFor("license_type_id")}>
         {this.props.license &&    
                    <>
                    <option value='' defaultValue='Select License Type'>Select License Type</option>
                    {this.props.license.map(licensetype =>
                     <option value={licensetype.license_type_id}
         
-                  key={licensetype.id}>{licensetype.title}</option>
+                  key={licensetype.license_type_id}>{licensetype.title}</option>
                     )}
                    </>
                    } 
@@ -187,16 +200,16 @@ handleInputChangeFor = propertyName => (event) =>{
                   onChange={this.handleInputChangeFor("fees")}/>
                    <br/>
                    <br/>
-        <Form.Label>Specialization</Form.Label><br/><select>
+        <Form.Label>Specialization</Form.Label><br/><select onChange={this.handleInputChangeFor("specialty_id")}>
                 {this.props.specialtys &&
                    
                    <>
                   
             <option value='' defaultValue='Select a Speciality'>Select a Speciality</option>
                    {this.props.specialtys.map(specialty =>
-                    <option value={specialty.title}
+                    <option value={specialty.specialty_id}
         
-                  key={specialty.id}>{specialty.id}{' '}{specialty.title}</option>
+                  key={specialty.specialty_id}>{specialty.title}</option>
                     )}
                    </>
                    } 
@@ -219,14 +232,14 @@ handleInputChangeFor = propertyName => (event) =>{
         <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
-        <Form.Label>Insurance Taken</Form.Label><br/><select>
+        <Form.Label>Insurance Taken</Form.Label><br/><select onChange={this.handleInputChangeFor("insurance_type_id")}>
         {this.props.insuranceTaken &&    
                    <>
                   <option value='' defaultValue='Select Insurance Type'>Select Insurance Type</option>
                    {this.props.insuranceTaken.map(insurance =>
-                    <option value={insurance.title}
+                    <option value={insurance.insurance_type_id}
         
-                  key={insurance.id}>{insurance.id}{' '}{insurance.title}</option>
+                  key={insurance.insurance_type_id}>{insurance.title}</option>
                     )}
                    </>
                    } 
@@ -250,14 +263,14 @@ handleInputChangeFor = propertyName => (event) =>{
                               onChange={this.handleInputChangeFor("telehealth")}/>
         <br/>
         <br/>
-        <Form.Label>Treatment Approaches/Preferences</Form.Label><br/><select>
+        <Form.Label>Treatment Approaches/Preferences</Form.Label><br/><select onChange={this.handleInputChangeFor("treatment_preferences_id")}>
         {this.props.treatmentPreferences &&    
                    <>
                 <option value='' defaultValue='Select an Approach'>Select an Approach</option>
                    {this.props.treatmentPreferences.map(treatment =>
-                    <option value={treatment.title}
+                    <option value={treatment.treatment_preferences_id}
         
-                  key={treatment.id}>{treatment.id}{' '}{treatment.title}</option>
+                  key={treatment.treatment_preferences_id}>{treatment.title}</option>
                     )}
                    </>
                    } 
@@ -267,27 +280,27 @@ handleInputChangeFor = propertyName => (event) =>{
         <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
-        <Form.Label>Client Focus</Form.Label><br/><select>
+        <Form.Label>Client Focus</Form.Label><br/><select onChange={this.handleInputChangeFor("client_focus_id")}>
         {this.props.demographics &&    
                    <>
                
                 <option value='' defaultValue='Select a Demographic'>Select a Demographic</option>
                    {this.props.demographics.map(group =>
-                    <option value={group.title}
+                    <option value={group.client_focus_id}
         
-                  key={group.id}>{group.id}{' '}{group.title}</option>
+                  key={group.client_focus_id}>{group.title}</option>
                     )}
                    </>
                    } 
             </select>
-        <select>
+        <select onChange={this.handleInputChangeFor("age_groups_served_id")}>
         {this.props.ageGroups &&    
                    <>
                 <option value='' defaultValue='Select an Age Group'>Select an Age Group</option>
                    {this.props.ageGroups.map(agegroup=>
-                    <option value={agegroup.title}
+                    <option value={agegroup.age_groups_served_id}
         
-                  key={agegroup.id}>{agegroup.id}{' '}{agegroup.title}</option>
+                  key={agegroup.age_groups_served_id}>{agegroup.title}</option>
                     )}
                    </>
                    } 
@@ -298,14 +311,14 @@ handleInputChangeFor = propertyName => (event) =>{
         <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
-        <Form.Label>Session Format(s)</Form.Label><br/><select>
+        <Form.Label>Session Format(s)</Form.Label><br/><select onChange={this.handleInputChangeFor("session_format_id")}>
         {this.props.sessionFormats &&    
                    <>
                  <option value='' defaultValue='Select a Session Format'>Select a Session Format</option>
                    {this.props.sessionFormats.map(session =>
-                    <option value={session.title}
+                    <option value={session.session_format_id}
         
-                  key={session.id}>{session.id}{' '}{session.title}</option>
+                  key={session.session_format_id}>{session.title}</option>
                     )}
                    </>
                    } 

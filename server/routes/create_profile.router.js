@@ -217,13 +217,39 @@ router.post('/contactinfo', rejectUnauthenticated, async (req, res) => {
     } finally {
         member.release()
     }
-
-
-
-
-
 })
 
+router.post('/practiceinfo', rejectUnauthenticated, async (req, res) => {
+    //define the queries
+    console.log('this what is in req.body', req.body)
+    const member = await pool.connect();
+    try {
+      
+        await member.query('BEGIN')
+        const insertInsuranceType = await member.query(`INSERT INTO "insurance_pivot"
+        ("insurance_type_id", "member_id") VALUES ($1,$2);`, [req.body.insurance_type_id, req.user.id]);
+        const insertAgeGroupServed = await member.query(`INSERT INTO "age_groups_served_pivot"
+        ("age_groups_served_id", "member_id") VALUES ($1,$2);`, [req.body.age_groups_served_id, req.user.id]);
+        const insertClientFocus = await member.query(`INSERT INTO "client_focus_pivot"
+        ("client_focus_id", "member_id") VALUES ($1,$2);`, [req.body.client_focus_id, req.user.id]);
+        const insertTreatmentApproach = await member.query(`INSERT INTO "treatment_preferences_pivot"
+        ("treatment_preferences_id","member_id") VALUES ($1,$2);`, [req.body.treatment_preferences_id, req.user.id]);
+        const insertSpecialization = await member.query(`INSERT INTO "specialty_pivot"
+        ("specialty_id", "member_id") VALUES ($1,$2);`, [req.body.specialty_id, req.user.id]);
+        const insertSessionFormat = await member.query(`INSERT INTO "session_format_pivot"
+        ("session_format_id", "member_id") VALUES ($1,$2);`, [req.body.session_format_id, req.user.id]);
+       
+        
+        await member.query('COMMIT')
+        res.sendStatus(201);
+    }catch(error) {
+        await member.query('ROLLBACK')
+        console.log('Error POST /api/practiceinfo', error);
+        res.sendStatus(500);
+    } finally {
+        member.release()
+    }
+})
 
 
 module.exports = router;

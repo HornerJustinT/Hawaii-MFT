@@ -57,6 +57,17 @@ function* addContactInfo(action) {
     }
 }
 
+function* addPracticeInfo(action) {
+    console.log('in addPracticeInfo Saga', action.payload)
+    try {
+       const response = yield axios.post(`api/profile/practiceinfo`, action.payload);
+       console.log('Sending new member practice info to the server',response)
+        yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });
+    } catch (error) {
+        console.log('Error in sending members practice info to the server', error);
+    }
+}
+
 
 function* fetchLanguages(action){
     try{
@@ -184,6 +195,7 @@ function* createSaga() {
     yield takeLatest('ADD_MEMBER', addMember);
     yield takeLatest('ADD_LANGUAGE', addLanguage);
     yield takeLatest('ADD_CONTACTINFO', addContactInfo);
+    yield takeLatest('ADD_PRACTICEINFO', addPracticeInfo);
  
    
 }
