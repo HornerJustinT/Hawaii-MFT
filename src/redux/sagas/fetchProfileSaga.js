@@ -7,7 +7,11 @@ function* fetchProfile(action) {
     console.log('in fetchProfile saga', action.payload)
     try {
         const response = yield axios.get(`/profile/${action.payload.id}`);
-        yield put({ type: 'GET_PROFILE_REDUCER', payload: response.data });
+        console.log('here is response.data', response.data);
+        // yield put({ type: 'FETCH_LANGUAGES'});
+        // yield put({ type: 'FETCH_ISLANDS'});
+        // yield put({ type: 'FETCH_TREATMENT_APPROACHES' });
+        yield put({ type: 'GET_PROFILE_REDUCER', payload: response.data[0] });
     } catch (error) {
         console.log('fetchProfile saga GET request failed', error);
     }

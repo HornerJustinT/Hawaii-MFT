@@ -5,7 +5,7 @@ const router = express.Router();
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
+router.get('/languages', (req, res) => {
   
     const queryText = `SELECT * FROM "languages";`;
         pool.query(queryText)

@@ -20,7 +20,6 @@ class ProfileEdit extends Component {
     clickPractice: false,
     languages: [],
     languagesEdit: [],
-    islands: [],
     treatmentApproaches: [],
   };
   
@@ -34,7 +33,7 @@ class ProfileEdit extends Component {
     });
   }
 
-//
+
   componentDidUpdate() {
     if (this.state.id !== this.props.match.params && this.props.languages.length > 0 && this.props.profile[0]) {
       const updatedLanguages = this.syncDataEdit("languages", "languages");
@@ -233,6 +232,7 @@ class ProfileEdit extends Component {
           </Form.Group>
       );
     }else{
+      console.log( 'here is state.languages KRISTEN AND MARY', this.state.languages);
       return(
       <Form.Group>
         <Form.Label className="label">Languages Spoken</Form.Label>

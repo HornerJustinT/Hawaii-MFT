@@ -40,7 +40,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
   componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'})
+    this.props.dispatch({type: 'FETCH_USER'});
+    this.props.dispatch({type: 'FETCH_LANGUAGES'});
+    this.props.dispatch({type: 'FETCH_ISLANDS'});
+    this.props.dispatch({type: 'FETCH_TREATMENT_APPROACHES'});
   }
 
   render() {
