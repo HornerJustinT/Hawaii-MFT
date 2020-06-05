@@ -38,8 +38,8 @@ router.get('/:id', async (req, res) => {
 			JOIN island_pivot ON island_pivot.member_id = m.id
 			JOIN island ON island.island_id = island_pivot.island_id
 			
-			JOIN license_type_pivot ON license_type_pivot.member_id = m.id
-			JOIN license_type ON license_type.license_type_id = license_type_pivot.license_type_id
+      JOIN license_type ON license_type.license_type_id = m.license_type
+      
 			JOIN session_format_pivot ON session_format_pivot.member_id = m.id
 			JOIN session_format ON session_format.session_format_id = session_format_pivot.session_format_id
 			
