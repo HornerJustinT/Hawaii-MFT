@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import InputGroup from "react-bootstrap/InputGroup";
+
 
 
 class PracticeInfo extends Component{
@@ -58,7 +57,7 @@ handleInputChangeFor = propertyName => (event) =>{
     handleSave = (event) => {
         event.preventDefault();
         this.addPracticeInfo();
-        this.addMembersInfo
+        this.addMembersInfo();
         
     }
     handleNext = (event) => {
