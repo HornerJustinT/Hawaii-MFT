@@ -452,9 +452,11 @@ VALUES
 INSERT INTO "user"
 	("id", "username", "password")
 VALUES 
+
     (1, 'test1','test'),
     (2, 'test2','test'),
     (3, 'test3','test');
+
 
 INSERT INTO "public"."members"
     ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
@@ -640,7 +642,9 @@ INSERT INTO "public"."email_table"
 VALUES(TRUE, 'david@davidwhitecounseling.com', 6);
 INSERT INTO "public"."insurance_pivot"
     ("insurance_type_id", "member_id")
+
 VALUES(17, 6), (21, 6), (22, 6), (25, 6), (22, 6);
+
 INSERT INTO "public"."island_pivot"
     ("island_id", "member_id")
 VALUES(4, 6);
@@ -659,6 +663,7 @@ VALUES(9, 6), (22, 6), (26, 6), (46, 6), (47, 6);
 INSERT INTO "public"."treatment_preferences_pivot"
     ("treatment_preferences_id", "member_id")
 VALUES (8, 6), (14, 6), (24, 6), (30, 6);--INSERTS FOR SAMPLE DATA
+
 
 --SUBJECT 7
 INSERT INTO "user"

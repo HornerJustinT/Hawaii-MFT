@@ -11,7 +11,7 @@ router.get('/:id', async (req, res) => {
 			array_agg(DISTINCT age_groups_served.title) AS ages_served,
 			array_agg(DISTINCT client_focus.title) AS client_focus,
 			array_agg(DISTINCT insurance_type.title) AS insurance,
-			island.title AS island,
+			array_agg(DISTINCT island.title) AS island,
 			array_agg(DISTINCT session_format.title) AS session_format,
 			array_agg(DISTINCT specialty.title) AS specialty,
 			array_agg(DISTINCT treatment_preferences.title) AS treatment_preferences,
@@ -35,6 +35,8 @@ router.get('/:id', async (req, res) => {
 			JOIN island_pivot ON island_pivot.member_id = m.id
 			JOIN island ON island.island_id = island_pivot.island_id
 			
+      JOIN license_type ON license_type.license_type_id = m.license_type
+
 			JOIN session_format_pivot ON session_format_pivot.member_id = m.id
 			JOIN session_format ON session_format.session_format_id = session_format_pivot.session_format_id
 			

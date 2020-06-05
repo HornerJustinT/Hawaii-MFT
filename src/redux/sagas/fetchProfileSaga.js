@@ -11,7 +11,7 @@ function* fetchProfile(action) {
         // yield put({ type: 'FETCH_LANGUAGES'});
         // yield put({ type: 'FETCH_ISLANDS'});
         // yield put({ type: 'FETCH_TREATMENT_APPROACHES' });
-        yield put({ type: 'GET_PROFILE_REDUCER', payload: response.data[0] });
+        yield put({ type: 'GET_PROFILE_REDUCER', payload: response.data });
     } catch (error) {
         console.log('fetchProfile saga GET request failed', error);
     }
