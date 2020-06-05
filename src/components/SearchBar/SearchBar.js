@@ -281,13 +281,15 @@ class SearchBar extends Component {
               </InputGroup>
             </Form.Group>
           )}
-          <Form.Check
-            type="switch"
-            id="custom-switch"
-            label="Advanced Search"
-            className="switch"
-            onChange={this.switchChange}
-          />
+          {this.state.data && (
+            <Form.Check
+              type="switch"
+              id="custom-switch"
+              label="Advanced Search"
+              className="switch"
+              onChange={this.switchChange}
+            />
+          )}
         </Form>
         <SearchResults therapists={this.state.therapists} />
       </>
