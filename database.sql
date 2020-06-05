@@ -531,6 +531,135 @@ VALUES(17, 1), (1, 1), (1, 2), (10, 2), (8, 3);
 
 --INSERTS FOR SAMPLE DATA
 
+--SUBJECT 4
+
+INSERT INTO "user"
+	("id", "username", "password")
+VALUES 
+    (4, 'test4','test4');
+INSERT INTO "public"."members"
+    ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
+VALUES(4, 96701, 'Romero', 'Sancho', 'Mr.', 26, 'Hawaii', '2025', 'MFT Supervisor', '200-250', 'Psychiatrist, D.O, MS, LCPC, LAC', TRUE, 'I specialize in addiction psychiatry.', 'romerosanchocounseling.com', 'New member', 'Psychiatrist', 'Aiea', '805493', 1);
+INSERT INTO "public"."address_table"
+    ("business", "address", "member_id")
+VALUES(TRUE, '3468 Pearl Ave, Aiea, HI 96701', 4);
+INSERT INTO "public"."age_groups_served_pivot"
+    ("age_groups_served_id", "member_id")
+VALUES(1, 4),(4, 4);
+INSERT INTO "public"."client_focus_pivot"
+    ("client_focus_id", "member_id")
+VALUES(1, 4), (5, 4), (7, 4), (10, 4), (17, 4); 
+INSERT INTO "public"."email_table"
+    ("business", "email", "member_id")
+VALUES(TRUE, 'romero@romerosanchocounseling.com', 4);
+INSERT INTO "public"."insurance_pivot"
+    ("insurance_type_id", "member_id")
+VALUES(5, 4), (8, 4), (11, 4), (9, 4), (19, 4);
+INSERT INTO "public"."island_pivot"
+    ("island_id", "member_id")
+VALUES(3, 4);
+INSERT INTO "public"."languages_pivot"
+    ("language_id", "member_id")
+VALUES(5, 4), (2, 4);
+INSERT INTO "public"."phone_table"
+    ("number", "member_id", "business")
+VALUES('(808) 456-0032', 4, TRUE), ('(808) 654-2001', 4, FALSE);
+INSERT INTO "public"."session_format_pivot"
+    ("session_format_id", "member_id")
+VALUES(1, 4), (2, 4);
+INSERT INTO "public"."specialty_pivot"
+    ("specialty_id", "member_id")
+VALUES(2, 4), (19, 4), (26, 4), (30, 4), (31, 4);
+INSERT INTO "public"."treatment_preferences_pivot"
+    ("treatment_preferences_id", "member_id")
+VALUES (5, 4), (23, 4), (45, 4), (33, 4);
+
+--SUBJECT 5
+
+INSERT INTO "user"
+	("id", "username", "password")
+VALUES 
+    (5, 'test5','test5');
+INSERT INTO "public"."members"
+    ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
+VALUES(5, 96704, 'Sandra', 'Smith', 'Mrs.', 35, 'Hawaii', '2023', 'MFT Supervisor', '150-225', 'Psychologists, psyD, MSW, LCSW, LPCC', TRUE, 'I specialize in mental disorders and adoption issues with children.', 'sandrasmithcounseling.com', 'New member', 'Psychologist', 'Captain Cook', '34556', 1);
+INSERT INTO "public"."address_table"
+    ("business", "address", "member_id")
+VALUES(TRUE, '562 4th Ave, Captain Cook, HI 96704', 5);
+INSERT INTO "public"."age_groups_served_pivot"
+    ("age_groups_served_id", "member_id")
+VALUES(1, 5),(3, 5);
+INSERT INTO "public"."client_focus_pivot"
+    ("client_focus_id", "member_id")
+VALUES(1, 5), (3, 5), (9, 5), (11, 5), (15, 5); 
+INSERT INTO "public"."email_table"
+    ("business", "email", "member_id")
+VALUES(TRUE, 'sandra@sandrasmithcounseling.com', 5);
+INSERT INTO "public"."insurance_pivot"
+    ("insurance_type_id", "member_id")
+VALUES(6, 5), (11, 5), (13, 5), (17, 5), (22, 5);
+INSERT INTO "public"."island_pivot"
+    ("island_id", "member_id")
+VALUES(4, 5);
+INSERT INTO "public"."languages_pivot"
+    ("language_id", "member_id")
+VALUES(3, 5), (7, 5);
+INSERT INTO "public"."phone_table"
+    ("number", "member_id", "business")
+VALUES('(808) 478-2032', 5, TRUE), ('(808) 896-2301', 5, FALSE);
+INSERT INTO "public"."session_format_pivot"
+    ("session_format_id", "member_id")
+VALUES(1, 5), (4, 5);
+INSERT INTO "public"."specialty_pivot"
+    ("specialty_id", "member_id")
+VALUES(4, 5), (11, 5), (24, 5), (28, 5), (29, 5);
+INSERT INTO "public"."treatment_preferences_pivot"
+    ("treatment_preferences_id", "member_id")
+VALUES (6, 5), (24, 5), (32, 5), (36, 5);
+
+--SUBJECT 6
+
+INSERT INTO "user"
+	("id", "username", "password")
+VALUES 
+    (6, 'test6','test6');
+INSERT INTO "public"."members"
+    ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
+VALUES(6, 96708, 'David', 'White', 'Mr.', 47, 'Hawaii', '2026', 'Supervisor', '125-175', 'Social Worker, DSW, MSW, MVF-SW, LAPSW', TRUE, 'I specialize in Social Work with Military Members and Veterans.', 'davidwhitecounseling.com', 'New member', 'Social Worker', 'Haiku', '50303', 1);
+INSERT INTO "public"."address_table"
+    ("business", "address", "member_id")
+VALUES(TRUE, '3550 4th Hwy, Haiku, HI 96708', 6);
+INSERT INTO "public"."age_groups_served_pivot"
+    ("age_groups_served_id", "member_id")
+VALUES(1, 6),(4, 6);
+INSERT INTO "public"."client_focus_pivot"
+    ("client_focus_id", "member_id")
+VALUES(1, 6), (5, 6), (10, 6), (12, 6), (16, 6); 
+INSERT INTO "public"."email_table"
+    ("business", "email", "member_id")
+VALUES(TRUE, 'david@davidwhitecounseling.com', 6);
+INSERT INTO "public"."insurance_pivot"
+    ("insurance_type_id", "member_id")
+VALUES(17, 6), (21, 6), (22, 6), (25, 6), (28, 6);
+INSERT INTO "public"."island_pivot"
+    ("island_id", "member_id")
+VALUES(4, 6);
+INSERT INTO "public"."languages_pivot"
+    ("language_id", "member_id")
+VALUES(4, 6), (6, 6);
+INSERT INTO "public"."phone_table"
+    ("number", "member_id", "business")
+VALUES('(808) 892-2252', 6, TRUE), ('(808) 902-2341', 6, FALSE);
+INSERT INTO "public"."session_format_pivot"
+    ("session_format_id", "member_id")
+VALUES(1, 6), (2, 6);
+INSERT INTO "public"."specialty_pivot"
+    ("specialty_id", "member_id")
+VALUES(9, 6), (22, 6), (26, 6), (46, 6), (47, 6);
+INSERT INTO "public"."treatment_preferences_pivot"
+    ("treatment_preferences_id", "member_id")
+VALUES (8, 6), (14, 6), (24, 6), (30, 6);
+
 --SUBJECT 7
 INSERT INTO "user"
 	("id", "username", "password")
