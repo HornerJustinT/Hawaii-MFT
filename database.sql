@@ -503,43 +503,6 @@ INSERT INTO "public"."treatment_preferences_pivot"
     ("treatment_preferences_id", "member_id")
 VALUES(17, 1);
 
-
--- sql queries for our gets
-SELECT * FROM members;
-
-SELECT address_table.member_id, address_type.title AS address_type FROM address_type
-JOIN address_table ON address_type.address_type_id=address_table.address_type_id;
-
-SELECT age_groups_served_pivot.member_id, age_groups_served.title AS age_groups_served FROM age_groups_served
-JOIN age_groups_served_pivot ON age_groups_served.age_groups_served_id=age_groups_served_pivot.age_groups_served_id;
-
-SELECT client_focus_pivot.member_id, client_focus.title AS client_focus FROM client_focus
-JOIN client_focus_pivot ON client_focus.client_focus_id=client_focus_pivot.client_focus_id;
-
-SELECT email_table.member_id,email_table.email, email_type.title AS email_type FROM email_type
-JOIN email_table ON email_table.email_type_id=email_type.email_type_id;
-
-SELECT insurance_pivot.member_id, insurance_type.title AS insurance_type FROM insurance_type
-JOIN insurance_pivot ON insurance_pivot.insurance_type_id=insurance_type.insurance_type_id;
-
-SELECT island_pivot.member_id, island.title AS island FROM island
-JOIN island_pivot ON island_pivot.island_id = island.island_id;
-
-SELECT member_id, title AS languages FROM languages_pivot
-JOIN languages ON languages.language_id = languages_pivot.language_id;
-
-SELECT member_id, number, title AS number_type FROM phone_table
-JOIN phone_type ON phone_table.phone_type_id = phone_type.phone_type_id;
-
-SELECT member_id, title AS session_format FROM session_format_pivot
-JOIN session_format ON session_format_pivot.session_format_id = session_format.session_format_id;
-
-SELECT member_id, title AS specialty FROM specialty_pivot
-JOIN specialty ON specialty.specialty_id = specialty_pivot.specialty_id;
-
-SELECT member_id, title AS treatment_preferences FROM treatment_preferences_pivot
-JOIN treatment_preferences ON treatment_preferences_pivot.treatment_preferences_id = treatment_preferences.treatment_preferences_id;
-
 --INSERTS FOR SAMPLE DATA
 
 --SUBJECT 7
