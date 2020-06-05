@@ -49,7 +49,7 @@ class ProfileEdit extends Component {
         lastName: this.props.profile.last_name,
         title: this.props.profile.title,
         age: this.props.profile.age,
-        phone: this.props.profile.phone,
+        phone: this.props.profile.phone[0],
         address: this.props.profile.address,
         city: this.props.profile.city,
         island: this.props.profile.island,
@@ -483,7 +483,7 @@ class ProfileEdit extends Component {
                 <Form.Group>
                   <Form.Label className="label">Phone Number</Form.Label>
                   <Form.Control
-                    defaultValue={this.props.profile.phone}
+                    defaultValue={this.state.phone}
                     onChange={(event) => this.handleChange(event, "phone")}
                   />
                   <Form.Text className="text-muted">

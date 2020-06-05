@@ -123,22 +123,22 @@ router.put('/', rejectUnauthenticated, async (req, res) => {
       req.body.telehealth,
       req.body.licenseNumber,
       req.body.licenseType,
-      req.body.id.id,
+      req.body.id,
     ]);
 //Languages PUT & DELETE Queries
-    await connection.query(languageDeleteQuery, [req.user.id]);
+    await connection.query(languageDeleteQuery, [req.body.id]);
 
     for (let i=0; i<languages.length; i++){
-      await connection.query(languageQuery, [languages[i], req.user.id]);
+      await connection.query(languageQuery, [languages[i], req.body.id]);
     }
 
  //Islands PUT & DELETE queries
-    await connection.query(islandDeleteQuery, [req.user.id]);
-    await connection.query(islandQuery, [island[0], req.user.id]);
+    await connection.query(islandDeleteQuery, [req.body.id]);
+    await connection.query(islandQuery, [island[0], req.body.id]);
 
   // Phone PUT & DELETE
-    await connection.query(phoneDeleteQuery, [req.user.id]);
-    await connection.query(phoneQuery, [phone, req.user.id, 'TRUE']);
+    await connection.query(phoneDeleteQuery, [req.body.id]);
+    await connection.query(phoneQuery, [phone, req.body.id, "TRUE"]);
     
 //   //Email PUT & DELETE
 //     await connection.query(emailDeleteQuery, [req.user.id]);
