@@ -19,7 +19,8 @@ import Nav from 'react-bootstrap/Nav'
 class NavBar extends Component{
 
   handleClick = () => {
-    this.props.history.push(`/edit-profile/${this.props.user.id}`);
+    this.props.dispatch({ type: "PROFILE_RESET" });
+    this.props.history.push(`/edit-profile`);
   }
 
   render(){
