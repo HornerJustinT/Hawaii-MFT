@@ -11,7 +11,7 @@ router.get('/:id', async (req, res) => {
 			array_agg(DISTINCT age_groups_served.title) AS ages_served,
 			array_agg(DISTINCT client_focus.title) AS client_focus,
 			array_agg(DISTINCT insurance_type.title) AS insurance,
-			island.title AS island,
+			array_agg(DISTINCT island.title) AS island,
 			array_agg(DISTINCT session_format.title) AS session_format,
 			array_agg(DISTINCT specialty.title) AS specialty,
 			array_agg(DISTINCT treatment_preferences.title) AS treatment_preferences,
