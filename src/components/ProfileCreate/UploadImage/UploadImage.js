@@ -1,4 +1,5 @@
 import React,{ Component } from 'react';
+import { connect } from 'react-redux';
 
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar'
@@ -18,7 +19,7 @@ class UploadImage extends Component{
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.history.push(`/edit-profile/${user.id}`);
+        this.props.history.push(`/edit-profile/${this.props.user.id}`);
     }
 
     render (){
@@ -46,4 +47,8 @@ class UploadImage extends Component{
     }
 
 }
-export default UploadImage;
+
+const mapStateToProps = reduxstate => ({
+    user: reduxstate.user
+  });
+export default connect(mapStateToProps )(UploadImage);

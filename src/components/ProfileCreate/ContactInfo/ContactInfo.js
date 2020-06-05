@@ -108,15 +108,15 @@ class ContactInfo extends Component{
              <Form.Label>Phone Number - Business</Form.Label>
              <br/>
              <input type="number"
-                  name="number"
-                  value={this.state.number}
-                  onChange={this.handleInputChangeFor("number")}/>
+                  name="business_number"
+                  value={this.state.business_number}
+                  onChange={this.handleInputChangeFor("business_number")}/>
              <br/>
              <br/>
              <Form.Label>Phone Number - Personal</Form.Label>
              <br/>
              <input type="number"
-                  name="number"
+                  name="personal_number"
                   value={this.state.personal_number}
                   onChange={this.handleInputChangeFor("personal_number")}/>
                 <br/>
@@ -144,23 +144,23 @@ class ContactInfo extends Component{
              <Form.Label>Address - Office</Form.Label>
              <br/>
              <input type="text"
-                  name="address"
-                  value={this.state.address}
-                  onChange={this.handleInputChangeFor("address")}/>
+                  name="address_office"
+                  value={this.state.address_office}
+                  onChange={this.handleInputChangeFor("address_office")}/>
              <br/>
              <Form.Label>Address - Home</Form.Label>
              <br/>
              <input type="text"
-                  name="home_address"
-                  value={this.state.home_address}
-                  onChange={this.handleInputChangeFor("home_address")}/>
+                  name="address_home"
+                  value={this.state.address_home}
+                  onChange={this.handleInputChangeFor("address_home")}/>
              <br/>
              <Form.Label>Address - Mailing</Form.Label>
              <br/>
              <input type="text"
-                  name="mailing_address"
-                  value={this.state.mailing_address}
-                  onChange={this.handleInputChangeFor("mailing_address")}/>
+                  name="address_mailing"
+                  value={this.state.address_mailing}
+                  onChange={this.handleInputChangeFor("address_mailing")}/>
              <br/>
              <br/>
              <Form.Label>City</Form.Label>

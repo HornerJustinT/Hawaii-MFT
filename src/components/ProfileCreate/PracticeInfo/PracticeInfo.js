@@ -83,13 +83,24 @@ handleInputChangeFor = propertyName => (event) =>{
           website:this.props.contactAddress.website,
              city:this.props.contactAddress.city,
              zip_code: this.props.contactAddress.zip_code,
-
-          
- /*     */
          }
         })
         this.handleReset()
     }
+
+    addPracticeInfo = () =>{
+      this.props.dispatch({type:'ADD_PRACTICEINFO',
+                        payload:{
+                          
+                        }
+
+      })
+    }
+
+
+
+
+
     handleReset = ()=>{
       this.setState({
         license_state:'',
