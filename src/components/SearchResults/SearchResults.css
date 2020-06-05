@@ -1,5 +1,10 @@
-.contact {
-    text-align: right;
+.contact-info {
+  text-align: right;
+  width: 38%;
+}
+
+.description {
+  width: 60%;
 }
 
 .center {
@@ -7,16 +12,20 @@
 }
 
 .number {
-    width: fit-content;
-    white-space: nowrap;
+  width: fit-content;
+  white-space: nowrap;
 }
 
 @media only screen and (max-width: 900px) {
   /* For Small Screens */
-  .contact {
+  .contact-info {
     text-align: left;
     width: 100%;
     padding: 10px 0px;
+  }
+
+  .description {
+    width: 100%;
   }
 }
 

@@ -451,60 +451,58 @@ VALUES
 	
 -- insert new user info
 INSERT INTO "user"
-	("username","password")
-VALUES ('test','test');
-INSERT INTO "members" 
-	("id","zip_code","first_name", "last_name", "prefix", "age","license_state", "license_expiration", "hiamft_member_account_info", "supervision_status","fees")
-VALUES(1, NULL, 'test', 'test', NULL, NULL, NULL, NULL, NULL,NULL,NULL);
-INSERT INTO "session_format_pivot"
-	("session_format_id", "member_id")
+	("id", "username", "password")
 VALUES 
-	(1,1);
-INSERT INTO "specialty_pivot"
-	("specialty_id", "member_id")
-VALUES
-	(1,1);
-INSERT INTO "treatment_preferences_pivot"
-	("treatment_preferences_id","member_id")
-VALUES
-	(1,1);
-INSERT INTO "address_table"
-	("address", "business", "member_id")
-VALUES
-	('test',TRUE, 1);
-INSERT INTO "email_table" 
-	("business", "member_id", "email")
-VALUES
-	(TRUE,1,'test');
-INSERT INTO "island_pivot"
-	("island_id", "member_id")
-VALUES
-	(1,1);
-INSERT INTO "languages_pivot"
-	("language_id", "member_id")
-VALUES 
-	(1,1);
-INSERT INTO "license_type_pivot"
-	("license_type_id", "member_id")
-VALUES 
-	(1,1);
-INSERT INTO "phone_table"
-	("business", "member_id","number")
-VALUES 
-	(TRUE,1,1);
-INSERT INTO "age_groups_served_pivot"
-	("age_groups_served_id", "member_id")
-VALUES 
-	(1,1);
-INSERT INTO "client_focus_pivot"
-	("client_focus_id", "member_id")
-VALUES 
-	(1,1);
-INSERT INTO "insurance_pivot"
-	("insurance_type_id", "member_id")
-VALUES
-	(1,1);
-	
+    (1, 'test','test');
+
+INSERT INTO "public"."members"
+    ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
+VALUES(1, 96701, 'John', 'Barosa', 'Mr.', 34, 'Hawaii', '2020', 'Supervisor', '65-80', 'MFT, PHD', TRUE, 'I love all types of people and feel the world should be more connected even when we have to distance like we do now.', 'SocialYourDistance.com', 'Prominent user', 'Therapist', 'Honolulu', '8219293', 1);
+
+INSERT INTO "public"."address_table"
+    ("business", "address", "member_id")
+VALUES(TRUE, '920 Kaheka St Honolulu, Hawaii', 1);
+
+INSERT INTO "public"."age_groups_served_pivot"
+    ("age_groups_served_id", "member_id")
+VALUES(5, 1),(3, 1),(2, 1);
+
+INSERT INTO "public"."client_focus_pivot"
+    ("client_focus_id", "member_id")
+VALUES(4, 1), (17, 1), (11, 1); 
+
+INSERT INTO "public"."email_table"
+    ("business", "email", "member_id")
+VALUES(TRUE, 'John.Barosa@yahoo.com', 1);
+
+INSERT INTO "public"."insurance_pivot"
+    ("insurance_type_id", "member_id")
+VALUES(13, 1), (24, 1);
+
+INSERT INTO "public"."island_pivot"
+    ("island_id", "member_id")
+VALUES(2, 1);
+
+INSERT INTO "public"."languages_pivot"
+    ("language_id", "member_id")
+VALUES(11, 1), (1, 1);
+
+INSERT INTO "public"."phone_table"
+    ("number", "member_id", "business")
+VALUES('(573) 433-2395', 1, TRUE), ('(704) 857-6451', 1, FALSE);
+
+INSERT INTO "public"."session_format_pivot"
+    ("session_format_id", "member_id")
+VALUES(4, 1), (5, 1);
+
+INSERT INTO "public"."specialty_pivot"
+    ("specialty_id", "member_id")
+VALUES(22, 1);
+
+INSERT INTO "public"."treatment_preferences_pivot"
+    ("treatment_preferences_id", "member_id")
+VALUES(17, 1);
+
 
 -- sql queries for our gets
 SELECT * FROM members;
