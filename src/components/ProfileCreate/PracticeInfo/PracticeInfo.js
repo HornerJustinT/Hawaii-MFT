@@ -56,7 +56,9 @@ handleInputChangeFor = propertyName => (event) =>{
         this.props.history.push('/contact-info')
     }
     handleSave = (event) => {
-        event.preventDefault()
+        event.preventDefault();
+        this.addPracticeInfo();
+        this.addMembersInfo
         
     }
     handleNext = (event) => {
@@ -64,32 +66,31 @@ handleInputChangeFor = propertyName => (event) =>{
         this.props.history.push('/uploadImage')
     }
     
-    // addMembersInfo = (event) =>{
-    //   event.preventDefault()
-    //     this.props.dispatch({type:'ADD_MEMBER',
-    //      payload:{
-    //       prefix:this.props.createProfile.prefix,
-    //       first_name:this.props.createProfile.first_name,
-    //       last_name:this.props.createProfile.last_name,
-    //       age:this.props.createProfile.age,
-    //       hiamft_member_account_info:this.props.createProfile.hiamft_member_account_info,
-    //       license_state:this.state.license_state,
-    //       supervision_status:this.state.supervision_status,
-    //       fees:this.state.fees,
-    //       license_expiration:this.state.license_expiration,
-    //       license_number:this.state.license_number,
-    //       license_type:this.state.license_type,
-    //       credentials:this.state.credentials,
-    //       telehealth:this.state.telehealth,
-    //       statement:this.state.statement,
-    //       title:this.state.title,
-    //       website:this.props.contactAddress.website,
-    //          city:this.props.contactAddress.city,
-    //          zip_code: this.props.contactAddress.zip_code,
-    //      }
-    //     })
-    //     this.handleReset()
-    // }
+    addMembersInfo = () =>{
+        this.props.dispatch({type:'ADD_MEMBER',
+         payload:{
+          prefix:this.props.createProfile.prefix,
+          first_name:this.props.createProfile.first_name,
+          last_name:this.props.createProfile.last_name,
+          age:this.props.createProfile.age,
+          hiamft_member_account_info:this.props.createProfile.hiamft_member_account_info,
+          license_state:this.state.license_state,
+          supervision_status:this.state.supervision_status,
+          fees:this.state.fees,
+          license_expiration:this.state.license_expiration,
+          license_number:this.state.license_number,
+          license_type:this.state.license_type,
+          credentials:this.state.credentials,
+          telehealth:this.state.telehealth,
+          statement:this.state.statement,
+          title:this.state.title,
+          website:this.props.contactAddress.website,
+             city:this.props.contactAddress.city,
+             zip_code: this.props.contactAddress.zip_code,
+         }
+        })
+        this.handleReset()
+    }
 
     addPracticeInfo = () =>{
       this.props.dispatch({type:'ADD_PRACTICEINFO',
@@ -121,12 +122,12 @@ handleInputChangeFor = propertyName => (event) =>{
         telehealth:'',
         statement:'',
         title:'',
-        // session_format_id:'',
-        //  client_focus_id:'',
-        //  specialty_id:'',
-        //  treatment_preferences_id:'',
-        //  age_groups_served_id:'',
-        //  insurance_type_id:'',
+        session_format_id:'',
+         client_focus_id:'',
+         specialty_id:'',
+         treatment_preferences_id:'',
+         age_groups_served_id:'',
+         insurance_type_id:'',
       })
     }
     render (){
@@ -137,7 +138,7 @@ handleInputChangeFor = propertyName => (event) =>{
         <br/>
         <ProgressBar now={75} />
         <br/>
-        <Form onSubmit={this.addPracticeInfo}>
+        <Form onSubmit={this.handleSave}>
         <br/>
         <br/>
         <Form.Label>Title </Form.Label><br/><input type="text"
