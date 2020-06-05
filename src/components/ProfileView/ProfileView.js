@@ -46,7 +46,7 @@ class ProfileView extends Component {
   }
   website=(website)=>{
     if(website){
-      return <p>{this.props.profile[0].website}</p>
+      return <p>{this.props.profile.website}</p>
     }
   }
   setMAP = () => { // function that sets the map latitudes only when it was unchanged to stop infinete loop. I do not know how to set up async for when the dispatch is done.
@@ -83,6 +83,9 @@ class ProfileView extends Component {
       });
     }
   };
+  home = () => {
+    this.props.history.push('/home')
+  }
 
   render() {
     console.log(this.props)
@@ -93,7 +96,7 @@ class ProfileView extends Component {
           <div className="profileView-container">
             <div className="leftside">
               <div className="bio-container">
-                <button className="backSearch">Back to search Results</button>
+                <button onClick = {this.home}className="backSearch">Back to search Results</button>
                 <div className="bio-title">
                   <h1>
                     {this.props.profile.first_name}{" "}
@@ -104,6 +107,7 @@ class ProfileView extends Component {
                 <div className="bio">
                   <p>{this.props.profile.hiamft_member_account_info}
                   </p>
+                  <p>{this.props.profile.statement}</p>
                 </div>
               </div>
               <div>
@@ -192,7 +196,7 @@ class ProfileView extends Component {
                   {/* Since there will only be one phone and no non business numbersI think we can simply just call the first one */}
                   <p>{this.props.profile.email[0]}</p>
                   {/* Same with email */}
-                  {this.website()}
+                  {this.website(this.props.profile.website)}
                   {/* chceks to see if website is there adds if there is */}
                   <p>{this.props.profile.address}</p>
                   <p>{this.props.profile.city}, Hawaii</p>
