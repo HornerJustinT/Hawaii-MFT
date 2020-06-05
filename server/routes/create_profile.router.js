@@ -194,19 +194,19 @@ router.post('/contactinfo', rejectUnauthenticated, async (req, res) => {
         const insertIsland = await member.query(`INSERT INTO "island_pivot"
         ("island_id", "member_id") VALUES ($1,$2)`, [req.body.island_id, req.user.id]);
         const insertEmail = await member.query(`INSERT INTO "email_table" 
-        ("business", "member_id", "email") VALUES (TRUE,$1,$2)`, [true,req.user.id,req.body.email]);
+        ("business", "member_id", "email") VALUES ($1,$2,$3)`, [true,req.user.id,req.body.email]);
         const insertPersonalEmail = await member.query(`INSERT INTO "email_table" 
-        ("business", "member_id", "email") VALUES (False,$1,$2)`, [false,req.user.id,req.body.personal_email]);
+        ("business", "member_id", "email") VALUES ($1,$2,$3)`, [false,req.user.id,req.body.personal_email]);
         const insertBusinessNumber = await member.query(`INSERT INTO "phone_table"
-        ("business", "member_id","number") VALUES (TRUE,$1,$2)`, [true,req.user.id,req.body.business_number]);
+        ("business", "member_id","number") VALUES ($1,$2,$3)`, [true,req.user.id,req.body.business_number]);
         const insertPersonalNumber = await member.query(`INSERT INTO "phone_table"
-        ("business", "member_id","number") VALUES (TRUE,$1,$2)`, [true,req.user.id,req.body.personal_number]);
+        ("business", "member_id","number") VALUES ($1,$2,$3)`, [true,req.user.id,req.body.personal_number]);
         const insertAddressOffice = await member.query(`INSERT INTO "address_table"
-        ("address", "business", "member_id") VALUES ($1,$2,TRUE);`, [req.body.address_office,true,req.user.id]);
+        ("address", "business", "member_id") VALUES ($1,$2,$3);`, [req.body.address_office,true,req.user.id]);
         const insertAddressHome = await member.query(`INSERT INTO "address_table"
-        ("address", "business", "member_id") VALUES ($1,false,$2);`, [req.body.address_home,false,req.user.id]);
+        ("address", "business", "member_id") VALUES ($1,$2,$3);`, [req.body.address_home,false,req.user.id]);
         const insertAddressMailing = await member.query(`INSERT INTO "address_table"
-        ("address", "business", "member_id") VALUES ($1,false,$2);`, [req.body.address_mailing,false,req.user.id]);
+        ("address", "business", "member_id") VALUES ($1,$2,$3);`, [req.body.address_mailing,false,req.user.id]);
         
         await member.query('COMMIT')
         res.sendStatus(201);
