@@ -1,5 +1,5 @@
 const IslandReducer = (state = [], action) => {
-    console.log('in contactInfoReducer', action.payload);
+    console.log('in islandReducer', action.payload);
     if (action.type === 'SET_ISLANDS') {
         return action.payload;
     } 

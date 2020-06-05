@@ -71,8 +71,7 @@ function* addPracticeInfo(action) {
 
 function* fetchLanguages(action){
     try{
-        const response = yield axios.get(`/api/profile`)
-        console.log(response)
+        const response = yield axios.get(`/api/profile/languages`)
         yield put ({type: 'SET_LANGUAGES', payload: response.data});
     }
     catch(error){
@@ -138,7 +137,7 @@ function* fetchLicenseType (action){
 function* fetchTreatmentApproaches (action){
     try{
         const response = yield axios.get(`/api/profile/treatment`)
-        console.log(response)
+        console.log('in XXX FETCH TREATMENT', response.data)
         yield put ({type: 'SET_TREATMENT_APPROACHES', payload: response.data});
     }
     catch(error){

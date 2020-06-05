@@ -52,6 +52,7 @@ router.get('/', async (req, res) => {
 			GROUP BY m.id, license_type.title, m.zip_code, m.first_name, m.last_name, m.prefix, m.age, m.license_state,
 			m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials,
 			m.telehealth, m.statement, m.website, m.title, m.city, m.license_number, m.license_type;`;
+
         const members = await connection.query(query);
         res.send(members.rows)
 
@@ -107,7 +108,7 @@ router.get("/:zip", async (req, res) => {
 			JOIN treatment_preferences_pivot ON treatment_preferences_pivot.member_id = m.id
 			JOIN treatment_preferences ON treatment_preferences.treatment_preferences_id = treatment_preferences_pivot.treatment_preferences_id		
 
-			WHERE CAST(m.zip_code AS VARCHAR) LIKE $1 OR LOWER(m.city) LIKE $1
+			WHERE CAST(m.zip_code AS VARCHAR) LIKE $1 OR LOWER(m.city) LIKE $1 OR LOWER(island.title) LIKE $1
 
 			GROUP BY m.id, license_type.title, m.zip_code, m.first_name, m.last_name, m.prefix, m.age, m.license_state,
 			m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials,

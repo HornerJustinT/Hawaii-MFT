@@ -3,8 +3,14 @@
 }
 
 .body {
+    border-style: solid;
+    border: .5em black;
     margin-top: 1em;
     margin-left: 2em;
     padding-top: 0px;
     padding-bottom: 0px;
+}
+
+.label {
+    font-weight: 700;
 }

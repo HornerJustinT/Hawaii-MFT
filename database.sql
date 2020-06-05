@@ -113,9 +113,9 @@ CREATE TABLE "client_focus_pivot"(
 
 
 CREATE TABLE "phone_table"(
-	"number" INT NOT NULL,
+	"number" VARCHAR(20) NOT NULL,
 	"member_id" INT NOT NULL,
-	"business" BOOLEAN NOT NULL,
+	"business" BOOLEAN,
 	FOREIGN KEY ("member_id") REFERENCES "members"("id"));
 	
 	
@@ -451,93 +451,339 @@ VALUES
 	
 -- insert new user info
 INSERT INTO "user"
-	("username","password")
-VALUES ('test','test');
-INSERT INTO "members" 
-	("id","zip_code","first_name", "last_name", "prefix", "age","license_state", "license_expiration", "hiamft_member_account_info", "supervision_status","fees")
-VALUES(1, NULL, 'test', 'test', NULL, NULL, NULL, NULL, NULL,NULL,NULL);
-INSERT INTO "session_format_pivot"
-	("session_format_id", "member_id")
+	("id", "username", "password")
 VALUES 
-	(1,1);
-INSERT INTO "specialty_pivot"
-	("specialty_id", "member_id")
+    (1, 'test','test'),
+    (2, 'test','test'),
+    (3, 'test','test');
+
+INSERT INTO "public"."members"
+    ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
 VALUES
-	(1,1);
-INSERT INTO "treatment_preferences_pivot"
-	("treatment_preferences_id","member_id")
+
+    (1, 96701, 'John', 'Barosa', 'Mr.', 34, 'Hawaii', '2022', 'Supervisor', '65-80', 'MFT, PhD', true, 'I love all types of people and feel the world should be more connected even when we have to distance like we do now.', 'SocialYourDistance.com', 'Prominent user', 'Therapist', 'Honolulu', '8219293', 5),
+    (2, 96804, 'Eldon', 'Barnett', 'Mr.', 50, 'Hawaii', '2024', 'None', '100', 'PhD, LMFT', false, 'I believe in a traditional form of therapy.', 'ClassicalTherapy.org', 'newer user', 'Mental Health Expert', 'Kihei', '09970054', 1),
+    (3, 96734, 'Morgan', 'Cooper', 'Ms.', 42, 'Hawaii', '2021', 'MFT supervisor', '140', 'PhD, LP', false, 'I believe in a traditional form of therapy.', 'ClassicalTherapy.org', 'newer user', 'Psychiatrist', 'Hilo', '1028328', 3);
+
+INSERT INTO "public"."address_table"
+    ("business", "address", "member_id")
 VALUES
-	(1,1);
-INSERT INTO "address_table"
-	("address", "business", "member_id")
-VALUES
-	('test',TRUE, 1);
-INSERT INTO "email_table" 
-	("business", "member_id", "email")
-VALUES
-	(TRUE,1,'test')
-INSERT INTO "island_pivot"
-	("island_id", "member_id")
-VALUES
-	(1,1);
-INSERT INTO "languages_pivot"
-	("language_id", "member_id")
+    (TRUE, '920 Kaheka St Honolulu, Hawaii', 1),
+    (TRUE, '2345 Ala Wai Blvd Honolulu, Hawaii', 2),
+    (TRUE, '4002 Mahinahina St Lahaina, Hawaii', 3);
+
+INSERT INTO "public"."age_groups_served_pivot"
+    ("age_groups_served_id", "member_id")
+VALUES(5, 1),(3, 1),(2, 1),
+    (1, 2), 
+    (5, 2), (2, 2);
+
+INSERT INTO "public"."client_focus_pivot"
+    ("client_focus_id", "member_id")
+VALUES(4, 1), (17, 1), (11, 1),
+    (1, 2), (13, 2),
+    (11, 3), (2, 3), (14, 3); 
+
+INSERT INTO "public"."email_table"
+    ("business", "email", "member_id")
+VALUES(TRUE, 'John.Barosa@yahoo.com', 1), 
+    (TRUE, 'amiya1975@gmail.com', 2), 
+    (TRUE, 'Morgan.Cooper@gmail.com', 3);
+
+INSERT INTO "public"."insurance_pivot"
+    ("insurance_type_id", "member_id")
+VALUES(13, 1), (24, 1),
+    (2, 2), (24, 2), (14, 2),
+    (24, 3), (21, 3);
+
+INSERT INTO "public"."island_pivot"
+    ("island_id", "member_id")
+VALUES(4, 1), (4, 2), (3, 3);
+
+INSERT INTO "public"."languages_pivot"
+    ("language_id", "member_id")
+VALUES(11, 1), (1, 1),
+(11, 2), (1, 2), (7, 2), (4, 2), 
+(11, 3), (3, 3);
+
+INSERT INTO "public"."phone_table"
+    ("number", "member_id", "business")
+VALUES('(573) 433-2395', 1, TRUE), ('(704) 857-6451', 1, FALSE),
+('(573) 433-2395', 2, TRUE),
+('(702) 876-3297', 3, TRUE);
+
+INSERT INTO "public"."session_format_pivot"
+    ("session_format_id", "member_id")
+VALUES(4, 1), (5, 1),
+(1, 2), (4, 3);
+
+INSERT INTO "public"."specialty_pivot"
+    ("specialty_id", "member_id")
+VALUES(22, 1),
+(22, 1),
+(20, 2),
+(2, 2),
+(3, 2),
+(7, 3);
+
+INSERT INTO "public"."treatment_preferences_pivot"
+    ("treatment_preferences_id", "member_id")
+VALUES(17, 1), (1, 1), (1, 2), (10, 2), (8, 3);
+
+--INSERTS FOR SAMPLE DATA
+
+--SUBJECT 4
+
+INSERT INTO "user"
+	("id", "username", "password")
 VALUES 
-	(1,1);
-INSERT INTO "license_type_pivot"
-	("license_type_id", "member_id")
+    (4, 'test4','test4');
+INSERT INTO "public"."members"
+    ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
+VALUES(4, 96701, 'Romero', 'Sancho', 'Mr.', 26, 'Hawaii', '2025', 'MFT Supervisor', '200-250', 'Psychiatrist, D.O, MS, LCPC, LAC', TRUE, 'I specialize in addiction psychiatry.', 'romerosanchocounseling.com', 'New member', 'Psychiatrist', 'Aiea', '805493', 1);
+INSERT INTO "public"."address_table"
+    ("business", "address", "member_id")
+VALUES(TRUE, '3468 Pearl Ave, Aiea, HI 96701', 4);
+INSERT INTO "public"."age_groups_served_pivot"
+    ("age_groups_served_id", "member_id")
+VALUES(1, 4),(4, 4);
+INSERT INTO "public"."client_focus_pivot"
+    ("client_focus_id", "member_id")
+VALUES(1, 4), (5, 4), (7, 4), (10, 4), (17, 4); 
+INSERT INTO "public"."email_table"
+    ("business", "email", "member_id")
+VALUES(TRUE, 'romero@romerosanchocounseling.com', 4);
+INSERT INTO "public"."insurance_pivot"
+    ("insurance_type_id", "member_id")
+VALUES(5, 4), (8, 4), (11, 4), (9, 4), (19, 4);
+INSERT INTO "public"."island_pivot"
+    ("island_id", "member_id")
+VALUES(3, 4);
+INSERT INTO "public"."languages_pivot"
+    ("language_id", "member_id")
+VALUES(5, 4), (2, 4);
+INSERT INTO "public"."phone_table"
+    ("number", "member_id", "business")
+VALUES('(808) 456-0032', 4, TRUE), ('(808) 654-2001', 4, FALSE);
+INSERT INTO "public"."session_format_pivot"
+    ("session_format_id", "member_id")
+VALUES(1, 4), (2, 4);
+INSERT INTO "public"."specialty_pivot"
+    ("specialty_id", "member_id")
+VALUES(2, 4), (19, 4), (26, 4), (30, 4), (31, 4);
+INSERT INTO "public"."treatment_preferences_pivot"
+    ("treatment_preferences_id", "member_id")
+VALUES (5, 4), (23, 4), (45, 4), (33, 4);
+
+--SUBJECT 5
+
+INSERT INTO "user"
+	("id", "username", "password")
 VALUES 
-	(1,1);
-INSERT INTO "phone_table"
-	("business", "member_id","number")
+    (5, 'test5','test5');
+INSERT INTO "public"."members"
+    ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
+VALUES(5, 96704, 'Sandra', 'Smith', 'Mrs.', 35, 'Hawaii', '2023', 'MFT Supervisor', '150-225', 'Psychologists, psyD, MSW, LCSW, LPCC', TRUE, 'I specialize in mental disorders and adoption issues with children.', 'sandrasmithcounseling.com', 'New member', 'Psychologist', 'Captain Cook', '34556', 1);
+INSERT INTO "public"."address_table"
+    ("business", "address", "member_id")
+VALUES(TRUE, '562 4th Ave, Captain Cook, HI 96704', 5);
+INSERT INTO "public"."age_groups_served_pivot"
+    ("age_groups_served_id", "member_id")
+VALUES(1, 5),(3, 5);
+INSERT INTO "public"."client_focus_pivot"
+    ("client_focus_id", "member_id")
+VALUES(1, 5), (3, 5), (9, 5), (11, 5), (15, 5); 
+INSERT INTO "public"."email_table"
+    ("business", "email", "member_id")
+VALUES(TRUE, 'sandra@sandrasmithcounseling.com', 5);
+INSERT INTO "public"."insurance_pivot"
+    ("insurance_type_id", "member_id")
+VALUES(6, 5), (11, 5), (13, 5), (17, 5), (22, 5);
+INSERT INTO "public"."island_pivot"
+    ("island_id", "member_id")
+VALUES(4, 5);
+INSERT INTO "public"."languages_pivot"
+    ("language_id", "member_id")
+VALUES(3, 5), (7, 5);
+INSERT INTO "public"."phone_table"
+    ("number", "member_id", "business")
+VALUES('(808) 478-2032', 5, TRUE), ('(808) 896-2301', 5, FALSE);
+INSERT INTO "public"."session_format_pivot"
+    ("session_format_id", "member_id")
+VALUES(1, 5), (4, 5);
+INSERT INTO "public"."specialty_pivot"
+    ("specialty_id", "member_id")
+VALUES(4, 5), (11, 5), (24, 5), (28, 5), (29, 5);
+INSERT INTO "public"."treatment_preferences_pivot"
+    ("treatment_preferences_id", "member_id")
+VALUES (6, 5), (24, 5), (32, 5), (36, 5);
+
+--SUBJECT 6
+
+INSERT INTO "user"
+	("id", "username", "password")
 VALUES 
-	(TRUE,1,1);
-INSERT INTO "age_groups_served_pivot"
-	("age_groups_served_id", "member_id")
+    (6, 'test6','test6');
+INSERT INTO "public"."members"
+    ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
+VALUES(6, 96708, 'David', 'White', 'Mr.', 47, 'Hawaii', '2026', 'Supervisor', '125-175', 'Social Worker, DSW, MSW, MVF-SW, LAPSW', TRUE, 'I specialize in Social Work with Military Members and Veterans.', 'davidwhitecounseling.com', 'New member', 'Social Worker', 'Haiku', '50303', 1);
+INSERT INTO "public"."address_table"
+    ("business", "address", "member_id")
+VALUES(TRUE, '3550 4th Hwy, Haiku, HI 96708', 6);
+INSERT INTO "public"."age_groups_served_pivot"
+    ("age_groups_served_id", "member_id")
+VALUES(1, 6),(4, 6);
+INSERT INTO "public"."client_focus_pivot"
+    ("client_focus_id", "member_id")
+VALUES(1, 6), (5, 6), (10, 6), (12, 6), (16, 6); 
+INSERT INTO "public"."email_table"
+    ("business", "email", "member_id")
+VALUES(TRUE, 'david@davidwhitecounseling.com', 6);
+INSERT INTO "public"."insurance_pivot"
+    ("insurance_type_id", "member_id")
+VALUES(17, 6), (21, 6), (22, 6), (25, 6), (28, 6);
+INSERT INTO "public"."island_pivot"
+    ("island_id", "member_id")
+VALUES(4, 6);
+INSERT INTO "public"."languages_pivot"
+    ("language_id", "member_id")
+VALUES(4, 6), (6, 6);
+INSERT INTO "public"."phone_table"
+    ("number", "member_id", "business")
+VALUES('(808) 892-2252', 6, TRUE), ('(808) 902-2341', 6, FALSE);
+INSERT INTO "public"."session_format_pivot"
+    ("session_format_id", "member_id")
+VALUES(1, 6), (2, 6);
+INSERT INTO "public"."specialty_pivot"
+    ("specialty_id", "member_id")
+VALUES(9, 6), (22, 6), (26, 6), (46, 6), (47, 6);
+INSERT INTO "public"."treatment_preferences_pivot"
+    ("treatment_preferences_id", "member_id")
+VALUES (8, 6), (14, 6), (24, 6), (30, 6);
+
+--SUBJECT 7
+INSERT INTO "user"
+	("id", "username", "password")
 VALUES 
-	(1,1);
-INSERT INTO "client_focus_pivot"
-	("client_focus_id", "member_id")
+    (7, 'test7','test');
+INSERT INTO "public"."members"
+    ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
+VALUES(7, 96761, 'Tepairu', 'Miller', 'Ms.', 40, 'Hawaii', '2025', 'No supervision status', '100-150', 'Psychologist, PhD, LP, LAMFT', FALSE, 'In my practice I focus on getting to the roots of behaviors to best understand the path forward with my clients.', 'familytherapy.com', 'Long-time member', 'Dr.', 'Lahaina', '3857163', 1);
+INSERT INTO "public"."address_table"
+    ("business", "address", "member_id")
+VALUES(TRUE, '1221 HI-30, Lahaina, HI 96761', 7);
+INSERT INTO "public"."age_groups_served_pivot"
+    ("age_groups_served_id", "member_id")
+VALUES(1, 7),(4, 7);
+INSERT INTO "public"."client_focus_pivot"
+    ("client_focus_id", "member_id")
+VALUES(6, 7), (16, 7), (17, 7); 
+INSERT INTO "public"."email_table"
+    ("business", "email", "member_id")
+VALUES(TRUE, 'tepairu@familytherapy.com', 7);
+INSERT INTO "public"."insurance_pivot"
+    ("insurance_type_id", "member_id")
+VALUES(7, 7), (3, 7), (25, 7), (12, 7), (15, 7);
+INSERT INTO "public"."island_pivot"
+    ("island_id", "member_id")
+VALUES(3, 7);
+INSERT INTO "public"."languages_pivot"
+    ("language_id", "member_id")
+VALUES(11, 7), (31, 7);
+INSERT INTO "public"."phone_table"
+    ("number", "member_id", "business")
+VALUES('(808) 667-2265', 7, TRUE), ('(808) 667-9751', 7, FALSE);
+INSERT INTO "public"."session_format_pivot"
+    ("session_format_id", "member_id")
+VALUES(1, 7), (4, 7);
+INSERT INTO "public"."specialty_pivot"
+    ("specialty_id", "member_id")
+VALUES(20, 7), (4, 7), (28, 7), (34, 7), (45, 7);
+INSERT INTO "public"."treatment_preferences_pivot"
+    ("treatment_preferences_id", "member_id")
+VALUES(10, 7), (3, 7), (14, 7);
+
+--SUBJECT 8
+INSERT INTO "user"
+	("id", "username", "password")
 VALUES 
-	(1,1);
-INSERT INTO "insurance_pivot"
-	("insurance_type_id", "member_id")
-VALUES
-	(1,1);
-	
+    (8, 'test8','test');
+INSERT INTO "public"."members"
+    ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
+VALUES(8, 96740, 'Joseph', 'Nagasaka', 'Mr.', 54, 'Hawaii', '2021', 'Supervisor', '100-150', 'MSW, Clinical Social Worker, LAMFT', TRUE, 'My goal is to help my clients tap into the knowledge, power and peace we all hold within ourselves.', 'onepeacecounseling.com', 'New member', 'Therapist', 'Kailua-Kona', '7354659', 1);
+INSERT INTO "public"."address_table"
+    ("business", "address", "member_id")
+VALUES(TRUE, '75-1015 Henry St, Kailua-Kona, HI 96740', 8);
+INSERT INTO "public"."age_groups_served_pivot"
+    ("age_groups_served_id", "member_id")
+VALUES(4, 8),(2, 8), (1, 8);
+INSERT INTO "public"."client_focus_pivot"
+    ("client_focus_id", "member_id")
+VALUES(1, 8), (2, 8), (3, 8), (6, 8); 
+INSERT INTO "public"."email_table"
+    ("business", "email", "member_id")
+VALUES(TRUE, 'joseph@onecounseling.com', 8);
+INSERT INTO "public"."insurance_pivot"
+    ("insurance_type_id", "member_id")
+VALUES(1, 8), (5, 8), (16, 8), (6, 8), (22, 8);
+INSERT INTO "public"."island_pivot"
+    ("island_id", "member_id")
+VALUES(4, 8);
+INSERT INTO "public"."languages_pivot"
+    ("language_id", "member_id")
+VALUES(11, 8), (29, 8);
+INSERT INTO "public"."phone_table"
+    ("number", "member_id", "business")
+VALUES('(808) 334-4576', 8, TRUE), ('(808) 334-7253', 8, FALSE);
+INSERT INTO "public"."session_format_pivot"
+    ("session_format_id", "member_id")
+VALUES(1, 8);
+INSERT INTO "public"."specialty_pivot"
+    ("specialty_id", "member_id")
+VALUES(43, 8), (36, 8), (23, 8), (34, 8);
+INSERT INTO "public"."treatment_preferences_pivot"
+    ("treatment_preferences_id", "member_id")
+VALUES(93, 8), (35, 8), (76, 8), (53, 8);
 
--- sql queries for our gets
-SELECT * FROM members;
+--SUBJECT 9
 
-SELECT address_table.member_id, address_type.title AS address_type FROM address_type
-JOIN address_table ON address_type.address_type_id=address_table.address_type_id;
-
-SELECT age_groups_served_pivot.member_id, age_groups_served.title AS age_groups_served FROM age_groups_served
-JOIN age_groups_served_pivot ON age_groups_served.age_groups_served_id=age_groups_served_pivot.age_groups_served_id;
-
-SELECT client_focus_pivot.member_id, client_focus.title AS client_focus FROM client_focus
-JOIN client_focus_pivot ON client_focus.client_focus_id=client_focus_pivot.client_focus_id;
-
-SELECT email_table.member_id,email_table.email, email_type.title AS email_type FROM email_type
-JOIN email_table ON email_table.email_type_id=email_type.email_type_id;
-
-SELECT insurance_pivot.member_id, insurance_type.title AS insurance_type FROM insurance_type
-JOIN insurance_pivot ON insurance_pivot.insurance_type_id=insurance_type.insurance_type_id;
-
-SELECT island_pivot.member_id, island.title AS island FROM island
-JOIN island_pivot ON island_pivot.island_id = island.island_id;
-
-SELECT member_id, title AS languages FROM languages_pivot
-JOIN languages ON languages.language_id = languages_pivot.language_id;
-
-SELECT member_id, number, title AS number_type FROM phone_table
-JOIN phone_type ON phone_table.phone_type_id = phone_type.phone_type_id;
-
-SELECT member_id, title AS session_format FROM session_format_pivot
-JOIN session_format ON session_format_pivot.session_format_id = session_format.session_format_id;
-
-SELECT member_id, title AS specialty FROM specialty_pivot
-JOIN specialty ON specialty.specialty_id = specialty_pivot.specialty_id;
-
-SELECT member_id, title AS treatment_preferences FROM treatment_preferences_pivot
-JOIN treatment_preferences ON treatment_preferences_pivot.treatment_preferences_id = treatment_preferences.treatment_preferences_id;
+INSERT INTO "user"
+	("id", "username", "password")
+VALUES 
+    (9, 'test9','test');
+INSERT INTO "public"."members"
+    ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
+VALUES(9, 96766, 'Jane', 'Rain', 'Mrs.', 38, 'Hawaii', '2023', 'Supervisor', '125-175', 'Counselor, MA, ATR, LPCC, LAMFT', FALSE, 'I specialize in conflict-resolution work with partners and families.', 'lihuecounseling.com', 'New member', 'Therapist', 'Lihue', '5738563', 1);
+INSERT INTO "public"."address_table"
+    ("business", "address", "member_id")
+VALUES(TRUE, '3-3300 Kuhio Hwy, Lihue, HI 96766', 9);
+INSERT INTO "public"."age_groups_served_pivot"
+    ("age_groups_served_id", "member_id")
+VALUES(1, 9),(2, 9);
+INSERT INTO "public"."client_focus_pivot"
+    ("client_focus_id", "member_id")
+VALUES(1, 9), (2, 9), (14, 9), (12, 9), (12, 9); 
+INSERT INTO "public"."email_table"
+    ("business", "email", "member_id")
+VALUES(TRUE, 'janerain@lihuecounseling.com', 9);
+INSERT INTO "public"."insurance_pivot"
+    ("insurance_type_id", "member_id")
+VALUES(4, 9), (3, 9), (17, 9), (6, 9), (25, 9);
+INSERT INTO "public"."island_pivot"
+    ("island_id", "member_id")
+VALUES(1, 9);
+INSERT INTO "public"."languages_pivot"
+    ("language_id", "member_id")
+VALUES(11, 9), (20, 9);
+INSERT INTO "public"."phone_table"
+    ("number", "member_id", "business")
+VALUES('(808) 246-8375', 9, TRUE), ('(808) 246-3857', 9, FALSE);
+INSERT INTO "public"."session_format_pivot"
+    ("session_format_id", "member_id")
+VALUES(1, 9), (4, 9);
+INSERT INTO "public"."specialty_pivot"
+    ("specialty_id", "member_id")
+VALUES(22, 9), (11, 9), (21, 9), (23, 9), (34, 9);
+INSERT INTO "public"."treatment_preferences_pivot"
+    ("treatment_preferences_id", "member_id")
+VALUES (75, 9), (62, 9), (43, 9), (53, 9);

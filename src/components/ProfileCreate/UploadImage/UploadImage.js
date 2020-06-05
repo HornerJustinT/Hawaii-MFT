@@ -51,4 +51,5 @@ class UploadImage extends Component{
 const mapStateToProps = reduxstate => ({
     user: reduxstate.user
   });
-export default connect(mapStateToProps )(UploadImage);
+export default connect(mapStateToProps)(UploadImage);
+
