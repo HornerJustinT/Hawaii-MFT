@@ -453,55 +453,81 @@ VALUES
 INSERT INTO "user"
 	("id", "username", "password")
 VALUES 
-    (1, 'test','test');
+    (1, 'test','test'),
+    (2, 'test','test'),
+    (3, 'test','test');
 
 INSERT INTO "public"."members"
     ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
-VALUES(1, 96701, 'John', 'Barosa', 'Mr.', 34, 'Hawaii', '2020', 'Supervisor', '65-80', 'MFT, PHD', TRUE, 'I love all types of people and feel the world should be more connected even when we have to distance like we do now.', 'SocialYourDistance.com', 'Prominent user', 'Therapist', 'Honolulu', '8219293', 1);
+VALUES
+    (1, 96701, 'John', 'Barosa', 'Mr.', 34, 'Hawaii', '2022', 'Supervisor', '65-80', 'MFT, PhD', true, 'I love all types of people and feel the world should be more connected even when we have to distance like we do now.', 'SocialYourDistance.com', 'Prominent user', 'Therapist', 'Honolulu', '8219293', 5),
+    (2, 96804, 'Eldon', 'Barnett', 'Mr.', 50, 'Hawaii', '2024', 'None', '100', 'PhD, LMFT', false, 'I believe in a traditional form of therapy.', 'ClassicalTherapy.org', 'newer user', 'Mental Health Expert', 'Kihei', '09970054', 1),
+    (3, 96734, 'Morgan', 'Cooper', 'Ms.', 42, 'Hawaii', '2021', 'MFT supervisor', '140', 'PhD, LP', false, 'I believe in a traditional form of therapy.', 'ClassicalTherapy.org', 'newer user', 'Psychiatrist', 'Hilo', '1028328', 3);
 
 INSERT INTO "public"."address_table"
     ("business", "address", "member_id")
-VALUES(TRUE, '920 Kaheka St Honolulu, Hawaii', 1);
+VALUES
+    (TRUE, '920 Kaheka St Honolulu, Hawaii', 1),
+    (TRUE, '2345 Ala Wai Blvd Honolulu, Hawaii', 2),
+    (TRUE, '4002 Mahinahina St Lahaina, Hawaii', 3);
 
 INSERT INTO "public"."age_groups_served_pivot"
     ("age_groups_served_id", "member_id")
-VALUES(5, 1),(3, 1),(2, 1);
+VALUES(5, 1),(3, 1),(2, 1),
+    (1, 2), 
+    (5, 2), (2, 2);
 
 INSERT INTO "public"."client_focus_pivot"
     ("client_focus_id", "member_id")
-VALUES(4, 1), (17, 1), (11, 1); 
+VALUES(4, 1), (17, 1), (11, 1),
+    (1, 2), (13, 2),
+    (11, 3), (2, 3), (14, 3); 
 
 INSERT INTO "public"."email_table"
     ("business", "email", "member_id")
-VALUES(TRUE, 'John.Barosa@yahoo.com', 1);
+VALUES(TRUE, 'John.Barosa@yahoo.com', 1), 
+    (TRUE, 'amiya1975@gmail.com', 2), 
+    (TRUE, 'Morgan.Cooper@gmail.com', 3);
 
 INSERT INTO "public"."insurance_pivot"
     ("insurance_type_id", "member_id")
-VALUES(13, 1), (24, 1);
+VALUES(13, 1), (24, 1),
+    (2, 2), (24, 2), (14, 2),
+    (24, 3), (21, 3);
 
 INSERT INTO "public"."island_pivot"
     ("island_id", "member_id")
-VALUES(2, 1);
+VALUES(4, 1), (4, 2), (3, 3);
 
 INSERT INTO "public"."languages_pivot"
     ("language_id", "member_id")
-VALUES(11, 1), (1, 1);
+VALUES(11, 1), (1, 1),
+(11, 2), (1, 2), (7, 2), (4, 2), 
+(11, 3), (3, 3);
 
 INSERT INTO "public"."phone_table"
     ("number", "member_id", "business")
-VALUES('(573) 433-2395', 1, TRUE), ('(704) 857-6451', 1, FALSE);
+VALUES('(573) 433-2395', 1, TRUE), ('(704) 857-6451', 1, FALSE),
+('(573) 433-2395', 2, TRUE),
+('(702) 876-3297', 3, TRUE);
 
 INSERT INTO "public"."session_format_pivot"
     ("session_format_id", "member_id")
-VALUES(4, 1), (5, 1);
+VALUES(4, 1), (5, 1),
+(1, 2), (4, 3);
 
 INSERT INTO "public"."specialty_pivot"
     ("specialty_id", "member_id")
-VALUES(22, 1);
+VALUES(22, 1),
+(22, 1),
+(20, 2),
+(2, 2),
+(3, 2),
+(7, 3);
 
 INSERT INTO "public"."treatment_preferences_pivot"
     ("treatment_preferences_id", "member_id")
-VALUES(17, 1);
+VALUES(17, 1), (1, 1), (1, 2), (10, 2), (8, 3);
 
 
 -- sql queries for our gets
