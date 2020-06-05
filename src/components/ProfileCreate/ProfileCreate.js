@@ -55,20 +55,14 @@ componentDidMount(){
             first_name:this.state.first_name,
             last_name:this.state.last_name,
             age:this.state.age,
-            hiamft_member_account_info:this.state.hiamft_member_account_info
+            hiamft_member_account_info:this.state.hiamft_member_account_info,
+            language_id:this.state.language_id
          }
      });
-     this.addLanguage();
     this.handleReset();
     }
 
-    addLanguage = () =>{
-        this.props.dispatch({ type:'ADD_LANGUAGE',
-        payload:{
-            language_id:this.state.language_id,
-        }
-    })
-    }
+   
     //get the languges
     getLanguages = () =>{
         this.props.dispatch({

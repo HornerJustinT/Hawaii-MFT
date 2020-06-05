@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import InputGroup from "react-bootstrap/InputGroup";
+
 
 
 
@@ -48,10 +48,9 @@ class ContactInfo extends Component{
       handleSave =(event) =>{
         event.preventDefault();
         this.addContactInfo();
-       this.addAddress()
       }
       addContactInfo = () =>{
-          this.props.dispatch({type:'ADD_CONTACTINFO', 
+          this.props.dispatch({type:'ADD_ADDRESS', 
                               payload:{island_id: this.state.island_id, 
                                         email: this.state.email,
                                         personal_email:this.state.personal_email,
@@ -60,18 +59,13 @@ class ContactInfo extends Component{
                                         address_office:this.state.address_office,
                                         address_home:this.state.address_home,
                                         address_mailing:this.state.address_mailing,
+                                        zip_code: this.state.zip_code,
+                                       city: this.state.city,
+                                    website: this.state.website
           }});
                         
      }
-    addAddress = () =>{
-      this.props.dispatch({type:'ADD_ADDRESS',
-                          payload:{zip_code: this.state.zip_code,
-                                       city: this.state.city,
-                                    website: this.state.website}})
-    }
-
-  
-      
+   
     render (){
         return(
             <>

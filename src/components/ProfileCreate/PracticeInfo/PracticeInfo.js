@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import InputGroup from "react-bootstrap/InputGroup";
+
 
 
 class PracticeInfo extends Component{
@@ -30,7 +29,7 @@ class PracticeInfo extends Component{
 
      }
    
-
+     'ADD_CONTACTINFO'
 
 
 componentDidMount (){
