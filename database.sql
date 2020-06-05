@@ -460,6 +460,7 @@ VALUES
 INSERT INTO "public"."members"
     ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
 VALUES
+
     (1, 96701, 'John', 'Barosa', 'Mr.', 34, 'Hawaii', '2022', 'Supervisor', '65-80', 'MFT, PhD', true, 'I love all types of people and feel the world should be more connected even when we have to distance like we do now.', 'SocialYourDistance.com', 'Prominent user', 'Therapist', 'Honolulu', '8219293', 5),
     (2, 96804, 'Eldon', 'Barnett', 'Mr.', 50, 'Hawaii', '2024', 'None', '100', 'PhD, LMFT', false, 'I believe in a traditional form of therapy.', 'ClassicalTherapy.org', 'newer user', 'Mental Health Expert', 'Kihei', '09970054', 1),
     (3, 96734, 'Morgan', 'Cooper', 'Ms.', 42, 'Hawaii', '2021', 'MFT supervisor', '140', 'PhD, LP', false, 'I believe in a traditional form of therapy.', 'ClassicalTherapy.org', 'newer user', 'Psychiatrist', 'Hilo', '1028328', 3);

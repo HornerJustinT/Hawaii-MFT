@@ -1,25 +1,30 @@
 import React,{ Component } from 'react';
+import { connect } from 'react-redux';
 
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import { connect } from 'react-redux';
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import InputGroup from "react-bootstrap/InputGroup";
+
 
 
 class ContactInfo extends Component{
 // create the state
            state = {
-            phone_type_id:'',
-            number:'',
-            island:'',
+               island_id:'',
+               zip_code:'',
+            business_number:'',
+            personal_number:'',
             email:'',
-            address:'',
-            languages:'',
-            zip_code:'',
+            personal_email:'',
+            website:'',
+            address_office:'',
+            address_home:'',
+            address_mailing:'',
+            city:'',
            }
-/**
-  "zip_code" INT,
-  
- */
+
            componentDidMount (){
             this.props.dispatch({
                 type:'FETCH_ISLANDS'
@@ -42,26 +47,31 @@ class ContactInfo extends Component{
 
       handleSave =(event) =>{
         event.preventDefault();
-        this.addContact();
-        this.addZipCode();
+        this.addContactInfo();
+       this.addAddress()
       }
-      addContact = () =>{
-          this.props.dispatch({
-              type:'ADD_CONTACT',
-              payload:{
-               island: this.state.island
-              }
-          })
-      }
-    
-       addZipCode = () =>{
-        this.props.dispatch({
-            type:'ADD_ZIP_CODE',
-            payload:{
-                zip_code: this.state.zip_code
-            }
-        })
-       }
+      addContactInfo = () =>{
+          this.props.dispatch({type:'ADD_CONTACTINFO', 
+                              payload:{island_id: this.state.island_id, 
+                                        email: this.state.email,
+                                        personal_email:this.state.personal_email,
+                                        business_number:this.state.business_number,
+                                        personal_number:this.state.personal_number,
+                                        address_office:this.state.address_office,
+                                        address_home:this.state.address_home,
+                                        address_mailing:this.state.address_mailing,
+          }});
+                        
+     }
+    addAddress = () =>{
+      this.props.dispatch({type:'ADD_ADDRESS',
+                          payload:{zip_code: this.state.zip_code,
+                                       city: this.state.city,
+                                    website: this.state.website}})
+    }
+
+  
+      
     render (){
         return(
             <>
@@ -69,94 +79,104 @@ class ContactInfo extends Component{
             <header><h1>Contact Info</h1></header>
              <br/>
             <ProgressBar now={50} />
-            <form onSubmit={this.handleSave}>
+            <Form onSubmit={this.handleSave}>
              <label>Island</label>
              <br/>
-             <select onChange={this.handleInputChangeFor("island")}>
+             <Form.Control
+                 as="select" onChange={this.handleInputChangeFor("island_id")}>
              {this.props.islands &&
                    
                    <>
                    <option defaultValue='Select your Island'>Select your Island</option>
                    {this.props.islands.map(island =>
-                    <option value={island.title}
+                    <option value={island.island_id}
         
-                  key={island.id}>{island.id}{' '}{island.title}</option>
+                  key={island.island_id}>{island.title}</option>
                     )}
                    </>
                    } 
-             </select>
+             </Form.Control>
              <br/>
              <br/>
-             <label>Zip Code</label>
+             <Form.Label>Zip Code</Form.Label>
              <br/>
              <input type="number"
                   name="zip_code"
                   value={this.state.zip_code}
                   onChange={this.handleInputChangeFor("zip_code")}/>
                 <br/>
-             <label>Phone Number - Business</label>
+             <Form.Label>Phone Number - Business</Form.Label>
              <br/>
              <input type="number"
-                  name="number"
-                  value={this.state.age}
-                  onChange={this.handleInputChangeFor("number")}/>
+                  name="business_number"
+                  value={this.state.business_number}
+                  onChange={this.handleInputChangeFor("business_number")}/>
              <br/>
              <br/>
-             <label>Phone Number - Personal</label>
+             <Form.Label>Phone Number - Personal</Form.Label>
              <br/>
              <input type="number"
-                  name="number"
-                  value={this.state.age}
-                  onChange={this.handleInputChangeFor("number")}/>
+                  name="personal_number"
+                  value={this.state.personal_number}
+                  onChange={this.handleInputChangeFor("personal_number")}/>
                 <br/>
-             <label>Email Address - Business</label>
+             <Form.Label>Email Address - Business</Form.Label>
              <br/>
              <input type="text"
                   name="email"
                   value={this.state.email}
                   onChange={this.handleInputChangeFor("email")}/>
              <br/>
-             <label>Email Address - Personal</label>
+             <Form.Label>Email Address - Personal</Form.Label>
              <br/>
              <input type="text"
-                  name="email"
-                  value={this.state.email}
-                  onChange={this.handleInputChangeFor("email")}/>
+                  name="personal_email"
+                  value={this.state.personal_email}
+                  onChange={this.handleInputChangeFor("personal_email")}/>
              <br/>
-             <label>Website</label>
-             <br/>
-             <input type="text"
-                  name="address"
-                  value={this.state.address}
-                  onChange={this.handleInputChangeFor("address")}/>
-             <br/>
-             <label>Address - Office</label>
+             <Form.Label>Website</Form.Label>
              <br/>
              <input type="text"
-                  name="address"
-                  value={this.state.address}
-                  onChange={this.handleInputChangeFor("address")}/>
+                  name="website"
+                  value={this.state.website}
+                  onChange={this.handleInputChangeFor("website")}/>
              <br/>
-             <label>Address - Home</label>
-             <br/>
-             <input type="text"
-                  name="address"
-                  value={this.state.address}
-                  onChange={this.handleInputChangeFor("address")}/>
-             <br/>
-             <label>Address - Mailing</label>
+             <Form.Label>Address - Office</Form.Label>
              <br/>
              <input type="text"
-                  name="address"
-                  value={this.state.address}
-                  onChange={this.handleInputChangeFor("address")}/>
+                  name="address_office"
+                  value={this.state.address_office}
+                  onChange={this.handleInputChangeFor("address_office")}/>
+             <br/>
+             <Form.Label>Address - Home</Form.Label>
+             <br/>
+             <input type="text"
+                  name="address_home"
+                  value={this.state.address_home}
+                  onChange={this.handleInputChangeFor("address_home")}/>
+             <br/>
+             <Form.Label>Address - Mailing</Form.Label>
+             <br/>
+             <input type="text"
+                  name="address_mailing"
+                  value={this.state.address_mailing}
+                  onChange={this.handleInputChangeFor("address_mailing")}/>
+             <br/>
+             <br/>
+             <Form.Label>City</Form.Label>
+             <br/>
+             <input type="text"
+                  name="city"
+                  value={this.state.city}
+                  onChange={this.handleInputChangeFor("city")}/>
              <br/>
              <br/>
             
-            <button>Save</button>
-            </form>
-            <button onClick={this.handleBack}>Back</button>
-            <button onClick={this.handleNext}>Next Page</button>
+           <button>Save</button>
+            </Form>
+            <Button onClick={this.handleBack}>Back</Button>
+            <Button onClick={this.handleNext}>Save and Next Page</Button>
+           
 
             </div>
            
@@ -168,6 +188,7 @@ class ContactInfo extends Component{
 }
 const mapStateToProps = reduxstate => ({
     reduxstate,
-    islands: reduxstate.islands
+    islands: reduxstate.islands,
+    user: reduxstate.user
   });
 export default connect (mapStateToProps)(ContactInfo);

@@ -1,6 +1,7 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 /**
  * GET route template
@@ -126,10 +127,10 @@ router.get('/session', (req, res) => {
 /**
 // Handles POST request with new member data
  */
-router.post('/', (req, res) => {
+router.post('/',rejectUnauthenticated, (req, res) => {
     //define the queries
     console.log('this is the data in req.body',req.body);
-    const id = req.body.id;
+    const id = req.user.id;
     const zip_code = req.body.zip_code;
     const first_name = req.body.first_name
     const last_name = req.body.last_name
@@ -139,19 +140,117 @@ router.post('/', (req, res) => {
     const license_expiration = req.body.license_expiration
     const hiamft_member_account_info = req.body.hiamft_member_account_info
     const supervision_status = req.body.supervision_status
-    const fees= req.body.fees
-    
-   
+    const fees = req.body.fees
+    const credentials = req.body.credentials
+    const telehealth = req.body.telehealth
+    const statement = req.body.statement
+    const website = req.body.website
+    const title = req.body.title
+    const city = req.body.city
+    const license_number = req.body.license_number
+    const license_type = req.body.license_type
+
          const queryText = `INSERT INTO "members" 
-         ("id","zip_code","first_name", "last_name", "prefix", "age","license_state", "license_expiration", "hiamft_member_account_info", "supervision_status","fees")
-     VALUES($1,$2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`;
-        pool.query(queryText, [id,zip_code, first_name, last_name, prefix, age, license_state, license_expiration, hiamft_member_account_info, supervision_status, fees])
+         ("id","zip_code","first_name", "last_name", "prefix", "age","license_state", "license_expiration", "hiamft_member_account_info", "supervision_status","fees", 
+         "credentials", "telehealth", "statement", "website", "title", "city", "license_number", "license_type")
+     VALUES($1,$2, $3, $4, $5, $6, $7, $8, $9, $10, $11,$12,$13,$14,$15,$16,$17,$18,$19);`;
+        pool.query(queryText, [id,zip_code, first_name, last_name, prefix, age, license_state, license_expiration, 
+        hiamft_member_account_info, supervision_status, fees, credentials, telehealth, statement, website, title, city, license_number, license_type])
           .then((result) => res.sendStatus(200))
           .catch((error) => {console.log(error);
              res.sendStatus(500)});
   
 
 });
+
+router.post('/language', rejectUnauthenticated, (req, res) => {
+    //define the queries
+    console.log('this is the data in req.body',req.body);
+    console.log('this is what is in req.user.id', req.user.id)
+    const language_id = req.body.language_id;
+    const member_id = req.user.id;
+   
+    const queryText = `INSERT INTO "languages_pivot"
+	("language_id", "member_id")
+VALUES ($1,$2);`;
+        pool.query(queryText, [language_id,member_id])
+          .then((result) => res.sendStatus(200))
+          .catch((error) =>  { 
+            console.log(error);
+             res.sendStatus(500)
+                   
+          });
+  
+
+});
+
+router.post('/contactinfo', rejectUnauthenticated, async (req, res) => {
+    //define the queries
+    console.log('this what is in req.body', req.body)
+    const member = await pool.connect();
+    try {
+      
+        await member.query('BEGIN')
+        const insertIsland = await member.query(`INSERT INTO "island_pivot"
+        ("island_id", "member_id") VALUES ($1,$2)`, [req.body.island_id, req.user.id]);
+        const insertEmail = await member.query(`INSERT INTO "email_table" 
+        ("business", "member_id", "email") VALUES (TRUE,$1,$2)`, [true,req.user.id,req.body.email]);
+        const insertPersonalEmail = await member.query(`INSERT INTO "email_table" 
+        ("business", "member_id", "email") VALUES (False,$1,$2)`, [false,req.user.id,req.body.personal_email]);
+        const insertBusinessNumber = await member.query(`INSERT INTO "phone_table"
+        ("business", "member_id","number") VALUES (TRUE,$1,$2)`, [true,req.user.id,req.body.business_number]);
+        const insertPersonalNumber = await member.query(`INSERT INTO "phone_table"
+        ("business", "member_id","number") VALUES (TRUE,$1,$2)`, [true,req.user.id,req.body.personal_number]);
+        const insertAddressOffice = await member.query(`INSERT INTO "address_table"
+        ("address", "business", "member_id") VALUES ($1,$2,TRUE);`, [req.body.address_office,true,req.user.id]);
+        const insertAddressHome = await member.query(`INSERT INTO "address_table"
+        ("address", "business", "member_id") VALUES ($1,false,$2);`, [req.body.address_home,false,req.user.id]);
+        const insertAddressMailing = await member.query(`INSERT INTO "address_table"
+        ("address", "business", "member_id") VALUES ($1,false,$2);`, [req.body.address_mailing,false,req.user.id]);
+        
+        await member.query('COMMIT')
+        res.sendStatus(201);
+    }catch(error) {
+        await member.query('ROLLBACK')
+        console.log('Error POST /api/contactInfo', error);
+        res.sendStatus(500);
+    } finally {
+        member.release()
+    }
+})
+
+router.post('/practiceinfo', rejectUnauthenticated, async (req, res) => {
+    //define the queries
+    console.log('this what is in req.body', req.body)
+    const member = await pool.connect();
+    try {
+      
+        await member.query('BEGIN')
+        const insertInsuranceType = await member.query(`INSERT INTO "insurance_pivot"
+        ("insurance_type_id", "member_id") VALUES ($1,$2);`, [req.body.insurance_type_id, req.user.id]);
+        const insertAgeGroupServed = await member.query(`INSERT INTO "age_groups_served_pivot"
+        ("age_groups_served_id", "member_id") VALUES ($1,$2);`, [req.body.age_groups_served_id, req.user.id]);
+        const insertClientFocus = await member.query(`INSERT INTO "client_focus_pivot"
+        ("client_focus_id", "member_id") VALUES ($1,$2);`, [req.body.client_focus_id, req.user.id]);
+        const insertTreatmentApproach = await member.query(`INSERT INTO "treatment_preferences_pivot"
+        ("treatment_preferences_id","member_id") VALUES ($1,$2);`, [req.body.treatment_preferences_id, req.user.id]);
+        const insertSpecialization = await member.query(`INSERT INTO "specialty_pivot"
+        ("specialty_id", "member_id") VALUES ($1,$2);`, [req.body.specialty_id, req.user.id]);
+        const insertSessionFormat = await member.query(`INSERT INTO "session_format_pivot"
+        ("session_format_id", "member_id") VALUES ($1,$2);`, [req.body.session_format_id, req.user.id]);
+       
+        
+        await member.query('COMMIT')
+        res.sendStatus(201);
+    }catch(error) {
+        await member.query('ROLLBACK')
+        console.log('Error POST /api/practiceinfo', error);
+        res.sendStatus(500);
+    } finally {
+        member.release()
+    }
+})
+
 
 module.exports = router;
 

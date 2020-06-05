@@ -1,29 +1,30 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-// will be fired on "CREATE_PROFILE" actions
-//initiates POST request when user creates new profile
-function* createProfile(action) {
-    console.log('in createProfile saga', action.payload.id)
-    try {
-       const response = yield axios.post(`/profile`, action.payload);
-       console.log('Getting new member info from the server',response)
-        yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });
-    } catch (error) {
-        console.log('Error in fetching members info from the server', error);
-    }
-}
 
 function* addMember(action) {
     console.log('in addMember Saga', action.payload)
     try {
        const response = yield axios.post(`api/profile`, action.payload);
-       console.log('Sending new member info from the server',response)
+       console.log('Sending new member info to the server',response)
         yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });
     } catch (error) {
         console.log('Error in sending members info to the server', error);
     }
 }
+
+function* addLanguage(action) {
+    console.log('in addLanguage Saga', action.payload)
+    try {
+       const response = yield axios.post(`api/profile/language`, action.payload);
+       console.log('Sending new member language to the server',response)
+        yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });
+    } catch (error) {
+        console.log('Error in sending new member language info to the server', error);
+    }
+}
+
+
 
 function* addCreateProfile (action) {
     console.log('in createProfile saga', action.payload)
@@ -35,15 +36,38 @@ function* addCreateProfile (action) {
     }
 }
 
-function* addZipCode(action) {
+function* addAddress(action) {
     console.log('in createProfile saga', action.payload)
     try {
      
-       yield put ({type: 'SET_ZIP_CODE', payload: action.payload});
+       yield put ({type: 'SET_ADDRESS', payload: action.payload});
     } catch (error) {
         console.log('Contact Info reducer failed', error);
     }
 }
+
+function* addContactInfo(action) {
+    console.log('in addContactInfo Saga', action.payload)
+    try {
+       const response = yield axios.post(`api/profile/contactinfo`, action.payload);
+       console.log('Sending new member contact info to the server',response)
+        yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });
+    } catch (error) {
+        console.log('Error in sending members contact info to the server', error);
+    }
+}
+
+function* addPracticeInfo(action) {
+    console.log('in addPracticeInfo Saga', action.payload)
+    try {
+       const response = yield axios.post(`api/profile/practiceinfo`, action.payload);
+       console.log('Sending new member practice info to the server',response)
+        yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });
+    } catch (error) {
+        console.log('Error in sending members practice info to the server', error);
+    }
+}
+
 
 function* fetchLanguages(action){
     try{
@@ -155,7 +179,6 @@ function* fetchSessionFormat (action){
 }
 
 function* createSaga() {
-    yield takeLatest('CREATE_PROFILE', createProfile);
     yield takeLatest('ADD_CREATE_PROFILE', addCreateProfile);
     yield takeLatest('FETCH_LANGUAGES', fetchLanguages);
     yield takeLatest('FETCH_ISLANDS', fetchIslands);
@@ -167,8 +190,13 @@ function* createSaga() {
     yield takeLatest('FETCH_DEMOGRPHICS',fetchDemographics);
     yield takeLatest('FETCH_AGE_GROUPS', fetchAgeGroups);
     yield takeLatest('FETCH_SESSION_FORMAT', fetchSessionFormat);
-    yield takeLatest('ADD_ZIP_CODE', addZipCode);
+    yield takeLatest('ADD_ADDRESS', addAddress);
     yield takeLatest('ADD_MEMBER', addMember);
+    yield takeLatest('ADD_LANGUAGE', addLanguage);
+    yield takeLatest('ADD_CONTACTINFO', addContactInfo);
+    yield takeLatest('ADD_PRACTICEINFO', addPracticeInfo);
+ 
+   
 }
 
 export default createSaga;
