@@ -30,20 +30,21 @@ class ProfileEdit extends Component {
     this.props.dispatch({ type: "FETCH_TREATMENTS" });
     this.props.dispatch({
       type: "FETCH_PROFILE",
-      payload: this.props.match.params,
+      payload: { id: this.props.user.id },
     });
   }
 
   componentDidUpdate(previousProps) {
     if (
-      this.state.id !== this.props.match.params.id &&
-      previousProps.profile.id !== this.props.profile.id
+      this.state.id !== this.props.user.id &&
+      previousProps.profile.id !== this.props.profile.id &&
+      this.props.profile.phone
     ) {
       const updatedLanguages = this.syncDataEdit("languages", "languages");
       const updatedIsland = this.syncDataEditIsland("islands", "island");
       // const updatedTreatments = this.syncDataEditTreatments("treatmentApproaches", "treatmentApproaches");
       this.setState({
-        id: this.props.match.params.id,
+        id: this.props.profile.id,
         prefix: this.props.profile.prefix,
         firstName: this.props.profile.first_name,
         lastName: this.props.profile.last_name,
