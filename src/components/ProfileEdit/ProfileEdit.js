@@ -12,7 +12,7 @@ import "./ProfileEdit.css";
 import "../App/App.css";
 
 
-
+//setting state for conditional rendering, and also declaring props holding
 class ProfileEdit extends Component {
   state = {
     id: 0,
@@ -24,6 +24,7 @@ class ProfileEdit extends Component {
     treatmentApproaches: [],
   };
 
+  //dispatching to redux sagas to call data from server for retreival from profile, languages, islands & treatments reducers
   componentDidMount() {
     this.props.dispatch({ type: "FETCH_LANGUAGES" });
     this.props.dispatch({ type: "FETCH_ISLANDS" });
@@ -33,13 +34,14 @@ class ProfileEdit extends Component {
       payload: { id: this.props.user.id },
     });
   }
-
+//updating component 
   componentDidUpdate(previousProps) {
     if (
       this.state.id !== this.props.user.id &&
       previousProps.profile.id !== this.props.profile.id &&
       this.props.profile.phone
     ) {
+      // setting new prop for 
       const updatedLanguages = this.syncDataEdit("languages", "languages");
       const updatedIsland = this.syncDataEditIsland("islands", "island");
       // const updatedTreatments = this.syncDataEditTreatments("treatmentApproaches", "treatmentApproaches");

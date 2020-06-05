@@ -1,3 +1,5 @@
+//This component is imported into render of Search Bar component
+ 
 // React Imports
 import React, { Component } from 'react';
 import { connect } from 'react-redux';

@@ -1,6 +1,10 @@
+//This component imported into NavBootstrap
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 
 class LogOutButton extends Component{
@@ -11,11 +15,7 @@ class LogOutButton extends Component{
 
   render() {
     return (
-        <button
-        onClick={() => this.handleClick()}
-        >
-        Log Out
-      </button>
+        <NavDropdown.Item onClick={() => this.handleClick()}>Logout</NavDropdown.Item>
     );
   } 
 }
