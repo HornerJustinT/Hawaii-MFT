@@ -452,10 +452,10 @@ VALUES
 -- insert new user info
 INSERT INTO "user"
 	("id", "username", "password")
-VALUES 
-    (1, 'test','test'),
-    (2, 'test','test'),
-    (3, 'test','test');
+VALUES (17, 'test17','test17'), (18, 'test18','test18'),(19, 'test19','test18'),(15, 'test15','test15'), (5, 'test5','test5'),
+    (4, 'test4','test4'),
+    (2, 'test2','test2'),
+    (3, 'test3','test3');
 
 INSERT INTO "public"."members"
     ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")

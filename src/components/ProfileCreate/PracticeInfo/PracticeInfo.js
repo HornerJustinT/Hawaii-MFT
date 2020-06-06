@@ -29,9 +29,6 @@ class PracticeInfo extends Component{
 
      }
    
-     'ADD_CONTACTINFO'
-
-
 componentDidMount (){
     this.props.dispatch({type:'FETCH_INSURANCE_TAKEN'});
     this.props.dispatch({type:'FETCH_SPECIALTY'});
@@ -55,40 +52,43 @@ handleInputChangeFor = propertyName => (event) =>{
         this.props.history.push('/contact-info')
     }
     handleSave = (event) => {
-        event.preventDefault()
+        event.preventDefault();
+        // this.addMembersInfo() &&
+        // this.addPracticeInfo()
         
+        this.addContactInfo();  
     }
     handleNext = (event) => {
         event.preventDefault()
-        this.props.history.push('/uploadImage')
+        this.props.history.push(`/edit-profile${this.props.user.id}`)
     }
     
-    // addMembersInfo = (event) =>{
-    //   event.preventDefault()
-    //     this.props.dispatch({type:'ADD_MEMBER',
-    //      payload:{
-    //       prefix:this.props.createProfile.prefix,
-    //       first_name:this.props.createProfile.first_name,
-    //       last_name:this.props.createProfile.last_name,
-    //       age:this.props.createProfile.age,
-    //       hiamft_member_account_info:this.props.createProfile.hiamft_member_account_info,
-    //       license_state:this.state.license_state,
-    //       supervision_status:this.state.supervision_status,
-    //       fees:this.state.fees,
-    //       license_expiration:this.state.license_expiration,
-    //       license_number:this.state.license_number,
-    //       license_type:this.state.license_type,
-    //       credentials:this.state.credentials,
-    //       telehealth:this.state.telehealth,
-    //       statement:this.state.statement,
-    //       title:this.state.title,
-    //       website:this.props.contactAddress.website,
-    //          city:this.props.contactAddress.city,
-    //          zip_code: this.props.contactAddress.zip_code,
-    //      }
-    //     })
-    //     this.handleReset()
-    // }
+    addMembersInfo = () =>{
+        this.props.dispatch({type:'ADD_MEMBER',
+         payload:{
+          prefix:this.props.createProfile.prefix,
+          first_name:this.props.createProfile.first_name,
+          last_name:this.props.createProfile.last_name,
+          age:this.props.createProfile.age,
+          hiamft_member_account_info:this.props.createProfile.hiamft_member_account_info,
+          license_state:this.state.license_state,
+          supervision_status:this.state.supervision_status,
+          fees:this.state.fees,
+          license_expiration:this.state.license_expiration,
+          license_number:this.state.license_number,
+          license_type:this.state.license_type_id,
+          credentials:this.state.credentials,
+          telehealth:this.state.telehealth,
+          statement:this.state.statement,
+          title:this.state.title,
+          website:this.props.contactAddress.website,
+          city:this.props.contactAddress.city,
+          zip_code: this.props.contactAddress.zip_code,
+         }
+        })
+        this.addContactInfo();
+        this.handleReset()
+    }
 
     addPracticeInfo = () =>{
       this.props.dispatch({type:'ADD_PRACTICEINFO',
@@ -103,7 +103,19 @@ handleInputChangeFor = propertyName => (event) =>{
       })
     }
 
-
+    addContactInfo = () =>{
+      this.props.dispatch({type:'ADD_CONTACTINFO', 
+                          payload:{island_id: this.props.contactAddress.island_id,
+                                    email: this.props.contactAddress.email,
+                                    personal_email:this.props.contactAddress.personal_email,
+                                    business_number:this.props.contactAddress.business_number,
+                                    personal_number:this.props.contactAddress.personal_number,
+                                    address_office:this.props.contactAddress.address_office,
+                                    address_home:this.props.contactAddress.address_home,
+                                    address_mailing:this.props.contactAddress.address_mailing,
+      }});
+                    
+ }
 
 
 
@@ -136,7 +148,7 @@ handleInputChangeFor = propertyName => (event) =>{
         <br/>
         <ProgressBar now={75} />
         <br/>
-        <Form onSubmit={this.addPracticeInfo}>
+        <Form onSubmit={this.handleSave}>
         <br/>
         <br/>
         <Form.Label>Title </Form.Label><br/><input type="text"

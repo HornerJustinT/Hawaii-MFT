@@ -12,8 +12,8 @@ import Button from "react-bootstrap/Button";
 class ContactInfo extends Component{
 // create the state
            state = {
-               island_id:'',
-               zip_code:'',
+            island_id:'',
+            zip_code:'',
             business_number:'',
             personal_number:'',
             email:'',
@@ -60,8 +60,8 @@ class ContactInfo extends Component{
                                         address_home:this.state.address_home,
                                         address_mailing:this.state.address_mailing,
                                         zip_code: this.state.zip_code,
-                                       city: this.state.city,
-                                    website: this.state.website
+                                        city: this.state.city,
+                                        website: this.state.website
           }});
                         
      }
