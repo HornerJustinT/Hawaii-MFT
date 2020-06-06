@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 
 
@@ -14,7 +15,7 @@ class PracticeInfo extends Component{
          license_state:'',
          license_number:'',
          license_type:'',
-        supervision_status:'',
+         supervision_status:'',
          fees:'',
          license_expiration:'',
          credentials:'',
@@ -53,11 +54,12 @@ handleInputChangeFor = propertyName => (event) =>{
     }
     handleSave = (event) => {
         event.preventDefault();
-        // this.addMembersInfo() &&
-        // this.addPracticeInfo()
+        this.addMembersInfo().then(() => {
+          this.addContactInfo().then(() => this.addPracticeInfo());
+        });
         
-        this.addContactInfo();  
     }
+    
     handleNext = (event) => {
         event.preventDefault()
         this.props.history.push(`/edit-profile${this.props.user.id}`)
@@ -84,47 +86,34 @@ handleInputChangeFor = propertyName => (event) =>{
           website:this.props.contactAddress.website,
           city:this.props.contactAddress.city,
           zip_code: this.props.contactAddress.zip_code,
+          island_id: this.props.contactAddress.island_id,
+          email: this.props.contactAddress.email,
+          personal_email:this.props.contactAddress.personal_email,
+          business_number:this.props.contactAddress.business_number,
+          personal_number:this.props.contactAddress.personal_number,
+          address_office:this.props.contactAddress.address_office,
+          address_home:this.props.contactAddress.address_home,
+          address_mailing:this.props.contactAddress.address_mailing,
+          session_format_id:this.state.session_format_id,
+          client_focus_id:this.state.client_focus_id,
+          specialty_id:this.state.specialty_id,
+          treatment_preferences_id:this.state.treatment_preferences_id,
+          age_groups_served_id:this.state.age_groups_served_id,
+          insurance_type_id:this.state.insurance_type_id,
+          language_id:this.props.createProfile.language_id
          }
-        })
-        this.addContactInfo();
-        this.handleReset()
+        });
+     
+     this.handleReset();
     }
 
-    addPracticeInfo = () =>{
-      this.props.dispatch({type:'ADD_PRACTICEINFO',
-                        payload:{
-                          session_format_id:this.state.session_format_id,
-                          client_focus_id:this.state.client_focus_id,
-                          specialty_id:this.state.specialty_id,
-                          treatment_preferences_id:this.state.treatment_preferences_id,
-                          age_groups_served_id:this.state.age_groups_served_id,
-                          insurance_type_id:this.state.insurance_type_id,
-                        }
-      })
-    }
-
-    addContactInfo = () =>{
-      this.props.dispatch({type:'ADD_CONTACTINFO', 
-                          payload:{island_id: this.props.contactAddress.island_id,
-                                    email: this.props.contactAddress.email,
-                                    personal_email:this.props.contactAddress.personal_email,
-                                    business_number:this.props.contactAddress.business_number,
-                                    personal_number:this.props.contactAddress.personal_number,
-                                    address_office:this.props.contactAddress.address_office,
-                                    address_home:this.props.contactAddress.address_home,
-                                    address_mailing:this.props.contactAddress.address_mailing,
-      }});
-                    
- }
-
-
-
+  
     handleReset = ()=>{
       this.setState({
         license_state:'',
         license_number:'',
         license_type:'',
-       supervision_status:'',
+        supervision_status:'',
         fees:'',
         license_expiration:'',
         specialty:'',
@@ -132,12 +121,12 @@ handleInputChangeFor = propertyName => (event) =>{
         telehealth:'',
         statement:'',
         title:'',
-        // session_format_id:'',
-        //  client_focus_id:'',
-        //  specialty_id:'',
-        //  treatment_preferences_id:'',
-        //  age_groups_served_id:'',
-        //  insurance_type_id:'',
+        session_format_id:'',
+        client_focus_id:'',
+        specialty_id:'',
+        treatment_preferences_id:'',
+        age_groups_served_id:'',
+        insurance_type_id:'',
       })
     }
     render (){
@@ -339,11 +328,12 @@ handleInputChangeFor = propertyName => (event) =>{
         <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
-        <button>Save</button>
+        <Button onClick={this.handleNext} type="submit">Save and Next page</Button>
         </Form>
-            <button onClick={this.handleBack}>Back</button>
+            
+          <Button onClick={this.handleBack}>Back</Button>
            
-            <button onClick={this.handleNext}>Next Page</button>
+          
 
             </div>
            

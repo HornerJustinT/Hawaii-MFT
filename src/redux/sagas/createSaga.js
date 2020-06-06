@@ -192,9 +192,7 @@ function* createSaga() {
     yield takeLatest('FETCH_SESSION_FORMAT', fetchSessionFormat);
     yield takeLatest('ADD_ADDRESS', addAddress);
     yield takeLatest('ADD_MEMBER', addMember);
-    yield takeLatest('ADD_LANGUAGE', addLanguage);
-    yield takeLatest('ADD_CONTACTINFO', addContactInfo);
-    yield takeLatest('ADD_PRACTICEINFO', addPracticeInfo);
+  
  
    
 }
