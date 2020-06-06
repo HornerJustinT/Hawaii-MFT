@@ -61,8 +61,8 @@ handleInputChangeFor = propertyName => (event) =>{
     
     addMembersInfo = (event) =>{
       event.preventDefault();
-        this.props.dispatch({type:'ADD_MEMBER',
-         payload:{
+      this.props.dispatch({type:'ADD_MEMBER',
+        payload:{
           prefix:this.props.createProfile.prefix,
           first_name:this.props.createProfile.first_name,
           last_name:this.props.createProfile.last_name,
