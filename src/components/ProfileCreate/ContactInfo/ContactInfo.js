@@ -45,11 +45,9 @@ class ContactInfo extends Component{
         })
       } 
 
-      handleSave =(event) =>{
-        event.preventDefault();
-        this.addContactInfo();
-      }
-      addContactInfo = () =>{
+     
+      addContactInfo = (event) =>{
+          event.preventDefault();
           this.props.dispatch({type:'ADD_ADDRESS', 
                               payload:{island_id: this.state.island_id, 
                                         email: this.state.email,
@@ -73,7 +71,7 @@ class ContactInfo extends Component{
             <header><h1>Contact Info</h1></header>
              <br/>
             <ProgressBar now={50} />
-            <Form onSubmit={this.handleSave}>
+            <Form onSubmit={this.addContactInfo}>
              <label>Island</label>
              <br/>
              <Form.Control
@@ -166,9 +164,10 @@ class ContactInfo extends Component{
              <br/>
              <br/>
             
-           <Button onClick={this.handleNext} type="submit">Save and Next Page</Button>
+           <Button type="submit">Save</Button>
             </Form>
             <Button onClick={this.handleBack}>Back</Button>
+            <Button onClick={this.handleNext}>Next</Button>
 
             </div>
            

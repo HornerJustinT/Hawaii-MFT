@@ -52,20 +52,15 @@ handleInputChangeFor = propertyName => (event) =>{
         event.preventDefault()
         this.props.history.push('/contact-info')
     }
-    handleSave = (event) => {
-        event.preventDefault();
-        this.addMembersInfo().then(() => {
-          this.addContactInfo().then(() => this.addPracticeInfo());
-        });
-        
-    }
+    
     
     handleNext = (event) => {
         event.preventDefault()
         this.props.history.push(`/edit-profile${this.props.user.id}`)
     }
     
-    addMembersInfo = () =>{
+    addMembersInfo = (event) =>{
+      event.preventDefault();
         this.props.dispatch({type:'ADD_MEMBER',
          payload:{
           prefix:this.props.createProfile.prefix,
@@ -137,7 +132,7 @@ handleInputChangeFor = propertyName => (event) =>{
         <br/>
         <ProgressBar now={75} />
         <br/>
-        <Form onSubmit={this.handleSave}>
+        <Form onSubmit={this.addMembersInfo}>
         <br/>
         <br/>
         <Form.Label>Title </Form.Label><br/><input type="text"
@@ -328,10 +323,11 @@ handleInputChangeFor = propertyName => (event) =>{
         <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
-        <Button onClick={this.handleNext} type="submit">Save and Next page</Button>
+        <Button type="submit">Save</Button>
         </Form>
             
           <Button onClick={this.handleBack}>Back</Button>
+          <Button onClick={this.handleNext}>Next</Button>
            
           
 

@@ -60,7 +60,6 @@ componentDidMount(){
          }
      });
     this.handleReset();
-    this.props.history.push('/contact-info')
     }
 
    
@@ -70,7 +69,11 @@ componentDidMount(){
             type:'FETCH_LANGUAGES'});
            
     }
+     handleNext = (event) => {
+        event.preventDefault ()
+        this.props.history.push('/contact-info')
     
+    }
     render (){
         return (
             <>
@@ -136,9 +139,9 @@ componentDidMount(){
                   value={this.state.hiamft_member_account_info}
                   onChange={this.handleInputChangeFor("hiamft_member_account_info")}/>
         <br/>
-        <Button type="submit">Save and Next Page</Button>
+        <Button type="submit">Save</Button>
          </Form>
-        
+         <Button onClick={this.handleNext}>Next Page</Button>
             </div>
             </>
         )
