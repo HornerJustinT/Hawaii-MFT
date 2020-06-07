@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-
+//will post data from ADD_MEMBER action 
 function* addMember(action) {
     console.log('in addMember Saga', action.payload)
     try {
@@ -13,7 +13,7 @@ function* addMember(action) {
     }
 }
 
-
+//will pass the info from the createprofile page into SET_CREATE_PROFILE reducer
 function* addCreateProfile (action) {
     console.log('in createProfile saga', action.payload)
     try {
@@ -24,6 +24,7 @@ function* addCreateProfile (action) {
     }
 }
 
+//will pass the info from contactInfo page into SET_ADDRESS reducer
 function* addAddress(action) {
     console.log('in createProfile saga', action.payload)
     try {
@@ -35,7 +36,7 @@ function* addAddress(action) {
 }
 
 
-
+//will fetch all the languages in in createProfile page
 function* fetchLanguages(action){
     try{
         const response = yield axios.get(`/api/profile/languages`)
@@ -46,6 +47,7 @@ function* fetchLanguages(action){
     }
 }
 
+//will fetch all the island options in contactInfo
 function* fetchIslands(action){
     try{
         const response = yield axios.get(`/api/profile/islands`)
@@ -57,6 +59,7 @@ function* fetchIslands(action){
     }
 }
 
+//will fetch all the specialty options for practiceInfo page
 function* fetchSpecialty(action){
     try{
         const response = yield axios.get(`/api/profile/specialty`)
@@ -68,6 +71,7 @@ function* fetchSpecialty(action){
     }
 }
 
+//will fetch all the supervision status in practiceInfo page
 function* fetchSupervision(action){
     try{
         const response = yield axios.get(`/api/profile/supervision`)
@@ -79,6 +83,7 @@ function* fetchSupervision(action){
     }
 }
 
+//will fetch all the Insurance type in parcticeinfo page
 function* fetchInsuranceTaken (action){
     try{
         const response = yield axios.get(`/api/profile/insurance`)
@@ -90,6 +95,7 @@ function* fetchInsuranceTaken (action){
     }
 }
 
+//will fetch all the license type in practiceinfo page
 function* fetchLicenseType (action){
     try{
         const response = yield axios.get(`/api/profile/license`)
@@ -101,6 +107,7 @@ function* fetchLicenseType (action){
     }
 }
 
+//will fetch all the treatment preferences in practiceinfo page
 function* fetchTreatmentApproaches (action){
     try{
         const response = yield axios.get(`/api/profile/treatment`)
@@ -112,6 +119,7 @@ function* fetchTreatmentApproaches (action){
     }
 }
 
+//will fetch all the client type groups in practiceinfo page
 function* fetchDemographics (action){
     try{
         const response = yield axios.get(`/api/profile/demographics`)
@@ -123,6 +131,7 @@ function* fetchDemographics (action){
     }
 }
 
+//will fetch all the age group in practiceinfo page
 function* fetchAgeGroups (action){
     try{
         const response = yield axios.get(`/api/profile/age`)
@@ -134,6 +143,7 @@ function* fetchAgeGroups (action){
     }
 }
 
+//will fetch all the session format options in practiceinfo page
 function* fetchSessionFormat (action){
     try{
         const response = yield axios.get(`/api/profile/session`)
