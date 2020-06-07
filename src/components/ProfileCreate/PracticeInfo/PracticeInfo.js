@@ -1,4 +1,5 @@
 import React,{ Component } from 'react';
+//this connects the component to th redux store
 import { connect } from 'react-redux';
 
 //React-bootstrap import
@@ -31,6 +32,8 @@ class PracticeInfo extends Component{
      }
    
 componentDidMount (){
+  //dispatch actions in order to fetch the data for options that users can select
+  //the actions are dispatched when document is on ready to be used 
     this.props.dispatch({type:'FETCH_INSURANCE_TAKEN'});
     this.props.dispatch({type:'FETCH_SPECIALTY'});
     this.props.dispatch({type:'FETCH_SUPERVISION_STATUS'});
@@ -39,27 +42,34 @@ componentDidMount (){
     this.props.dispatch({type:'FETCH_DEMOGRPHICS'});
     this.props.dispatch({type:'FETCH_AGE_GROUPS'});
     this.props.dispatch({type:'FETCH_SESSION_FORMAT'});
-    
 }
 
 //take in the information from the input
+//when users either choose options from drop down or put info into the input
+//the state is changed when there are input data
 handleInputChangeFor = propertyName => (event) =>{
     this.setState({
       [propertyName]:event.target.value
     });
   } 
     handleBack = (event) => {
+//will help navigate back to the previous page
+//that is contact infor page
         event.preventDefault()
         this.props.history.push('/contact-info')
     }
     
     
     handleNext = (event) => {
+//this helps to navigate to the next page
+//that is the profile edit page
         event.preventDefault()
         this.props.history.push(`/edit-profile/${this.props.user.id}`)
     }
     
     addMembersInfo = (event) =>{
+//this action will dispatch all the info collegeted from all three pages
+//and those are createprofile, contactinfo and practicinfo pages
       event.preventDefault();
       this.props.dispatch({type:'ADD_MEMBER',
         payload:{
@@ -98,7 +108,7 @@ handleInputChangeFor = propertyName => (event) =>{
           language_id:this.props.createProfile.language_id
          }
         });
-     
+//this will reset the inputs on the parcticeinfo page
      this.handleReset();
     }
 
