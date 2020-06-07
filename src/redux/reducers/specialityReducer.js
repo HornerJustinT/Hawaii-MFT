@@ -1,5 +1,6 @@
+//holds all the specialties from the specialties table
+//all possible selection options for user
 const specialityReducer = (state = [], action) => {
-    console.log('in specialityReducer', action.payload);
     if (action.type === 'SET_SPECIALTY') {
         return action.payload;
     } 

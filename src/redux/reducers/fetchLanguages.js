@@ -1,5 +1,6 @@
+//holds all the languages from the languages table
+//all possible selection options for user
 const languageReducer = (state = [], action) => {
-    console.log('in languageReducer', action.payload);
     if (action.type === 'SET_LANGUAGES') {
         return action.payload;
     } 

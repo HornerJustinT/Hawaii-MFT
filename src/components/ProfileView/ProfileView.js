@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import "./ProfileView.css";
 import avatar from "../ProfileView/avatar.png";
-import googleMap from "../ProfileView/map-placeholder.jpg";
 import { connect } from "react-redux";
 import {
   Map,
   InfoWindow,
   Marker,
-  GoogleApiWrapper,
-  google,
+  GoogleApiWrapper
 } from "google-maps-react";
 const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY;
 
@@ -50,7 +48,7 @@ class ProfileView extends Component {
     }
   }
   setMAP = () => { // function that sets the map latitudes only when it was unchanged to stop infinete loop. I do not know how to set up async for when the dispatch is done.
-    if (this.state.lat == 0 && this.state.lng ==0 ) {
+    if (this.state.lat === 0 && this.state.lng === 0 ) {
       console.log(this.props.profile.address[0]);
       const url_address = encodeURI(this.props.profile.address[0]).replace(
         /%20/g,

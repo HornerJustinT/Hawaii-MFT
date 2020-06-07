@@ -143,7 +143,7 @@ router.get('/', async (req, res) => {
 			// doesnt work with int variables.
 			whereQuery += `(LOWER(CAST(m.zip_code AS VARCHAR)) LIKE LOWER($${paramCount})
 				OR LOWER(m.city) LIKE LOWER($${paramCount})
-				OR LOWER(m.island) LIKE LOWER($${paramCount}))`;
+				OR LOWER(island.title) LIKE LOWER($${paramCount}))`;
 			parameters.push("%" + req.query.zip + "%");
 			paramCount++;
 		}

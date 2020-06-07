@@ -19,7 +19,8 @@ import Nav from 'react-bootstrap/Nav'
 class NavBar extends Component{
 
   handleClick = () => {
-    this.props.history.push(`/edit-profile/${this.props.user.id}`);
+    this.props.dispatch({ type: "PROFILE_RESET" });
+    this.props.history.push(`/edit-profile`);
   }
 
   render(){
@@ -41,7 +42,7 @@ class NavBar extends Component{
                     <NavDropdown.Item onClick={this.handleClick}>My Profile</NavDropdown.Item>
                     <NavDropdown.Item href="#contact">Contact Us</NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item><LogOutButton/></NavDropdown.Item>
+                    <LogOutButton/>
                   </>
                 :
                   <>

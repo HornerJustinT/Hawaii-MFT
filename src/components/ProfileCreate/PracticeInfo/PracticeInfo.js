@@ -9,6 +9,7 @@ import Button from "react-bootstrap/Button";
 
 
 
+
 class PracticeInfo extends Component{
      //create local state
 
@@ -58,7 +59,7 @@ handleInputChangeFor = propertyName => (event) =>{
         event.preventDefault()
         this.props.history.push('/contact-info')
     }
-    
+
     
     handleNext = (event) => {
 //this helps to navigate to the next page
@@ -67,6 +68,7 @@ handleInputChangeFor = propertyName => (event) =>{
         this.props.history.push(`/edit-profile/${this.props.user.id}`)
     }
     
+
     addMembersInfo = (event) =>{
 //this action will dispatch all the info collegeted from all three pages
 //and those are createprofile, contactinfo and practicinfo pages
@@ -112,7 +114,6 @@ handleInputChangeFor = propertyName => (event) =>{
      this.handleReset();
     }
 
-  
     handleReset = ()=>{
       this.setState({
         license_state:'',
@@ -132,6 +133,7 @@ handleInputChangeFor = propertyName => (event) =>{
         treatment_preferences_id:'',
         age_groups_served_id:'',
         insurance_type_id:'',
+
       })
     }
     render (){

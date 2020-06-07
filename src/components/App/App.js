@@ -20,12 +20,10 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 // Pages
 import ContactPage from '../ContactPage/ContactPage';
-import UserPage from '../UserPage/UserPage';
 import LoginPage from '../LoginPage/LoginPage';
 import ProfileEdit from '../ProfileEdit/ProfileEdit';
 import HomePage from '../HomePage/HomePage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import InfoPage from '../InfoPage/InfoPage';
 import ProfileCreate from '../ProfileCreate/ProfileCreate'
 import ContactInfo from '../ProfileCreate/ContactInfo/ContactInfo';
 import PracticeInfo from '../ProfileCreate/PracticeInfo/PracticeInfo';
@@ -59,14 +57,6 @@ class App extends Component {
             This is a route anyone can see, no login necessary */}
             <Route exact path="/home" component={HomePage} />
 
-            {/* Visiting localhost:3000/contact will show the contact page.
-            This is a route anyone can see, no login necessary */}
-
-            {/* For protected routes, the view could show one of several things on the same route.
-            Visiting localhost:3000/home will show the UserPage if the user is logged in.
-            If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
-            Even though it seems like they are different pages, the user is always on localhost:3000/home */}
-            <ProtectedRoute exact path="/home" component={UserPage} />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
            
@@ -76,12 +66,13 @@ class App extends Component {
             {/*This is a route anyone can see, no login necessary */}
             <Route exact path="/login" component={LoginPage} />
             {/*User only sees these routes if logged in*/}
-            <ProtectedRoute exact path="/edit-profile/:id" component={ProfileEdit} />
+            <ProtectedRoute exact path="/edit-profile" component={ProfileEdit} />
             <Route exact path="/profile/:id" component={ProfileView} />
             <ProtectedRoute exact path="/create-profile" component={ProfileCreate} />
             <ProtectedRoute exact path="/contact-info" component={ContactInfo} />
             <ProtectedRoute exact path="/practice" component={PracticeInfo} />
             <ProtectedRoute exact path="/info" component={InfoPage} />
+
 
             <ProtectedRoute exact path="/admin" component={AdminPage} />
 
