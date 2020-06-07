@@ -18,7 +18,7 @@ router.get('/languages', (req, res) => {
             });
    
 });
-
+//will get the islands option data from the database
 router.get('/islands', (req, res) => {
   
     const queryText = `SELECT * FROM "island";`;
@@ -31,7 +31,7 @@ router.get('/islands', (req, res) => {
             });
    
 });
-
+//will get the specialty option data from the database
 router.get('/specialty', (req, res) => {
   
     const queryText = `SELECT * FROM "specialty";`;
@@ -44,7 +44,7 @@ router.get('/specialty', (req, res) => {
             });
    
 });
-
+//will get the insurance option data from the database
 router.get('/insurance', (req, res) => {
   
     const queryText = `SELECT * FROM "insurance_type";`;
@@ -57,7 +57,7 @@ router.get('/insurance', (req, res) => {
             });
    
 });
-
+//will get the license type option data from the database
 router.get('/license', (req, res) => {
   
     const queryText = `SELECT * FROM "license_type";`;
@@ -70,7 +70,7 @@ router.get('/license', (req, res) => {
             });
    
 });
-
+//will get the treatment option data from the database
 router.get('/treatment', (req, res) => {
   
     const queryText = `SELECT * FROM "treatment_preferences";`;
@@ -83,7 +83,7 @@ router.get('/treatment', (req, res) => {
             });
    
 });
-
+//will get the client groups option data from the database
 router.get('/demographics', (req, res) => {
   
     const queryText = `SELECT * FROM "client_focus";`;
@@ -96,7 +96,7 @@ router.get('/demographics', (req, res) => {
             });
    
 });
-
+//will get the age groups
 router.get('/age', (req, res) => {
   
     const queryText = `SELECT * FROM "age_groups_served";`;
@@ -109,7 +109,7 @@ router.get('/age', (req, res) => {
             });
    
 });
-
+//will get the session format option data from the database
 router.get('/session', (req, res) => {
   
     const queryText = `SELECT * FROM "session_format";`;
@@ -133,7 +133,9 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     console.log('this what is in req.body', req.body)
     const member = await pool.connect();
     try {
-      
+      //consolidated all the push request using async await
+      //it makes a post request for each table with the set data aftet each has terminated
+    
         await member.query('BEGIN')
       const insertMember = await  member.query(`INSERT INTO "members" 
         ("id","zip_code","first_name", "last_name", "prefix", "age","license_state", "license_expiration", "hiamft_member_account_info", "supervision_status","fees", 
