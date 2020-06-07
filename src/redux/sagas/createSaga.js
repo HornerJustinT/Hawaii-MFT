@@ -13,18 +13,6 @@ function* addMember(action) {
     }
 }
 
-function* addLanguage(action) {
-    console.log('in addLanguage Saga', action.payload)
-    try {
-       const response = yield axios.post(`api/profile/language`, action.payload);
-       console.log('Sending new member language to the server',response)
-        yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });
-    } catch (error) {
-        console.log('Error in sending new member language info to the server', error);
-    }
-}
-
-
 
 function* addCreateProfile (action) {
     console.log('in createProfile saga', action.payload)
@@ -46,27 +34,6 @@ function* addAddress(action) {
     }
 }
 
-function* addContactInfo(action) {
-    console.log('in addContactInfo Saga', action.payload)
-    try {
-       const response = yield axios.post(`api/profile/contactinfo`, action.payload);
-       console.log('Sending new member contact info to the server',response)
-        yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });
-    } catch (error) {
-        console.log('Error in sending members contact info to the server', error);
-    }
-}
-
-function* addPracticeInfo(action) {
-    console.log('in addPracticeInfo Saga', action.payload)
-    try {
-       const response = yield axios.post(`api/profile/practiceinfo`, action.payload);
-       console.log('Sending new member practice info to the server',response)
-        yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });
-    } catch (error) {
-        console.log('Error in sending members practice info to the server', error);
-    }
-}
 
 
 function* fetchLanguages(action){

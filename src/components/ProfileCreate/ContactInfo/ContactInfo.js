@@ -1,4 +1,5 @@
 import React,{ Component } from 'react';
+//this connects the the component to the redux store
 import { connect } from 'react-redux';
 
 //React-bootstrap import
@@ -26,19 +27,24 @@ class ContactInfo extends Component{
            }
 
            componentDidMount (){
+//when the document is ready it will fetch all the options for islands
             this.props.dispatch({
                 type:'FETCH_ISLANDS'
             })
            }
+//this will help navigate to back to createProfile page
     handleBack = (event) => {
         event.preventDefault()
         this.props.history.push('/create-profile')
     }
-
+//this will help navigate to the practiceinfo page
     handleNext = (event) => {
         event.preventDefault()
         this.props.history.push('/practice')
     }
+//take in the information from the input
+//when users either choose options from drop down or put info into the input
+//the state is changed when there are input data
     handleInputChangeFor = propertyName => (event) =>{
         this.setState({
           [propertyName]:event.target.value
@@ -47,6 +53,10 @@ class ContactInfo extends Component{
 
      
       addContactInfo = (event) =>{
+//this will send all the contact info from contactinfo page into SET_ADDRESS reducer
+//once they are sent to the reducer, the data can then be retrievied in practiceInfo
+//where it will be bunched up all together with all other inputs from other pages
+//it will then gets used to dispatch an action for post request to the server
           event.preventDefault();
           this.props.dispatch({type:'ADD_ADDRESS', 
                               payload:{island_id: this.state.island_id, 
