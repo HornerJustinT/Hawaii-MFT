@@ -56,7 +56,7 @@ handleInputChangeFor = propertyName => (event) =>{
     
     handleNext = (event) => {
         event.preventDefault()
-        this.props.history.push(`/edit-profile${this.props.user.id}`)
+        this.props.history.push(`/edit-profile/${this.props.user.id}`)
     }
     
     addMembersInfo = (event) =>{
