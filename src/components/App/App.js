@@ -71,6 +71,8 @@ class App extends Component {
             <ProtectedRoute exact path="/create-profile" component={ProfileCreate} />
             <ProtectedRoute exact path="/contact-info" component={ContactInfo} />
             <ProtectedRoute exact path="/practice" component={PracticeInfo} />
+            <ProtectedRoute exact path="/info" component={InfoPage} />
+
 
             <ProtectedRoute exact path="/admin" component={AdminPage} />
 

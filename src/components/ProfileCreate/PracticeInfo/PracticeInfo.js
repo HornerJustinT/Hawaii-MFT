@@ -1,9 +1,12 @@
 import React,{ Component } from 'react';
+//this connects the component to th redux store
 import { connect } from 'react-redux';
 
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+
 
 
 
@@ -14,7 +17,7 @@ class PracticeInfo extends Component{
          license_state:'',
          license_number:'',
          license_type:'',
-        supervision_status:'',
+         supervision_status:'',
          fees:'',
          license_expiration:'',
          credentials:'',
@@ -29,10 +32,9 @@ class PracticeInfo extends Component{
 
      }
    
-
-
-
 componentDidMount (){
+  //dispatch actions in order to fetch the data for options that users can select
+  //the actions are dispatched when document is on ready to be used 
     this.props.dispatch({type:'FETCH_INSURANCE_TAKEN'});
     this.props.dispatch({type:'FETCH_SPECIALTY'});
     this.props.dispatch({type:'FETCH_SUPERVISION_STATUS'});
@@ -41,33 +43,38 @@ componentDidMount (){
     this.props.dispatch({type:'FETCH_DEMOGRPHICS'});
     this.props.dispatch({type:'FETCH_AGE_GROUPS'});
     this.props.dispatch({type:'FETCH_SESSION_FORMAT'});
-    
 }
 
 //take in the information from the input
+//when users either choose options from drop down or put info into the input
+//the state is changed when there are input data
 handleInputChangeFor = propertyName => (event) =>{
     this.setState({
       [propertyName]:event.target.value
     });
   } 
     handleBack = (event) => {
+//will help navigate back to the previous page
+//that is contact infor page
         event.preventDefault()
         this.props.history.push('/contact-info')
     }
-    handleSave = (event) => {
-        event.preventDefault();
-        this.addPracticeInfo();
-        this.addMembersInfo();
-        
-    }
+
+    
     handleNext = (event) => {
+//this helps to navigate to the next page
+//that is the profile edit page
         event.preventDefault()
-        this.props.history.push('/uploadImage')
+        this.props.history.push(`/edit-profile/${this.props.user.id}`)
     }
     
-    addMembersInfo = () =>{
-        this.props.dispatch({type:'ADD_MEMBER',
-         payload:{
+
+    addMembersInfo = (event) =>{
+//this action will dispatch all the info collegeted from all three pages
+//and those are createprofile, contactinfo and practicinfo pages
+      event.preventDefault();
+      this.props.dispatch({type:'ADD_MEMBER',
+        payload:{
           prefix:this.props.createProfile.prefix,
           first_name:this.props.createProfile.first_name,
           last_name:this.props.createProfile.last_name,
@@ -78,42 +85,41 @@ handleInputChangeFor = propertyName => (event) =>{
           fees:this.state.fees,
           license_expiration:this.state.license_expiration,
           license_number:this.state.license_number,
-          license_type:this.state.license_type,
+          license_type:this.state.license_type_id,
           credentials:this.state.credentials,
           telehealth:this.state.telehealth,
           statement:this.state.statement,
           title:this.state.title,
           website:this.props.contactAddress.website,
-             city:this.props.contactAddress.city,
-             zip_code: this.props.contactAddress.zip_code,
+          city:this.props.contactAddress.city,
+          zip_code: this.props.contactAddress.zip_code,
+          island_id: this.props.contactAddress.island_id,
+          email: this.props.contactAddress.email,
+          personal_email:this.props.contactAddress.personal_email,
+          business_number:this.props.contactAddress.business_number,
+          personal_number:this.props.contactAddress.personal_number,
+          address_office:this.props.contactAddress.address_office,
+          address_home:this.props.contactAddress.address_home,
+          address_mailing:this.props.contactAddress.address_mailing,
+          session_format_id:this.state.session_format_id,
+          client_focus_id:this.state.client_focus_id,
+          specialty_id:this.state.specialty_id,
+          treatment_preferences_id:this.state.treatment_preferences_id,
+          age_groups_served_id:this.state.age_groups_served_id,
+          insurance_type_id:this.state.insurance_type_id,
+          language_id:this.props.createProfile.language_id
          }
-        })
-        this.handleReset()
+        });
+//this will reset the inputs on the parcticeinfo page
+     this.handleReset();
     }
-
-    addPracticeInfo = () =>{
-      this.props.dispatch({type:'ADD_PRACTICEINFO',
-                        payload:{
-                          session_format_id:this.state.session_format_id,
-                          client_focus_id:this.state.client_focus_id,
-                          specialty_id:this.state.specialty_id,
-                          treatment_preferences_id:this.state.treatment_preferences_id,
-                          age_groups_served_id:this.state.age_groups_served_id,
-                          insurance_type_id:this.state.insurance_type_id,
-                        }
-      })
-    }
-
-
-
-
 
     handleReset = ()=>{
       this.setState({
         license_state:'',
         license_number:'',
         license_type:'',
-       supervision_status:'',
+        supervision_status:'',
         fees:'',
         license_expiration:'',
         specialty:'',
@@ -122,11 +128,12 @@ handleInputChangeFor = propertyName => (event) =>{
         statement:'',
         title:'',
         session_format_id:'',
-         client_focus_id:'',
-         specialty_id:'',
-         treatment_preferences_id:'',
-         age_groups_served_id:'',
-         insurance_type_id:'',
+        client_focus_id:'',
+        specialty_id:'',
+        treatment_preferences_id:'',
+        age_groups_served_id:'',
+        insurance_type_id:'',
+
       })
     }
     render (){
@@ -137,7 +144,7 @@ handleInputChangeFor = propertyName => (event) =>{
         <br/>
         <ProgressBar now={75} />
         <br/>
-        <Form onSubmit={this.handleSave}>
+        <Form onSubmit={this.addMembersInfo}>
         <br/>
         <br/>
         <Form.Label>Title </Form.Label><br/><input type="text"
@@ -328,11 +335,13 @@ handleInputChangeFor = propertyName => (event) =>{
         <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
-        <button>Save</button>
+        <Button type="submit">Save</Button>
         </Form>
-            <button onClick={this.handleBack}>Back</button>
+            
+          <Button onClick={this.handleBack}>Back</Button>
+          <Button onClick={this.handleNext}>Next</Button>
            
-            <button onClick={this.handleNext}>Next Page</button>
+          
 
             </div>
            

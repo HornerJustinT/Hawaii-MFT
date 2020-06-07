@@ -1,13 +1,11 @@
 import React, { Component} from 'react';
+//used to connect the component to the reducer
 import { connect } from 'react-redux';
 
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-
-
-
 
 
 
@@ -23,16 +21,20 @@ class ProfileCreate extends Component {
     hiamft_member_account_info:'',
 	language_id:''
     }
+//when the document is ready it will fetch all the languages
+//from which users can choose the languages they speak
 componentDidMount(){
  this.getLanguages()
 }
-    //take in the information from the input
+//take in the information from the input
+//when users either choose options from drop down or put info into the input
+//the state is changed when there are input data
     handleInputChangeFor = propertyName => (event) =>{
         this.setState({
           [propertyName]:event.target.value
         });
       } 
-      //reset the inputs once the value has been submitted
+//reset the inputs once the value has been submitted
       handleReset = () =>{
           this.setState({
             prefix:'',
@@ -45,7 +47,11 @@ componentDidMount(){
       }
 
       
-    //upload all the inputs into the members table
+//upload all the inputs into the members table
+//this will send all the profile info from createProfile page into SET_CREATE_PROFILE reducer
+//once they are sent to the reducer, the data can then be retrievied in practiceInfo
+//where it will be bunched up all together with all other inputs from other pages
+//it then gets dispatch as an action for post request to the server
     addMembers = (event) =>{
      event.preventDefault();
      this.props.dispatch({
@@ -55,20 +61,14 @@ componentDidMount(){
             first_name:this.state.first_name,
             last_name:this.state.last_name,
             age:this.state.age,
-            hiamft_member_account_info:this.state.hiamft_member_account_info
+            hiamft_member_account_info:this.state.hiamft_member_account_info,
+            language_id:this.state.language_id
          }
      });
-     this.addLanguage();
     this.handleReset();
     }
 
-    addLanguage = () =>{
-        this.props.dispatch({ type:'ADD_LANGUAGE',
-        payload:{
-            language_id:this.state.language_id,
-        }
-    })
-    }
+   
     //get the languges
     getLanguages = () =>{
         this.props.dispatch({
@@ -145,9 +145,9 @@ componentDidMount(){
                   value={this.state.hiamft_member_account_info}
                   onChange={this.handleInputChangeFor("hiamft_member_account_info")}/>
         <br/>
-        <button>Save</button>
+        <Button type="submit">Save</Button>
          </Form>
-         <Button onClick={this.handleNext}>Save and Next Page</Button>
+         <Button onClick={this.handleNext}>Next Page</Button>
             </div>
             </>
         )
