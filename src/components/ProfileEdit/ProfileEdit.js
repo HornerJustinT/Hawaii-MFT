@@ -156,7 +156,7 @@ class ProfileEdit extends Component {
       clickContact: false,
     });
     this.props.dispatch({
-      type: "EDIT_PROFILE",
+      type: "EDIT_CONTACT",
       payload: this.state,
     });
   };
@@ -170,6 +170,10 @@ class ProfileEdit extends Component {
   handleSavePractice = () => {
     this.setState({
       clickPractice: false,
+    });
+    this.props.dispatch({
+      type: "EDIT_PRACTICE",
+      payload: this.state,
     });
   };
 
@@ -198,10 +202,7 @@ class ProfileEdit extends Component {
   };
 
   handleIslandChange = (event, editPropertyName, viewPropertyName) => {
-    console.log(
-      "here is event.target.selected.options &&&&&&&",
-      event.target.selectedOptions
-    );
+    console.log("ISLAND CHANGE");
     const array = [];
     for (let option of event.target.selectedOptions) {
       array.push(Number(option.value));
@@ -213,11 +214,12 @@ class ProfileEdit extends Component {
       console.log("heres results !!!!!!!", results);
       return results[0].title;
     });
-    console.log("heres updatedIsland $$$$$$$", updatedIsland);
+    console.log("heres updatedIsland & array $$$$$$$", updatedIsland, array);
     this.setState({
       [editPropertyName]: array,
       [viewPropertyName]: updatedIsland,
     });
+    console.log("heres island & islandEdit $$$$$$$", this.state.island, this.state.islandEdit);
   };
 
   displayLanguages = () => {
@@ -343,7 +345,7 @@ class ProfileEdit extends Component {
                 </Button>
               </div>
               <div className="border">
-                <Form className="flex-between row-wrap first ">
+                <Form className="flex-between row-wrap">
                   <Form.Group>
                     <Form.Label variant="flat" className="label">
                       Prefix
@@ -414,7 +416,7 @@ class ProfileEdit extends Component {
               {this.props.profile && (
                 <>
                   <div className="border">
-                    <Form className="flex-between row-wrap first">
+                    <Form className="flex-between row-wrap">
                       <Form.Group>
                         <Form.Label className="label">Prefix</Form.Label>
                         <Form.Control
@@ -474,7 +476,7 @@ class ProfileEdit extends Component {
 
           {this.state.clickContact && this.props.profile ? (
             <div className="body">
-              <div className="flex-between row-wrap">
+              <div className="flex-between row-wrap first">
                 <h4>Contact Info</h4>
                 <Button
                   className="flex-between row-wrap"
@@ -484,7 +486,7 @@ class ProfileEdit extends Component {
                 </Button>
               </div>
               <div className="border">
-                <Form className="first">
+                <Form>
                   <Form.Group>
                     <Form.Label className="label">Phone Number</Form.Label>
                     <Form.Control
@@ -551,7 +553,7 @@ class ProfileEdit extends Component {
             </div>
           ) : (
             <div className="body">
-              <div className="flex-between row-wrap">
+              <div className="flex-between row-wrap first">
                 <h4>Contact Info</h4>
                 <Button
                   className="flex-between row-wrap first"
@@ -563,7 +565,7 @@ class ProfileEdit extends Component {
               {this.props.profile && (
                 <>
                   <div className="border">
-                    <Form className="first">
+                    <Form>
                       <Form.Group>
                         <Form.Label className="label">Phone Number</Form.Label>
                         <Form.Control
@@ -634,6 +636,288 @@ class ProfileEdit extends Component {
                   </div>
                 </>
               )}
+            </div>
+          )}
+
+          {/**Here is Practice Info render */}
+          {this.state.clickPractice ? (
+            <div className="body">
+              <div className="flex-between row-wrap first">
+                <h4>Practice Info</h4>
+                <Button
+                  className="flex-between row-wrap"
+                  onClick={() => this.handleSavePractice()}
+                >
+                  Save Changes
+                </Button>
+              </div>
+              <div className="border">
+                <Form className="flex-between row-wrap">
+                  <Form.Group>
+                    <Form.Label className="label">Title</Form.Label>
+                    <Form.Control
+                      defaultValue={this.props.profile.title}
+                      onChange={(event) => this.handleChange(event, "title")}
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label className="label">Credentials</Form.Label>
+                    <Form.Control
+                      defaultValue={this.props.profile.credentials}
+                      onChange={(event) =>
+                        this.handleChange(event, "credentials")
+                      }
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label className="label">
+                      Supervision Status
+                    </Form.Label>
+                    <Form.Control
+                      defaultValue={this.props.profile.supervisionStatus}
+                      onChange={(event) =>
+                        this.handleChange(event, "supervisionStatus")
+                      }
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label className="label">Telehealth</Form.Label>
+                    <Form.Control
+                      defaultValue={this.props.profile.telehealth}
+                      onChange={(event) =>
+                        this.handleChange(event, "telehealth")
+                      }
+                    />
+                  </Form.Group>
+                </Form>
+                <Form className="flex-between row-wrap">
+                  <Form.Group>
+                    <Form.Label className="label">License Number</Form.Label>
+                    <Form.Control
+                      defaultValue={this.props.profile.licenseNumber}
+                      onChange={(event) =>
+                        this.handleChange(event, "licenseNumber")
+                      }
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label className="label">
+                      License Expiration Date
+                    </Form.Label>
+                    <Form.Control
+                      defaultValue={this.props.profile.licenseExpiration}
+                      onChange={(event) =>
+                        this.handleChange(event, "licenseExpiration")
+                      }
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label className="label">License Type</Form.Label>
+                    <Form.Control
+                      defaultValue={this.props.profile.licenseType}
+                      onChange={(event) =>
+                        this.handleChange(event, "licenseType")
+                      }
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label className="label">Fees</Form.Label>
+                    <Form.Control
+                      defaultValue={this.props.profile.fees}
+                      onChange={(event) => this.handleChange(event, "fees")}
+                    />
+                  </Form.Group>
+                </Form>
+                <Form>
+                  <Form.Group>
+                    <Form.Label variant="flat" className="label">
+                      Treatment & Approaches
+                    </Form.Label>
+                    <Form.Control
+                      defaultValue={this.props.profile.treatmentPreferences}
+                      onChange={(event) =>
+                        this.handleChange(event, "treatmentPreferences")
+                      }
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label variant="flat" className="label">
+                      Specialties
+                    </Form.Label>
+                    <Form.Control
+                      defaultValue={this.props.profile.specialties}
+                      onChange={(event) =>
+                        this.handleChange(event, "specialties")
+                      }
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label variant="flat" className="label">
+                      Insurances Taken
+                    </Form.Label>
+                    <Form.Control
+                      defaultValue={this.props.profile.insurance}
+                      onChange={(event) =>
+                        this.handleChange(event, "insurance")
+                      }
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label className="label">Client Focus</Form.Label>
+                    <Form.Control
+                      defaultValue={this.props.profile.clientFocus}
+                      onChange={(event) =>
+                        this.handleChange(event, "clientFocus")
+                      }
+                    />
+                  </Form.Group>
+
+                  <Form.Group>
+                    <Form.Label className="label">Session Format</Form.Label>
+                    <Form.Control
+                      defaultValue={this.props.profile.sessionFormat}
+                      onChange={(event) =>
+                        this.handleChange(event, "sessionFormat")
+                      }
+                    />
+                  </Form.Group>
+                </Form>
+              </div>
+            </div>
+          ) : (
+            <div className="body">
+              <div className="flex-between row-wrap first">
+                <h4>Practice Info</h4>
+                <Button
+                  className="flex-between row-wrap"
+                  onClick={() => this.handleEditPractice()}
+                >
+                  Edit Practice Info
+                </Button>
+              </div>
+              <div className="border">
+                <Form className="flex-between row-wrap">
+                  <Form.Group>
+                    <Form.Label className="label">Title</Form.Label>
+                    <Form.Control
+                      disabled="true"
+                      readOnly
+                      defaultValue={this.props.profile.title}
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label className="label">Credentials</Form.Label>
+                    <Form.Control
+                      disabled="true"
+                      readOnly
+                      defaultValue={this.props.profile.credentials}
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label className="label">
+                      Supervision Status
+                    </Form.Label>
+                    <Form.Control
+                      disabled="true"
+                      readOnly
+                      defaultValue={this.props.profile.supervisionStatus}
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label className="label">Telehealth</Form.Label>
+                    <Form.Control
+                      disabled="true"
+                      readOnly
+                      defaultValue={this.props.profile.telehealth}
+                    />
+                  </Form.Group>
+                </Form>
+                <Form className="flex-between row-wrap">
+                  <Form.Group>
+                    <Form.Label className="label">License Number</Form.Label>
+                    <Form.Control
+                      disabled="true"
+                      readOnly
+                      defaultValue={this.props.profile.licenseNumber}
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label className="label">
+                      License Expiration Date
+                    </Form.Label>
+                    <Form.Control
+                      disabled="true"
+                      readOnly
+                      defaultValue={this.props.profile.licenseExpiration}
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label className="label">License Type</Form.Label>
+                    <Form.Control
+                      disabled="true"
+                      readOnly
+                      defaultValue={this.props.profile.licenseType}
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label className="label">Fees</Form.Label>
+                    <Form.Control
+                      disabled="true"
+                      readOnly
+                      defaultValue={this.props.profile.fees}
+                    />
+                  </Form.Group>
+                </Form>
+                <Form>
+                  <Form.Group>
+                    <Form.Label variant="flat" className="label">
+                      Treatment & Approaches
+                    </Form.Label>
+                    <Form.Control
+                      disabled="true"
+                      readOnly
+                      defaultValue={this.props.profile.treatmentPreferences}
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label variant="flat" className="label">
+                      Specialties
+                    </Form.Label>
+                    <Form.Control
+                      disabled="true"
+                      readOnly
+                      defaultValue={this.props.profile.specialties}
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label variant="flat" className="label">
+                      Insurances Taken
+                    </Form.Label>
+                    <Form.Control
+                      disabled="true"
+                      readOnly
+                      defaultValue={this.props.profile.insurance}
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label className="label">Client Focus</Form.Label>
+                    <Form.Control
+                      disabled="true"
+                      readOnly
+                      defaultValue={this.props.profile.clientFocus}
+                    />
+                  </Form.Group>
+
+                  <Form.Group>
+                    <Form.Label className="label">Session Format</Form.Label>
+                    <Form.Control
+                      disabled="true"
+                      readOnly
+                      defaultValue={this.props.profile.sessionFormat}
+                    />
+                  </Form.Group>
+                </Form>
+              </div>
             </div>
           )}
         </>
