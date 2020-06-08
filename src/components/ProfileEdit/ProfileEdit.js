@@ -44,6 +44,7 @@ class ProfileEdit extends Component {
       // setting new prop for 
       const updatedLanguages = this.syncDataEdit("languages", "languages");
       const updatedIsland = this.syncDataEditIsland("islands", "island");
+      const islandEdit = updatedIsland[0];
       // const updatedTreatments = this.syncDataEditTreatments("treatmentApproaches", "treatmentApproaches");
       this.setState({
         id: this.props.profile.id,
@@ -56,7 +57,7 @@ class ProfileEdit extends Component {
         address: this.props.profile.address,
         city: this.props.profile.city,
         island: this.props.profile.island,
-        islandEdit: updatedIsland,
+        islandEdit: islandEdit[0].island_id,
         email: this.props.profile.email,
         zipCode: this.props.profile.zip_code,
         website: this.props.profile.website,
