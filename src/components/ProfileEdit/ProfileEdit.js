@@ -31,7 +31,7 @@ class ProfileEdit extends Component {
     this.props.dispatch({ type: "FETCH_TREATMENTS" });
     this.props.dispatch({
       type: "FETCH_PROFILE",
-      payload: { id: this.props.user.id },
+      payload: { id: this.props.match.params.id || this.props.user.id },
     });
   }
 //updating component 
@@ -89,8 +89,8 @@ class ProfileEdit extends Component {
   //the profileName is the property in the profile that holds just the values
   //If Mark changes query returning profile results, this could be generic (see: language_id -> id)
   syncDataEdit = (reducerName, profileName) => {
-    console.log(this.props[reducerName], this.props.profile[profileName]);
-    if (this.props[reducerName] && this.props.profile[profileName]) {
+    console.log(this.props.profile[reducerName], this.props.profile[profileName]);
+    if (this.props.profile[reducerName] && this.props.profile[profileName]) {
       const updatedLanguages = this.props.profile[profileName].map((lang) => {
         const results = this.props[reducerName].filter(
           (object) => object.title === lang
