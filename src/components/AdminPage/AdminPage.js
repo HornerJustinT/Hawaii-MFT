@@ -269,7 +269,7 @@ class AdminPage extends Component {
                       <Button
                         variant="danger"
                         onClick={() =>
-                          this.props.history.push(`/profile/${therapist.id}`)
+                          this.props.history.push(`/edit-profile/${therapist.id}`)
                         }
                       >
                         View
