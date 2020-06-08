@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./ProfileView.css";
 import avatar from "../ProfileView/avatar.png";
 import { connect } from "react-redux";
+import Button from 'react-bootstrap/Button';
+import EmailModal from '../EmailModal/EmailModal'
 import {
   Map,
   InfoWindow,
@@ -94,7 +96,7 @@ class ProfileView extends Component {
           <div className="profileView-container">
             <div className="leftside">
               <div className="bio-container">
-                <button onClick = {this.home}className="backSearch">Back to search Results</button>
+                <Button onClick = {this.home}className="backSearch">Back to search Results</Button>
                 <div className="bio-title">
                   <h1>
                     {this.props.profile.first_name}{" "}
@@ -103,30 +105,15 @@ class ProfileView extends Component {
                   {this.credentials()}
                 </div>
                 <div className="bio">
-                  <p>{this.props.profile.hiamft_member_account_info}
-                  </p>
                   <p>{this.props.profile.statement}</p>
                 </div>
               </div>
               <div>
-                <div>
-                  <h2>Educations</h2>
-                </div>
-                <div>
-                  <p>Argosy University</p>
-                  <p>Year Graduated</p>
-                  <p>License and state</p>
-                </div>
-              </div>
-              <div className="treatment">
                 <h2>Treatments & Approaches</h2>
                 <div className="ts">
                 <ul>{this.props.profile.treatment_preferences.map((treatment_preferences,key) =>
                 <p key={key}>{treatment_preferences}</p>)}
                 </ul>
-                </div>
-                <div className="approaches">
-                  {/* do we have anything for approaches? */}
                 </div>
               </div>
               <div>
@@ -135,7 +122,7 @@ class ProfileView extends Component {
                 <p key={key}>{specialty}</p>)}
                 </ul>
               </div>
-              <div className="insurance">
+              <div>
                 <h2>Insurance Taken</h2>
                 <div className="box1">
                 <ul>{this.props.profile.ages_served.map((age,key) =>
@@ -145,22 +132,28 @@ class ProfileView extends Component {
               </div>
               <div>
                 <h2>Supervision Status</h2>
-                <p>AAMFT-approved</p>
+                <div className="box1"> 
+                <ul>
+                  <p>{this.props.profile.supervision_status}</p></ul>
+                </div>
+
               </div>
               <div className="telehealth">
                 <h2>Telehealth</h2>
-                {this.telehealth()}
+                <ul><p>{this.telehealth()}</p></ul>
+              </div>
+              <div classname="clientFocusHeader">
+                <h2>Client Focus</h2>
               </div>
               <div className="clientFocus">
-                <h2>Client Focus</h2>
                 <div className="clientAge">
-                  <h3>Age</h3>
+                  <h4>Age</h4>
                   <ul>{this.props.profile.ages_served.map((age,key) =>
                 <p key={key}>{age}</p>)}
                 </ul>
                 </div>
                 <div className="clientDemographics">
-                  <h3>Demographics</h3>
+                  <h4>Demographics</h4>
                   <ul>{this.props.profile.client_focus.map((age,key) =>
                 <p key={key}>{age}</p>)}
                 </ul>
@@ -182,12 +175,10 @@ class ProfileView extends Component {
             <div className="rightside">
               <div>
                 <h1>{this.props.profile.city}, {this.props.profile.island}</h1>
-                <button>Send Referral Email</button>
+                <div className="emailModal"><EmailModal></EmailModal></div>
+              
               </div>
-              <div>
-                <img width="200" height="200" src={avatar} />
-              </div>
-              <div>
+              <div className="contact">
                 <h2>Contact</h2>
                 <ul>
                   <p>{this.props.profile.phone[0]}</p>
@@ -224,7 +215,7 @@ class ProfileView extends Component {
         </>
       );
     } else {
-      return <h1>Hi</h1>;
+      return <h1>Loading...</h1>;
     }
   }
 }

@@ -14,9 +14,13 @@
 .rightside{
     flex:1;
     padding-left: 20px;
-    padding-top: 5px;
+    padding-top: 35px;
 }
 
+.contact{
+    padding-top: 70px;
+
+}
 .map{
     height: 200px;
     width: 200px;
@@ -37,7 +41,7 @@
 
 .bio-title{
     flex: 1;
-    padding-top: 20px;
+    padding-top: 0px;
 }
 
 .backSearch{
@@ -55,12 +59,13 @@ p{
     display: flex;
     flex-direction: row;
     padding-bottom: 10px;
+    padding-top: 0px;
     flex-wrap: wrap;
 }
 
 .clientAge{
     flex: left;
-  padding-top: 40px;
+  padding-top: 0px;
   margin-left: 0 auto ;
   position: relative;
 }
@@ -69,7 +74,7 @@ p{
 
 .clientDemographics{
     flex: left;
-    padding-top: 40px;
+    padding-top: 0px;
     padding-left: 20px;
 }
 
@@ -81,23 +86,24 @@ p{
 
 .box1{
     flex:left;
-    padding-top: 40px;
+    padding-top: 10px;
 }
 
 .box2{
     flex: left;
-    padding-top: 40px;
+    padding-top: 10px;
 }
 
 .treatment{
     display: flex;
-    flex-direction: row;
     padding-bottom: 10px;
 }
-
+.emailModal{
+    padding-top: 10px;
+}
 .ts{
     flex:left;
-    padding-top: 40px;
+    padding-top: 10px;
 }
 
 .approaches{
