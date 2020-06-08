@@ -12,8 +12,8 @@ function* editProfile(action) {
     }
 }
 
-function* projectSaga() {
+function* editSaga() {
     yield takeLatest('EDIT_PROFILE', editProfile);
 }
 
-export default projectSaga;
+export default editSaga;
