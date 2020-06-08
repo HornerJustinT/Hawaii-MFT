@@ -26,5 +26,6 @@
 
 .border {
     border: 5px black;
-    padding: 4em;
+    padding: 2em;
+    margin: 1em;
 }
