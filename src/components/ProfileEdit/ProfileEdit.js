@@ -44,7 +44,7 @@ class ProfileEdit extends Component {
       // setting new prop for 
       const updatedLanguages = this.syncDataEdit("languages", "languages");
       const updatedIsland = this.syncDataEditIsland("islands", "island");
-      const islandEdit = updatedIsland[0];
+      const islandEdit = updatedIsland;
       // const updatedTreatments = this.syncDataEditTreatments("treatmentApproaches", "treatmentApproaches");
       this.setState({
         id: this.props.profile.id,
@@ -57,7 +57,7 @@ class ProfileEdit extends Component {
         address: this.props.profile.address,
         city: this.props.profile.city,
         island: this.props.profile.island,
-        islandEdit: islandEdit[0].island_id,
+        islandEdit: islandEdit.island_id,
         email: this.props.profile.email,
         zipCode: this.props.profile.zip_code,
         website: this.props.profile.website,
@@ -179,6 +179,8 @@ class ProfileEdit extends Component {
   };
 
   handleChange = (event, propertyName) => {
+    console.log( 'in handleChange', event.target.value);
+    
     this.setState({
       [propertyName]: event.target.value,
     });
@@ -394,7 +396,7 @@ class ProfileEdit extends Component {
                     <Form.Control
                       as="textarea"
                       rows="5"
-                      defaultValue={this.props.profile.statement}
+                      defaultValue={this.state.statement}
                       onChange={(event) =>
                         this.handleChange(event, "statement")
                       }
@@ -458,13 +460,17 @@ class ProfileEdit extends Component {
                     <Form className="last">
                       <Form.Group>
                         <Form.Label className="label">About You</Form.Label>
-                        <Form.Control
-                          as="textarea"
-                          rows="5"
-                          disabled="true"
-                          readOnly
-                          defaultValue={this.props.profile.statement}
-                        />
+                        {this.state.statement ? (
+                          <Form.Control
+                            as="textarea"
+                            rows="5"
+                            disabled="true"
+                            readOnly
+                            defaultValue={this.state.statement}
+                          />
+                        ) : (
+                          ""
+                        )}
                       </Form.Group>
                     </Form>
                   </div>
@@ -502,7 +508,7 @@ class ProfileEdit extends Component {
                   <Form.Group>
                     <Form.Label className="label">Email Address</Form.Label>
                     <Form.Control
-                      defaultValue={this.props.profile.email}
+                      defaultValue={this.state.email}
                       onChange={(event) => this.handleChange(event, "email")}
                     />
                     <Form.Text className="text-muted">
@@ -521,6 +527,16 @@ class ProfileEdit extends Component {
                 <Form>
                   {this.displayIslands()}
                   <Form.Group>
+                    <Form.Label className="label">Address</Form.Label>
+                    <Form.Control
+                      defaultValue={this.props.profile.address}
+                      onChange={(event) => this.handleChange(event, "address")}
+                    />
+                    <Form.Text className="text-muted">
+                      Business - Listed
+                    </Form.Text>
+                  </Form.Group>
+                  <Form.Group>
                     <Form.Label variant="flat" className="label">
                       City
                     </Form.Label>
@@ -537,17 +553,6 @@ class ProfileEdit extends Component {
                       defaultValue={this.props.profile.zip_code}
                       onChange={(event) => this.handleChange(event, "zipCode")}
                     />
-                  </Form.Group>
-
-                  <Form.Group>
-                    <Form.Label className="label">Address</Form.Label>
-                    <Form.Control
-                      defaultValue={this.props.profile.address}
-                      onChange={(event) => this.handleChange(event, "address")}
-                    />
-                    <Form.Text className="text-muted">
-                      Business - Listed
-                    </Form.Text>
                   </Form.Group>
                 </Form>
               </div>
@@ -584,7 +589,7 @@ class ProfileEdit extends Component {
                         <Form.Control
                           disabled="true"
                           readOnly
-                          defaultValue={this.props.profile.email}
+                          defaultValue={this.state.email}
                         />
                         <Form.Text className="text-muted">
                           Business - Listed
@@ -596,7 +601,7 @@ class ProfileEdit extends Component {
                         <Form.Control
                           disabled="true"
                           readOnly
-                          defaultValue={this.props.profile.website}
+                          defaultValue={this.state.website}
                         />
                       </Form.Group>
                     </Form>
@@ -607,7 +612,7 @@ class ProfileEdit extends Component {
                         <Form.Control
                           disabled="true"
                           readOnly
-                          defaultValue={this.props.profile.address}
+                          defaultValue={this.state.address}
                         />
                         <Form.Text className="text-muted">
                           Business - Listed
@@ -620,7 +625,7 @@ class ProfileEdit extends Component {
                         <Form.Control
                           disabled="true"
                           readOnly
-                          defaultValue={this.props.profile.city}
+                          defaultValue={this.state.city}
                         />
                       </Form.Group>
                       <Form.Group>
