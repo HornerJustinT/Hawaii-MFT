@@ -208,7 +208,7 @@ class ProfileView extends Component {
                 </h3>
               </div>
               <div className="emailModal">
-                <EmailModal></EmailModal>
+                <EmailModal props = {this.props.profile.id}></EmailModal>
               </div>
               <div className="contact">
                 <h4>Contact</h4>
