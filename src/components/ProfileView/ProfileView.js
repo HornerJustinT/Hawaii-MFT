@@ -16,7 +16,6 @@ import "../App/App.css";
 const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY;
 
 const mapStyles = {
-  position: "absolute",
   width: "250px",
   height: "250px",
 };
@@ -209,7 +208,7 @@ class ProfileView extends Component {
                 </h3>
               </div>
               <div className="emailModal">
-                <EmailModal props={this.props.profile.id}></EmailModal>
+                <EmailModal props = {this.props.profile.id}></EmailModal>
               </div>
               <div className="contact">
                 <h4>Contact</h4>
@@ -225,7 +224,7 @@ class ProfileView extends Component {
                   </p>
                 </ul>
 
-                <div style={mapStyles}>
+                <div className="map">
                   <Map
                     style={mapStyles}
                     google={this.props.google}
