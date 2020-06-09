@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./ProfileView.css";
-import avatar from "../ProfileView/avatar.png";
 import { connect } from "react-redux";
 import Button from 'react-bootstrap/Button';
 import EmailModal from '../EmailModal/EmailModal'
@@ -10,6 +9,10 @@ import {
   Marker,
   GoogleApiWrapper
 } from "google-maps-react";
+
+//CSS import
+import "../App/App.css";
+
 const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY;
 
 const mapStyles = {
@@ -46,7 +49,11 @@ class ProfileView extends Component {
   }
   website=(website)=>{
     if(website){
-      return <p>{this.props.profile.website}</p>
+      return (
+        <a href={this.props.profile.website}>
+          {this.props.profile.website}
+        </a>
+      );
     }
   }
   setMAP = () => { // function that sets the map latitudes only when it was unchanged to stop infinete loop. I do not know how to set up async for when the dispatch is done.
@@ -94,102 +101,129 @@ class ProfileView extends Component {
       return (
         <>
           <div className="profileView-container">
-            <div className="leftside">
-              <div className="bio-container">
-                <Button onClick = {this.home}className="backSearch">Back to search Results</Button>
-                <div className="bio-title">
-                  <h1>
+            <div className="bio-container">
+              <Button onClick={this.home} className="backSearch">
+                Back to search Results
+              </Button>
+              <div className="bio-title">
+                <div className="leftside">
+                  <h2>
                     {this.props.profile.first_name}{" "}
                     {this.props.profile.last_name}
-                  </h1>
+                  </h2>
                   {this.credentials()}
                 </div>
                 <div className="bio">
                   <p>{this.props.profile.statement}</p>
                 </div>
               </div>
-              <div>
-                <h2>Treatments & Approaches</h2>
+              <div className="border-top">
+                <h4>Treatments & Approaches</h4>
                 <div className="ts">
-                <ul>{this.props.profile.treatment_preferences.map((treatment_preferences,key) =>
-                <p key={key}>{treatment_preferences}</p>)}
-                </ul>
+                  <ul>
+                    {this.props.profile.treatment_preferences.map(
+                      (treatment_preferences, key) => (
+                        <p key={key}>{treatment_preferences}</p>
+                      )
+                    )}
+                  </ul>
                 </div>
               </div>
-              <div>
-                <h2>Specialities</h2>
-                <ul>{this.props.profile.specialty.map((specialty,key) =>
-                <p key={key}>{specialty}</p>)}
+              <div className="border-top">
+                <h4>Specialities</h4>
+                <ul className="flex-between row-wrap">
+                  {this.props.profile.specialty.map((specialty, key) => (
+                    <p key={key}>{specialty}</p>
+                  ))}
                 </ul>
               </div>
-              <div>
-                <h2>Insurance Taken</h2>
+              <div className="border-top">
+                <h4>Insurance Taken</h4>
+                <div className="box1 flex-between row-wrap">
+                  <ul>
+                    {this.props.profile.ages_served.map((age, key) => (
+                      <p key={key}>{age}</p>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div className="border-top">
+                <h4>Supervision Status</h4>
                 <div className="box1">
-                <ul>{this.props.profile.ages_served.map((age,key) =>
-                <p key={key}>{age}</p>)}
+                  <ul className="flex-between row-wrap">
+                    <p>{this.props.profile.supervision_status}</p>
+                  </ul>
+                </div>
+              </div>
+              <div className="telehealth border-top">
+                <h4>Telehealth</h4>
+                <ul className="flex-between row-wrap">
+                  <p>{this.telehealth()}</p>
                 </ul>
-                </div>
               </div>
-              <div>
-                <h2>Supervision Status</h2>
-                <div className="box1"> 
-                <ul>
-                  <p>{this.props.profile.supervision_status}</p></ul>
-                </div>
-
+              <div className="border-top">
+                <h4>Client Focus</h4>
               </div>
-              <div className="telehealth">
-                <h2>Telehealth</h2>
-                <ul><p>{this.telehealth()}</p></ul>
-              </div>
-              <div classname="clientFocusHeader">
-                <h2>Client Focus</h2>
-              </div>
-              <div className="clientFocus">
+              <div className="clientFocus row-wrap">
                 <div className="clientAge">
-                  <h4>Age</h4>
-                  <ul>{this.props.profile.ages_served.map((age,key) =>
-                <p key={key}>{age}</p>)}
-                </ul>
+                  <h5>Age</h5>
+                  <ul>
+                    {this.props.profile.ages_served.map((age, key) => (
+                      <p key={key}>{age}</p>
+                    ))}
+                  </ul>
                 </div>
                 <div className="clientDemographics">
-                  <h4>Demographics</h4>
-                  <ul>{this.props.profile.client_focus.map((age,key) =>
-                <p key={key}>{age}</p>)}
-                </ul>
+                  <h5>Demographics</h5>
+                  <ul>
+                    {this.props.profile.client_focus.map((age, key) => (
+                      <p key={key}>{age}</p>
+                    ))}
+                  </ul>
                 </div>
               </div>
-              <div>
-                <h2>Languages Spoken</h2>
-                <ul>{this.props.profile.languages.map((language,key) =>
-                <p key={key}>{language}</p>)}
+              <div className="border-top">
+                <h4>Languages Spoken</h4>
+                <ul>
+                  {this.props.profile.languages.map((language, key) => (
+                    <p key={key}>{language}</p>
+                  ))}
                 </ul>
               </div>
-              <div>
-                <h2>Session Formats</h2>
-                <ul>{this.props.profile.session_format.map((session_format,key) =>
-                <p key={key}>{session_format}</p>)}
+              <div className="border-top">
+                <h4>Session Formats</h4>
+                <ul>
+                  {this.props.profile.session_format.map(
+                    (session_format, key) => (
+                      <p key={key}>{session_format}</p>
+                    )
+                  )}
                 </ul>
               </div>
             </div>
-            <div className="rightside">
+            <div className="rightside row-wrap-reverse">
               <div>
-                <h1>{this.props.profile.city}, {this.props.profile.island}</h1>
-                <div className="emailModal"><EmailModal></EmailModal></div>
-              
+                <h3>
+                  {this.props.profile.city}, {this.props.profile.island}
+                </h3>
+              </div>
+              <div className="emailModal">
+                <EmailModal></EmailModal>
               </div>
               <div className="contact">
-                <h2>Contact</h2>
+                <h4>Contact</h4>
                 <ul>
-                  <p>{this.props.profile.phone[0]}</p>
+                  {this.props.profile.phone[0]}
                   {/* Since there will only be one phone and no non business numbersI think we can simply just call the first one */}
-                  <p>{this.props.profile.email[0]}</p>
+                  <div>{this.props.profile.email[0]}</div>
                   {/* Same with email */}
-                  {this.website(this.props.profile.website)}
+                  <p>{this.website(this.props.profile.website)}</p>
                   {/* chceks to see if website is there adds if there is */}
-                  <p>{this.props.profile.address}</p>
-                  <p>{this.props.profile.city}, Hawaii</p>
+                  <p>
+                    {this.props.profile.address} {this.props.profile.zip_code}
+                  </p>
                 </ul>
+
                 <div className="map">
                   <Map
                     style={mapStyles}
