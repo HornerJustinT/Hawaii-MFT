@@ -41,7 +41,10 @@ class AdminPage extends Component {
       treatment_preferences: null,
     },
   };
-
+  resetProfile = (id) =>{
+    this.props.dispatch({type:"PROFILE_RESET"}) 
+    this.props.history.push(`/edit-profile/${id}`)
+  }
   // When the page loads
   componentDidMount() {
     // Grab a complete list of members.
@@ -269,7 +272,8 @@ class AdminPage extends Component {
                       <Button
                         variant="danger"
                         onClick={() =>
-                          this.props.history.push(`/edit-profile/${therapist.id}`)
+                          this.resetProfile(therapist.id)
+                        
                         }
                       >
                         View

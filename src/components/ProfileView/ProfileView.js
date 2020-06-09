@@ -131,7 +131,7 @@ class ProfileView extends Component {
               </div>
               <div className="border-top">
                 <h4>Specialities</h4>
-                <ul className="flex-between row-wrap">
+                <ul>
                   {this.props.profile.specialty.map((specialty, key) => (
                     <p key={key}>{specialty}</p>
                   ))}

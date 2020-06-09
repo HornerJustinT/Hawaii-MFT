@@ -19,7 +19,7 @@ function EmailModal(props) {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Send Referral Email for Jane Rain</Modal.Title>
+          <Modal.Title>Send Referral Email for {props.profile.first_name} {props.profile.last_name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
