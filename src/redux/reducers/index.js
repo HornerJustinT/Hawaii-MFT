@@ -24,22 +24,22 @@ import contactAddress from './contactAddressReducer';
 // Lets make a bigger object for our store, with the objects from our reducers.
 // This is what we get when we use 'state' inside of 'mapStateToProps'
 const rootReducer = combineReducers({
-  errors, // contains registrationMessage and loginMessage
-  loginMode, // will have a value of 'login' or 'registration' to control which screen is shown
-  members, //will have all members 
-  profile, //will have specific user profile details
-  user, // will have an id and username if someone is logged in
-  languages,// will have all the language options when creating a profile
-  islands, //will have all the islands names on ready 
-  specialtys, //will have all the info about the practice for the members
-  insuranceTaken, //will have all insurance types used 
-  license, //will have all the licesne types members have
-  treatmentPreferences, // will have all the treament approaches 
-  demographics, //will have all the client focus demographics
-  ageGroups, //will have all the age group served 
-  sessionFormats,// will have all the session formats
+  ageGroups, //will have all the age group served
+  contactAddress, //will have zipCode and City for members table
   createProfile, // will have some of the inputs for members table from createProfile page
-  contactAddress//will have zipCode and City for members table
+  demographics, //will have all the client focus demographics
+  errors, // contains registrationMessage and loginMessage
+  insuranceTaken, //will have all insurance types used
+  islands, //will have all the islands names on ready
+  languages, // will have all the language options when creating a profile
+  license, //will have all the licesne types members have
+  loginMode, // will have a value of 'login' or 'registration' to control which screen is shown
+  members, //will have all members
+  profile, //will have specific user profile details
+  sessionFormats, // will have all the session formats
+  specialtys, //will have all the info about the practice for the members
+  treatmentPreferences, // will have all the treament approaches
+  user, // will have an id and username if someone is logged in
 });
 
 export default rootReducer;

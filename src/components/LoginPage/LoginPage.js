@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Button from "react-bootstrap/Button";
+
 class LoginPage extends Component {
   state = {
     username: '',
@@ -28,7 +30,7 @@ class LoginPage extends Component {
     this.setState({
       [propertyName]: event.target.value,
     });
-  }
+  }//end handleInputChangeFor
 
   render() {
     return (
@@ -65,16 +67,17 @@ class LoginPage extends Component {
             </label>
           </div>
           <div>
-            <input
+            <Button
               className="log-in input"
               type="submit"
               name="submit"
               value="Log In"
-            />
+            >
+              Log In
+            </Button>
           </div>
         </form>
-        <center>
-        </center>
+        <center></center>
       </div>
     );
   }

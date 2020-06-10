@@ -3,7 +3,6 @@ import { takeLatest } from 'redux-saga/effects';
 
 // will be fired on "DELETE_PROFILE" actions
 function* deleteProfile(action) {
-    console.log('in deleteProfile saga', action.payload.id)
     try {
         yield axios.delete(`/profile/${action.payload.id}`);
     } catch (error) {
