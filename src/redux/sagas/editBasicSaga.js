@@ -2,8 +2,7 @@ import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
 // will be fired on "EDIT_PROFILE" actions
-function* editProfile(action) {
-    console.log('in editProfile saga', action.payload)
+function* editBasic(action) {
     try {
         yield axios.put('/profile', action.payload);
         yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload });
@@ -12,8 +11,8 @@ function* editProfile(action) {
     }
 }
 
-function* projectSaga() {
-    yield takeLatest('EDIT_PROFILE', editProfile);
+function* editBasicSaga() {
+    yield takeLatest('EDIT_BASIC', editBasic);
 }
 
-export default projectSaga;
+export default editBasicSaga;

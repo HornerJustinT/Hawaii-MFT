@@ -2,19 +2,20 @@
  CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
+    "password" VARCHAR (1000) NOT NULL,
+    "admin" boolean DEFAULT false
 );
 
 CREATE TABLE "members" (
 	"id" INT NOT NULL UNIQUE,
 	"zip_code" INT,
-	"first_name" VARCHAR(20) NOT NULL,
-	"last_name" VARCHAR(20) NOT NULL,
+	"first_name" VARCHAR(255) NOT NULL,
+	"last_name" VARCHAR(255) NOT NULL,
 	"prefix" VARCHAR(20),
 	"age" INT,
 	"license_state" VARCHAR(50),
 	"license_expiration" VARCHAR(50),
-	"hiamft_member_account_info" VARCHAR(20),
+	"hiamft_member_account_info" VARCHAR(255),
 	"supervision_status" VARCHAR(255),
 	"fees" VARCHAR(255),
     "credentials" TEXT,
@@ -113,7 +114,7 @@ CREATE TABLE "client_focus_pivot"(
 
 
 CREATE TABLE "phone_table"(
-	"number" VARCHAR(20) NOT NULL,
+	"number" VARCHAR(255) NOT NULL,
 	"member_id" INT NOT NULL,
 	"business" BOOLEAN,
 	FOREIGN KEY ("member_id") REFERENCES "members"("id"));
@@ -450,11 +451,11 @@ VALUES
 	
 -- insert new user info
 INSERT INTO "user"
-VALUES (17, 'test17','test17'), (18, 'test18','test18'),(19, 'test19','test18'),(15, 'test15','test15'), (5, 'test5','test5'),
-    (4, 'test4','test4'),
-    (2, 'test2','test2'),
-    (3, 'test3','test3');
-
+	("id", "username", "password")
+VALUES 
+    (1, 'jbarosa','$2a$10$43nSyq9Y.vpLwwmwaJAhzeOj/PbcFvZLcKmEC4DM/8cmNeUpOHE4S'),
+    (2, 'test2','test'),
+    (3, 'test3','test');
 
 INSERT INTO "public"."members"
     ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
@@ -497,7 +498,7 @@ VALUES(13, 1), (24, 1),
 
 INSERT INTO "public"."island_pivot"
     ("island_id", "member_id")
-VALUES(4, 1), (4, 2), (3, 3);
+VALUES(2, 1), (4, 2), (3, 3);
 
 INSERT INTO "public"."languages_pivot"
     ("language_id", "member_id")
@@ -640,9 +641,7 @@ INSERT INTO "public"."email_table"
 VALUES(TRUE, 'david@davidwhitecounseling.com', 6);
 INSERT INTO "public"."insurance_pivot"
     ("insurance_type_id", "member_id")
-
 VALUES(17, 6), (21, 6), (22, 6), (25, 6), (22, 6);
-
 INSERT INTO "public"."island_pivot"
     ("island_id", "member_id")
 VALUES(4, 6);
@@ -661,7 +660,6 @@ VALUES(9, 6), (22, 6), (26, 6), (46, 6), (47, 6);
 INSERT INTO "public"."treatment_preferences_pivot"
     ("treatment_preferences_id", "member_id")
 VALUES (8, 6), (14, 6), (24, 6), (30, 6);--INSERTS FOR SAMPLE DATA
-
 
 --SUBJECT 7
 INSERT INTO "user"
@@ -880,7 +878,7 @@ VALUES
     (12, 'test12','test');
 INSERT INTO "public"."members"
     ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
-VALUES(12, 96782, 'Tony', 'Moren', 'Mr.', 54, 'Hawaii', '2023', 'AAMFT-Approved', '175-225', 'Counselor, ATR MA, LPCC, LAMFT', TRUE, 'I work with individuals who are impacted by anxiety, depression, and low self-esteem. My treatment approach focuses on improving confidence and personal resilience while reducing emotional distress.', 'HawaiiHealth.com', 'New member', 'Therapist', 'Pearl City', '411464', 1);
+VALUES(12, 96782, 'Tony', 'Moren', 'Mr.', 54, 'Hawaii', '2023', 'AAMFT-Approved', '175-225', 'Counselor, ATR MA, LPCC, LAMFT', TRUE, 'I work with individuals who are impacted by anxiety, depression, and low self-esteem. My treatment approach focuses on improving confidence and personal resilience while reducing emotional distress.', 'HawaiiHealth.com', 'New member', 'Therapist', 'Pearl City', '455464', 1);
 INSERT INTO "public"."address_table"
     ("business", "address", "member_id")
 VALUES(TRUE, '740 Hoopai St
@@ -915,3 +913,132 @@ VALUES(16, 12), (5, 12), (14, 12), (26, 12), (25, 12);
 INSERT INTO "public"."treatment_preferences_pivot"
     ("treatment_preferences_id", "member_id")
 VALUES (7, 12), (55, 12), (36, 12), (45, 12);
+-- member 13
+INSERT INTO "user"
+	("id", "username", "password")
+VALUES 
+    (13, 'test13','test');
+INSERT INTO "public"."members"
+    ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
+VALUES(13, 96782, 'Darnel', 'Dubois', 'Mr.', 54, 'Hawaii', '2023', 'AAMFT-Approved', '175-225', 'Counselor, ATR MA, LPCC, LAMFT', TRUE, 'I believe that therapy is not an easy process to begin or to say with over time. I have been a therapist for over 20 years and before that worked for 12 years as an alcohol and drug counselor.', 'HawaiiHealth.com', 'New member', 'Therapist', 'Kahului', '311674', 1);
+INSERT INTO "public"."address_table"
+    ("business", "address", "member_id")
+VALUES(TRUE, '101 Aoloa Loop
+Kahului, HI 96732', 13);
+INSERT INTO "public"."age_groups_served_pivot"
+    ("age_groups_served_id", "member_id")
+VALUES(1, 13),(2, 13),(3,13);
+INSERT INTO "public"."client_focus_pivot"
+    ("client_focus_id", "member_id")
+VALUES(16, 13), (11, 13), (3, 13), (15, 13), (8, 13); 
+INSERT INTO "public"."email_table"
+    ("business", "email", "member_id")
+VALUES(TRUE, 'Dubois@Hawaiihealth', 13);
+INSERT INTO "public"."insurance_pivot"
+    ("insurance_type_id", "member_id")
+VALUES(21, 13), (2, 13), (21, 13), (3, 13), (24, 13);
+INSERT INTO "public"."island_pivot"
+    ("island_id", "member_id")
+VALUES(3, 13);
+INSERT INTO "public"."languages_pivot"
+    ("language_id", "member_id")
+VALUES(11, 13);
+INSERT INTO "public"."phone_table"
+    ("number", "member_id", "business")
+VALUES('(808) 451-0615', 13, TRUE), ('(808) 678-1256', 12, FALSE);
+INSERT INTO "public"."session_format_pivot"
+    ("session_format_id", "member_id")
+VALUES(1, 13), (3, 13);
+INSERT INTO "public"."specialty_pivot"
+    ("specialty_id", "member_id")
+VALUES(15, 13), (5, 13), (14, 13), (26, 13), (25, 13);
+INSERT INTO "public"."treatment_preferences_pivot"
+    ("treatment_preferences_id", "member_id")
+VALUES (3, 13), (55, 13), (36, 13), (45, 13);
+
+-- member 14
+INSERT INTO "user"
+	("id", "username", "password")
+VALUES 
+    (14, 'test14','test');
+INSERT INTO "public"."members"
+    ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
+VALUES(14, 96713, 'Karen', 'West', 'Ms.', 45, 'Hawaii', '2023', 'AAMFT-Approved', '175-225', 'Counselor, ATR MA, LPCC, LAMFT', TRUE, 'I am an unpretentious, seasoned therapist who willl work hard to completely understand you.', 'WestHealth.com', 'New member', 'Therapist', 'Hana', '217464', 1);
+INSERT INTO "public"."address_table"
+    ("business", "address", "member_id")
+VALUES(TRUE, '5210 Hana Hwy
+Hana, HI 96713', 14);
+INSERT INTO "public"."age_groups_served_pivot"
+    ("age_groups_served_id", "member_id")
+VALUES(1, 14),(2, 14);
+INSERT INTO "public"."client_focus_pivot"
+    ("client_focus_id", "member_id")
+VALUES(12, 14), (11, 14), (3, 14), (15, 14), (8, 14); 
+INSERT INTO "public"."email_table"
+    ("business", "email", "member_id")
+VALUES(TRUE, 'West@WestHealth.com', 14);
+INSERT INTO "public"."insurance_pivot"
+    ("insurance_type_id", "member_id")
+VALUES(21, 14), (2, 14), (21, 14), (3, 14), (24, 14);
+INSERT INTO "public"."island_pivot"
+    ("island_id", "member_id")
+VALUES(3, 14);
+INSERT INTO "public"."languages_pivot"
+    ("language_id", "member_id")
+VALUES(11, 14);
+INSERT INTO "public"."phone_table"
+    ("number", "member_id", "business")
+VALUES('(808) 124-0931', 14, TRUE), ('(808) 134-0493', 14, FALSE);
+INSERT INTO "public"."session_format_pivot"
+    ("session_format_id", "member_id")
+VALUES(1, 14), (2, 14);
+INSERT INTO "public"."specialty_pivot"
+    ("specialty_id", "member_id")
+VALUES(15, 14), (5, 14), (14, 14), (26, 14), (25, 14);
+INSERT INTO "public"."treatment_preferences_pivot"
+    ("treatment_preferences_id", "member_id")
+VALUES (3, 14), (55, 14), (36, 14), (45, 14);
+-- member 15
+INSERT INTO "user"
+	("id", "username", "password")
+VALUES 
+    (15, 'test15','test');
+INSERT INTO "public"."members"
+    ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
+VALUES(15, 96793, 'Ryan', 'Eastrum', 'Mr.', 33, 'Hawaii', '2023', 'AAMFT-Approved', '175-225', 'Counselor, ATR MA, LPCC, LAMFT', TRUE, 'I offer an integrated approach to psychotherapy focusing on the unique interests of each person.', 'EastHealth.com', 'New member', 'Therapist', 'Wailuku', '235464', 1);
+INSERT INTO "public"."address_table"
+    ("business", "address", "member_id")
+VALUES(TRUE, '918 Lower Main St
+Wailuku, HI 96793', 15);
+INSERT INTO "public"."age_groups_served_pivot"
+    ("age_groups_served_id", "member_id")
+VALUES(1, 15),(2, 15);
+INSERT INTO "public"."client_focus_pivot"
+    ("client_focus_id", "member_id")
+VALUES(12, 15), (11, 15), (3, 15), (15, 15), (8, 15); 
+INSERT INTO "public"."email_table"
+    ("business", "email", "member_id")
+VALUES(TRUE, 'Eastrum@EastHealth.com', 15);
+INSERT INTO "public"."insurance_pivot"
+    ("insurance_type_id", "member_id")
+VALUES(21, 15), (2, 15), (21, 15), (3, 15), (24, 15);
+INSERT INTO "public"."island_pivot"
+    ("island_id", "member_id")
+VALUES(3, 15);
+INSERT INTO "public"."languages_pivot"
+    ("language_id", "member_id")
+VALUES(11, 15);
+INSERT INTO "public"."phone_table"
+    ("number", "member_id", "business")
+VALUES('(808) 114-0951', 15, TRUE), ('(808) 104-1493', 15, FALSE);
+INSERT INTO "public"."session_format_pivot"
+    ("session_format_id", "member_id")
+VALUES(1, 15), (3, 15);
+INSERT INTO "public"."specialty_pivot"
+    ("specialty_id", "member_id")
+VALUES(13, 15), (5, 15), (14, 15), (26, 15), (25, 15);
+INSERT INTO "public"."treatment_preferences_pivot"
+    ("treatment_preferences_id", "member_id")
+VALUES (3, 15), (55, 15), (36, 15), (45, 15);
+
+UPDATE "public"."user" SET "admin"=TRUE WHERE "id"=1;

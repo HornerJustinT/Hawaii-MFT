@@ -1,22 +1,24 @@
 .profileView-container{
     display: flex;
     flex-direction: row;
-    margin:30px;
-    padding:15px
-    
+    justify-content: space-around;
 }
 
 .leftside{
     flex: 4;
     flex-direction: row;
+
 }
 
 .rightside{
-    flex:1;
-    padding-left: 20px;
-    padding-top: 5px;
+    padding-top: 7em;
+    margin-right: 1em;
 }
 
+.contact{
+    padding-top: .5em;
+
+}
 .map{
     height: 200px;
     width: 200px;
@@ -24,6 +26,7 @@
 .bio-container{
     display: flex;
     flex-direction: column;
+    margin: 4em;
 }
 
 .bio{
@@ -33,11 +36,13 @@
     position: relative;
     text-align: justify;
     flex:6;
+    margin-top: 2em;
 }
 
 .bio-title{
     flex: 1;
-    padding-top: 20px;
+    padding-top: 0px;
+    margin-top: 2em;
 }
 
 .backSearch{
@@ -55,12 +60,13 @@ p{
     display: flex;
     flex-direction: row;
     padding-bottom: 10px;
+    padding-top: 0px;
     flex-wrap: wrap;
 }
 
 .clientAge{
     flex: left;
-  padding-top: 40px;
+  padding-top: 0px;
   margin-left: 0 auto ;
   position: relative;
 }
@@ -69,8 +75,8 @@ p{
 
 .clientDemographics{
     flex: left;
-    padding-top: 40px;
-    padding-left: 20px;
+    padding-top: 0px;
+    padding-left: 4em;
 }
 
 .insurance{
@@ -81,26 +87,39 @@ p{
 
 .box1{
     flex:left;
-    padding-top: 40px;
+    padding-top: 10px;
 }
 
 .box2{
     flex: left;
-    padding-top: 40px;
+    padding-top: 10px;
 }
 
 .treatment{
     display: flex;
-    flex-direction: row;
     padding-bottom: 10px;
 }
-
+.emailModal{
+    padding-top: 10px;
+    padding-bottom: 1em;
+}
 .ts{
     flex:left;
-    padding-top: 40px;
+    padding-top: 10px;
 }
 
 .approaches{
     flex: left;
     padding-top: 40px;
+}
+
+.border-top{
+    border-top: 2px black;
+    padding-top: 2em;
+    margin-right: 6em;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
 }

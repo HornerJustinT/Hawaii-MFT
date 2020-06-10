@@ -7,10 +7,26 @@
     border: .5em black;
     margin-top: 1em;
     margin-left: 2em;
+    margin-right: 4em;
     padding-top: 0px;
     padding-bottom: 0px;
 }
 
 .label {
     font-weight: 700;
+}
+
+.first {
+    padding-top: 2em;
+}
+
+.last {
+    padding-bottom: 2em;;
+}
+
+.border {
+    border: 5px black;
+    padding: 2em;
+    margin: 1em;
+    border-radius: 10px;
 }
