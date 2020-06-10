@@ -52,8 +52,6 @@ class SearchBar extends Component {
       }
     }
 
-    console.log(query)
-
     this.props.dispatch({
       type: "FETCH_MEMBERS_ADVANCED",
       payload: query,

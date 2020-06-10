@@ -25,13 +25,14 @@ class ProfileView extends Component {
     lat: 0,
     lng: 0,
   };
+  
   componentDidMount() {// fetchs profile info
     this.props.dispatch({
       type: "FETCH_PROFILE",
       payload: this.props.match.params,
     });
-    console.log(this.props)
   }
+
   telehealth=(doesTelehealth)=>{
     if(doesTelehealth){
       return <p>Yes I do provide telehealth</p>
@@ -40,6 +41,7 @@ class ProfileView extends Component {
       return <p>No, I do not provide telehealth at this time</p>
     }
   }
+
   credentials=(credentials)=>{
     if(credentials){
       return<ul>{this.props.profile[0].credentials.map((credentials,key) =>
@@ -47,6 +49,7 @@ class ProfileView extends Component {
         </ul>
     }
   }
+
   website=(website)=>{
     if(website){
       return (
@@ -56,9 +59,9 @@ class ProfileView extends Component {
       );
     }
   }
+
   setMAP = () => { // function that sets the map latitudes only when it was unchanged to stop infinete loop. I do not know how to set up async for when the dispatch is done.
     if (this.state.lat === 0 && this.state.lng === 0 ) {
-      console.log(this.props.profile.address[0]);
       const url_address = encodeURI(this.props.profile.address[0]).replace(
         /%20/g,
         "+"
@@ -82,7 +85,6 @@ class ProfileView extends Component {
       showingInfoWindow: true,
     });
   onMapClicked = (props) => {
-    console.log(this.props);
     if (this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: false,
@@ -95,7 +97,6 @@ class ProfileView extends Component {
   }
 
   render() {
-    console.log(this.props)
     if (this.props.profile.first_name) {// waits for the dispatch to have finished
       this.setMAP();// sets the map
       return (
@@ -264,7 +265,6 @@ export default connect(mapStateToProps)(
 );
 
 //   render(){
-//     console.log(this.state)
 //     return(
 // <Map google={this.props.google}
 //           onClick={this.onMapClicked}>
