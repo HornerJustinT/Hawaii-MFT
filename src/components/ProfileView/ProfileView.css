@@ -1,8 +1,7 @@
 .profileView-container{
     display: flex;
     flex-direction: row;
-    margin:1em;
-    
+    justify-content: space-around;
 }
 
 .leftside{
@@ -12,8 +11,6 @@
 }
 
 .rightside{
-    flex:1;
-    padding-left: 20px;
     padding-top: 7em;
     margin-right: 1em;
 }

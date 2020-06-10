@@ -201,7 +201,7 @@ class ProfileView extends Component {
                 </ul>
               </div>
             </div>
-            <div className="rightside row-wrap-reverse">
+            <div className="rightside">
               <div>
                 <h3>
                   {this.props.profile.city}, {this.props.profile.island}
