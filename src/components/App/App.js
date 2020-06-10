@@ -78,6 +78,7 @@ class App extends Component {
 
 
 
+
             <AdminRoute exact path="/admin" component={AdminPage} />
 
             {/* If none of the other routes matched, we will show a 404. */}
