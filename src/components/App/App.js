@@ -16,7 +16,8 @@ import NavBootstrap from "../NavBootstrap/NavBootstrap";
 import Footer from '../Footer/Footer';
 
 // Middleware
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import AdminRoute from "../AdminRoute/AdminRoute";
 
 // Pages
 import ContactPage from '../ContactPage/ContactPage';
@@ -69,7 +70,7 @@ class App extends Component {
             <ProtectedRoute exact path="/edit-profile" component={ProfileEdit} />
 
             {/* Admin View */}
-            <ProtectedRoute exact path="/edit-profile/:id" component={ProfileEdit} />
+            <AdminRoute exact path="/edit-profile/:id" component={ProfileEdit} />
             <Route exact path="/profile/:id" component={ProfileView} />
             <ProtectedRoute exact path="/create-profile" component={ProfileCreate} />
             <ProtectedRoute exact path="/contact-info" component={ContactInfo} />
@@ -77,7 +78,7 @@ class App extends Component {
 
 
 
-            <ProtectedRoute exact path="/admin" component={AdminPage} />
+            <AdminRoute exact path="/admin" component={AdminPage} />
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />

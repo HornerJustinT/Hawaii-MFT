@@ -2,7 +2,8 @@
  CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
+    "password" VARCHAR (1000) NOT NULL,
+    "admin" boolean DEFAULT false
 );
 
 CREATE TABLE "members" (
@@ -1039,3 +1040,5 @@ VALUES(13, 15), (5, 15), (14, 15), (26, 15), (25, 15);
 INSERT INTO "public"."treatment_preferences_pivot"
     ("treatment_preferences_id", "member_id")
 VALUES (3, 15), (55, 15), (36, 15), (45, 15);
+
+UPDATE "public"."user" SET "admin"=TRUE WHERE "id"=1;
