@@ -159,7 +159,7 @@ handleInputChangeFor = propertyName => (event) =>{
                   onChange={this.handleInputChangeFor("credentials")}/>
         <br/>
         <br/>
-        <Form.Label>License Type</Form.Label><br/><Form.Control as="select" onChange={this.handleInputChangeFor("license_type_id")}>
+        <Form.Label>License Type</Form.Label><br/><select onChange={this.handleInputChangeFor("license_type_id")}>
         {this.props.license &&    
                    <>
                    <option value='' defaultValue='Select License Type'>Select License Type</option>
@@ -170,7 +170,7 @@ handleInputChangeFor = propertyName => (event) =>{
                     )}
                    </>
                    } 
-           </Form.Control>
+           </select>
         <br/>
         <br/>
         <button>+</button><label>Add a Field</label>
