@@ -35,25 +35,40 @@ class SearchBar extends Component {
   };
 
   advancedSearchSubmit = (event) => {
+    // Prevents reload of the page
     event.preventDefault()
+
+    // Sets the base query
     let query = '';
+
+    // Sets the criteria to possibly search
     const queryCriteria = [...criteria, 'name', 'zip', 'telehealth']
 
+    // This loops through the criteria and creates the search query based on
+    // what the values of the criteria are in the state.
     for (let criteria of queryCriteria) {
+      // if there is a value to the criteria too it to the query
       if (this.state[criteria]) {
+        // This adds an & at the end of the query string if one is needed
         if (query !== '') {
           query += '&'
         }
+
+        // if there hit require telehealth.
+        // If it is set to false it simply just won't filter by it at all
+        // having it checked requires it but unchecked ignores the filter
         if (criteria === 'telehealth') {
+          // telehealth is boolean so it cant have the replacing the others need.
           query += criteria + "=" + this.state[criteria]
         } else {
+          // This replaces the criteria and its value with something 
+          // useable in the url query.
           query += criteria + "=" + this.state[criteria].replace(" ", "+");
         }
       }
     }
 
-    console.log(query)
-
+    // Dispatches to redux which then sends the query to the server
     this.props.dispatch({
       type: "FETCH_MEMBERS_ADVANCED",
       payload: query,
@@ -66,6 +81,7 @@ class SearchBar extends Component {
     });
   };
 
+  // Changes the specific state of the item in the adv search
   onSearchChangeAdv = (event, type) => {
     this.setState({
       [type]: event.target.value,
@@ -133,6 +149,7 @@ class SearchBar extends Component {
   }
 
   componentDidUpdate() {
+    // Sets the therapists and updates the data when it recieves the data
     if (this.state.therapists !== this.props.members) {
       this.setState(
         {
@@ -267,7 +284,7 @@ class SearchBar extends Component {
               <InputGroup className="mb-3">
                 <Form.Control
                   placeholder="Island, City or Zip Code"
-                  aria-label="City or Zip Code"
+                  aria-label="Island, City or Zip Code"
                   aria-describedby="basic-addon2"
                   onChange={this.onSearchChange}
                 />
