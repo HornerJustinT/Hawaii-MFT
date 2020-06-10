@@ -4,7 +4,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 // will be fired on "FETCH_MEMBERS" actions
 //initiates GET request when HOME PAGE loads
 function* fetchMembers(action) {
-    console.log('in fetchMember saga', action.payload)
     try {
         
         if (action.payload) {

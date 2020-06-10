@@ -1,17 +1,16 @@
 import { all } from 'redux-saga/effects';
 
 import createSaga from './createSaga';
-import editSaga from './editSaga';
-import deleteSaga from './deleteSaga';
+import deleteSaga from "./deleteSaga";
+import editBasicSaga from './editBasicSaga';
+import editContactSaga from "./editContactSaga";
+import editPracticeSaga from "./editPracticeSaga";
 import fetchMemberSaga from './fetchMemberSaga';
+import fetchMemberSageAdvanced from "./fetchMemberSageAdvanced";
 import fetchProfileSaga from './fetchProfileSaga';
 import loginSaga from './loginSaga';
 import registrationSaga from './registrationSaga';
 import userSaga from "./userSaga";
-import fetchMemberSageAdvanced from "./fetchMemberSageAdvanced";
-import editContactSaga from './editContactSaga';
-import editPracticeSaga from './editPracticeSaga';
-
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -23,15 +22,15 @@ import editPracticeSaga from './editPracticeSaga';
 export default function* rootSaga() {
   yield all([
     createSaga(),
-    editSaga(),
     deleteSaga(),
+    editBasicSaga(),
+    editContactSaga(),
+    editPracticeSaga(),
     fetchMemberSaga(),
+    fetchMemberSageAdvanced(),
     fetchProfileSaga(),
     loginSaga(),
     registrationSaga(),
     userSaga(),
-    fetchMemberSageAdvanced(),
-    editContactSaga(),
-    editPracticeSaga(),
   ]);
 }
