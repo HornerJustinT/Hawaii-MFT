@@ -1,12 +1,16 @@
 # HIAMFT web based directory project
 
+![](public/SearchBar.png)
+![](public/ProfileView.png)
+
+
 ## Description 
 
 _Duration: 2 Week Sprint_
 
 Our client had the challenge of managing HIAMFT's members uning spreedsheets which is less efficient and time consuming. It also made it difficult for potential clients and therapist to connect as they are spread out throughout the islands of Hawaii.Thereby limiting mental health care access for those who may need it. 
 
-HIAMFT directory is a web based direcotry developed to promote the common professional interest of marriage and family therapists, as well as to support its members and educate the public. It enables member therapists create a profile, edit their profile information, send refferal emails to their clients, allow users to search and connect with a therapist locally and enable the adminstrators to manage the directory and HIAMFT association so much easier. 
+HIAMFT directory is a web based direcotry developed to promote the common professional interest of marriage and family therapists, as well as to support its members and educate the public. It enables member therapists create a profile, edit their profile information, allow users to search and connect with a therapist locally and enable the adminstrators to manage the directory and HIAMFT association so much easier. 
 
 The aim of this web based directory is to help HIAMFT memebrs reach more clients, organize themselves better and promote their common professional interests. In doing so be able to increase mental health accesibility on the islands of Hawaii and help HIAMFT members become succesful in their profession.
  
