@@ -26,6 +26,7 @@ CREATE TABLE "members" (
     "city" TEXT,
     "license_number" TEXT,
     "license_type" INTEGER,
+    "enabled" boolean DEFAULT true
 	FOREIGN KEY ("id") REFERENCES "user"("id")
 );
 

@@ -49,9 +49,11 @@ router.get('/', async (req, res) => {
 			JOIN treatment_preferences_pivot ON treatment_preferences_pivot.member_id = m.id
 			JOIN treatment_preferences ON treatment_preferences.treatment_preferences_id = treatment_preferences_pivot.treatment_preferences_id		
 		
+			WHERE m.enabled = true
+
 			GROUP BY m.id, license_type.title, m.zip_code, m.first_name, m.last_name, m.prefix, m.age, m.license_state,
 			m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials,
-			m.telehealth, m.statement, m.website, m.title, m.city, m.license_number, m.license_type;`;
+			m.telehealth, m.statement, m.website, m.title, m.city, m.license_number, m.license_type, m.enabled;`;
 
         const members = await connection.query(query);
         res.send(members.rows)
