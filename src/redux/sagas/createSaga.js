@@ -3,7 +3,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 //will post data from ADD_MEMBER action 
 function* addMember(action) {
-    console.log('in addMember Saga', action.payload)
     try {
        const response = yield axios.post(`api/profile`, action.payload);
         yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });
@@ -16,7 +15,6 @@ function* addMember(action) {
 //will pass the info from the createprofile page into SET_CREATE_PROFILE reducer
 
 function* addCreateProfile (action) {
-    console.log('in createProfile saga', action.payload)
     try {
      
        yield put ({type: 'SET_CREATE_PROFILE', payload: action.payload});
@@ -27,7 +25,6 @@ function* addCreateProfile (action) {
 
 //will pass the info from contactInfo page into SET_ADDRESS reducer
 function* addAddress(action) {
-    console.log('in createProfile saga', action.payload)
     try {
      
        yield put ({type: 'SET_ADDRESS', payload: action.payload});
@@ -150,22 +147,19 @@ function* fetchSessionFormat (action){
 }
 
 function* createSaga() {
+    yield takeLatest('ADD_ADDRESS', addAddress);
     yield takeLatest('ADD_CREATE_PROFILE', addCreateProfile);
-    yield takeLatest('FETCH_LANGUAGES', fetchLanguages);
+    yield takeLatest('ADD_MEMBER', addMember);
+    yield takeLatest('FETCH_AGE_GROUPS', fetchAgeGroups);
+    yield takeLatest('FETCH_DEMOGRPHICS',fetchDemographics);
+    yield takeLatest('FETCH_INSURANCE_TAKEN',fetchInsuranceTaken);
     yield takeLatest('FETCH_ISLANDS', fetchIslands);
+    yield takeLatest('FETCH_LANGUAGES', fetchLanguages);
+    yield takeLatest('FETCH_LICENSE_TYPE',fetchLicenseType);
+    yield takeLatest('FETCH_SESSION_FORMAT', fetchSessionFormat);
     yield takeLatest('FETCH_SPECIALTY', fetchSpecialty);
     yield takeLatest('FETCH_SUPERVISION_STATUS',fetchSupervision);
-    yield takeLatest('FETCH_INSURANCE_TAKEN',fetchInsuranceTaken);
-    yield takeLatest('FETCH_LICENSE_TYPE',fetchLicenseType);
-    yield takeLatest('FETCH_TREATMENT_APPROACHES',fetchTreatmentApproaches);
-    yield takeLatest('FETCH_DEMOGRPHICS',fetchDemographics);
-    yield takeLatest('FETCH_AGE_GROUPS', fetchAgeGroups);
-    yield takeLatest('FETCH_SESSION_FORMAT', fetchSessionFormat);
-    yield takeLatest('ADD_ADDRESS', addAddress);
-    yield takeLatest('ADD_MEMBER', addMember);
-  
- 
-   
+    yield takeLatest('FETCH_TREATMENT_APPROACHES',fetchTreatmentApproaches); 
 }
 
 export default createSaga;

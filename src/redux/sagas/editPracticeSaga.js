@@ -11,8 +11,19 @@ function* editPractice(action) {
   }
 }
 
+// will be fired on "ENABLE_PROFILE" actions
+function* profileEnable(action) {
+  try {
+    yield axios.put("/profile/enable", action.payload);
+    yield put({ type: "FETCH_PROFILE_REDUCER", payload: action.payload });
+  } catch (error) {
+    console.log("editContact PUT request failed", error);
+  }
+}
+
 function* editPracticeSaga() {
   yield takeLatest("EDIT_PRACTICE", editPractice);
+  yield takeLatest("ENABLE_PROFILE", profileEnable);
 }
 
 export default editPracticeSaga;

@@ -62,6 +62,7 @@ class ProfileEdit extends Component {
       //as above, treatmentApproaches has been commented out
       this.setState({
         id: this.props.profile.id,
+        enabled: this.props.profile.enabled,
         prefix: this.props.profile.prefix,
         firstName: this.props.profile.first_name,
         lastName: this.props.profile.last_name,
@@ -153,6 +154,21 @@ class ProfileEdit extends Component {
       clickBasic: true,
     });
   }; //end handleEditBasic
+
+  // Enables or disabled the profile based on if its enabled already or not
+  enablePress = () => {
+
+    // Send the dispatch to redux
+    this.props.dispatch({
+      type: "ENABLE_PROFILE",
+      payload: {id: this.state.id, enabled: !this.state.enabled}
+    });
+
+    // Updates it locally because it doesn't update otherwise
+    this.setState({
+      enabled: !this.state.enabled,
+    });
+  }
 
   //this function saves the new information entered into the Basic Info form
   handleSaveBasic = () => {
@@ -943,6 +959,15 @@ class ProfileEdit extends Component {
                   </Form.Group>
                 </Form>
               </div>
+              {this.state.enabled ? (
+                <Button variant="danger" onClick={this.enablePress}>
+                  Disable Account
+                </Button>
+              ) : (
+                <Button onClick={this.enablePress}>
+                  Enable Account
+                </Button>
+              )}
             </div>
           )}
         </>

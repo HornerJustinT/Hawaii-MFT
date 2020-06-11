@@ -50,8 +50,7 @@ router.get('/:id', async (req, res) => {
             WHERE id = $1
 			GROUP BY m.id, m.zip_code, m.first_name, m.last_name, m.prefix, m.age, m.license_state, m.license_type, m.license_number,
 			m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials, island.title,
-
-      m.telehealth, m.statement, m.website, m.title, m.city, m.license_number, m.license_type;`;
+      m.telehealth, m.statement, m.website, m.title, m.city, m.license_number, m.license_type, m.enabled;`;
       
 
         const members = await connection.query(query, [req.params.id]);
@@ -68,7 +67,6 @@ router.get('/:id', async (req, res) => {
  * PUT route
  */
 router.put('/', rejectUnauthenticated, async (req, res) => {
-  console.log('made it to server PUT!', req.body)
   const connection = await pool.connect();
 
   try {
@@ -131,7 +129,6 @@ router.put('/', rejectUnauthenticated, async (req, res) => {
 })
 
 router.put("/contact", rejectUnauthenticated, async (req, res) => {
-  console.log("made it to server PUT!", req.body);
   const connection = await pool.connect();
 
   try {
@@ -197,7 +194,6 @@ router.put("/contact", rejectUnauthenticated, async (req, res) => {
 });
 
 router.put("/practice", rejectUnauthenticated, async (req, res) => {
-  console.log("made it to server PUT!", req.body);
   // const connection = await pool.connect();
 
   // try {
@@ -260,6 +256,22 @@ router.put("/practice", rejectUnauthenticated, async (req, res) => {
   //   connection.release();
   // }
 
+});
+
+// Enabled or disabled the account based on whats given to it
+router.put("/enable", rejectUnauthenticated, async (req, res) => {
+  const connection = await pool.connect();
+
+  // The query itself is a pretty basic update query
+  let queryText = 'UPDATE members SET enabled = $1 WHERE id = $2';
+  pool.query(queryText,[req.body.enabled, req.body.id]).then(result => {
+    // Sends the "OK" to the client
+    res.sendStatus(200);
+  })
+  .catch(error => {
+    console.log('error updating members', error);
+    res.sendStatus(500);
+  });
 });
 
 

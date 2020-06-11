@@ -12,24 +12,26 @@ import {
 import {connect} from 'react-redux';
 
 // Global Components
+import Footer from "../Footer/Footer";
 import NavBootstrap from "../NavBootstrap/NavBootstrap";
-import Footer from '../Footer/Footer';
+
 
 // Middleware
-import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import AdminRoute from "../AdminRoute/AdminRoute";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+
 
 // Pages
+import AdminPage from "../AdminPage/AdminPage";
+import ContactInfo from "../ProfileCreate/ContactInfo/ContactInfo";
 import ContactPage from '../ContactPage/ContactPage';
+import HomePage from "../HomePage/HomePage";
 import LoginPage from '../LoginPage/LoginPage';
+import PracticeInfo from "../ProfileCreate/PracticeInfo/PracticeInfo";
+import ProfileCreate from "../ProfileCreate/ProfileCreate";
 import ProfileEdit from '../ProfileEdit/ProfileEdit';
-import HomePage from '../HomePage/HomePage';
+import ProfileView from "../ProfileView/ProfileView";
 import RegisterPage from '../RegisterPage/RegisterPage';
-import ProfileCreate from '../ProfileCreate/ProfileCreate'
-import ContactInfo from '../ProfileCreate/ContactInfo/ContactInfo';
-import PracticeInfo from '../ProfileCreate/PracticeInfo/PracticeInfo';
-import ProfileView from '../ProfileView/ProfileView'
-import AdminPage from '../AdminPage/AdminPage'
 
 
 // CSS
