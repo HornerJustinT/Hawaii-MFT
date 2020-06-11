@@ -121,7 +121,6 @@ class SearchResults extends Component {
                         </div>
                       </div>
                     </Card.Text>
-                    {/* I dont know the links of each page so this is a placeholder */}
                     <Card.Link href={`#/profile/${therapist.id}`}>
                       View Profile
                     </Card.Link>

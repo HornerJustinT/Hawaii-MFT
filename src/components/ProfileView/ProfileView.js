@@ -208,9 +208,10 @@ class ProfileView extends Component {
                   {this.props.profile.city}, {this.props.profile.island}
                 </h3>
               </div>
-              <div className="emailModal">
+              
+              {/* <div className="emailModal">
                 <EmailModal props = {this.props.profile.id}></EmailModal>
-              </div>
+              </div> */}
               <div className="contact">
                 <h4>Contact</h4>
                 <ul>
