@@ -26,7 +26,7 @@ CREATE TABLE "members" (
     "city" TEXT,
     "license_number" TEXT,
     "license_type" INTEGER,
-    "enabled" boolean DEFAULT true
+    "enabled" boolean DEFAULT true,
 	FOREIGN KEY ("id") REFERENCES "user"("id")
 );
 
@@ -452,11 +452,11 @@ VALUES
 	
 -- insert new user info
 INSERT INTO "user"
-	("id", "username", "password")
+	("username", "password")
 VALUES 
-    (1, 'jbarosa','$2a$10$43nSyq9Y.vpLwwmwaJAhzeOj/PbcFvZLcKmEC4DM/8cmNeUpOHE4S'),
-    (2, 'test2','test'),
-    (3, 'test3','test');
+    ('jbarosa','$2a$10$43nSyq9Y.vpLwwmwaJAhzeOj/PbcFvZLcKmEC4DM/8cmNeUpOHE4S'),
+    ('test2','test'),
+    ('test3','test');
 
 INSERT INTO "public"."members"
     ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
@@ -536,9 +536,9 @@ VALUES(17, 1), (1, 1), (1, 2), (10, 2), (8, 3);
 --SUBJECT 4
 
 INSERT INTO "user"
-	("id", "username", "password")
+	("username", "password")
 VALUES 
-    (4, 'test4','test4');
+    ('test4','test4');
 INSERT INTO "public"."members"
     ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
 VALUES(4, 96701, 'Romero', 'Sancho', 'Mr.', 26, 'Hawaii', '2025', 'MFT Supervisor', '200-250', 'Psychiatrist, D.O, MS, LCPC, LAC', TRUE, 'I specialize in addiction psychiatry.', 'romerosanchocounseling.com', 'New member', 'Psychiatrist', 'Aiea', '805493', 1);
@@ -579,9 +579,9 @@ VALUES (5, 4), (23, 4), (45, 4), (33, 4);
 --SUBJECT 5
 
 INSERT INTO "user"
-	("id", "username", "password")
+	("username", "password")
 VALUES 
-    (5, 'test5','test5');
+    ('test5','test5');
 INSERT INTO "public"."members"
     ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
 VALUES(5, 96704, 'Sandra', 'Smith', 'Mrs.', 35, 'Hawaii', '2023', 'MFT Supervisor', '150-225', 'Psychologists, psyD, MSW, LCSW, LPCC', TRUE, 'I specialize in mental disorders and adoption issues with children.', 'sandrasmithcounseling.com', 'New member', 'Psychologist', 'Captain Cook', '34556', 1);
@@ -622,9 +622,9 @@ VALUES (6, 5), (24, 5), (32, 5), (36, 5);
 --SUBJECT 6
 
 INSERT INTO "user"
-	("id", "username", "password")
+	("username", "password")
 VALUES 
-    (6, 'test6','test6');
+    ('test6','test6');
 INSERT INTO "public"."members"
     ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
 VALUES(6, 96708, 'David', 'White', 'Mr.', 47, 'Hawaii', '2026', 'Supervisor', '125-175', 'Social Worker, DSW, MSW, MVF-SW, LAPSW', TRUE, 'I specialize in Social Work with Military Members and Veterans.', 'davidwhitecounseling.com', 'New member', 'Social Worker', 'Haiku', '50303', 1);
@@ -664,9 +664,9 @@ VALUES (8, 6), (14, 6), (24, 6), (30, 6);--INSERTS FOR SAMPLE DATA
 
 --SUBJECT 7
 INSERT INTO "user"
-	("id", "username", "password")
+	("username", "password")
 VALUES 
-    (7, 'test7','test');
+    ('test7','test');
 INSERT INTO "public"."members"
     ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
 VALUES(7, 96761, 'Tepairu', 'Miller', 'Ms.', 40, 'Hawaii', '2025', 'No supervision status', '100-150', 'Psychologist, PhD, LP, LAMFT', FALSE, 'In my practice I focus on getting to the roots of behaviors to best understand the path forward with my clients.', 'familytherapy.com', 'Long-time member', 'Dr.', 'Lahaina', '3857163', 1);
@@ -706,9 +706,9 @@ VALUES(10, 7), (3, 7), (14, 7);
 
 --SUBJECT 8
 INSERT INTO "user"
-	("id", "username", "password")
+	("username", "password")
 VALUES 
-    (8, 'test8','test');
+    ('test8','test');
 INSERT INTO "public"."members"
     ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
 VALUES(8, 96740, 'Joseph', 'Nagasaka', 'Mr.', 54, 'Hawaii', '2021', 'Supervisor', '100-150', 'MSW, Clinical Social Worker, LAMFT', TRUE, 'My goal is to help my clients tap into the knowledge, power and peace we all hold within ourselves.', 'onepeacecounseling.com', 'New member', 'Therapist', 'Kailua-Kona', '7354659', 1);
@@ -749,9 +749,9 @@ VALUES(93, 8), (35, 8), (76, 8), (53, 8);
 --SUBJECT 9
 
 INSERT INTO "user"
-	("id", "username", "password")
+	("username", "password")
 VALUES 
-    (9, 'test9','test');
+    ('test9','test');
 INSERT INTO "public"."members"
     ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
 VALUES(9, 96766, 'Jane', 'Rain', 'Mrs.', 38, 'Hawaii', '2023', 'Supervisor', '125-175', 'Counselor, MA, ATR, LPCC, LAMFT', FALSE, 'I specialize in conflict-resolution work with partners and families.', 'lihuecounseling.com', 'New member', 'Therapist', 'Lihue', '5738563', 1);
@@ -790,9 +790,9 @@ INSERT INTO "public"."treatment_preferences_pivot"
 VALUES (75, 9), (62, 9), (43, 9), (53, 9);
 -- member 10
 INSERT INTO "user"
-	("id", "username", "password")
+	("username", "password")
 VALUES 
-    (10, 'test10','test');
+    ('test10','test');
 INSERT INTO "public"."members"
     ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
 VALUES(10, 96720, 'Lailani', 'Kameāloha', 'Ms.', 27, 'Hawaii', '2024', 'None', '75-125', 'Counselor, MA, LPCC, LAMFT', FALSE, '(Accepting New Clients) With a combination of humor, wisdom, metaphors and professional experience, I enjoy working with folks to help them live a more fulfilled life. ', 'Hilocounseling.com', 'New member', 'Therapist', 'Hilo', '1830483', 1);
@@ -832,9 +832,9 @@ INSERT INTO "public"."treatment_preferences_pivot"
 VALUES (10, 10), (58, 10), (39, 10), (49, 10);
 -- member 11
 INSERT INTO "user"
-	("id", "username", "password")
+	("username", "password")
 VALUES 
-    (11, 'test11','test');
+    ('test11','test');
 INSERT INTO "public"."members"
     ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
 VALUES(11, 96732, 'Yumi', 'Misawa', 'Ms.', 52, 'Hawaii', '2021', 'AAMFT-Approved', '175-225', 'Counselor, ATR MA, LPCC, LAMFT', TRUE, 'I am providing televideo, and face to face therapy sessions. I am focused on providing convenient and comfortable therapy sessions that are individualized for each person.', 'ModernHealth.com', 'New member', 'Therapist', 'Kahului', '491464', 1);
@@ -874,9 +874,9 @@ INSERT INTO "public"."treatment_preferences_pivot"
 VALUES (8, 11), (56, 11), (37, 11), (47, 11);
 -- member 12
 INSERT INTO "user"
-	("id", "username", "password")
+	("username", "password")
 VALUES 
-    (12, 'test12','test');
+    ('test12','test');
 INSERT INTO "public"."members"
     ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
 VALUES(12, 96782, 'Tony', 'Moren', 'Mr.', 54, 'Hawaii', '2023', 'AAMFT-Approved', '175-225', 'Counselor, ATR MA, LPCC, LAMFT', TRUE, 'I work with individuals who are impacted by anxiety, depression, and low self-esteem. My treatment approach focuses on improving confidence and personal resilience while reducing emotional distress.', 'HawaiiHealth.com', 'New member', 'Therapist', 'Pearl City', '455464', 1);
@@ -916,9 +916,9 @@ INSERT INTO "public"."treatment_preferences_pivot"
 VALUES (7, 12), (55, 12), (36, 12), (45, 12);
 -- member 13
 INSERT INTO "user"
-	("id", "username", "password")
+	("username", "password")
 VALUES 
-    (13, 'test13','test');
+    ('test13','test');
 INSERT INTO "public"."members"
     ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
 VALUES(13, 96782, 'Darnel', 'Dubois', 'Mr.', 54, 'Hawaii', '2023', 'AAMFT-Approved', '175-225', 'Counselor, ATR MA, LPCC, LAMFT', TRUE, 'I believe that therapy is not an easy process to begin or to say with over time. I have been a therapist for over 20 years and before that worked for 12 years as an alcohol and drug counselor.', 'HawaiiHealth.com', 'New member', 'Therapist', 'Kahului', '311674', 1);
@@ -959,9 +959,9 @@ VALUES (3, 13), (55, 13), (36, 13), (45, 13);
 
 -- member 14
 INSERT INTO "user"
-	("id", "username", "password")
+	("username", "password")
 VALUES 
-    (14, 'test14','test');
+    ('test14','test');
 INSERT INTO "public"."members"
     ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
 VALUES(14, 96713, 'Karen', 'West', 'Ms.', 45, 'Hawaii', '2023', 'AAMFT-Approved', '175-225', 'Counselor, ATR MA, LPCC, LAMFT', TRUE, 'I am an unpretentious, seasoned therapist who willl work hard to completely understand you.', 'WestHealth.com', 'New member', 'Therapist', 'Hana', '217464', 1);
@@ -1001,9 +1001,9 @@ INSERT INTO "public"."treatment_preferences_pivot"
 VALUES (3, 14), (55, 14), (36, 14), (45, 14);
 -- member 15
 INSERT INTO "user"
-	("id", "username", "password")
+	("username", "password")
 VALUES 
-    (15, 'test15','test');
+    ('test15','test');
 INSERT INTO "public"."members"
     ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
 VALUES(15, 96793, 'Ryan', 'Eastrum', 'Mr.', 33, 'Hawaii', '2023', 'AAMFT-Approved', '175-225', 'Counselor, ATR MA, LPCC, LAMFT', TRUE, 'I offer an integrated approach to psychotherapy focusing on the unique interests of each person.', 'EastHealth.com', 'New member', 'Therapist', 'Wailuku', '235464', 1);
