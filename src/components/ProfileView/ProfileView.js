@@ -15,7 +15,7 @@ import "../App/App.css";
 
 const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY;
 
-const mapStyles = {
+const mapStyles = {// map size
   width: "250px",
   height: "250px",
 };
@@ -30,9 +30,9 @@ class ProfileView extends Component {
       type: "FETCH_PROFILE",
       payload: this.props.match.params,
     });
-    console.log(this.props)
+    console.log(process.env)
   }
-  telehealth=(doesTelehealth)=>{
+  telehealth=(doesTelehealth)=>{// returns based on telehealth 
     if(doesTelehealth){
       return <p>Yes I do provide telehealth</p>
     }
@@ -40,14 +40,14 @@ class ProfileView extends Component {
       return <p>No, I do not provide telehealth at this time</p>
     }
   }
-  credentials=(credentials)=>{
+  credentials=(credentials)=>{// checks if credentials are there function
     if(credentials){
       return<ul>{this.props.profile[0].credentials.map((credentials,key) =>
         <p key={key}>{credentials}</p>)}
         </ul>
     }
   }
-  website=(website)=>{
+  website=(website)=>{// checks if website is there function
     if(website){
       return (
         <a href={this.props.profile.website}>
@@ -95,7 +95,6 @@ class ProfileView extends Component {
   }
 
   render() {
-    console.log(this.props)
     if (this.props.profile.first_name) {// waits for the dispatch to have finished
       this.setMAP();// sets the map
       return (
@@ -132,7 +131,7 @@ class ProfileView extends Component {
               <div className="border-top">
                 <h4>Specialities</h4>
                 <ul>
-                  {this.props.profile.specialty.map((specialty, key) => (
+                  {this.props.profile.specialty.map((specialty, key) => (// maps through specialities of therapist
                     <p key={key}>{specialty}</p>
                   ))}
                 </ul>
@@ -141,7 +140,7 @@ class ProfileView extends Component {
                 <h4>Insurance Taken</h4>
                 <div className="box1 flex-between row-wrap">
                   <ul>
-                    {this.props.profile.ages_served.map((age, key) => (
+                    {this.props.profile.insurance.map((age, key) => (// maps through ages served
                       <p key={key}>{age}</p>
                     ))}
                   </ul>
@@ -159,6 +158,7 @@ class ProfileView extends Component {
                 <h4>Telehealth</h4>
                 <ul className="flex-between row-wrap">
                   <p>{this.telehealth()}</p>
+                  {/* Checkes whether the Telehealth is true or not and then returns statement saying Telehealth is offered or not depending on profile.telehealth */}
                 </ul>
               </div>
               <div className="border-top">
@@ -168,7 +168,7 @@ class ProfileView extends Component {
                 <div className="clientAge">
                   <h5>Age</h5>
                   <ul>
-                    {this.props.profile.ages_served.map((age, key) => (
+                    {this.props.profile.ages_served.map((age, key) => (// maps through the ages served by the therapist
                       <p key={key}>{age}</p>
                     ))}
                   </ul>
@@ -176,16 +176,16 @@ class ProfileView extends Component {
                 <div className="clientDemographics">
                   <h5>Demographics</h5>
                   <ul>
-                    {this.props.profile.client_focus.map((age, key) => (
+                    {this.props.profile.client_focus.map((age, key) => (// maps through the client focuses of the therapist
                       <p key={key}>{age}</p>
                     ))}
                   </ul>
                 </div>
               </div>
               <div className="border-top">
-                <h4>Languages Spoken</h4>
+                <h4>Languages Spoken</h4> 
                 <ul>
-                  {this.props.profile.languages.map((language, key) => (
+                  {this.props.profile.languages.map((language, key) => (// maps through the languages spoken
                     <p key={key}>{language}</p>
                   ))}
                 </ul>
@@ -193,7 +193,7 @@ class ProfileView extends Component {
               <div className="border-top">
                 <h4>Session Formats</h4>
                 <ul>
-                  {this.props.profile.session_format.map(
+                  {this.props.profile.session_format.map(// maps through the session_formats available
                     (session_format, key) => (
                       <p key={key}>{session_format}</p>
                     )
@@ -214,7 +214,7 @@ class ProfileView extends Component {
                 <h4>Contact</h4>
                 <ul>
                   {this.props.profile.phone[0]}
-                  {/* Since there will only be one phone and no non business numbersI think we can simply just call the first one */}
+                  {/* Since there will only be one phone and no non business numbers I think we can simply just call the first one */}
                   <div>{this.props.profile.email[0]}</div>
                   {/* Same with email */}
                   <p>{this.website(this.props.profile.website)}</p>
@@ -225,7 +225,7 @@ class ProfileView extends Component {
                 </ul>
 
                 <div className="map">
-                  <Map
+                  <Map // creates google map with the center being where google geocoding api locates lat and long from the address
                     style={mapStyles}
                     google={this.props.google}
                     onClick={this.onMapClicked}
@@ -236,8 +236,6 @@ class ProfileView extends Component {
                     zoom={11}
                   >
                     <Marker
-                      title={"The marker`s title will appear as a tooltip."}
-                      name={"SOMA"}
                       position={{ lat: this.state.lat, lng: this.state.lng }}
                     />
                     <InfoWindow></InfoWindow>
@@ -249,32 +247,16 @@ class ProfileView extends Component {
         </>
       );
     } else {
-      return <h1>Loading...</h1>;
+      return <h1>Loading...</h1>;// wait for conditional rendering to load
     }
   }
 }
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({// props
   profile: state.profile,
 });
 
 export default connect(mapStateToProps)(
-  GoogleApiWrapper({
+  GoogleApiWrapper({// google apikey and wrapper for the component
     apiKey: API_KEY,
   })(ProfileView)
 );
-
-//   render(){
-//     console.log(this.state)
-//     return(
-// <Map google={this.props.google}
-//           onClick={this.onMapClicked}>
-//   <Marker
-//     title={'The marker`s title will appear as a tooltip.'}
-//     name={'SOMA'}
-//     position={{lat: this.state.lat, lng: this.state.lng }} />
-//         <InfoWindow>
-//         </InfoWindow>
-//       </Map>
-//     )
-//   }
-// }
