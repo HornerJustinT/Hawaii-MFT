@@ -67,7 +67,8 @@ class SearchBar extends Component {
         }
       }
     }
-
+    
+    
     // Dispatches to redux which then sends the query to the server
     this.props.dispatch({
       type: "FETCH_MEMBERS_ADVANCED",

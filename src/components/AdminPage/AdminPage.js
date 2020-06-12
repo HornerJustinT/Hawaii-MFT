@@ -72,7 +72,7 @@ class AdminPage extends Component {
 
           // island_city_zip is named zip server side so this renames it
           if (key === "island_city_zip") {
-            query += "zip" + "=" + element;
+            query += `zip=${element}`;
           } else {
             // Adds the key and value to the query in a url query
             // useable fashion.

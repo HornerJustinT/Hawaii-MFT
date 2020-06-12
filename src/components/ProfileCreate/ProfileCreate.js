@@ -134,7 +134,6 @@ componentDidMount(){
          </select> 
         <br/>
         <br/>
-        <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
         <Form.Label>About You</Form.Label>

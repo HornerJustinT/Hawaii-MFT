@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
+
 class RegisterPage extends Component {
   state = {
     username: '',
@@ -66,16 +67,14 @@ class RegisterPage extends Component {
           </div>
           <div>
             <input
-              className="register"
+              className="register input"
               type="submit"
               name="submit"
               value="Register"
-              className="input"
             />
           </div>
         </form>
-        <center>
-        </center>
+        <center></center>
       </div>
     );
   }

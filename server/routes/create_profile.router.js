@@ -107,8 +107,8 @@ router.get('/age', (req, res) => {
                 console.log('Error in getting age groups served', error);
                 res.sendStatus(500);
             });
-   
 });
+
 //will get the session format option data from the database
 router.get('/session', (req, res) => {
   
@@ -120,7 +120,6 @@ router.get('/session', (req, res) => {
                 console.log('Error in getting session format', error);
                 res.sendStatus(500);
             });
-   
 });
 
 
@@ -130,7 +129,6 @@ router.get('/session', (req, res) => {
 
 router.post('/', rejectUnauthenticated, async (req, res) => {
     //define the queries
-    console.log('this what is in req.body', req.body)
     const member = await pool.connect();
     try {
       //consolidated all the push request using async await

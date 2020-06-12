@@ -173,7 +173,6 @@ handleInputChangeFor = propertyName => (event) =>{
            </select>
         <br/>
         <br/>
-        <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
         <Form.Label>License State of Issue</Form.Label><br/><input type="text"
@@ -224,7 +223,6 @@ handleInputChangeFor = propertyName => (event) =>{
             </select>
         <br/>
         <br/>
-        <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
         <Form.Label>Supervision Status</Form.Label><br/><select onChange={this.handleInputChangeFor("supervision_status")}>
@@ -236,7 +234,6 @@ handleInputChangeFor = propertyName => (event) =>{
            </select>
         <br/>
         <br/>
-        <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
         <Form.Label>Insurance Taken</Form.Label><br/><select onChange={this.handleInputChangeFor("insurance_type_id")}>
@@ -253,7 +250,6 @@ handleInputChangeFor = propertyName => (event) =>{
             </select>
         <br/>
         <br/>
-        <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
         <Form.Label>Are you providing telehealth?</Form.Label>
@@ -284,7 +280,6 @@ handleInputChangeFor = propertyName => (event) =>{
           </select>
         <br/>
         <br/>
-        <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
         <Form.Label>Client Focus</Form.Label><br/><select onChange={this.handleInputChangeFor("client_focus_id")}>
@@ -314,6 +309,8 @@ handleInputChangeFor = propertyName => (event) =>{
            </select>
         <br/>
         <br/>
+
+
         <Form.Label>Session Format(s)</Form.Label><br/><select onChange={this.handleInputChangeFor("session_format_id")}>
         {this.props.sessionFormats &&    
                    <>
@@ -328,7 +325,6 @@ handleInputChangeFor = propertyName => (event) =>{
            </select>
         <br/>
         <br/>
-        <button>+</button><label>Add a Field</label>
         <br/>
         <br/>
         <Button className='save' type="submit">Save</Button>
