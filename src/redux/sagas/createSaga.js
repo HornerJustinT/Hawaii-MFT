@@ -4,8 +4,8 @@ import { put, takeLatest } from 'redux-saga/effects';
 //will post data from ADD_MEMBER action 
 function* addMember(action) {
     try {
-       const response = yield axios.post(`api/profile`, action.payload);
-        yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });
+       yield axios.post(`api/profile`, action.payload);
+       yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });
     } catch (error) {
         console.log('Error in sending members info to the server', error);
     }

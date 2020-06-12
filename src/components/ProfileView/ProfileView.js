@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./ProfileView.css";
 import { connect } from "react-redux";
 import Button from 'react-bootstrap/Button';
-import EmailModal from '../EmailModal/EmailModal'
+// import EmailModal from '../EmailModal/EmailModal'
 import {
   Map,
   InfoWindow,
@@ -15,7 +15,9 @@ import "../App/App.css";
 
 const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY;
 
-const mapStyles = {// map size
+const mapStyles = {
+  position: "absolute",
+
   width: "250px",
   height: "250px",
 };
@@ -207,7 +209,7 @@ class ProfileView extends Component {
                   {this.props.profile.city}, {this.props.profile.island}
                 </h3>
               </div>
-              
+
               {/* <div className="emailModal">
                 <EmailModal props = {this.props.profile.id}></EmailModal>
               </div> */}
@@ -225,8 +227,9 @@ class ProfileView extends Component {
                   </p>
                 </ul>
 
-                <div className="map">
-                  <Map // creates google map with the center being where google geocoding api locates lat and long from the address
+
+                <div style={mapStyles}>
+                  <Map  // creates google map with the center being where google geocoding api locates lat and long from the address
                     style={mapStyles}
                     google={this.props.google}
                     onClick={this.onMapClicked}
