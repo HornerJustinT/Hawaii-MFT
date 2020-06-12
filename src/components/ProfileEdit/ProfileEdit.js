@@ -364,14 +364,6 @@ class ProfileEdit extends Component {
         <>
           <div className="header">
             <h3>My Profile</h3>
-            {/* {JSON.stringify(this.props.profile)} */}
-            {/* <br></br>
-          <br/> */}
-            {/* {JSON.stringify(this.state)} */}
-            {/* 
-          <br/>
-          <br/> */}
-            {/* {JSON.stringify(this.props.treatments)} */}
           </div>
           {/**Here is Basic Info render */}
           {this.state.clickBasic ? (
@@ -681,7 +673,8 @@ class ProfileEdit extends Component {
           )}
 
           {/**Here is Practice Info render */}
-          {this.state.clickPractice ? (
+          {/**Below is the skeleton, but the PUT functionality still needs to be written.*/}
+          {/* {this.state.clickPractice ? (
             <div className="body">
               <div className="flex-between row-wrap first">
                 <h4>Practice Info</h4>
@@ -969,7 +962,7 @@ class ProfileEdit extends Component {
                 </Button>
               )}
             </div>
-          )}
+          )} */}
         </>
       );
     } else {
