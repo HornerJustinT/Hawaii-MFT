@@ -75,3 +75,27 @@ body {
 .row-wrap-reverse {
     flex-flow: row wrap-reverse;
 }
+
+.save,.next,.back{
+    margin-top:100px;
+    padding:10px;
+    border-radius: 15px;
+    border-style: solid;
+    border: solid;
+    font-family:icon,times,arial;
+    font-weight: bold;
+    font-size: medium;
+    cursor: default;
+}
+
+.save{
+
+}
+
+.next{
+margin-right: 150px;
+}
+
+.back{
+margin-left: 150px;
+}

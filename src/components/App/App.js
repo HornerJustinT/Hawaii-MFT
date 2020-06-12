@@ -68,13 +68,14 @@ class App extends Component {
             <Route exact path="/login" component={LoginPage} />
             {/*User only sees these routes if logged in*/}
             <ProtectedRoute exact path="/edit-profile" component={ProfileEdit} />
+            <ProtectedRoute exact path="/create-profile" component={ProfileCreate} />
+            <ProtectedRoute exact path="/contact-info" component={ContactInfo} />
+            <ProtectedRoute exact path="/practice" component={PracticeInfo} />
 
             {/* Admin View */}
             <AdminRoute exact path="/edit-profile/:id" component={ProfileEdit} />
             <Route exact path="/profile/:id" component={ProfileView} />
-            <ProtectedRoute exact path="/create-profile" component={ProfileCreate} />
-            <ProtectedRoute exact path="/contact-info" component={ContactInfo} />
-            <ProtectedRoute exact path="/practice" component={PracticeInfo} />
+       
 
 
 

@@ -119,8 +119,7 @@ componentDidMount(){
         <br/>
         <br/>
          <Form.Label>Language Spoken</Form.Label><br/>
-         <Form.Control
-          as="select" onChange={this.handleInputChangeFor("language_id")}>
+         <select onChange={this.handleInputChangeFor("language_id")}>
                    {this.props.languages &&
                    
                    <>
@@ -132,7 +131,7 @@ componentDidMount(){
                     )}
                    </>
                    } 
-         </Form.Control> 
+         </select> 
         <br/>
         <br/>
         <button>+</button><label>Add a Field</label>
@@ -145,9 +144,9 @@ componentDidMount(){
                   value={this.state.hiamft_member_account_info}
                   onChange={this.handleInputChangeFor("hiamft_member_account_info")}/>
         <br/>
-        <Button type="submit">Save</Button>
+        <Button className='save' type="submit">Save</Button>
          </Form>
-         <Button onClick={this.handleNext}>Next Page</Button>
+         <Button className='next' onClick={this.handleNext}>Next Page</Button>
             </div>
             </>
         )

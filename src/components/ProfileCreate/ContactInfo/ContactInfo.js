@@ -176,8 +176,8 @@ class ContactInfo extends Component{
             
            <Button type="submit">Save</Button>
             </Form>
-            <Button onClick={this.handleBack}>Back</Button>
-            <Button onClick={this.handleNext}>Next</Button>
+            <Button className='back' onClick={this.handleBack}>Back</Button>
+            <Button className='next' onClick={this.handleNext}>Next</Button>
 
             </div>
            
