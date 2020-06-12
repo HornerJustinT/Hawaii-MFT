@@ -147,17 +147,17 @@ router.put("/contact", rejectUnauthenticated, async (req, res) => {
     const islandDeleteQuery = `DELETE FROM island_pivot WHERE member_id = $1;`;
 
     //declaring variables for phone queries
-    // const phone = req.body.phone;
-    // const phoneQuery = `INSERT INTO "phone_table" ("number", "member_id", "business") VALUES ($1, $2, $3)`;
-    // const phoneDeleteQuery = `DELETE FROM phone_table WHERE member_id = $1;`;
+    const phone = req.body.phone;
+    const phoneQuery = `INSERT INTO "phone_table" ("number", "member_id", "business") VALUES ($1, $2, $3)`;
+    const phoneDeleteQuery = `DELETE FROM phone_table WHERE member_id = $1;`;
 
-    // const email = req.body.email;
-    // const emailQuery = `INSERT INTO "email_table" ("email", "member_id", "business") VALUES ($1, $2, $3)`;
-    // const emailDeleteQuery = `DELETE FROM email_table WHERE member_id = $1;`;
+    const email = req.body.email;
+    const emailQuery = `INSERT INTO "email_table" ("email", "member_id", "business") VALUES ($1, $2, $3)`;
+    const emailDeleteQuery = `DELETE FROM email_table WHERE member_id = $1;`;
 
-    // const address = req.body.address;
-    // const addressQuery = `INSERT INTO "address_table" ("address", "member_id", "business") VALUES ($1, $2, $3)`;
-    // const addressDeleteQuery = `DELETE FROM address_table WHERE member_id = $1;`;
+    const address = req.body.address;
+    const addressQuery = `INSERT INTO "address_table" ("address", "member_id", "business") VALUES ($1, $2, $3)`;
+    const addressDeleteQuery = `DELETE FROM address_table WHERE member_id = $1;`;
 
     await connection.query(memberQuery, [
       req.body.city,
@@ -167,25 +167,37 @@ router.put("/contact", rejectUnauthenticated, async (req, res) => {
     ]);
 
     //Islands PUT & DELETE queries
+    let queryIsland = null;
+    if (Array.isArray(island)) {
+      queryIsland = island[0];
+    }
     await connection.query(islandDeleteQuery, [req.body.id]);
-    await connection.query(islandQuery, [island[0], req.body.id]);
+    await connection.query(islandQuery, [queryIsland || island, req.body.id]);
 
     // Phone PUT & DELETE
-    // await connection.query(phoneDeleteQuery, [req.body.id]);
-    // await connection.query(phoneQuery, [phone, req.body.id, "TRUE"]);
+    await connection.query(phoneDeleteQuery, [req.body.id]);
+    await connection.query(phoneQuery, [phone, req.body.id, "TRUE"]);
 
-    //   //Email PUT & DELETE
-    //     await connection.query(emailDeleteQuery, [req.user.id]);
-    //     await connection.query(emailQuery, [email, req.user.id, 'TRUE']);
-
-    //     //Address PUT & DELETE
-    //     await connection.query(addressDeleteQuery, [req.user.id]);
-    //     await connection.query(addressQuery, [address, req.user.id, 'TRUE']);
+    //Email PUT & DELETE
+    let queryEmail = null;
+    if (Array.isArray(email)) {
+      queryEmail = email[0];
+    }
+    await connection.query(emailDeleteQuery, [req.user.id]);
+    await connection.query(emailQuery, [queryEmail || email, req.user.id, 'TRUE']);
+    
+    //Address PUT & DELETE
+    let queryAddress = null;
+    if (Array.isArray(address)) {
+      queryAddress = address[0];
+    }
+    await connection.query(addressDeleteQuery, [req.user.id]);
+    await connection.query(addressQuery, [queryAddress || address, req.user.id, 'TRUE']);
 
     await connection.query("COMMIT;");
     res.sendStatus(200);
   } catch (error) {
-    console.log(`Error on transaction`, error);
+    console.log(`Error on contract transaction`, error);
     await connection.query("ROLLBACK;");
     res.sendStatus(500);
   } finally {
