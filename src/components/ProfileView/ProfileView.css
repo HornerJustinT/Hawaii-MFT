@@ -4,12 +4,6 @@
     justify-content: space-between;
 }
 
-.leftside{
-    flex: 4;
-    flex-direction: row;
-
-}
-
 .rightside{
     padding-top: 7em;
     margin-right: 4em;
@@ -19,9 +13,10 @@
     padding-top: .5em;
 
 }
-.map{
-    height: 200px;
-    width: 200px;
+.map {
+    position: absolute;
+  width: 250px;
+  height: 250px;
 }
 .bio-container{
     display: flex;

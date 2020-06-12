@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./ProfileView.css";
 import { connect } from "react-redux";
 import Button from 'react-bootstrap/Button';
-import EmailModal from '../EmailModal/EmailModal'
+// import EmailModal from '../EmailModal/EmailModal'
 import {
   Map,
   InfoWindow,
@@ -16,6 +16,7 @@ import "../App/App.css";
 const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY;
 
 const mapStyles = {
+  position: "absolute",
   width: "250px",
   height: "250px",
 };
@@ -207,7 +208,7 @@ class ProfileView extends Component {
                   {this.props.profile.city}, {this.props.profile.island}
                 </h3>
               </div>
-              
+
               {/* <div className="emailModal">
                 <EmailModal props = {this.props.profile.id}></EmailModal>
               </div> */}
@@ -225,7 +226,7 @@ class ProfileView extends Component {
                   </p>
                 </ul>
 
-                <div className="map">
+                <div style={mapStyles}>
                   <Map
                     style={mapStyles}
                     google={this.props.google}
