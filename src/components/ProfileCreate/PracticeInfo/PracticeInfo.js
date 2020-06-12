@@ -309,8 +309,8 @@ handleInputChangeFor = propertyName => (event) =>{
            </select>
         <br/>
         <br/>
-        <br/>
-        <br/>
+
+
         <Form.Label>Session Format(s)</Form.Label><br/><select onChange={this.handleInputChangeFor("session_format_id")}>
         {this.props.sessionFormats &&    
                    <>
@@ -327,11 +327,11 @@ handleInputChangeFor = propertyName => (event) =>{
         <br/>
         <br/>
         <br/>
-        <Button type="submit">Save</Button>
+        <Button className='save' type="submit">Save</Button>
         </Form>
             
-          <Button onClick={this.handleBack}>Back</Button>
-          <Button onClick={this.handleNext}>Next</Button>
+          <Button className='back' onClick={this.handleBack}>Back</Button>
+          <Button className='next' onClick={this.handleNext}>Next</Button>
            
           
 
