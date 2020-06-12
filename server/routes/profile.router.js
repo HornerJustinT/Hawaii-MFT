@@ -67,7 +67,6 @@ router.get('/:id', async (req, res) => {
  * PUT route
  */
 router.put('/', rejectUnauthenticated, async (req, res) => {
-  console.log('made it to server PUT!', req.body)
   const connection = await pool.connect();
 
   try {
@@ -130,7 +129,6 @@ router.put('/', rejectUnauthenticated, async (req, res) => {
 })
 
 router.put("/contact", rejectUnauthenticated, async (req, res) => {
-  console.log("made it to server PUT!", req.body);
   const connection = await pool.connect();
 
   try {
@@ -196,7 +194,6 @@ router.put("/contact", rejectUnauthenticated, async (req, res) => {
 });
 
 router.put("/practice", rejectUnauthenticated, async (req, res) => {
-  console.log("made it to server PUT!", req.body);
   // const connection = await pool.connect();
 
   // try {
