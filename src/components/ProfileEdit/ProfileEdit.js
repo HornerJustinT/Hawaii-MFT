@@ -952,17 +952,17 @@ class ProfileEdit extends Component {
                   </Form.Group>
                 </Form>
               </div>
-              {this.state.enabled ? (
-                <Button variant="danger" onClick={this.enablePress}>
-                  Disable Account
-                </Button>
-              ) : (
-                <Button onClick={this.enablePress}>
-                  Enable Account
-                </Button>
-              )}
             </div>
           )} */}
+          <div className="body">
+            {this.state.enabled ? (
+              <Button variant="danger" onClick={this.enablePress}>
+                Disable Account
+              </Button>
+            ) : (
+              <Button onClick={this.enablePress}>Enable Account</Button>
+            )}
+          </div>
         </>
       );
     } else {

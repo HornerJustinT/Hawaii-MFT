@@ -17,7 +17,6 @@ const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY;
 
 const mapStyles = {
   position: "absolute",
-
   width: "250px",
   height: "250px",
 };
