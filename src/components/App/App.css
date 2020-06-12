@@ -88,12 +88,8 @@ body {
     cursor: default;
 }
 
-.save{
-
-}
-
 .next{
-margin-right: 150px;
+    margin-right: 150px;
 }
 
 .back{
