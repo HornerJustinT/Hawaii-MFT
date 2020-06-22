@@ -61,9 +61,6 @@ class NavBar extends Component{
             {!this.props.user.id &&
             <>
             <Nav.Link href="#login">Login</Nav.Link>
-            <Nav.Link eventKey={2} href="#register">
-              Register
-            </Nav.Link>
             </>
           }
           </Nav>
