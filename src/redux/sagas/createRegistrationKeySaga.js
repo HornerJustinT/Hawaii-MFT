@@ -3,7 +3,6 @@ import { takeLatest } from 'redux-saga/effects';
 
 // will be fired on "create Registration key" actions
 function* createRegistrationKey(action) {
-    console.log(`/api/createRegistrationKey/${action.payload}`)
     try {
         yield axios.post(`/api/createRegistrationKey/${action.payload}`);
         // should send registration key in the params

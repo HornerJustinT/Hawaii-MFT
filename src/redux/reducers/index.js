@@ -36,6 +36,7 @@ const rootReducer = combineReducers({
   loginMode, // will have a value of 'login' or 'registration' to control which screen is shown
   members, //will have all members
   profile, //will have specific user profile details
+  // registrationKeyValidation, 
   sessionFormats, // will have all the session formats
   specialtys, //will have all the info about the practice for the members
   treatmentPreferences, // will have all the treament approaches

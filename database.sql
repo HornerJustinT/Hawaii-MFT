@@ -7,7 +7,7 @@
 );
 CREATE TABLE "registration" (
 	"id" SERIAL PRIMARY KEY,
-	"registration_key" VARCHAR (10) UNIQUE NOT NULL,
+	"registration_key" int UNIQUE NOT NULL,
 	"used" BOOLEAN
 	);
 CREATE TABLE "members" (

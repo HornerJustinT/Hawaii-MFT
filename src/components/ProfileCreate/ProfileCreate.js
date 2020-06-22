@@ -25,7 +25,12 @@ class ProfileCreate extends Component {
 //from which users can choose the languages they speak
 componentDidMount(){
  this.getLanguages()
+ console.log(this.props.match.params.id)
+
+ //checks that the registration key exists
+ this.props.dispatch({type:"CHECK_REGISTRATION_KEY", payload:this.props.match.params.id})
 }
+
 //take in the information from the input
 //when users either choose options from drop down or put info into the input
 //the state is changed when there are input data
