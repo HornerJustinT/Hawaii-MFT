@@ -54,7 +54,7 @@ class AdminPage extends Component {
   componentDidMount() {
     // Grab a complete list of members.
     this.props.dispatch({ type: "FETCH_MEMBERS_ADVANCED", payload: "" });
-    console.log(window.location.hostname);
+
   }
 
   // Parses the state and makes the url query then sends the search
