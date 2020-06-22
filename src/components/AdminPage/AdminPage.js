@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
+// Components
+import NewRegistrationButton from '../NewRegistration/NewRegistration';
+
 // Libraries
 import FileSaver from "file-saver";
 
@@ -201,6 +204,9 @@ class AdminPage extends Component {
   render() {
     return (
       <>
+        <div className="reg-button">
+          <NewRegistrationButton />
+        </div>
         <div className="container search-bar">
           {Object.keys(this.state.criteria).map((Mainkey) => (
             <>
