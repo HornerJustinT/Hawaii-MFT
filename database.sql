@@ -5,7 +5,11 @@
     "password" VARCHAR (1000) NOT NULL,
     "admin" boolean DEFAULT false
 );
-
+CREATE TABLE "registration" (
+	"id" SERIAL PRIMARY KEY,
+	"registration_key" VARCHAR (10) UNIQUE NOT NULL,
+	"used" BOOLEAN
+	);
 CREATE TABLE "members" (
 	"id" INT NOT NULL UNIQUE,
 	"zip_code" INT,

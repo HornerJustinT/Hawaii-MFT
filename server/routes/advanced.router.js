@@ -90,6 +90,22 @@ router.get('/', async (req, res) => {
 
 		// If the query exists then we need to add the SQL to the
 		// whereQuery variable.
+		if (!req.query.admin) {
+			if (!parameters[0]) {
+				whereQuery += `\nWHERE `;
+			} else {
+				whereQuery += `\nAND `;
+			}
+
+			// Wrapping the zip_code in CAST() turns the int type
+			// variable into a string we can use in the search.
+			// Without using CAST this would error because 'LIKE'
+			// doesnt work with int variables.
+			whereQuery += `m.enabled = $${paramCount}`;
+			parameters.push(true);
+			paramCount++;
+		}
+	
 		if (req.query.name) {
 		// This determines if its the first one of if its adding
 		// to another query thats already been loaded.
