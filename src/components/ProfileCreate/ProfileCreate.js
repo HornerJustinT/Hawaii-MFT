@@ -66,6 +66,7 @@ componentDidMount(){
          }
      });
     this.handleReset();
+    this.props.history.push('/contact-info');
     }
 
    
@@ -77,7 +78,7 @@ componentDidMount(){
     }
      handleNext = (event) => {
         event.preventDefault ()
-        this.props.history.push('/contact-info')
+       
     
     }
     render (){
@@ -143,9 +144,8 @@ componentDidMount(){
                   value={this.state.hiamft_member_account_info}
                   onChange={this.handleInputChangeFor("hiamft_member_account_info")}/>
         <br/>
-        <Button className='save' type="submit">Save</Button>
+        <Button className='save' type="submit">Next</Button>
          </Form>
-         <Button className='next' onClick={this.handleNext}>Next Page</Button>
             </div>
             </>
         )
