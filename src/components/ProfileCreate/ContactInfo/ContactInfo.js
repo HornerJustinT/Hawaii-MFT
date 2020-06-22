@@ -24,6 +24,7 @@ class ContactInfo extends Component{
             address_home:'',
             address_mailing:'',
             city:'',
+            showStudentProfile: false
            }
 
            componentDidMount (){
@@ -73,15 +74,117 @@ class ContactInfo extends Component{
           }});
                         
      }
+
+     handleStudent =(e)=>{
+       e.preventDefault();
+       this.setState({
+         showStudentProfile: !this.state.showStudentProfile
+       })
+     }
    
     render (){
-        return(
-            <>
-            <div className='container'>
-            <header><h1>Contact Info</h1></header>
+      let itemToRender;
+       if(this.state.showStudentProfile){
+        itemToRender = <div>
+           
+           <Form onSubmit={this.addContactInfo}>
              <br/>
-            <ProgressBar now={50} />
-            <Form onSubmit={this.addContactInfo}>
+             <Form.Check
+              type="switch"
+              id="custom-switch"
+              label="Are you a Student?"
+              className="switch"
+              onChange={this.handleStudent}
+            />
+                <br/>
+             <label>Island</label>
+             <br/>
+             <Form.Control
+                 as="select" onChange={this.handleInputChangeFor("island_id")}>
+             {this.props.islands &&
+                   
+                   <>
+                   <option defaultValue='Select your Island'>Select your Island</option>
+                   {this.props.islands.map(island =>
+                    <option value={island.island_id}
+        
+                  key={island.island_id}>{island.title}</option>
+                    )}
+                   </>
+                   } 
+             </Form.Control>
+             <br/>
+             <br/>
+             <Form.Label>Zip Code</Form.Label>
+             <br/>
+             <input type="number"
+                  name="zip_code"
+                  value={this.state.zip_code}
+                  onChange={this.handleInputChangeFor("zip_code")}/>
+                <br/>
+             <br/>
+             <Form.Label>Phone Number - Personal</Form.Label>
+             <br/>
+             <input type="number"
+                  name="personal_number"
+                  value={this.state.personal_number}
+                  onChange={this.handleInputChangeFor("personal_number")}/>
+                <br/>
+             <Form.Label>Email Address - Personal</Form.Label>
+             <br/>
+             <input type="text"
+                  name="personal_email"
+                  value={this.state.personal_email}
+                  onChange={this.handleInputChangeFor("personal_email")}/>
+             <br/>
+             <Form.Label>Website</Form.Label>
+             <br/>
+             <input type="text"
+                  name="website"
+                  value={this.state.website}
+                  onChange={this.handleInputChangeFor("website")}/>
+             <br/>
+             <Form.Label>Address - Home</Form.Label>
+             <br/>
+             <input type="text"
+                  name="address_home"
+                  value={this.state.address_home}
+                  onChange={this.handleInputChangeFor("address_home")}/>
+             <br/>
+             <Form.Label>Address - Mailing</Form.Label>
+             <br/>
+             <input type="text"
+                  name="address_mailing"
+                  value={this.state.address_mailing}
+                  onChange={this.handleInputChangeFor("address_mailing")}/>
+             <br/>
+             <br/>
+             <Form.Label>City</Form.Label>
+             <br/>
+             <input type="text"
+                  name="city"
+                  value={this.state.city}
+                  onChange={this.handleInputChangeFor("city")}/>
+             <br/>
+             <br/>
+            
+           <Button type="submit">Save</Button>
+            </Form>
+
+            
+        </div>
+       }else{
+         itemToRender = <div>
+                   <Form onSubmit={this.addContactInfo}>
+             <br/>
+             <Form.Check
+              type="switch"
+              id="custom-switch"
+              label="Are you a Student?"
+              className="switch"
+              onChange={this.handleStudent}
+            />
+                <br/>
              <label>Island</label>
              <br/>
              <Form.Control
@@ -176,6 +279,16 @@ class ContactInfo extends Component{
             
            <Button type="submit">Save</Button>
             </Form>
+         </div>
+       }
+      
+        return(
+            <>
+            <div className='container'>
+            <header><h1>Contact Info</h1></header>
+             <br/>
+            <ProgressBar now={50} />
+              {itemToRender}
             <Button className='back' onClick={this.handleBack}>Back</Button>
             <Button className='next' onClick={this.handleNext}>Next</Button>
 
