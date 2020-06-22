@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
 // Components
-import NewRegistrationButton from '../NewRegistration/NewRegistration';
+import RegistrationModal from '../RegistrationModal/RegistrationModal';
 
 // Libraries
 import FileSaver from "file-saver";
@@ -54,6 +54,7 @@ class AdminPage extends Component {
   componentDidMount() {
     // Grab a complete list of members.
     this.props.dispatch({ type: "FETCH_MEMBERS_ADVANCED", payload: "" });
+    console.log(window.location.hostname);
   }
 
   // Parses the state and makes the url query then sends the search
@@ -205,7 +206,7 @@ class AdminPage extends Component {
     return (
       <>
         <div className="reg-button">
-          <NewRegistrationButton />
+          <RegistrationModal />
         </div>
         <div className="container search-bar">
           {Object.keys(this.state.criteria).map((Mainkey) => (
