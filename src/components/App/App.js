@@ -29,6 +29,7 @@ import HomePage from "../HomePage/HomePage";
 import LoginPage from '../LoginPage/LoginPage';
 import PracticeInfo from "../ProfileCreate/PracticeInfo/PracticeInfo";
 import ProfileCreate from "../ProfileCreate/ProfileCreate";
+import studentProfile from "../ProfileCreate/studentProfile/studentProfile";
 import ProfileEdit from '../ProfileEdit/ProfileEdit';
 import ProfileView from "../ProfileView/ProfileView";
 import RegisterPage from '../RegisterPage/RegisterPage';
@@ -37,6 +38,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 // CSS
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import studentProfile from '../ProfileCreate/studentProfile/studentProfile';
 
 class App extends Component {
   componentDidMount () {
@@ -73,6 +75,7 @@ class App extends Component {
             <ProtectedRoute exact path="/create-profile" component={ProfileCreate} />
             <ProtectedRoute exact path="/contact-info" component={ContactInfo} />
             <ProtectedRoute exact path="/practice" component={PracticeInfo} />
+            <ProtectedRoute exact path="/student" component={studentProfile} />
 
             {/* Admin View */}
             <AdminRoute exact path="/edit-profile/:id" component={ProfileEdit} />
