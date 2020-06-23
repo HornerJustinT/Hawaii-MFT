@@ -211,7 +211,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
             }
         } else {
             await member.query(`INSERT INTO "insurance_pivot"
-                ("insurance_type_id", "member_id") VALUES ($1,$2);`, [26, req.user.id]);
+            ("insurance_type_id", "member_id") VALUES ($1,$2);`, [26, req.user.id]);
         }
 
         if (req.body.age_groups_served_id[0]) {
@@ -241,7 +241,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
             }
         } else {
             await member.query(`INSERT INTO "treatment_preferences_pivot"
-                ("treatment_preferences_id", "member_id") VALUES ($1,$2);`, [1, req.user.id]);
+                ("treatment_preferences_id", "member_id") VALUES ($1,$2);`, [2, req.user.id]);
         }
 
         if (req.body.specialty_id[0]) {
@@ -251,7 +251,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
             }
         } else {
             await member.query(`INSERT INTO "specialty_pivot"
-                ("specialty_id", "member_id") VALUES ($1,$2);`, [1, req.user.id]);
+                ("specialty_id", "member_id") VALUES ($1,$2);`, [65, req.user.id]);
         }
 
         if (req.body.session_format_id[0]) {

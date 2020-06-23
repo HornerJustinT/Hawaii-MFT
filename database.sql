@@ -291,7 +291,8 @@ VALUES
     ('Substance Abuse'),
     ('Terminal Illness / End-of-Life'),
     ('Tourette’s Disorder'),
-    ('Women’s Issues');
+    ('Women’s Issues'),
+    ('N/A');
 
 INSERT INTO "treatment_preferences" 
     ("title")
