@@ -25,11 +25,7 @@ class ProfileCreate extends Component {
 //from which users can choose the languages they speak
 componentDidMount(){
  this.getLanguages()
- console.log(this.props.match.params.id)
 
- //checks that the registration key exists
- this.props.dispatch({type:"CHECK_REGISTRATION_KEY", payload:this.props.match.params.id})
- console.log(this.props.reduxstate.registrationKeyValidation)
 }
 
 //take in the information from the input
@@ -87,13 +83,6 @@ componentDidMount(){
     
     }
     render (){
-        if(this.props.reduxstate.registrationKeyValidation===''){
-            return (<h1>Loading</h1>)
-        }
-        if(this.props.reduxstate.registrationKeyValidation===false){
-            return(<h1>You are not allowed to create a registration key please contact the admin at Blankety Blank </h1>)
-        }
-        if(this.props.reduxstate.registrationKeyValidation===true){
             return (
                 <>
                 <div className ='container'>
@@ -162,7 +151,6 @@ componentDidMount(){
                 </div>
                 </>
             )
-        }
 
     }
 }
