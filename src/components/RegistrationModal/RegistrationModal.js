@@ -35,7 +35,7 @@ function RegistrationModal(props) {
                     Here is your unique registration link. Please copy and paste this now. You will not be able to retrieve it.
                 </Modal.Body>
                 <Modal.Body>
-                    {window.location.hostname}/#/create-profile/{registerNewUser()}
+                    {window.location.hostname}/#/register/{registerNewUser()}
                 </Modal.Body>                
             </Modal>
         </>
