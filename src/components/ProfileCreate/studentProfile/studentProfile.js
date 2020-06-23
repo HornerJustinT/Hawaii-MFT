@@ -126,7 +126,7 @@ this.props.history.push(`/edit-profile/${this.props.user.id}`)
         return(
             <>
             <div className='container'>
-        <header><h1>Practice Info</h1></header>
+        <header><h1>Student Info</h1></header>
         <br/>
         <ProgressBar now={75} />
         <br/>
@@ -187,7 +187,7 @@ this.props.history.push(`/edit-profile/${this.props.user.id}`)
         <select onChange={this.handleInputChangeFor("age_groups_served_id")}>
         {this.props.ageGroups &&    
                    <>
-                <option value='' defaultValue='Select an Age Group'>Select an Age Group</option>
+                <option value='NULL' defaultValue='Select an Age Group'>Select an Age Group</option>
                    {this.props.ageGroups.map(agegroup=>
                     <option value={agegroup.age_groups_served_id}
         
@@ -202,11 +202,6 @@ this.props.history.push(`/edit-profile/${this.props.user.id}`)
         <br/>
         <Button className='save' type="submit">Save</Button>
         </Form>
-            
-        
-           
-          
-
             </div>
            
             </>

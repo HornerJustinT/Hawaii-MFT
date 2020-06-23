@@ -79,14 +79,9 @@ this.props.dispatch({
     zip_code: this.state.zip_code,
     city: this.state.city,
     website: this.state.website
-  }})
+  }});
   this.props.history.push('/student'); 
 }
-
-
-
-
-
 
      handleStudent =(e)=>{
        e.preventDefault();

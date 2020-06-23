@@ -67,6 +67,21 @@ handleInputChangeFor = propertyName => (event) =>{
         event.preventDefault()
      
     }
+
+  //every multiselect needs its own handle[Property]Change function
+  //this functions take the new id of an item selected in the multiselect
+  //and converts it to a title (name).
+  //i.e. select language "Arabic" which has a value of '2', and returns the name of language "Arabic"
+  handleMultiChange = (event, editPropertyName) => {
+    const array = [];
+    for (let option of event.target.selectedOptions) {
+      array.push(Number(option.value));
+    }
+    // this.handleLangChange(event, "languagesEdit")
+    this.setState({
+      [editPropertyName]: array,
+    });
+  }; //end handleLangChange
     
 
     addMembersInfo = (event) =>{
@@ -165,7 +180,7 @@ this.props.history.push(`/edit-profile/${this.props.user.id}`)
                    <>
                    <option value='' defaultValue='Select License Type'>Select License Type</option>
                    {this.props.license.map(licensetype =>
-                    <option value={licensetype.license_type_id}
+                    <option  value={licensetype.license_type_id}
         
                   key={licensetype.license_type_id}>{licensetype.title}</option>
                     )}
@@ -207,7 +222,7 @@ this.props.history.push(`/edit-profile/${this.props.user.id}`)
                   onChange={this.handleInputChangeFor("fees")}/>
                    <br/>
                    <br/>
-        <Form.Label>Specialization</Form.Label><br/><select onChange={this.handleInputChangeFor("specialty_id")}>
+        <Form.Label>Specialization</Form.Label><br/><select multiple='true' onChange={(event) => this.handleMultiChange(event, "specialty_id")}>
                 {this.props.specialtys &&
                    
                    <>
@@ -237,7 +252,7 @@ this.props.history.push(`/edit-profile/${this.props.user.id}`)
         <br/>
         <br/>
         <br/>
-        <Form.Label>Insurance Taken</Form.Label><br/><select onChange={this.handleInputChangeFor("insurance_type_id")}>
+        <Form.Label>Insurance Taken</Form.Label><br/><select multiple='true' onChange={(event) => this.handleMultiChange(event, "insurance_type_id")}>
         {this.props.insuranceTaken &&    
                    <>
                   <option value='' defaultValue='Select Insurance Type'>Select Insurance Type</option>
@@ -267,7 +282,7 @@ this.props.history.push(`/edit-profile/${this.props.user.id}`)
                               onChange={this.handleInputChangeFor("telehealth")}/>
         <br/>
         <br/>
-        <Form.Label>Treatment Approaches/Preferences</Form.Label><br/><select onChange={this.handleInputChangeFor("treatment_preferences_id")}>
+        <Form.Label>Treatment Approaches/Preferences</Form.Label><br/><select multiple='true' onChange={(event) => this.handleMultiChange(event, "treatment_preferences_id")}>
         {this.props.treatmentPreferences &&    
                    <>
                 <option value='' defaultValue='Select an Approach'>Select an Approach</option>
@@ -283,7 +298,7 @@ this.props.history.push(`/edit-profile/${this.props.user.id}`)
         <br/>
         <br/>
         <br/>
-        <Form.Label>Client Focus</Form.Label><br/><select onChange={this.handleInputChangeFor("client_focus_id")}>
+        <Form.Label>Client Focus</Form.Label><br/><select multiple='true' onChange={(event) => this.handleMultiChange(event, "client_focus_id")}>
         {this.props.demographics &&    
                    <>
                
@@ -296,7 +311,7 @@ this.props.history.push(`/edit-profile/${this.props.user.id}`)
                    </>
                    } 
             </select>
-        <select onChange={this.handleInputChangeFor("age_groups_served_id")}>
+        <select multiple='true' onChange={(event) => this.handleMultiChange(event, "age_groups_served_id")}>
         {this.props.ageGroups &&    
                    <>
                 <option value='' defaultValue='Select an Age Group'>Select an Age Group</option>
@@ -312,7 +327,7 @@ this.props.history.push(`/edit-profile/${this.props.user.id}`)
         <br/>
 
 
-        <Form.Label>Session Format(s)</Form.Label><br/><select onChange={this.handleInputChangeFor("session_format_id")}>
+        <Form.Label>Session Format(s)</Form.Label><br/><select multiple='true' onChange={(event) => this.handleMultiChange(event, "session_format_id")}>
         {this.props.sessionFormats &&    
                    <>
                  <option value='' defaultValue='Select a Session Format'>Select a Session Format</option>

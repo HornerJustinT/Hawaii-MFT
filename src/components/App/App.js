@@ -38,7 +38,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 // CSS
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import studentProfile from '../ProfileCreate/studentProfile/studentProfile';
+
 
 class App extends Component {
   componentDidMount () {

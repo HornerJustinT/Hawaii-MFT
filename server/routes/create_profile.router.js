@@ -130,6 +130,7 @@ router.get('/session', (req, res) => {
 router.post('/', rejectUnauthenticated, async (req, res) => {
     //define the queries
     const member = await pool.connect();
+    console.log(req.body)
     try {
       //consolidated all the push request using async await
       //it makes a post request for each table with the set data aftet each has terminated
@@ -140,37 +141,130 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
         "credentials", "telehealth", "statement", "website", "title", "city", "license_number", "license_type")
     VALUES($1,$2, $3, $4, $5, $6, $7, $8, $9, $10, $11,$12,$13,$14,$15,$16,$17,$18,$19);`, [req.user.id,req.body.zip_code, req.body.first_name,  req.body.last_name, req.body.prefix, req.body.age, req.body.license_state, req.body.license_expiration, 
             req.body.hiamft_member_account_info, req.body.supervision_status,req.body.fees, req.body.credentials, req.body.telehealth, req.body.statement, req.body.website, req.body.title, req.body.city, req.body.license_number, req.body.license_type_id]);
-        const insertLanguages = await member.query(`INSERT INTO "languages_pivot"
-        ("language_id", "member_id") VALUES ($1,$2);`, [req.body.language_id,req.user.id]);
-        const insertIsland = await member.query(`INSERT INTO "island_pivot"
-        ("island_id", "member_id") VALUES ($1,$2)`, [req.body.island_id, req.user.id]);
-        const insertEmail = await member.query(`INSERT INTO "email_table" 
-        ("business", "member_id", "email") VALUES ($1,$2,$3)`, [true ,req.user.id,req.body.email]);
-        const insertPersonalEmail = await member.query(`INSERT INTO "email_table" 
-        ("business", "member_id", "email") VALUES ($1,$2,$3)`, [false,req.user.id,req.body.personal_email]);
-        const insertBusinessNumber = await member.query(`INSERT INTO "phone_table"
-        ("business", "member_id","number") VALUES ($1,$2,$3)`, [true,req.user.id,req.body.business_number]);
-        const insertPersonalNumber = await member.query(`INSERT INTO "phone_table"
-        ("business", "member_id","number") VALUES ($1,$2,$3)`, [true,req.user.id,req.body.personal_number]);
-        const insertAddressOffice = await member.query(`INSERT INTO "address_table"
-        ("address", "business", "member_id") VALUES ($1,$2,$3);`, [req.body.address_office,true,req.user.id]);
-        const insertAddressHome = await member.query(`INSERT INTO "address_table"
-        ("address", "business", "member_id") VALUES ($1,$2,$3);`, [req.body.address_home,false,req.user.id]);
-        const insertAddressMailing = await member.query(`INSERT INTO "address_table"
-        ("address", "business", "member_id") VALUES ($1,$2,$3);`, [req.body.address_mailing,false,req.user.id]);
-        const insertInsuranceType = await member.query(`INSERT INTO "insurance_pivot"
-        ("insurance_type_id", "member_id") VALUES ($1,$2);`, [req.body.insurance_type_id, req.user.id]);
-        const insertAgeGroupServed = await member.query(`INSERT INTO "age_groups_served_pivot"
-        ("age_groups_served_id", "member_id") VALUES ($1,$2);`, [req.body.age_groups_served_id, req.user.id]);
-        const insertClientFocus = await member.query(`INSERT INTO "client_focus_pivot"
-        ("client_focus_id", "member_id") VALUES ($1,$2);`, [req.body.client_focus_id, req.user.id]);
-        const insertTreatmentApproach = await member.query(`INSERT INTO "treatment_preferences_pivot"
-        ("treatment_preferences_id","member_id") VALUES ($1,$2);`, [req.body.treatment_preferences_id, req.user.id]);
-        const insertSpecialization = await member.query(`INSERT INTO "specialty_pivot"
-        ("specialty_id", "member_id") VALUES ($1,$2);`, [req.body.specialty_id, req.user.id]);
-        const insertSessionFormat = await member.query(`INSERT INTO "session_format_pivot"
-        ("session_format_id", "member_id") VALUES ($1,$2);`, [req.body.session_format_id, req.user.id]);
         
+        if (req.body.language_id[0]) {
+            for (let language of req.body.language_id) {
+                await member.query(`INSERT INTO "languages_pivot"
+                ("language_id", "member_id") VALUES ($1,$2);`, [language,req.user.id]);
+            }
+        } else {
+            await member.query(`INSERT INTO "languages_pivot"
+            ("language_id", "member_id") VALUES ($1,$2);`, [11 ,req.user.id]);
+        }
+
+        if (req.body.island_id) {
+            await member.query(`INSERT INTO "island_pivot"
+            ("island_id", "member_id") VALUES ($1,$2)`, [req.body.island_id, req.user.id]);
+        } else {
+            await member.query(`INSERT INTO "island_pivot"
+            ("island_id", "member_id") VALUES ($1,$2)`, [4, req.user.id]);
+        }
+
+        if (req.body.email) {
+            await member.query(`INSERT INTO "email_table" 
+            ("business", "member_id", "email") VALUES ($1,$2,$3)`, [true ,req.user.id,req.body.email]);
+        } else {
+            await member.query(`INSERT INTO "email_table" 
+            ("business", "member_id", "email") VALUES ($1,$2,$3)`, [true ,req.user.id,'N/A']);
+        }
+
+        if (req.body.personal_email) {
+            await member.query(`INSERT INTO "email_table" 
+            ("business", "member_id", "email") VALUES ($1,$2,$3)`, [false,req.user.id,req.body.personal_email]);
+        }
+
+        if (req.body.business_number){
+            await member.query(`INSERT INTO "phone_table"
+            ("business", "member_id","number") VALUES ($1,$2,$3)`, [true,req.user.id,req.body.business_number]);
+        } else {
+            await member.query(`INSERT INTO "phone_table"
+            ("business", "member_id","number") VALUES ($1,$2,$3)`, [true,req.user.id,'N/A']);
+        }
+
+        if (req.body.personal_number) {
+            await member.query(`INSERT INTO "phone_table"
+            ("business", "member_id","number") VALUES ($1,$2,$3)`, [true,req.user.id,req.body.personal_number]);
+        }
+
+        if (req.body.address_office) {
+            await member.query(`INSERT INTO "address_table"
+            ("address", "business", "member_id") VALUES ($1,$2,$3);`, [req.body.address_office,true,req.user.id]);
+        } else {
+            await member.query(`INSERT INTO "address_table"
+            ("address", "business", "member_id") VALUES ($1,$2,$3);`, ['N/A',true,req.user.id]);
+        }
+
+        if (req.body.address_home) {
+            await member.query(`INSERT INTO "address_table"
+            ("address", "business", "member_id") VALUES ($1,$2,$3);`, [req.body.address_home,false,req.user.id]);
+        }
+
+        if (req.body.address_mailing) {
+            await member.query(`INSERT INTO "address_table"
+            ("address", "business", "member_id") VALUES ($1,$2,$3);`, [req.body.address_mailing,false,req.user.id]);
+        }
+
+        if (req.body.insurance_type_id[0]) {
+            for (let insurance of req.body.insurance_type_id) {
+                await member.query(`INSERT INTO "insurance_pivot"
+                ("insurance_type_id", "member_id") VALUES ($1,$2);`, [insurance, req.user.id]);
+            }
+        } else {
+            await member.query(`INSERT INTO "insurance_pivot"
+                ("insurance_type_id", "member_id") VALUES ($1,$2);`, [26, req.user.id]);
+        }
+
+        if (req.body.age_groups_served_id[0]) {
+            for (let age_group of req.body.age_groups_served_id) {
+                await member.query(`INSERT INTO "age_groups_served_pivot"
+                ("age_groups_served_id", "member_id") VALUES ($1,$2);`, [age_group, req.user.id]);
+            }
+        } else {
+            await member.query(`INSERT INTO "age_groups_served_pivot"
+                ("age_groups_served_id", "member_id") VALUES ($1,$2);`, [1, req.user.id]);
+        }
+
+        if (req.body.client_focus_id[0]) {
+            for (let client of req.body.client_focus_id) {
+                await member.query(`INSERT INTO "client_focus_pivot"
+                ("client_focus_id", "member_id") VALUES ($1,$2);`, [client, req.user.id]);
+            }
+        } else {
+            await member.query(`INSERT INTO "client_focus_pivot"
+                ("client_focus_id", "member_id") VALUES ($1,$2);`, [1, req.user.id]);
+        }
+
+        if (req.body.treatment_preferences_id[0]) {
+            for (let treatment of req.body.treatment_preferences_id){
+                await member.query(`INSERT INTO "treatment_preferences_pivot"
+                ("treatment_preferences_id","member_id") VALUES ($1,$2);`, [treatment, req.user.id]);
+            }
+        } else {
+            await member.query(`INSERT INTO "treatment_preferences_pivot"
+                ("treatment_preferences_id", "member_id") VALUES ($1,$2);`, [1, req.user.id]);
+        }
+
+        if (req.body.specialty_id[0]) {
+            for (let specialty of req.body.specialty_id){
+                await member.query(`INSERT INTO "specialty_pivot"
+                ("specialty_id", "member_id") VALUES ($1,$2);`, [specialty, req.user.id]);
+            }
+        } else {
+            await member.query(`INSERT INTO "specialty_pivot"
+                ("specialty_id", "member_id") VALUES ($1,$2);`, [1, req.user.id]);
+        }
+
+        if (req.body.session_format_id[0]) {
+            for (let session of req.body.session_format_id) {
+                await member.query(`INSERT INTO "session_format_pivot"
+                ("session_format_id", "member_id") VALUES ($1,$2);`, [session, req.user.id]);
+            }
+        } else {
+            await member.query(`INSERT INTO "session_format_pivot"
+            ("session_format_id", "member_id") VALUES ($1,$2);`, [1, req.user.id]);
+        }
+
+
         await member.query('COMMIT')
         res.sendStatus(201);
     }catch(error) {
