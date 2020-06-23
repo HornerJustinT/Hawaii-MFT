@@ -33,16 +33,6 @@ class ContactInfo extends Component{
                 type:'FETCH_ISLANDS'
             })
            }
-//this will help navigate to back to createProfile page
-    handleBack = (event) => {
-        event.preventDefault()
-        this.props.history.push('/create-profile')
-    }
-//this will help navigate to the practiceinfo page
-    handleNext = (event) => {
-        event.preventDefault()
-        this.props.history.push('/practice')
-    }
 //take in the information from the input
 //when users either choose options from drop down or put info into the input
 //the state is changed when there are input data
@@ -72,7 +62,7 @@ class ContactInfo extends Component{
                                         city: this.state.city,
                                         website: this.state.website
           }});
-                        
+          this.props.history.push('/practice');               
      }
 
      handleStudent =(e)=>{
@@ -144,6 +134,7 @@ class ContactInfo extends Component{
                   value={this.state.website}
                   onChange={this.handleInputChangeFor("website")}/>
              <br/>
+
              <Form.Label>Address - Home</Form.Label>
              <br/>
              <input type="text"
@@ -168,7 +159,7 @@ class ContactInfo extends Component{
              <br/>
              <br/>
             
-           <Button type="submit">Save</Button>
+           <Button type="submit">Next</Button>
             </Form>
 
             
@@ -277,7 +268,7 @@ class ContactInfo extends Component{
              <br/>
              <br/>
             
-           <Button type="submit">Save</Button>
+           <Button type="submit">Next</Button>
             </Form>
          </div>
        }
@@ -289,9 +280,6 @@ class ContactInfo extends Component{
              <br/>
             <ProgressBar now={50} />
               {itemToRender}
-            <Button className='back' onClick={this.handleBack}>Back</Button>
-            <Button className='next' onClick={this.handleNext}>Next</Button>
-
             </div>
            
 
