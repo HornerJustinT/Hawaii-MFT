@@ -29,6 +29,7 @@ componentDidMount(){
 
  //checks that the registration key exists
  this.props.dispatch({type:"CHECK_REGISTRATION_KEY", payload:this.props.match.params.id})
+ console.log(this.props.reduxstate.registrationKeyValidation)
 }
 
 //take in the information from the input
@@ -86,74 +87,83 @@ componentDidMount(){
     
     }
     render (){
-        return (
-            <>
-            <div className ='container'>
-         <header><h1>Create New Profile</h1></header>
-         <br/>
+        if(this.props.reduxstate.registrationKeyValidation===''){
+            return (<h1>Loading</h1>)
+        }
+        if(this.props.reduxstate.registrationKeyValidation===false){
+            return(<h1>You are not allowed to create a registration key please contact the admin at Blankety Blank </h1>)
+        }
+        if(this.props.reduxstate.registrationKeyValidation===true){
+            return (
+                <>
+                <div className ='container'>
+             <header><h1>Create New Profile</h1></header>
+             <br/>
+    
+            <ProgressBar now={25} />
+    
+             <Form onSubmit={this.addMembers}>
+             <h3>Basic Info</h3>
+             <label>Prefix</label>
+             <br/>
+             <input 
+                      type="text"
+                      name="prefix"
+                      value={this.state.prefix}
+                      onChange={this.handleInputChangeFor("prefix")}/><br/>
+             <Form.Label>First Name</Form.Label>
+             <br/><input 
+                      type="text"
+                      name="first_name"
+                      value={this.state.first_name}
+                      onChange={this.handleInputChangeFor("first_name")}/><br/>
+             <Form.Label>Last Name</Form.Label><br/>
+             <input 
+                      type="text"
+                      name="last_name"
+                      value={this.state.last_name}
+                      onChange={this.handleInputChangeFor("last_name")}/><br/>
+             <Form.Label>Age</Form.Label><br/>
+             <input 
+                       type="text"
+                      name="age"
+                      value={this.state.age}
+                      onChange={this.handleInputChangeFor("age")}/>
+            <br/>
+            <br/>
+             <Form.Label>Language Spoken</Form.Label><br/>
+             <select onChange={this.handleInputChangeFor("language_id")}>
+                       {this.props.languages &&
+                       
+                       <>
+                       <option defaultValue='Select a language'>Select a language</option>
+                       {this.props.languages.map(language =>
+                        <option value={language.language_id}
+            
+                      key={language.language_id}>{language.title}</option>
+                        )}
+                       </>
+                       } 
+             </select> 
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <Form.Label>About You</Form.Label>
+            <br/>
+            <textarea type="text"
+                      name="hiamft_member_account_info"
+                      value={this.state.hiamft_member_account_info}
+                      onChange={this.handleInputChangeFor("hiamft_member_account_info")}/>
+            <br/>
+            <Button className='save' type="submit">Save</Button>
+             </Form>
+             <Button className='next' onClick={this.handleNext}>Next Page</Button>
+                </div>
+                </>
+            )
+        }
 
-        <ProgressBar now={25} />
-
-         <Form onSubmit={this.addMembers}>
-         <h3>Basic Info</h3>
-         <label>Prefix</label>
-         <br/>
-         <input 
-                  type="text"
-                  name="prefix"
-                  value={this.state.prefix}
-                  onChange={this.handleInputChangeFor("prefix")}/><br/>
-         <Form.Label>First Name</Form.Label>
-         <br/><input 
-                  type="text"
-                  name="first_name"
-                  value={this.state.first_name}
-                  onChange={this.handleInputChangeFor("first_name")}/><br/>
-         <Form.Label>Last Name</Form.Label><br/>
-         <input 
-                  type="text"
-                  name="last_name"
-                  value={this.state.last_name}
-                  onChange={this.handleInputChangeFor("last_name")}/><br/>
-         <Form.Label>Age</Form.Label><br/>
-         <input 
-                   type="text"
-                  name="age"
-                  value={this.state.age}
-                  onChange={this.handleInputChangeFor("age")}/>
-        <br/>
-        <br/>
-         <Form.Label>Language Spoken</Form.Label><br/>
-         <select onChange={this.handleInputChangeFor("language_id")}>
-                   {this.props.languages &&
-                   
-                   <>
-                   <option defaultValue='Select a language'>Select a language</option>
-                   {this.props.languages.map(language =>
-                    <option value={language.language_id}
-        
-                  key={language.language_id}>{language.title}</option>
-                    )}
-                   </>
-                   } 
-         </select> 
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <Form.Label>About You</Form.Label>
-        <br/>
-        <textarea type="text"
-                  name="hiamft_member_account_info"
-                  value={this.state.hiamft_member_account_info}
-                  onChange={this.handleInputChangeFor("hiamft_member_account_info")}/>
-        <br/>
-        <Button className='save' type="submit">Save</Button>
-         </Form>
-         <Button className='next' onClick={this.handleNext}>Next Page</Button>
-            </div>
-            </>
-        )
     }
 }
 const mapStateToProps = reduxstate => ({
