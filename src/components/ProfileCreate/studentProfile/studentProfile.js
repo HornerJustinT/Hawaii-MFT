@@ -65,7 +65,7 @@ handleInputChangeFor = propertyName => (event) =>{
 //this helps to navigate to the next page
 //that is the profile edit page
         event.preventDefault()
-     
+        this.props.history.push(`/edit-profile/${this.props.user.id}`)
     }
     
 
@@ -111,7 +111,6 @@ handleInputChangeFor = propertyName => (event) =>{
          }
         });
 //this will reset the inputs on the parcticeinfo page
-this.props.history.push(`/edit-profile/${this.props.user.id}`)
      this.handleReset();
     }
 
@@ -331,7 +330,8 @@ this.props.history.push(`/edit-profile/${this.props.user.id}`)
         <Button className='save' type="submit">Save</Button>
         </Form>
             
-         
+          <Button className='back' onClick={this.handleBack}>Back</Button>
+          <Button className='next' onClick={this.handleNext}>Next</Button>
            
           
 

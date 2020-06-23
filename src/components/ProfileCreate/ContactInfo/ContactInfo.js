@@ -65,6 +65,29 @@ class ContactInfo extends Component{
           this.props.history.push('/practice');               
      }
 
+studentContactInfo = (e) =>{
+  e.preventDefault();
+this.props.dispatch({
+  type: 'ADD_ADDRESS',
+  payload:{
+    island_id: this.state.island_id, 
+    email: this.state.email,
+    personal_email:this.state.personal_email,
+    personal_number:this.state.personal_number,
+    address_home:this.state.address_home,
+    address_mailing:this.state.address_mailing,
+    zip_code: this.state.zip_code,
+    city: this.state.city,
+    website: this.state.website
+  }
+})
+}
+
+
+
+
+
+
      handleStudent =(e)=>{
        e.preventDefault();
        this.setState({
@@ -77,7 +100,7 @@ class ContactInfo extends Component{
        if(this.state.showStudentProfile){
         itemToRender = <div>
            
-           <Form onSubmit={this.addContactInfo}>
+           <Form onSubmit={this.studentContactInfo}>
              <br/>
              <Form.Check
               type="switch"
