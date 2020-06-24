@@ -164,41 +164,49 @@ class ProfileEditContact extends Component {
     displayIslands = () => {
         if (this.state.clickContact) {
             return (
-                <Form.Group>
-                    <Form.Label variant="flat" className="label">
-                        Island
-          </Form.Label>
-                    <Form.Control
-                        as="select"
-                        value={this.state.islandEdit}
-                        onChange={(event) =>
-                            this.handleIslandChange(event, "islandEdit", "island")
-                        }
-                    >
-                        {this.props.islands.map((island) => {
-                            return (
-                                <>
-                                    <option key={island.island_id} value={island.island_id}>
-                                        {island.title}
-                                    </option>
-                                </>
-                            );
-                        })}
-                    </Form.Control>
-                </Form.Group>
+              <Form.Group>
+                <Form.Label variant="flat" className="label">
+                  Island
+                </Form.Label>
+                <Form.Control
+                  as="select"
+                  value={this.state.islandEdit}
+                  onChange={(event) =>
+                    this.handleIslandChange(event, "islandEdit", "island")
+                  }
+                >
+                  {this.props.islands.map((island) => {
+                    return (
+                      <>
+                        <option key={island.island_id} value={island.island_id}>
+                          {island.title}
+                        </option>
+                      </>
+                    );
+                  })}
+                </Form.Control>
+                <Form.Text className="text-muted">
+                  Listed
+                </Form.Text>
+              </Form.Group>
             );
         } else {
             return (
                 <Form.Group>
                     <Form.Label variant="flat" className="label">
                         Island
-          </Form.Label>
+                    </Form.Label>
                     {this.state.island && (
+                        <>
                         <Form.Control
                             disabled="true"
                             readOnly
                             defaultValue={this.state.island}
                         />
+                        <Form.Text className="text-muted">
+                                Listed
+                              </Form.Text>
+                        </>
                     )}
                 </Form.Group>
             );
@@ -208,183 +216,346 @@ class ProfileEditContact extends Component {
     render() {
         if (this.props.profile && this.state.languages) {
             return (
-                <>
-                    {this.state.clickContact && this.props.profile ? (
-                        <div className="body">
-                            <div className="flex-between row-wrap first">
-                                <h4>Contact Info</h4>
-                                <Button
-                                    className="flex-between row-wrap"
-                                    onClick={() => this.handleSaveContact()}
-                                >
-                                    Save Changes
-                                </Button>
-                            </div>
-                            <div className="border">
-                                <Form>
-                                    <Form.Group>
-                                        <Form.Label className="label">Phone Number</Form.Label>
-                                        <Form.Control
-                                            defaultValue={this.state.phone}
-                                            onChange={(event) => this.handleChange(event, "phone")}
-                                        />
-                                        <Form.Text className="text-muted">
-                                            Business - Listed
-                                        </Form.Text>
-                                    </Form.Group>
+              <>
+                {this.state.clickContact && this.props.profile ? (
+                  <div className="body">
+                    <div className="flex-between row-wrap first">
+                      <h4>Contact Info</h4>
+                      <Button
+                        className="flex-between row-wrap"
+                        onClick={() => this.handleSaveContact()}
+                      >
+                        Save Changes
+                      </Button>
+                    </div>
+                    <div className="border">
+                      <Form>
+                        <Form.Group>
+                          <Form.Label className="label">
+                            Email Address - Business
+                          </Form.Label>
+                          <Form.Control
+                            defaultValue={this.props.profile.email}
+                            onChange={(event) =>
+                              this.handleChange(event, "email")
+                            }
+                          />
+                          <Form.Text className="text-muted">Listed</Form.Text>
+                        </Form.Group>
 
-                                    <Form.Group>
-                                        <Form.Label className="label">Phone Number</Form.Label>
-                                        <Form.Control
-                                            defaultValue={this.state.phone}
-                                            onChange={(event) => this.handleChange(event, "phone")}
-                                        />
-                                        <Form.Text className="text-muted">
-                                            Personal - Not Listed  (HIAMFT-Use Only)
-                                        </Form.Text>
-                                    </Form.Group>
+                        <Form.Group>
+                          <Form.Label className="label">
+                            Email Address - Personal
+                          </Form.Label>
+                          <Form.Control
+                            defaultValue={this.props.profile.email}
+                            onChange={(event) =>
+                              this.handleChange(event, "email")
+                            }
+                          />
+                          <Form.Text className="text-muted">
+                            Not Listed (for HIAMFT-use only)
+                          </Form.Text>
+                        </Form.Group>
 
-                                    <Form.Group>
-                                        <Form.Label className="label">Email Address</Form.Label>
-                                        <Form.Control
-                                            defaultValue={this.props.profile.email}
-                                            onChange={(event) => this.handleChange(event, "email")}
-                                        />
-                                        <Form.Text className="text-muted">
-                                            Business - Listed
-                                        </Form.Text>
-                                    </Form.Group>
+                        <Form.Group>
+                          <Form.Label className="label">Website</Form.Label>
+                          <Form.Control
+                            defaultValue={this.props.profile.website}
+                            onChange={(event) =>
+                              this.handleChange(event, "website")
+                            }
+                          />
+                        </Form.Group>
 
-                                    <Form.Group>
-                                        <Form.Label className="label">Website</Form.Label>
-                                        <Form.Control
-                                            defaultValue={this.props.profile.website}
-                                            onChange={(event) => this.handleChange(event, "website")}
-                                        />
-                                    </Form.Group>
-                                </Form>
-                                <Form>
-                                    {this.displayIslands()}
-                                    <Form.Group>
-                                        <Form.Label variant="flat" className="label">
-                                            City
-                                        </Form.Label>
-                                        <Form.Control
-                                            defaultValue={this.props.profile.city}
-                                            onChange={(event) => this.handleChange(event, "city")}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group>
-                                        <Form.Label variant="flat" className="label">
-                                            Zip Code
-                                        </Form.Label>
-                                        <Form.Control
-                                            defaultValue={this.props.profile.zip_code}
-                                            onChange={(event) => this.handleChange(event, "zipCode")}
-                                        />
-                                    </Form.Group>
+                        <Form.Group>
+                          <Form.Label className="label">
+                            Phone Number - Business
+                          </Form.Label>
+                          <Form.Control
+                            defaultValue={this.state.phone}
+                            onChange={(event) =>
+                              this.handleChange(event, "phone")
+                            }
+                          />
+                          <Form.Text className="text-muted">Listed</Form.Text>
+                        </Form.Group>
 
-                                    <Form.Group>
-                                        <Form.Label className="label">Address</Form.Label>
-                                        <Form.Control
-                                            defaultValue={this.props.profile.address}
-                                            onChange={(event) => this.handleChange(event, "address")}
-                                        />
-                                        <Form.Text className="text-muted">
-                                            Business - Listed
-                                        </Form.Text>
-                                    </Form.Group>
-                                </Form>
-                            </div>
+                        <Form.Group>
+                          <Form.Label className="label">
+                            Phone Number - Personal
+                          </Form.Label>
+                          <Form.Control
+                            defaultValue={this.state.phone}
+                            onChange={(event) =>
+                              this.handleChange(event, "phone")
+                            }
+                          />
+                          <Form.Text className="text-muted">
+                            Not Listed (for HIAMFT-use only)
+                          </Form.Text>
+                        </Form.Group>
+                      </Form>
+                      <Form>
+                        {this.displayIslands()}
+
+                        <Form.Group>
+                          <Form.Label className="label">
+                            Address - Business
+                          </Form.Label>
+                          <Form.Control
+                            defaultValue={this.props.profile.address}
+                            onChange={(event) =>
+                              this.handleChange(event, "address")
+                            }
+                          />
+                          <Form.Text className="text-muted">Listed</Form.Text>
+                        </Form.Group>
+
+                        <Form.Group>
+                          <Form.Label variant="flat" className="label">
+                            City - Business
+                          </Form.Label>
+                          <Form.Control
+                            defaultValue={this.props.profile.city}
+                            onChange={(event) =>
+                              this.handleChange(event, "city")
+                            }
+                          />
+                          <Form.Text className="text-muted">Listed</Form.Text>
+                        </Form.Group>
+                        <Form.Group>
+                          <Form.Label variant="flat" className="label">
+                            Zip Code - Business
+                          </Form.Label>
+                          <Form.Control
+                            defaultValue={this.props.profile.zip_code}
+                            onChange={(event) =>
+                              this.handleChange(event, "zipCode")
+                            }
+                          />
+                          <Form.Text className="text-muted">Listed</Form.Text>
+                        </Form.Group>
+
+                        <Form.Group>
+                          <Form.Label className="label">
+                            Address - Personal
+                          </Form.Label>
+                          <Form.Control
+                            defaultValue={this.props.profile.address}
+                            onChange={(event) =>
+                              this.handleChange(event, "address")
+                            }
+                          />
+                          <Form.Text className="text-muted">
+                            Not Listed (for HIAMFT-use only)
+                          </Form.Text>
+                        </Form.Group>
+
+                        <Form.Group>
+                          <Form.Label variant="flat" className="label">
+                            City - Personal
+                          </Form.Label>
+                          <Form.Control
+                            defaultValue={this.props.profile.city}
+                            onChange={(event) =>
+                              this.handleChange(event, "city")
+                            }
+                          />
+                          <Form.Text className="text-muted">
+                            Not Listed (for HIAMFT-use only)
+                          </Form.Text>
+                        </Form.Group>
+                        <Form.Group>
+                          <Form.Label variant="flat" className="label">
+                            Zip Code - Personal
+                          </Form.Label>
+                          <Form.Control
+                            defaultValue={this.props.profile.zip_code}
+                            onChange={(event) =>
+                              this.handleChange(event, "zipCode")
+                            }
+                          />
+                          <Form.Text className="text-muted">
+                            Not Listed (for HIAMFT-use only)
+                          </Form.Text>
+                        </Form.Group>
+                      </Form>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="body">
+                    <div className="flex-between row-wrap first">
+                      <h4>Contact Info</h4>
+                      <Button
+                        className="flex-between row-wrap first"
+                        onClick={() => this.handleEditContact()}
+                      >
+                        Edit Contact Info
+                      </Button>
+                    </div>
+                    {this.props.profile && (
+                      <>
+                        <div className="border">
+                          <Form>
+                            <Form.Group>
+                              <Form.Label className="label">
+                                Email Address - Business
+                              </Form.Label>
+                              <Form.Control
+                                disabled="true"
+                                readOnly
+                                defaultValue={this.state.email}
+                              />
+                              <Form.Text className="text-muted">
+                                Listed
+                              </Form.Text>
+                            </Form.Group>
+
+                            <Form.Group>
+                              <Form.Label className="label">
+                                Email Address - Personal
+                              </Form.Label>
+                              <Form.Control
+                                disabled="true"
+                                readOnly
+                                defaultValue={this.state.email}
+                              />
+                              <Form.Text className="text-muted">
+                                Not Listed (for HIAMFT-use only)
+                              </Form.Text>
+                            </Form.Group>
+
+                            <Form.Group>
+                              <Form.Label className="label">Website</Form.Label>
+                              <Form.Control
+                                disabled="true"
+                                readOnly
+                                defaultValue={this.state.website}
+                              />
+                            </Form.Group>
+
+                            <Form.Group>
+                              <Form.Label className="label">
+                                Phone Number - Business
+                              </Form.Label>
+                              <Form.Control
+                                disabled="true"
+                                readOnly
+                                defaultValue={this.state.phone}
+                              />
+                              <Form.Text className="text-muted">
+                                Listed
+                              </Form.Text>
+                            </Form.Group>
+
+                            <Form.Group>
+                              <Form.Label className="label">
+                                Phone Number - Personal
+                              </Form.Label>
+                              <Form.Control
+                                disabled="true"
+                                readOnly
+                                defaultValue={this.state.phone}
+                              />
+                              <Form.Text className="text-muted">
+                                Not Listed (for HIAMFT-use only)
+                              </Form.Text>
+                            </Form.Group>
+                          </Form>
+                          <Form>
+                            {this.displayIslands()}
+
+                            <Form.Group>
+                              <Form.Label className="label">
+                                Address - Business
+                              </Form.Label>
+                              <Form.Control
+                                disabled="true"
+                                readOnly
+                                defaultValue={this.state.address}
+                              />
+                              <Form.Text className="text-muted">
+                                Listed
+                              </Form.Text>
+                            </Form.Group>
+
+                            <Form.Group>
+                              <Form.Label variant="flat" className="label">
+                                City - Business
+                              </Form.Label>
+                              <Form.Control
+                                disabled="true"
+                                readOnly
+                                defaultValue={this.state.city}
+                              />
+                              <Form.Text className="text-muted">
+                                Listed
+                              </Form.Text>
+                            </Form.Group>
+
+                            <Form.Group>
+                              <Form.Label variant="flat" className="label">
+                                Zip Code - Business
+                              </Form.Label>
+                              <Form.Control
+                                disabled="true"
+                                readOnly
+                                defaultValue={this.state.zipCode}
+                              />
+                              <Form.Text className="text-muted">
+                                Listed
+                              </Form.Text>
+                            </Form.Group>
+
+                            <Form.Group>
+                              <Form.Label className="label">
+                                Address - Personal
+                              </Form.Label>
+                              <Form.Control
+                                disabled="true"
+                                readOnly
+                                defaultValue={this.state.address}
+                              />
+                              <Form.Text className="text-muted">
+                                Not Listed (for HIAMFT-use only)
+                              </Form.Text>
+                            </Form.Group>
+
+                            <Form.Group>
+                              <Form.Label variant="flat" className="label">
+                                City - Personal
+                              </Form.Label>
+                              <Form.Control
+                                disabled="true"
+                                readOnly
+                                defaultValue={this.state.city}
+                              />
+                              <Form.Text className="text-muted">
+                                Not Listed (for HIAMFT-use only)
+                              </Form.Text>
+                            </Form.Group>
+
+                            <Form.Group>
+                              <Form.Label variant="flat" className="label">
+                                Zip Code - Personal
+                              </Form.Label>
+                              <Form.Control
+                                disabled="true"
+                                readOnly
+                                defaultValue={this.state.zipCode}
+                              />
+                              <Form.Text className="text-muted">
+                                Not Listed (for HIAMFT-use only)
+                              </Form.Text>
+                            </Form.Group>
+                          </Form>
                         </div>
-                    ) : (
-                            <div className="body">
-                                <div className="flex-between row-wrap first">
-                                    <h4>Contact Info</h4>
-                                    <Button
-                                        className="flex-between row-wrap first"
-                                        onClick={() => this.handleEditContact()}
-                                    >
-                                        Edit Contact Info
-                                    </Button>
-                                </div>
-                                {this.props.profile && (
-                                    <>
-                                        <div className="border">
-                                            <Form>
-                                                <Form.Group>
-                                                    <Form.Label className="label">Phone Number</Form.Label>
-                                                    <Form.Control
-                                                        disabled="true"
-                                                        readOnly
-                                                        defaultValue={this.state.phone}
-                                                    />
-                                                    <Form.Text className="text-muted">
-                                                        Business - Listed
-                                                    </Form.Text>
-                                                </Form.Group>
-
-                                                <Form.Group>
-                                                    <Form.Label className="label">Email Address</Form.Label>
-                                                    <Form.Control
-                                                        disabled="true"
-                                                        readOnly
-                                                        defaultValue={this.state.email}
-                                                    />
-                                                    <Form.Text className="text-muted">
-                                                        Business - Listed
-                                                    </Form.Text>
-                                                </Form.Group>
-
-                                                <Form.Group>
-                                                    <Form.Label className="label">Website</Form.Label>
-                                                    <Form.Control
-                                                        disabled="true"
-                                                        readOnly
-                                                        defaultValue={this.state.website}
-                                                    />
-                                                </Form.Group>
-                                            </Form>
-                                            <Form>
-                                                {this.displayIslands()}
-                                                <Form.Group>
-                                                    <Form.Label className="label">Address</Form.Label>
-                                                    <Form.Control
-                                                        disabled="true"
-                                                        readOnly
-                                                        defaultValue={this.state.address}
-                                                    />
-                                                    <Form.Text className="text-muted">
-                                                        Business - Listed
-                                                    </Form.Text>
-                                                </Form.Group>
-                                                <Form.Group>
-                                                    <Form.Label variant="flat" className="label">
-                                                        City
-                                                    </Form.Label>
-                                                    <Form.Control
-                                                        disabled="true"
-                                                        readOnly
-                                                        defaultValue={this.state.city}
-                                                    />
-                                                </Form.Group>
-                                                <Form.Group>
-                                                    <Form.Label variant="flat" className="label">
-                                                        Zip Code
-                                                    </Form.Label>
-                                                    <Form.Control
-                                                        disabled="true"
-                                                        readOnly
-                                                        defaultValue={this.state.zipCode}
-                                                    />
-                                                </Form.Group>
-                                            </Form>
-                                        </div>
-                                    </>
-                                )}
-                            </div>
-                        )}
-                </>
+                      </>
+                    )}
+                  </div>
+                )}
+              </>
             );
         } else {
             return <p> user not found </p>;
