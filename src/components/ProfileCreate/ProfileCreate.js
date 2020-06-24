@@ -180,7 +180,7 @@ componentDidMount(){
               <textarea
                 type="text"
                 name="hiamft_member_account_info"
-                value={this.state.hiamft_member_account_info || null}
+                value={this.state.hiamft_member_account_info}
                 onChange={this.handleInputChangeFor(
                   "hiamft_member_account_info"
                 )}
