@@ -133,7 +133,7 @@ componentDidMount(){
               <input
                 type="text"
                 name="last_name"
-                value={this.state.last_name || null}
+                value={this.state.last_name}
                 onChange={this.handleInputChangeFor("last_name")}
               />
               <br />
@@ -142,7 +142,7 @@ componentDidMount(){
               <input
                 type="text"
                 name="age"
-                value={this.state.age || null}
+                value={this.state.age}
                 onChange={this.handleInputChangeFor("age")}
               />
               <br />
@@ -162,7 +162,7 @@ componentDidMount(){
                     </option>
                     {this.props.languages.map((language) => (
                       <option
-                        value={language.language_id || null}
+                        value={language.language_id}
                         key={language.language_id}
                       >
                         {language.title}
