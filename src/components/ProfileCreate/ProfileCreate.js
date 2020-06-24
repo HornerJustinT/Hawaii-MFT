@@ -99,133 +99,181 @@ componentDidMount(){
     
     }
     render (){
-            return (
-                <>
-                <div className ='container'>
-             <header><h1>Create New Profile</h1></header>
-             <br/>
-    
+      return (
+        <>
+          <div className="container">
+            <header>
+              <h1>Create New Profile</h1>
+            </header>
+            <br />
+
             <ProgressBar now={25} />
-    
-             <Form onSubmit={this.addMembers}>
-             <h3>Basic Info</h3>
-             <label>Prefix</label>
-             <br/>
-             <input 
-                      type="text"
-                      name="prefix"
-                      value={this.state.prefix}
-                      onChange={this.handleInputChangeFor("prefix")}/><br/>
-             <Form.Label>First Name</Form.Label>
-             <br/><input 
-                      type="text"
-                      name="first_name"
-                      value={this.state.first_name}
-                      onChange={this.handleInputChangeFor("first_name")}/><br/>
-             <Form.Label>Last Name</Form.Label><br/>
-             <input 
-                      type="text"
-                      name="last_name"
-                      value={this.state.last_name}
-                      onChange={this.handleInputChangeFor("last_name")}/><br/>
-             <Form.Label>Age</Form.Label><br/>
-             <input 
-                       type="text"
-                      name="age"
-                      value={this.state.age}
-                      onChange={this.handleInputChangeFor("age")}/>
-            <br/>
-            <br/>
-             <Form.Label>Language Spoken</Form.Label><br/>
-             <select onChange={this.handleInputChangeFor("language_id")}>
-                       {this.props.languages &&
-                       
-                       <>
-                       <option defaultValue='Select a language'>Select a language</option>
-                       {this.props.languages.map(language =>
-                        <option value={language.language_id}
-            
-                      key={language.language_id}>{language.title}</option>
-                        )}
-                       </>
-                       } 
-             </select> 
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <Form.Label>About You</Form.Label>
-            <br/>
-            <textarea type="text"
-                      name="hiamft_member_account_info"
-                      value={this.state.hiamft_member_account_info}
-                      onChange={this.handleInputChangeFor("hiamft_member_account_info")}/>
-            <br/>
-            <Button className='save' type="submit">Save</Button>
-             </Form>
-             <Button className='next' onClick={this.handleNext}>Next Page</Button>
-                </div>
-                </>
-            )
-         <Form onSubmit={this.addMembers}>
-         <h3>Basic Info</h3>
-         <label>Prefix</label>
-         <br/>
-         <input 
-                  type="text"
-                  name="prefix"
-                  value={this.state.prefix}
-                  onChange={this.handleInputChangeFor("prefix")}/><br/>
-         <Form.Label>First Name</Form.Label>
-         <br/><input 
-                  type="text"
-                  name="first_name"
-                  value={this.state.first_name}
-                  onChange={this.handleInputChangeFor("first_name")}/><br/>
-         <Form.Label>Last Name</Form.Label><br/>
-         <input 
-                  type="text"
-                  name="last_name"
-                  value={this.state.last_name || null}
-                  onChange={this.handleInputChangeFor("last_name")}/><br/>
-         <Form.Label>Age</Form.Label><br/>
-         <input 
-                   type="text"
-                  name="age"
-                  value={this.state.age || null}
-                  onChange={this.handleInputChangeFor("age")}/>
-        <br/>
-        <br/>
-         <Form.Label>Language Spoken</Form.Label><br/>
-         <select  multiple='true' onChange={(event) => this.handleMultiLanguages(event, "language_id")}>
-                   {this.props.languages &&
-                   
-                   <>
-                   <option defaultValue='Select a language'>Select a language</option>
-                   {this.props.languages.map(language =>
-                    <option value={language.language_id || null}
-        
-                  key={language.language_id}>{language.title}</option>
-                    )}
-                   </>
-                   } 
-         </select> 
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <Form.Label>About You</Form.Label>
-        <br/>
-        <textarea type="text"
-                  name="hiamft_member_account_info"
-                  value={this.state.hiamft_member_account_info || null}
-                  onChange={this.handleInputChangeFor("hiamft_member_account_info")}/>
-        <br/>
-        <Button className='save' type="submit">Next</Button>
-         </Form>
-            </div>
-            </>
-        )
+
+            <Form onSubmit={this.addMembers}>
+              <h3>Basic Info</h3>
+              <label>Prefix</label>
+              <br />
+              <input
+                type="text"
+                name="prefix"
+                value={this.state.prefix}
+                onChange={this.handleInputChangeFor("prefix")}
+              />
+              <br />
+              <Form.Label>First Name</Form.Label>
+              <br />
+              <input
+                type="text"
+                name="first_name"
+                value={this.state.first_name}
+                onChange={this.handleInputChangeFor("first_name")}
+              />
+              <br />
+              <Form.Label>Last Name</Form.Label>
+              <br />
+              <input
+                type="text"
+                name="last_name"
+                value={this.state.last_name}
+                onChange={this.handleInputChangeFor("last_name")}
+              />
+              <br />
+              <Form.Label>Age</Form.Label>
+              <br />
+              <input
+                type="text"
+                name="age"
+                value={this.state.age}
+                onChange={this.handleInputChangeFor("age")}
+              />
+              <br />
+              <br />
+              <Form.Label>Language Spoken</Form.Label>
+              <br />
+              <select onChange={this.handleInputChangeFor("language_id")}>
+                {this.props.languages && (
+                  <>
+                    <option defaultValue="Select a language">
+                      Select a language
+                    </option>
+                    {this.props.languages.map((language) => (
+                      <option
+                        value={language.language_id}
+                        key={language.language_id}
+                      >
+                        {language.title}
+                      </option>
+                    ))}
+                  </>
+                )}
+              </select>
+              <br />
+              <br />
+              <br />
+              <br />
+              <Form.Label>About You</Form.Label>
+              <br />
+              <textarea
+                type="text"
+                name="hiamft_member_account_info"
+                value={this.state.hiamft_member_account_info}
+                onChange={this.handleInputChangeFor(
+                  "hiamft_member_account_info"
+                )}
+              />
+              <br />
+              <Button className="save" type="submit">
+                Save
+              </Button>
+            </Form>
+            <Button className="next" onClick={this.handleNext}>
+              Next Page
+            </Button>
+            <Form onSubmit={this.addMembers}>
+              <h3>Basic Info</h3>
+              <label>Prefix</label>
+              <br />
+              <input
+                type="text"
+                name="prefix"
+                value={this.state.prefix}
+                onChange={this.handleInputChangeFor("prefix")}
+              />
+              <br />
+              <Form.Label>First Name</Form.Label>
+              <br />
+              <input
+                type="text"
+                name="first_name"
+                value={this.state.first_name}
+                onChange={this.handleInputChangeFor("first_name")}
+              />
+              <br />
+              <Form.Label>Last Name</Form.Label>
+              <br />
+              <input
+                type="text"
+                name="last_name"
+                value={this.state.last_name || null}
+                onChange={this.handleInputChangeFor("last_name")}
+              />
+              <br />
+              <Form.Label>Age</Form.Label>
+              <br />
+              <input
+                type="text"
+                name="age"
+                value={this.state.age || null}
+                onChange={this.handleInputChangeFor("age")}
+              />
+              <br />
+              <br />
+              <Form.Label>Language Spoken</Form.Label>
+              <br />
+              <select
+                multiple="true"
+                onChange={(event) =>
+                  this.handleMultiLanguages(event, "language_id")
+                }
+              >
+                {this.props.languages && (
+                  <>
+                    <option defaultValue="Select a language">
+                      Select a language
+                    </option>
+                    {this.props.languages.map((language) => (
+                      <option
+                        value={language.language_id || null}
+                        key={language.language_id}
+                      >
+                        {language.title}
+                      </option>
+                    ))}
+                  </>
+                )}
+              </select>
+              <br />
+              <br />
+              <br />
+              <br />
+              <Form.Label>About You</Form.Label>
+              <br />
+              <textarea
+                type="text"
+                name="hiamft_member_account_info"
+                value={this.state.hiamft_member_account_info || null}
+                onChange={this.handleInputChangeFor(
+                  "hiamft_member_account_info"
+                )}
+              />
+              <br />
+              <Button className="save" type="submit">
+                Next
+              </Button>
+            </Form>
+          </div>
+        </>
+      );
     }
 }
 const mapStateToProps = reduxstate => ({
