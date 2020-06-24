@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
+// Components
+import RegistrationModal from '../RegistrationModal/RegistrationModal';
+
 // Libraries
 import FileSaver from "file-saver";
 
@@ -11,6 +14,7 @@ import FormControl from "react-bootstrap/FormControl";
 import InputGroup from "react-bootstrap/InputGroup";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 // CSS
 import './AdminPage.css'
@@ -25,6 +29,7 @@ class AdminPage extends Component {
   // This allows for the adding and removing filters seen later.
   state = {
     therapists: [],
+    showDisabled: false,
     criteria: {
       name: null,
       id: null,
@@ -49,12 +54,17 @@ class AdminPage extends Component {
   componentDidMount() {
     // Grab a complete list of members.
     this.props.dispatch({ type: "FETCH_MEMBERS_ADVANCED", payload: "" });
+
   }
 
   // Parses the state and makes the url query then sends the search
   searchTherapists = () => {
     // Starts with an empty query string
     let query = "";
+
+    if (this.state.showDisabled) {
+      query += "admin=true";
+    }
 
     // Loops through the possible search criteria in state
     for (const key in this.state.criteria) {
@@ -172,6 +182,12 @@ class AdminPage extends Component {
     }
   };
 
+  switchChange = (event) => {
+    this.setState({
+      showDisabled: event.target.checked
+    })
+  }
+
   downloadClick = () => {
     const blob = new Blob([this.state.csv], { type: "text/csv" });
     FileSaver.saveAs(blob, "workbook.csv");
@@ -189,6 +205,9 @@ class AdminPage extends Component {
   render() {
     return (
       <>
+        <div className="reg-button">
+          <RegistrationModal />
+        </div>
         <div className="container search-bar">
           {Object.keys(this.state.criteria).map((Mainkey) => (
             <>
@@ -238,13 +257,31 @@ class AdminPage extends Component {
             </>
           ))}
           <div className="flex-between">
-            <Button variant="primary" onClick={this.addFilter}>
-              Add Filter
-            </Button>
+            <Form.Check
+              type="switch"
+              id="custom-switch"
+              label="Show Disabled Accounts"
+              className=""
+              onChange={this.switchChange}
+            />
 
-            <Button variant="primary" onClick={this.searchTherapists}>
-              Search
-            </Button>
+            <div>
+              <Button
+                variant="primary"
+                onClick={this.addFilter}
+                className="btnFilter"
+              >
+                Add Filter
+              </Button>
+
+              <Button
+                variant="primary"
+                onClick={this.searchTherapists}
+                className="btnFilter"
+              >
+                Search
+              </Button>
+            </div>
           </div>
         </div>
         <div className="container">
@@ -271,10 +308,7 @@ class AdminPage extends Component {
                     <td style={{ textAlign: "right" }}>
                       <Button
                         variant="danger"
-                        onClick={() =>
-                          this.resetProfile(therapist.id)
-                        
-                        }
+                        onClick={() => this.resetProfile(therapist.id)}
                       >
                         View
                       </Button>

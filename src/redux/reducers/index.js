@@ -12,6 +12,7 @@ import license from './fetchLicenseType';
 import treatmentPreferences from './treatmentReducer';
 import demographics from './clientFocusReducer';
 import ageGroups from './ageGroupsReducer';
+import registrationKeyValidation from './registrationKeyValidationReducer';
 import sessionFormats from './sessionFormatReducer';
 import createProfile from './profileCreateReducer';
 import contactAddress from './contactAddressReducer';
@@ -36,6 +37,7 @@ const rootReducer = combineReducers({
   loginMode, // will have a value of 'login' or 'registration' to control which screen is shown
   members, //will have all members
   profile, //will have specific user profile details
+  registrationKeyValidation, //will have results from registration table 
   sessionFormats, // will have all the session formats
   specialtys, //will have all the info about the practice for the members
   treatmentPreferences, // will have all the treament approaches
