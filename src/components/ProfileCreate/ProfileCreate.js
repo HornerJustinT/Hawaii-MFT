@@ -108,7 +108,6 @@ componentDidMount(){
             <br />
 
             <ProgressBar now={25} />
-
             <Form onSubmit={this.addMembers}>
               <h3>Basic Info</h3>
               <label>Prefix</label>
@@ -150,7 +149,12 @@ componentDidMount(){
               <br />
               <Form.Label>Language Spoken</Form.Label>
               <br />
-              <select onChange={this.handleInputChangeFor("language_id")}>
+              <select
+                multiple="true"
+                onChange={(event) =>
+                  this.handleMultiLanguages(event, "language_id")
+                }
+              >
                 {this.props.languages && (
                   <>
                     <option defaultValue="Select a language">
@@ -183,12 +187,9 @@ componentDidMount(){
               />
               <br />
               <Button className="save" type="submit">
-                Save
+                Next
               </Button>
             </Form>
-            <Button className="next" onClick={this.handleNext}>
-              Next Page
-            </Button>
           </div>
         </>
       );
