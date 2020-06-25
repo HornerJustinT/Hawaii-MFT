@@ -8,6 +8,7 @@ const router = express.Router();
  * POST route template
  */
 router.post("/modal", async (req, res) => {
+    console.log(req.body)
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
     service: "gmail",
@@ -27,7 +28,6 @@ router.post("/modal", async (req, res) => {
         })
         .then(res.sendStatus(200))
         .catch(res.sendStatus(500))
-    
 });
 
 module.exports = router;
