@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 //used to connect the component to the reducer
 import { connect } from 'react-redux';
+import "./profileCreate.css"
 
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
@@ -22,6 +23,7 @@ class ProfileCreate extends Component {
   prefixError:'',
   firstNameError:'',
   lastNameError:'',
+  languageError:'',
   ageError:'',
   memberError:'',
     }
@@ -63,10 +65,47 @@ componentDidMount(){
             last_name:'',
             age:'',
             hiamft_member_account_info:'',
-            language_id:''
+            language_id:'',
           })
       }
 
+      validate = () =>{
+      let prefixError = '';
+  let firstNameError = '';
+  let lastNameError = '';
+  let languageError = '';
+  let ageError = '';
+  let memberError ='';
+
+  if(this.state.prefix.includes('')){
+     prefixError = 'Input is empty, Fill in your Prefix'
+  }
+   
+    if(this.state.first_name.includes('')){
+      firstNameError = 'Input is empty, Fill in your First Name'
+   }
+    
+     if(this.state.last_name.includes('')){
+      lastNameError = 'Input is empty, Fill in your Last Name '
+   }
+     
+     if(this.state.language_id.includes('')){
+      languageError = 'Language not selected, Choose all the language you speak'
+   }
+    
+     if(this.state.age.includes('')){
+      ageError = 'Input is empty, Fill in your Age'
+   }
+    
+     if(this.state.hiamft_member_account_info.includes('')){
+      memberError = 'Input is empty, Fill in About me section'
+   }
+   if(prefixError || firstNameError || lastNameError || languageError || ageError || memberError){
+    this.setState({prefixError, firstNameError, lastNameError, languageError, ageError, memberError});
+    return false;
+   }
+    return true;
+      }
       
 //upload all the inputs into the members table
 //this will send all the profile info from createProfile page into SET_CREATE_PROFILE reducer
@@ -75,19 +114,23 @@ componentDidMount(){
 //it then gets dispatch as an action for post request to the server
     addMembers = (event) =>{
      event.preventDefault();
-     this.props.dispatch({
-         type:'ADD_CREATE_PROFILE',
-         payload:{
-            prefix:this.state.prefix,
-            first_name:this.state.first_name,
-            last_name:this.state.last_name,
-            age:this.state.age,
-            hiamft_member_account_info:this.state.hiamft_member_account_info,
-            language_id:this.state.language_id
-         }
-     });
-    this.handleReset();
-    this.props.history.push('/contact-info');
+     const isValid = this.validate();
+ if(isValid){
+   console.log(this.state)
+ }
+    //  this.props.dispatch({
+    //      type:'ADD_CREATE_PROFILE',
+    //      payload:{
+    //         prefix:this.state.prefix,
+    //         first_name:this.state.first_name,
+    //         last_name:this.state.last_name,
+    //         age:this.state.age,
+    //         hiamft_member_account_info:this.state.hiamft_member_account_info,
+    //         language_id:this.state.language_id
+    //      }
+    //  });
+    // this.handleReset();
+    // this.props.history.push('/contact-info');
     }
 
    
@@ -122,6 +165,7 @@ componentDidMount(){
                 value={this.state.prefix}
                 onChange={this.handleInputChangeFor("prefix")}
               />
+              <div className='error'><h4>{this.state.prefixError}</h4></div>
               <br />
               <Form.Label>First Name</Form.Label>
               <br />
@@ -131,6 +175,7 @@ componentDidMount(){
                 value={this.state.first_name}
                 onChange={this.handleInputChangeFor("first_name")}
               />
+               <div className='error'><h4>{this.state.firstNameError}</h4></div>
               <br />
               <Form.Label>Last Name</Form.Label>
               <br />
@@ -140,6 +185,7 @@ componentDidMount(){
                 value={this.state.last_name}
                 onChange={this.handleInputChangeFor("last_name")}
               />
+               <div className='error'><h4>{this.state.lastNameError}</h4></div>
               <br />
               <Form.Label>Age</Form.Label>
               <br />
@@ -149,6 +195,7 @@ componentDidMount(){
                 value={this.state.age}
                 onChange={this.handleInputChangeFor("age")}
               />
+               <div className='error'><h4>{this.state.ageError}</h4></div>
               <br />
               <br />
               <Form.Label>Language Spoken</Form.Label>
@@ -156,7 +203,7 @@ componentDidMount(){
               <select
                 multiple="true"
                 onChange={(event) =>
-                  this.handleMultiLanguages(event, "language_id")
+                  this.handleMultiLanguages(event,"language_id")
                 }
               >
                 {this.props.languages && (
@@ -175,6 +222,7 @@ componentDidMount(){
                   </>
                 )}
               </select>
+              <div className='error'><h4>{this.state.languageError}</h4></div>
               <br />
               <br />
               <br />
@@ -189,6 +237,7 @@ componentDidMount(){
                   "hiamft_member_account_info"
                 )}
               />
+               <div className='error'><h4>{this.state.memberError}</h4></div>
               <br />
               <Button className="save" type="submit">
                 Next
