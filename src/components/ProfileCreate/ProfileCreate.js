@@ -11,7 +11,6 @@ import Button from "react-bootstrap/Button";
 
 
 class ProfileCreate extends Component {
-
     //create a state 
     state = {
     prefix:'',
@@ -19,7 +18,12 @@ class ProfileCreate extends Component {
 	last_name:'',
     age:'',
     hiamft_member_account_info:'',
-	language_id:''
+  language_id:'',
+  prefixError:'',
+  firstNameError:'',
+  lastNameError:'',
+  ageError:'',
+  memberError:'',
     }
 //when the document is ready it will fetch all the languages
 //from which users can choose the languages they speak
