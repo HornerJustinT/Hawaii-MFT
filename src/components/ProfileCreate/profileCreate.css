@@ -27,3 +27,17 @@ label{
 
 }
 
+.container-box{
+    display: flex;
+    flex-direction: row;
+}
+
+.label-container{
+    flex: 1;
+    margin: 0;
+}
+
+.container-input{
+    flex:15;
+    margin: 0;
+}

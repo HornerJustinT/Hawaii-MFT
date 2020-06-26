@@ -84,39 +84,44 @@ componentDidMount(){
   let languageError = '';
   let ageError = '';
   let memberError ='';
+  let formIsValid = true;
 
   if(!this.state.prefix){
+    formIsValid=false;
      prefixError = 'Prefix is required'
-  }else if(this.state.prefix.length > 3 || 
-    typeof(this.state.prefix) === 'number'||'symbol'){
+  }
+  if(this.state.prefix.length > 3 || 
+    typeof(this.state.prefix) === 'number'||'symbol' ){
+      formIsValid=false;
      prefixError = "Prefix is invalid or it is longer than 3"
+     
   }
    
-  if(!this.state.first_name){
-    firstNameError = 'First Name is required'
- }else if(this.state.prefix.includes('number' || 'symbol') || 
-   typeof(this.state.first_name) === 'number'||'symbol'){
-    firstNameError = "First Name is invalid"
- }
+  //   if(this.state.first_name.includes('')){
+  //     firstNameError = 'Input is empty, First Name is required'
+  //  }
+  //  if(this.state.first_name.length < 3 || this.state.first_name.value === number){
+
+  //  }
     
-     if(this.state.last_name.includes('')){
-      lastNameError = 'Input is empty, Last Name is required'
-   }
+  //    if(this.state.last_name.includes('')){
+  //     lastNameError = 'Input is empty, Last Name is required'
+  //  }
      
-     if(!this.state.language_id){
-      languageError = 'Language is not selected, Choose at least one language'
-   }
+  //    if(!this.state.language_id){
+  //     languageError = 'Language is not selected, Choose at least one language'
+  //  }
     
-     if(this.state.age.includes('')){
-      ageError = 'Input is empty, Fill in your Age'
-   }
+  //    if(this.state.age.includes('')){
+  //     ageError = 'Input is empty, Fill in your Age'
+  //  }
     
-     if(this.state.hiamft_member_account_info.includes('')){
-      memberError = 'Input is empty, Fill in the About me section'
-   }
+  //    if(this.state.hiamft_member_account_info.includes('')){
+  //     memberError = 'Input is empty, Fill in the about me section'
+  //  }
    if(prefixError || firstNameError || lastNameError || languageError || ageError || memberError){
     this.setState({prefixError, firstNameError, lastNameError, languageError, ageError, memberError});
-    return false;
+   
    }
     return true;
       }
@@ -163,57 +168,54 @@ componentDidMount(){
       return (
         <>
           <div className="container">
-            <header>
+          <div className='header'><header>
               <h1>Create New Profile</h1>
-            </header>
+            </header></div>  
             <br />
 
             <ProgressBar now={25} />
-            <Form className="text-center" onSubmit={this.addMembers}>
-              <h3>Basic Info</h3>
-              <Form.Label>Prefix</Form.Label>
-              <br />
-              <input
+               <div><h3>Basic Info</h3></div> 
+            <Form  onSubmit={this.addMembers}>
+            
+           <div className='container-box'>
+            <div className='label-container'><Form.Label>Prefix</Form.Label></div>
+            <div className='container-input'><input
                 type="text"
                 name="prefix"
                 value={this.state.prefix}
                 onChange={this.handleInputChangeFor("prefix")}
-              />
-              <div><h4 className='error'>{this.state.prefixError}</h4></div>
-              <br />
-              <Form.Label>First Name</Form.Label>
-              <br />
-              <input
+              /><h4 className='error'>{this.state.prefixError}</h4></div></div>
+            
+              <div className='container-box'>
+                <div className='label-container'><Form.Label>First Name</Form.Label></div>  
+             <div className='container-input'><input
                 type="text"
                 name="first_name"
                 value={this.state.first_name}
                 onChange={this.handleInputChangeFor("first_name")}
-              />
-               <div><h4 className='error'>{this.state.firstNameError}</h4></div>
-              <br />
-              <Form.Label>Last Name</Form.Label>
-              <br />
-              <input
+              /><h4 className='error'>{this.state.firstNameError}</h4></div></div>
+            
+            <div className='container-box'>
+              <div className='label-container'><Form.Label>Last Name</Form.Label></div>
+            <div className='container-input'> <input
                 type="text"
                 name="last_name"
                 value={this.state.last_name}
                 onChange={this.handleInputChangeFor("last_name")}
-              />
-               <div><h4 className='error'>{this.state.lastNameError}</h4></div>
-              <br />
-              <Form.Label>Age</Form.Label>
-              <br />
-              <input
+              /><h4 className='error'>{this.state.lastNameError}</h4></div></div>
+            <div className='container-box'>
+            <div className='label-container'><Form.Label>Age</Form.Label></div> 
+              <div className='container-input'><input
                 type="text"
                 name="age"
                 value={this.state.age}
                 onChange={this.handleInputChangeFor("age")}
-              />
-               <div><h4 className='error'>{this.state.ageError}</h4></div>
-              <br />
-              <Form.Label>Language Spoken</Form.Label>
-              <br />
-              <select
+              /><h4 className='error'>{this.state.ageError}</h4></div>
+            </div>
+    
+            <div className='container-box'>
+            <div className='label-container'> <Form.Label>Language Spoken</Form.Label></div>
+            <div className='container-input'><select
                 multiple="true"
                 onChange={(event) =>
                   this.handleMultiLanguages(event,"language_id")
@@ -234,24 +236,31 @@ componentDidMount(){
                     ))}
                   </>
                 )}
-              </select>
-              <div><h4 className='error'>{this.state.languageError}</h4></div>
-             <br/>
-              <Form.Label>About You</Form.Label>
-              <br />
-              <textarea
+              </select> <h4 className='error'>{this.state.languageError}</h4></div>
+
+            </div>
+            
+             <div className='container-box'>
+             <div className='label-container'> <Form.Label>About You</Form.Label></div>
+             <div className='container-input'><textarea
                 type="text"
                 name="hiamft_member_account_info"
                 value={this.state.hiamft_member_account_info}
                 onChange={this.handleInputChangeFor(
                   "hiamft_member_account_info"
                 )}
-              />
-               <div><h4 className='error'>{this.state.memberError}</h4></div>
-              <br />
-              <Button className="save" type="submit">
+              /><h4 className='error'>{this.state.memberError}</h4></div>
+             </div>
+
+             
+            
+            
+              
+               <div>
+                 <Button className="save" type="submit">
                 Next
-              </Button>
+              </Button></div>
+              
             </Form>
           </div>
         </>
