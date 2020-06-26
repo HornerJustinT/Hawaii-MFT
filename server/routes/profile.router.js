@@ -60,9 +60,9 @@ router.get('/:id', async (req, res) => {
 			JOIN treatment_preferences ON treatment_preferences.treatment_preferences_id = treatment_preferences_pivot.treatment_preferences_id		
         
             WHERE id = $1
-			GROUP BY m.id, m.zip_code, m.first_name, m.last_name, m.prefix, m.age, m.license_state, license_type.title, m.license_number,
+			GROUP BY m.id, m.zip_code, m.zip_code_personal, m.first_name, m.last_name, m.prefix, m.age, m.license_state, license_type.title, m.license_number,
 			m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials, island.title,
-      m.telehealth, m.statement, m.website, m.title, m.city, m.license_number, m.license_type, m.enabled;`;
+      m.telehealth, m.statement, m.website, m.title, m.city, m.city_personal, m.license_number, m.license_type, m.enabled;`;
       
 
         const members = await connection.query(query, [req.params.id]);
@@ -144,71 +144,121 @@ router.put("/contact", rejectUnauthenticated, async (req, res) => {
   const connection = await pool.connect();
 
   try {
-    await connection.query("BEGIN;");
-    const memberQuery = `UPDATE "members" 
-        SET ("city", "zip_code",
+        await connection.query("BEGIN;");
+        const memberQuery = `UPDATE "members" 
+        SET ("city", "city_personal", "zip_code", "zip_code_personal",
             "website")
         = 
-            ($1, $2, $3)
-        WHERE id = $4;`;
+            ($1, $2, $3, $4, $5)
+        WHERE id = $6;`;
 
+        //declaring variables for island queries
+        const island = req.body.islandEdit;
+        const islandQuery = `INSERT INTO "island_pivot" ("island_id", "member_id") VALUES ($1, $2)`;
+        const islandDeleteQuery = `DELETE FROM island_pivot WHERE member_id = $1;`;
 
-    //declaring variables for island queries
-    const island = req.body.islandEdit;
-    const islandQuery = `INSERT INTO "island_pivot" ("island_id", "member_id") VALUES ($1, $2)`;
-    const islandDeleteQuery = `DELETE FROM island_pivot WHERE member_id = $1;`;
+        //declaring variables for phone queries
+        const phone = req.body.phone;
+        const phoneQuery = `INSERT INTO "phone_table" ("number", "member_id", "business") VALUES ($1, $2, $3)`;
+        const phoneDeleteQuery = `DELETE FROM phone_table WHERE member_id = $1;`;
 
-    //declaring variables for phone queries
-    const phone = req.body.phone;
-    const phoneQuery = `INSERT INTO "phone_table" ("number", "member_id", "business") VALUES ($1, $2, $3)`;
-    const phoneDeleteQuery = `DELETE FROM phone_table WHERE member_id = $1;`;
+        const phonePersonal = req.body.phonePersonal;
+        const phoneQueryPersonal = `INSERT INTO "phone_table" ("number", "member_id", "business") VALUES ($1, $2, $3)`;
+        const phoneDeleteQueryPersonal = `DELETE FROM phone_table WHERE member_id = $1 AND business = $2;`;
 
-    const email = req.body.email;
-    const emailQuery = `INSERT INTO "email_table" ("email", "member_id", "business") VALUES ($1, $2, $3)`;
-    const emailDeleteQuery = `DELETE FROM email_table WHERE member_id = $1;`;
+        const email = req.body.email;
+        const emailQuery = `INSERT INTO "email_table" ("email", "member_id", "business") VALUES ($1, $2, $3)`;
+        const emailDeleteQuery = `DELETE FROM email_table WHERE member_id = $1;`;
 
-    const address = req.body.address;
-    const addressQuery = `INSERT INTO "address_table" ("address", "member_id", "business") VALUES ($1, $2, $3)`;
-    const addressDeleteQuery = `DELETE FROM address_table WHERE member_id = $1;`;
+        const emailPersonal = req.body.emailPersonal;
+        const emailQueryPersonal = `INSERT INTO "email_table" ("email", "member_id", "business") VALUES ($1, $2, $3)`;
+        const emailDeleteQueryPersonal = `DELETE FROM email_table WHERE member_id = $1 AND business = $2;`;
 
-    await connection.query(memberQuery, [
-      req.body.city,
-      req.body.zipCode,
-      req.body.website,
-      req.body.id,
-    ]);
+        const address = req.body.address;
+        const addressQuery = `INSERT INTO "address_table" ("address", "member_id", "business") VALUES ($1, $2, $3)`;
+        const addressDeleteQuery = `DELETE FROM address_table WHERE member_id = $1;`;
 
-    //Islands PUT & DELETE queries
-    let queryIsland = null;
-    if (Array.isArray(island)) {
-      queryIsland = island[0];
-    }
-    await connection.query(islandDeleteQuery, [req.body.id]);
-    await connection.query(islandQuery, [queryIsland || island, req.body.id]);
+        const addressPersonal = req.body.addressPersonal;
+        const addressQueryPersonal = `INSERT INTO "address_table" ("address", "member_id", "business") VALUES ($1, $2, $3)`;
+        const addressDeleteQueryPersonal = `DELETE FROM address_table WHERE member_id = $1 AND business = $2;`;
 
-    // Phone PUT & DELETE
-    await connection.query(phoneDeleteQuery, [req.body.id]);
-    await connection.query(phoneQuery, [phone, req.body.id, "TRUE"]);
+        await connection.query(memberQuery, [
+          req.body.city,
+          req.body.cityPersonal,
+          req.body.zipCode,
+          req.body.zipCodePersonal,
+          req.body.website,
+          req.body.id,
+        ]);
 
-    //Email PUT & DELETE
-    let queryEmail = null;
-    if (Array.isArray(email)) {
-      queryEmail = email[0];
-    }
-    await connection.query(emailDeleteQuery, [req.user.id]);
-    await connection.query(emailQuery, [queryEmail || email, req.user.id, 'TRUE']);
-    
-    //Address PUT & DELETE
-    let queryAddress = null;
-    if (Array.isArray(address)) {
-      queryAddress = address[0];
-    }
-    await connection.query(addressDeleteQuery, [req.user.id]);
-    await connection.query(addressQuery, [queryAddress || address, req.user.id, 'TRUE']);
+        //Islands PUT & DELETE queries
+        let queryIsland = null;
+        if (Array.isArray(island)) {
+          queryIsland = island[0];
+        }
+        await connection.query(islandDeleteQuery, [req.body.id]);
+        await connection.query(islandQuery, [
+          queryIsland || island,
+          req.body.id,
+        ]);
 
-    await connection.query("COMMIT;");
-    res.sendStatus(200);
-  } catch (error) {
+        // Phone PUT & DELETE
+        await connection.query(phoneDeleteQuery, [req.body.id]);
+        await connection.query(phoneQuery, [phone, req.body.id, "TRUE"]);
+
+        //PhonePersonal PUT & DELETE
+        await connection.query(phoneDeleteQueryPersonal, [
+          req.body.id,
+          "FALSE",
+        ]);
+        await connection.query(phoneQueryPersonal, [
+          phonePersonal,
+          req.body.id,
+          "FALSE",
+        ]);
+
+        //Email PUT & DELETE
+        let queryEmail = null;
+        if (Array.isArray(email)) {
+          queryEmail = email[0];
+        }
+        await connection.query(emailDeleteQuery, [req.user.id]);
+        await connection.query(emailQuery, [
+          queryEmail || email,
+          req.user.id,
+          "TRUE",
+        ]);
+
+        //EmailPersonal PUT & DELETE
+        await connection.query(emailDeleteQueryPersonal, [
+          req.body.id,
+          "FALSE",
+        ]);
+        await connection.query(emailQueryPersonal, [
+          emailPersonal,
+          req.body.id,
+          "FALSE",
+        ]);
+
+        //Address PUT & DELETE
+        let queryAddress = null;
+        if (Array.isArray(address)) {
+          queryAddress = address[0];
+        }
+        await connection.query(addressDeleteQuery, [req.user.id]);
+        await connection.query(addressQuery, [
+          queryAddress || address,
+          req.user.id,
+          "TRUE",
+        ]);
+
+        //EmailPersonal PUT & DELETE
+        await connection.query(addressDeleteQueryPersonal, [req.body.id,"FALSE"]);
+        await connection.query(addressQueryPersonal, [addressPersonal,req.body.id,"FALSE"]);
+
+        await connection.query("COMMIT;");
+        res.sendStatus(200);
+      } catch (error) {
     console.log(`Error on contract transaction`, error);
     await connection.query("ROLLBACK;");
     res.sendStatus(500);
