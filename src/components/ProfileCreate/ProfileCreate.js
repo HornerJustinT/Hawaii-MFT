@@ -168,17 +168,18 @@ componentDidMount(){
       return (
         <>
           <div className="container">
-          <div className='text-center'>
-            <header className='header-container'>
-              <h1>Create New Profile</h1>
-            </header></div>  
+         
+            <header> <h1 className='text-center'>Create New Profile</h1></header>
+             
+           
             <br />
 
             <ProgressBar now={25} />
                <div className='text-center'><h3 className='subtitle'>Basic Info</h3></div> 
             <Form  onSubmit={this.addMembers}>
           <div className='inputs'>
-           <div className='container-box'>
+            <div className='box-1'>
+            <div className='container-box'>
             <div className='label-container'><Form.Label>Prefix</Form.Label></div>
             <div className='container-input'><input
                 type="text"
@@ -186,26 +187,8 @@ componentDidMount(){
                 value={this.state.prefix}
                 onChange={this.handleInputChangeFor("prefix")}
               /><h4 className='error'>{this.state.prefixError}</h4></div></div>
-            
+              
               <div className='container-box'>
-                <div className='label-container'><Form.Label>First Name</Form.Label></div>  
-             <div className='container-input'><input
-                type="text"
-                name="first_name"
-                value={this.state.first_name}
-                onChange={this.handleInputChangeFor("first_name")}
-              /><h4 className='error'>{this.state.firstNameError}</h4></div></div>
-            
-            <div className='container-box'>
-              <div className='label-container'>
-                <Form.Label>Last Name</Form.Label></div>
-            <div className='container-input'> <input
-                type="text"
-                name="last_name"
-                value={this.state.last_name}
-                onChange={this.handleInputChangeFor("last_name")}
-              /><h4 className='error'>{this.state.lastNameError}</h4></div></div>
-            <div className='container-box'>
             <div className='label-container'>
               <Form.Label>Age</Form.Label></div> 
               <div className='container-input'><input
@@ -214,11 +197,10 @@ componentDidMount(){
                 value={this.state.age}
                 onChange={this.handleInputChangeFor("age")}
               /><h4 className='error'>{this.state.ageError}</h4></div>
-            </div>
-    
-            <div className='container-box'>
+               </div>
+               <div className='container-box'>
             <div className='label-container'>
-              <Form.Label>Language Spoken</Form.Label></div>
+              <Form.Label>Language</Form.Label></div>
             <div className='container-input'><select
                 multiple="true"
                 onChange={(event) =>
@@ -241,10 +223,29 @@ componentDidMount(){
                   </>
                 )}
               </select> <h4 className='error'>{this.state.languageError}</h4></div>
+              </div>
+            </div> 
+               <div className='box-2'>
+               <div className='container-box'>
+                <div className='label-container'><Form.Label>First Name</Form.Label></div>  
+             <div className='container-input'><input
+                type="text"
+                name="first_name"
+                value={this.state.first_name}
+                onChange={this.handleInputChangeFor("first_name")}
+              /><h4 className='error'>{this.state.firstNameError}</h4></div></div>
+              
+               <div className='container-box'>
+              <div className='label-container'>
+                <Form.Label>Last Name</Form.Label></div>
+            <div className='container-input'> <input
+                type="text"
+                name="last_name"
+                value={this.state.last_name}
+                onChange={this.handleInputChangeFor("last_name")}
+              /><h4 className='error'>{this.state.lastNameError}</h4></div></div>
 
-            </div>
-            
-             <div className='container-box'>
+               <div className='container-box'>
              <div className='label-container'> <Form.Label>About You</Form.Label></div>
              <div className='container-input'><textarea
                 type="text"
@@ -254,12 +255,13 @@ componentDidMount(){
                   "hiamft_member_account_info"
                 )}
               /><h4 className='error'>{this.state.memberError}</h4></div>
-             </div></div>  
-
-             
+               </div>
+            </div>
+           
+            
+            </div>
             
             
-              
                <div className="next-button">
                  <Button type="submit">
                 Next

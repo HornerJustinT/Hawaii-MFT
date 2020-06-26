@@ -10,6 +10,8 @@ form{
 input{
     width:20em;
     height: 2em;
+    display: inline-block;
+    margin-left: 10px;
 }
 
 select{
@@ -18,8 +20,8 @@ select{
 
 }
 textarea{
-    width:30em;
-    height: 15em;
+    width:20em;
+    height: 10em;
 }
 
 label{
@@ -27,18 +29,22 @@ label{
 
 }
 
+.container{
+    margin-bottom: 0;
+}
 
 
 .container-box{
     display: flex;
     flex-direction: row;
+    display: inline-block;
    
 }
 
 .label-container{
     margin: 1em;
-    display: inline-block;
-    text-align: right;
+   display: inline-block;
+    text-align: left;
     padding: 14px 10px 0 0;
     margin:0 0 7px 0;
     
@@ -46,17 +52,32 @@ label{
 
 .container-input{
     display: inline-block;
+    vertical-align: middle;
     margin:0;
     margin:0 0 7px 0;
-    text-align: right;
+    
    
 }
 
 .inputs{
-    display: grid;
+    display: flex;
     position: relative;
-    grid-template-columns: auto auto ;
-    grid-gap: 1em;
+   flex-direction: row;
+}
+
+.box-1{
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction:column;
+    text-align: right;
+}
+
+.box-2{
+    flex:1;
+    position: relative;
+    display: inline-block;
+    text-align: right;
 }
 
 .header-container{
@@ -72,5 +93,6 @@ label{
 .next-button{
     margin-top: 3em;
     text-align: center;
-
+    margin-left: 15em;
 }
+
