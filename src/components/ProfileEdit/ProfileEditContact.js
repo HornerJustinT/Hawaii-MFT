@@ -25,8 +25,9 @@ class ProfileEditContact extends Component {
     componentDidMount() {
         this.props.dispatch({ type: "FETCH_ISLANDS" });
         this.props.dispatch({
-            type: "FETCH_PROFILE",
-            payload: { id: this.props.match.params.id || this.props.user.id },
+          type: "FETCH_PROFILE",
+          payload: { id: this.props.match.params.id || this.props.user.id },
+          newUser: this.props.history.push("/create-profile"),
         });
     } //end componentDidMount
 
