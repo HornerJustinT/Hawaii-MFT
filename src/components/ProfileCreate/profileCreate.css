@@ -12,20 +12,27 @@ input{
     height: 2em;
     display: inline-block;
     margin-left: 10px;
+   border-radius: 5%;
+   background-color: lightcyan;
 }
 
 select{
     width:20em;
     height: 10em;
-
+    border-radius: 5%;
+    background-color: lightcyan;
 }
 textarea{
     width:20em;
     height: 10em;
+    border-radius: 5%;
+    background-color: lightcyan;
+    font-weight: bold;
 }
 
 label{
     font: 15px;
+    font-weight: bolder;
 
 }
 
