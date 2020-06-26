@@ -199,7 +199,7 @@ class ProfileEditContact extends Component {
                     {this.state.island && (
                         <>
                         <Form.Control
-                            disabled="true"
+                            disabled={true}
                             readOnly
                             defaultValue={this.state.island}
                         />
@@ -403,7 +403,7 @@ class ProfileEditContact extends Component {
                                 Email Address - Business
                               </Form.Label>
                               <Form.Control
-                                disabled="true"
+                                disabled={true}
                                 readOnly
                                 defaultValue={this.state.email}
                               />
@@ -417,7 +417,7 @@ class ProfileEditContact extends Component {
                                 Email Address - Personal
                               </Form.Label>
                               <Form.Control
-                                disabled="true"
+                                disabled={true}
                                 readOnly
                                 defaultValue={this.state.email}
                               />
@@ -429,7 +429,7 @@ class ProfileEditContact extends Component {
                             <Form.Group>
                               <Form.Label className="label">Website</Form.Label>
                               <Form.Control
-                                disabled="true"
+                                disabled={true}
                                 readOnly
                                 defaultValue={this.state.website}
                               />
@@ -440,7 +440,7 @@ class ProfileEditContact extends Component {
                                 Phone Number - Business
                               </Form.Label>
                               <Form.Control
-                                disabled="true"
+                                disabled={true}
                                 readOnly
                                 defaultValue={this.state.phone}
                               />
@@ -454,7 +454,7 @@ class ProfileEditContact extends Component {
                                 Phone Number - Personal
                               </Form.Label>
                               <Form.Control
-                                disabled="true"
+                                disabled={true}
                                 readOnly
                                 defaultValue={this.state.phone}
                               />
@@ -471,7 +471,7 @@ class ProfileEditContact extends Component {
                                 Address - Business
                               </Form.Label>
                               <Form.Control
-                                disabled="true"
+                                disabled={true}
                                 readOnly
                                 defaultValue={this.state.address}
                               />
@@ -485,7 +485,7 @@ class ProfileEditContact extends Component {
                                 City - Business
                               </Form.Label>
                               <Form.Control
-                                disabled="true"
+                                disabled={true}
                                 readOnly
                                 defaultValue={this.state.city}
                               />
@@ -499,7 +499,7 @@ class ProfileEditContact extends Component {
                                 Zip Code - Business
                               </Form.Label>
                               <Form.Control
-                                disabled="true"
+                                disabled={true}
                                 readOnly
                                 defaultValue={this.state.zipCode}
                               />
@@ -513,7 +513,7 @@ class ProfileEditContact extends Component {
                                 Address - Personal
                               </Form.Label>
                               <Form.Control
-                                disabled="true"
+                                disabled={true}
                                 readOnly
                                 defaultValue={this.state.address}
                               />
@@ -527,7 +527,7 @@ class ProfileEditContact extends Component {
                                 City - Personal
                               </Form.Label>
                               <Form.Control
-                                disabled="true"
+                                disabled={true}
                                 readOnly
                                 defaultValue={this.state.city}
                               />
@@ -541,7 +541,7 @@ class ProfileEditContact extends Component {
                                 Zip Code - Personal
                               </Form.Label>
                               <Form.Control
-                                disabled="true"
+                                disabled={true}
                                 readOnly
                                 defaultValue={this.state.zipCode}
                               />
