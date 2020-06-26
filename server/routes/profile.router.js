@@ -149,8 +149,8 @@ router.put("/contact", rejectUnauthenticated, async (req, res) => {
         SET ("city", "city_personal", "zip_code", "zip_code_personal",
             "website")
         = 
-            ($1, $2, $3, $4, $5)
-        WHERE id = $6;`;
+            ($1, $2, $3, $4, $5, $6)
+        WHERE id = $7;`;
 
         //declaring variables for island queries
         const island = req.body.islandEdit;

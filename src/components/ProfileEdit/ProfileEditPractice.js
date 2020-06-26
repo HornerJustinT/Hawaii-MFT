@@ -6,6 +6,7 @@ import { withRouter } from 'react-router';
 //React Botstrap imports
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 //CSS file imports
 import "./ProfileEdit.css";
@@ -39,9 +40,7 @@ class ProfileEdit extends Component {
 
   //updating component to ensure all the data makes it to props for render
   componentDidUpdate(previousProps) {
-    if (
-      previousProps !== this.props
-    ) {
+    if (previousProps !== this.props) {
       //declaring new variables for state with return from syncDataEditLanguage & syncDataEditIsland
       //these functions retrieve an id based on the title of each item (ex. island title & island id)
       //the last line of this code block is commented out to demonstrate the next steps for finishing
@@ -100,13 +99,6 @@ class ProfileEdit extends Component {
       type: "EDIT_PRACTICE",
       payload: this.state,
     });
-
-    this.props.dispatch({type: "PROFILE_RESET"});
-
-    this.props.dispatch({
-      type: "FETCH_PROFILE",
-      payload: { id: this.props.match.params.id || this.props.user.id },
-    });
   }; //end handleSavePractice
 
   //handleChange resets state according to new data entered into form inputs
@@ -114,6 +106,21 @@ class ProfileEdit extends Component {
     this.setState({
       [propertyName]: event.target.value,
     });
+  }; //end handleChange
+
+  //handleChangeBoolean resets state according to new data entered into form inputs requiring Boolean values
+  handleChangeBoolean = (event, propertyName) => {
+
+    if( event.target.value === "true"){
+        this.setState({
+        [propertyName]: true,
+        });
+    }else{
+        this.setState({
+          [propertyName]: false,
+        });
+    }
+    
   }; //end handleChange
 
   handleMultiChange = (event, editPropertyName) => {
@@ -127,12 +134,12 @@ class ProfileEdit extends Component {
   }; //end handleLangChange
 
   render() {
-    if (this.props.profile) {
+    if (this.props.profile && this.state.fees) {
       return (
         <>
+          {JSON.stringify(this.props.profile.treatment_preferences)}
           {/**Here is Practice Info render */}
-          {/**Below is the skeleton, but the PUT functionality still needs to be written.*/}
-          {this.state.clickPractice ? (
+          {this.state.clickPractice && this.props.profile ? (
             <div className="body">
               <div className="flex-between row-wrap first">
                 <h4>Practice Info</h4>
@@ -160,6 +167,10 @@ class ProfileEdit extends Component {
                         this.handleChange(event, "credentials")
                       }
                     />
+                    <Form.Text className="text-muted">
+                      Please list your credentials as you would like them to
+                      appear after your name (ex. "Jane Rain, PhD, LMFT, LP")
+                    </Form.Text>
                   </Form.Group>
                   <Form.Group>
                     <Form.Label className="label">
@@ -185,9 +196,9 @@ class ProfileEdit extends Component {
                     <Form.Label className="label">Telehealth</Form.Label>
                     <Form.Control
                       as="select"
-                      defaultValue={this.props.profile.telehealth}
+                      defaultValue={this.state.telehealth}
                       onChange={(event) =>
-                        this.handleChange(event, "telehealth")
+                        this.handleChangeBoolean(event, "telehealth")
                       }
                       width={"193px"}
                     >
@@ -205,12 +216,16 @@ class ProfileEdit extends Component {
                         this.handleChange(event, "licenseNumber")
                       }
                     />
+                    <Form.Text className="text-muted">
+                      Not Listed (for HIAMFT-use only)
+                    </Form.Text>
                   </Form.Group>
                   <Form.Group>
                     <Form.Label className="label">
                       License Expiration Date
                     </Form.Label>
                     <Form.Control
+                      type="date"
                       defaultValue={this.props.profile.license_expiration}
                       onChange={(event) =>
                         this.handleChange(event, "licenseExpiration")
@@ -228,13 +243,21 @@ class ProfileEdit extends Component {
                   </Form.Group>
                   <Form.Group>
                     <Form.Label className="label">Fees</Form.Label>
-                    <Form.Control
-                      defaultValue={this.props.profile.fees}
-                      onChange={(event) => this.handleChange(event, "fees")}
-                    />
+                    <InputGroup className="mb-2">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>$</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control
+                        defaultValue={this.state.fees}
+                        onChange={(event) => this.handleChange(event, "fees")}
+                      />
+                    </InputGroup>
+                    <Form.Text className="text-muted">
+                      Please indicate an amount or range for one session.
+                    </Form.Text>
                   </Form.Group>
                 </Form>
-                <Form>
+                <Form className="flex-between row-wrap">
                   <Form.Group>
                     <Form.Label className="label">
                       Treatment & Approaches
@@ -416,12 +439,16 @@ class ProfileEdit extends Component {
                       readOnly
                       value={this.state.licenseNumber}
                     />
+                    <Form.Text className="text-muted">
+                      Not Listed (for HIAMFT-use only)
+                    </Form.Text>
                   </Form.Group>
                   <Form.Group>
                     <Form.Label className="label">
                       License Expiration Date
                     </Form.Label>
                     <Form.Control
+                      type="date"
                       disabled={true}
                       readOnly
                       value={this.state.licenseExpiration}
@@ -437,18 +464,34 @@ class ProfileEdit extends Component {
                   </Form.Group>
                   <Form.Group>
                     <Form.Label className="label">Fees</Form.Label>
-                    <Form.Control
-                      disabled={true}
-                      readOnly
-                      value={this.state.fees}
-                    />
+                    <InputGroup className="mb-2">
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>$</InputGroup.Text>
+                      </InputGroup.Prepend>
+                      <Form.Control
+                        disabled={true}
+                        readOnly
+                        value={this.state.fees}
+                      />
+                    </InputGroup>
                   </Form.Group>
                 </Form>
-                <Form>
+                <Form className="flex-between row-wrap">
                   <Form.Group>
                     <Form.Label variant="flat" className="label">
                       Treatment & Approaches
                     </Form.Label>
+                    {this.state.treatmentPreferences.map((treatment) => {
+                      return (
+                        <>
+                          <Form.Control
+                            disabled={true}
+                            readOnly
+                            defaultValue={treatment}
+                          />
+                        </>
+                      );
+                    })}
                     <Form.Control
                       disabled={true}
                       readOnly

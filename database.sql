@@ -10,31 +10,33 @@ CREATE TABLE "registration" (
 	"registration_key" bigint UNIQUE NOT NULL,
 	"used" BOOLEAN
 	);
+
 CREATE TABLE "members" (
 	"id" INT NOT NULL UNIQUE,
-	"zip_code" INT,
-	"zip_code_personal" INT,
-	"first_name" VARCHAR(255) NOT NULL,
-	"last_name" VARCHAR(255) NOT NULL,
-	"prefix" VARCHAR(20),
-	"age" INT,
-	"license_state" VARCHAR(50),
-	"license_expiration" VARCHAR(50),
-	"hiamft_member_account_info" VARCHAR(255),
-	"supervision_status" VARCHAR(255),
-	"fees" VARCHAR(255),
-    "credentials" TEXT,
-    "telehealth" BOOLEAN,
-    "statement" VARCHAR(255),
-    "website" TEXT, 
-    "title" TEXT,
-    "city" TEXT,
-    "city_personal" TEXT,
-    "license_number" TEXT,
-    "license_type" INTEGER,
+	"zip_code" INT DEFAULT 0,
+	"zip_code_personal" INT DEFAULT 00000,
+	"first_name" VARCHAR(255) DEFAULT '',
+	"last_name" VARCHAR(255) DEFAULT '',
+	"prefix" VARCHAR(20) DEFAULT '',
+	"age" INT DEFAULT 0,
+	"license_state" VARCHAR(50) DEFAULT '',
+	"license_expiration" VARCHAR(50) DEFAULT '',
+	"hiamft_member_account_info" VARCHAR(255) DEFAULT '',
+	"supervision_status" VARCHAR(255) DEFAULT '',
+	"fees" VARCHAR(255) DEFAULT '',
+    "credentials" TEXT DEFAULT '',
+    "telehealth" BOOLEAN DEFAULT false,
+    "statement" VARCHAR(255) DEFAULT '',
+    "website" TEXT DEFAULT '', 
+    "title" TEXT DEFAULT '',
+    "city" TEXT DEFAULT '',
+    "city_personal" TEXT DEFAULT '',
+    "license_number" TEXT DEFAULT '',
+    "license_type" INTEGER DEFAULT 0,
     "enabled" boolean DEFAULT true,
 	FOREIGN KEY ("id") REFERENCES "user"("id")
 );
+
 
 CREATE TABLE "insurance_type" (
 	"insurance_type_id" SERIAL PRIMARY KEY,

@@ -271,6 +271,7 @@ class ProfileEditContact extends Component {
                               this.handleChange(event, "website")
                             }
                           />
+                          <Form.Text className="text-muted">Listed</Form.Text>
                         </Form.Group>
 
                         <Form.Group>
@@ -438,6 +439,9 @@ class ProfileEditContact extends Component {
                                 readOnly
                                 defaultValue={this.state.website}
                               />
+                              <Form.Text className="text-muted">
+                                Listed
+                              </Form.Text>
                             </Form.Group>
 
                             <Form.Group>
