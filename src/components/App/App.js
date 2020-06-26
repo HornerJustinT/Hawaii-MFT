@@ -81,7 +81,7 @@ class App extends Component {
             <ProtectedRoute exact path="/student" component={studentProfile} />
 
             {/* Admin View */}
-            <AdminRoute exact path="/edit-profile/:id" component={ProfileEdit} />
+            <AdminRoute exact path="/admin-edit-profile/:id" component={ProfileEdit} />
             <Route exact path="/profile/:id" component={ProfileView} />
        
 

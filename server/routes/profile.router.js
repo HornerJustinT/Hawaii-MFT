@@ -25,8 +25,11 @@ router.get('/:id', async (req, res) => {
 			array_agg(DISTINCT treatment_preferences.title) AS treatment_preferences,
 			array_agg(DISTINCT treatment_preferences.treatment_preferences_id) AS treatment_preferences_id,
 			ARRAY(SELECT DISTINCT phone_table.number FROM phone_table WHERE phone_table.business = true AND phone_table.member_id = m.id) AS phone,
+			ARRAY(SELECT DISTINCT phone_table.number FROM phone_table WHERE phone_table.business = false AND phone_table.member_id = m.id) AS phone_personal,
 			ARRAY(SELECT DISTINCT address_table.address FROM address_table WHERE address_table.business = true AND address_table.member_id = m.id) AS address,
+			ARRAY(SELECT DISTINCT address_table.address FROM address_table WHERE address_table.business = false AND address_table.member_id = m.id) AS address_personal,
       ARRAY(SELECT DISTINCT email_table.email FROM email_table WHERE email_table.business = true AND email_table.member_id = m.id) AS email,
+      ARRAY(SELECT DISTINCT email_table.email FROM email_table WHERE email_table.business = false AND email_table.member_id = m.id) AS email_personal,
       license_type.title as license
 			FROM members m
 			
