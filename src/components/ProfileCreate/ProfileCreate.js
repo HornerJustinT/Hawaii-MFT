@@ -168,15 +168,16 @@ componentDidMount(){
       return (
         <>
           <div className="container">
-          <div className='header'><header>
+          <div className='text-center'>
+            <header className='header-container'>
               <h1>Create New Profile</h1>
             </header></div>  
             <br />
 
             <ProgressBar now={25} />
-               <div><h3>Basic Info</h3></div> 
+               <div className='text-center'><h3 className='subtitle'>Basic Info</h3></div> 
             <Form  onSubmit={this.addMembers}>
-            
+          <div className='inputs'>
            <div className='container-box'>
             <div className='label-container'><Form.Label>Prefix</Form.Label></div>
             <div className='container-input'><input
@@ -196,7 +197,8 @@ componentDidMount(){
               /><h4 className='error'>{this.state.firstNameError}</h4></div></div>
             
             <div className='container-box'>
-              <div className='label-container'><Form.Label>Last Name</Form.Label></div>
+              <div className='label-container'>
+                <Form.Label>Last Name</Form.Label></div>
             <div className='container-input'> <input
                 type="text"
                 name="last_name"
@@ -204,7 +206,8 @@ componentDidMount(){
                 onChange={this.handleInputChangeFor("last_name")}
               /><h4 className='error'>{this.state.lastNameError}</h4></div></div>
             <div className='container-box'>
-            <div className='label-container'><Form.Label>Age</Form.Label></div> 
+            <div className='label-container'>
+              <Form.Label>Age</Form.Label></div> 
               <div className='container-input'><input
                 type="text"
                 name="age"
@@ -214,7 +217,8 @@ componentDidMount(){
             </div>
     
             <div className='container-box'>
-            <div className='label-container'> <Form.Label>Language Spoken</Form.Label></div>
+            <div className='label-container'>
+              <Form.Label>Language Spoken</Form.Label></div>
             <div className='container-input'><select
                 multiple="true"
                 onChange={(event) =>
@@ -250,14 +254,14 @@ componentDidMount(){
                   "hiamft_member_account_info"
                 )}
               /><h4 className='error'>{this.state.memberError}</h4></div>
-             </div>
+             </div></div>  
 
              
             
             
               
-               <div>
-                 <Button className="save" type="submit">
+               <div className="next-button">
+                 <Button type="submit">
                 Next
               </Button></div>
               

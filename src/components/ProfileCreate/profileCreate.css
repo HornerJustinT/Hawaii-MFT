@@ -27,17 +27,50 @@ label{
 
 }
 
+
+
 .container-box{
     display: flex;
     flex-direction: row;
+   
 }
 
 .label-container{
-    flex: 1;
-    margin: 0;
+    margin: 1em;
+    display: inline-block;
+    text-align: right;
+    padding: 14px 10px 0 0;
+    margin:0 0 7px 0;
+    
 }
 
 .container-input{
-    flex:15;
-    margin: 0;
+    display: inline-block;
+    margin:0;
+    margin:0 0 7px 0;
+    text-align: right;
+   
+}
+
+.inputs{
+    display: grid;
+    position: relative;
+    grid-template-columns: auto auto ;
+    grid-gap: 1em;
+}
+
+.header-container{
+    margin-top: 0;
+    margin-bottom: 2em;
+}
+
+.subtitle{
+    margin-top: 0.5em;
+    margin-bottom: 2em;
+}
+
+.next-button{
+    margin-top: 3em;
+    text-align: center;
+
 }
