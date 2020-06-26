@@ -1,4 +1,29 @@
 .error{
-    font:red;
+    color: red;
     font-size:medium;
 }
+
+form{
+    margin: 0 auto;
+}
+
+input{
+    width:20em;
+    height: 2em;
+}
+
+select{
+    width:20em;
+    height: 10em;
+
+}
+textarea{
+    width:30em;
+    height: 15em;
+}
+
+label{
+    font: 15px;
+
+}
+

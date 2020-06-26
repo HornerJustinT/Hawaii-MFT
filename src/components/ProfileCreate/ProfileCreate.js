@@ -7,26 +7,34 @@ import "./profileCreate.css"
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { number } from 'prop-types';
 
-
+// const formValid = formErrors =>{
+//   let valid = true;
+//   Object.values(formerrors).forEach(val =>{
+//     val.length > 0 && (valid=false);
+//   });
+//   return valid
+// }
 
 
 class ProfileCreate extends Component {
     //create a state 
     state = {
-    prefix:'',
-	first_name:'',
-	last_name:'',
-    age:'',
-    hiamft_member_account_info:'',
-  language_id:'',
-  prefixError:'',
-  firstNameError:'',
-  lastNameError:'',
-  languageError:'',
-  ageError:'',
-  memberError:'',
-    }
+        prefix:'',
+      first_name:'',
+      last_name:'',
+        age:'',
+        hiamft_member_account_info:'',
+      language_id:'',
+      prefixError:'',
+      firstNameError:'',
+      lastNameError:'',
+      languageError:'',
+      ageError:'',
+      memberError:'',
+     }
+    
 //when the document is ready it will fetch all the languages
 //from which users can choose the languages they speak
 componentDidMount(){
@@ -77,20 +85,26 @@ componentDidMount(){
   let ageError = '';
   let memberError ='';
 
-  if(this.state.prefix.includes('')){
-     prefixError = 'Input is empty, Fill in your Prefix'
+  if(!this.state.prefix){
+     prefixError = 'Prefix is required'
+  }else if(this.state.prefix.length > 3 || 
+    typeof(this.state.prefix) === 'number'||'symbol'){
+     prefixError = "Prefix is invalid or it is longer than 3"
   }
    
-    if(this.state.first_name.includes('')){
-      firstNameError = 'Input is empty, Fill in your First Name'
-   }
+  if(!this.state.first_name){
+    firstNameError = 'First Name is required'
+ }else if(this.state.prefix.includes('number' || 'symbol') || 
+   typeof(this.state.first_name) === 'number'||'symbol'){
+    firstNameError = "First Name is invalid"
+ }
     
      if(this.state.last_name.includes('')){
-      lastNameError = 'Input is empty, Fill in your Last Name '
+      lastNameError = 'Input is empty, Last Name is required'
    }
      
-     if(this.state.language_id.includes('')){
-      languageError = 'Language not selected, Choose all the language you speak'
+     if(!this.state.language_id){
+      languageError = 'Language is not selected, Choose at least one language'
    }
     
      if(this.state.age.includes('')){
@@ -98,7 +112,7 @@ componentDidMount(){
    }
     
      if(this.state.hiamft_member_account_info.includes('')){
-      memberError = 'Input is empty, Fill in About me section'
+      memberError = 'Input is empty, Fill in the About me section'
    }
    if(prefixError || firstNameError || lastNameError || languageError || ageError || memberError){
     this.setState({prefixError, firstNameError, lastNameError, languageError, ageError, memberError});
@@ -155,9 +169,9 @@ componentDidMount(){
             <br />
 
             <ProgressBar now={25} />
-            <Form onSubmit={this.addMembers}>
+            <Form className="text-center" onSubmit={this.addMembers}>
               <h3>Basic Info</h3>
-              <label>Prefix</label>
+              <Form.Label>Prefix</Form.Label>
               <br />
               <input
                 type="text"
@@ -165,7 +179,7 @@ componentDidMount(){
                 value={this.state.prefix}
                 onChange={this.handleInputChangeFor("prefix")}
               />
-              <div className='error'><h4>{this.state.prefixError}</h4></div>
+              <div><h4 className='error'>{this.state.prefixError}</h4></div>
               <br />
               <Form.Label>First Name</Form.Label>
               <br />
@@ -175,7 +189,7 @@ componentDidMount(){
                 value={this.state.first_name}
                 onChange={this.handleInputChangeFor("first_name")}
               />
-               <div className='error'><h4>{this.state.firstNameError}</h4></div>
+               <div><h4 className='error'>{this.state.firstNameError}</h4></div>
               <br />
               <Form.Label>Last Name</Form.Label>
               <br />
@@ -185,7 +199,7 @@ componentDidMount(){
                 value={this.state.last_name}
                 onChange={this.handleInputChangeFor("last_name")}
               />
-               <div className='error'><h4>{this.state.lastNameError}</h4></div>
+               <div><h4 className='error'>{this.state.lastNameError}</h4></div>
               <br />
               <Form.Label>Age</Form.Label>
               <br />
@@ -195,8 +209,7 @@ componentDidMount(){
                 value={this.state.age}
                 onChange={this.handleInputChangeFor("age")}
               />
-               <div className='error'><h4>{this.state.ageError}</h4></div>
-              <br />
+               <div><h4 className='error'>{this.state.ageError}</h4></div>
               <br />
               <Form.Label>Language Spoken</Form.Label>
               <br />
@@ -222,11 +235,8 @@ componentDidMount(){
                   </>
                 )}
               </select>
-              <div className='error'><h4>{this.state.languageError}</h4></div>
-              <br />
-              <br />
-              <br />
-              <br />
+              <div><h4 className='error'>{this.state.languageError}</h4></div>
+             <br/>
               <Form.Label>About You</Form.Label>
               <br />
               <textarea
@@ -237,7 +247,7 @@ componentDidMount(){
                   "hiamft_member_account_info"
                 )}
               />
-               <div className='error'><h4>{this.state.memberError}</h4></div>
+               <div><h4 className='error'>{this.state.memberError}</h4></div>
               <br />
               <Button className="save" type="submit">
                 Next
