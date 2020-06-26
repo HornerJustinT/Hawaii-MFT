@@ -86,39 +86,53 @@ componentDidMount(){
   let memberError ='';
   let formIsValid = true;
 
-  if(!this.state.prefix){
+  if(this.state.prefix === ''){
     formIsValid=false;
      prefixError = 'Prefix is required'
-  }
-  if(this.state.prefix.length > 3 || 
-    typeof(this.state.prefix) === 'number'||'symbol' ){
+  }else if(!this.state.prefix.match(/^[a-zA-Z_]+$/) ){
       formIsValid=false;
-     prefixError = "Prefix is invalid or it is longer than 3"
+     prefixError = "Prefix is invalid"
      
   }
-   
-  //   if(this.state.first_name.includes('')){
-  //     firstNameError = 'Input is empty, First Name is required'
-  //  }
-  //  if(this.state.first_name.length < 3 || this.state.first_name.value === number){
-
-  //  }
-    
-  //    if(this.state.last_name.includes('')){
-  //     lastNameError = 'Input is empty, Last Name is required'
-  //  }
+  if(this.state.first_name === ''){
+    formIsValid=false;
+     firstNameError = 'First Name is required'
+  }else if(!this.state.first_name.match(/^[a-zA-Z_]+$/) ){
+      formIsValid=false;
+      firstNameError = "First Name is invalid"
      
-  //    if(!this.state.language_id){
-  //     languageError = 'Language is not selected, Choose at least one language'
-  //  }
-    
-  //    if(this.state.age.includes('')){
-  //     ageError = 'Input is empty, Fill in your Age'
-  //  }
-    
-  //    if(this.state.hiamft_member_account_info.includes('')){
-  //     memberError = 'Input is empty, Fill in the about me section'
-  //  }
+  }
+
+  if(this.state.last_name === ''){
+    formIsValid=false;
+    lastNameError = 'Last Name is required'
+  }else if(!this.state.last_name.match(/^[a-zA-Z_]+$/) ){
+      formIsValid=false;
+      lastNameError = "Last Name is invalid"
+     
+  }
+
+
+  if(this.state.language_id === ''){
+    formIsValid=false;
+    languageError  = 'Language is required, choose at least one language! '
+  }
+ 
+  if(this.state.age === ''){
+    formIsValid=false;
+    ageError= 'Age is required! '
+  }else if(!this.state.age.match(/^[0-9]{10}$/) ){
+      formIsValid=false;
+      ageError= "Age input is invalid"
+     
+  }
+
+ 
+  if(this.state.hiamft_member_account_info === ''){
+    formIsValid=false;
+    memberError = 'About me section is required!'   
+  }
+  
    if(prefixError || firstNameError || lastNameError || languageError || ageError || memberError){
     this.setState({prefixError, firstNameError, lastNameError, languageError, ageError, memberError});
    
