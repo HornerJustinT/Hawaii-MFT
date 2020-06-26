@@ -121,7 +121,7 @@ componentDidMount(){
   if(this.state.age === ''){
     formIsValid=false;
     ageError= 'Age is required! '
-  }else if(!this.state.age.match(/^[0-9]{10}$/) ){
+  }else if(!isNaN(this.state.age)===false ){
       formIsValid=false;
       ageError= "Age input is invalid"
      
@@ -148,22 +148,24 @@ componentDidMount(){
     addMembers = (event) =>{
      event.preventDefault();
      const isValid = this.validate();
- if(isValid){
-   console.log(this.state)
+ if(!isValid){
+   return false
+ }else{
+
+  this.props.dispatch({
+         type:'ADD_CREATE_PROFILE',
+         payload:{
+            prefix:this.state.prefix,
+            first_name:this.state.first_name,
+            last_name:this.state.last_name,
+            age:this.state.age,
+            hiamft_member_account_info:this.state.hiamft_member_account_info,
+            language_id:this.state.language_id
+         }
+     });
  }
-    //  this.props.dispatch({
-    //      type:'ADD_CREATE_PROFILE',
-    //      payload:{
-    //         prefix:this.state.prefix,
-    //         first_name:this.state.first_name,
-    //         last_name:this.state.last_name,
-    //         age:this.state.age,
-    //         hiamft_member_account_info:this.state.hiamft_member_account_info,
-    //         language_id:this.state.language_id
-    //      }
-    //  });
-    // this.handleReset();
-    // this.props.history.push('/contact-info');
+    this.props.history.push('/contact-info');
+    return true
     }
 
    

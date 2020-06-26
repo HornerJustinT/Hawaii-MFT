@@ -1,6 +1,8 @@
 .error{
     color: red;
     font-size:medium;
+    text-align: left;
+    width:20em;
 }
 
 form{
@@ -11,9 +13,11 @@ input{
     width:20em;
     height: 2em;
     display: inline-block;
-    margin-left: 10px;
-   border-radius: 5%;
+   border-radius: 10px;
    background-color: lightcyan;
+   border:  0.15px solid black;
+   padding: 1.25em;
+   margin: 1em;
 }
 
 select{
@@ -21,6 +25,9 @@ select{
     height: 10em;
     border-radius: 5%;
     background-color: lightcyan;
+    border: 0.15px solid black;
+    padding: 1em;
+    margin: 1em;
 }
 textarea{
     width:20em;
@@ -28,6 +35,9 @@ textarea{
     border-radius: 5%;
     background-color: lightcyan;
     font-weight: bold;
+    border:  0.15px solid black;
+    padding: 2em;
+    margin: 1em;
 }
 
 label{
@@ -70,6 +80,12 @@ label{
     display: flex;
     position: relative;
    flex-direction: row;
+   padding-right: 15em;
+   padding-left: 0;
+   padding: 2em;
+   margin: 1em;
+   border-radius: 10px;
+   
 }
 
 .box-1{
@@ -78,6 +94,8 @@ label{
     display: flex;
     flex-direction:column;
     text-align: right;
+    margin-left: 0;
+    padding-right: 5em;
 }
 
 .box-2{
@@ -85,6 +103,7 @@ label{
     position: relative;
     display: inline-block;
     text-align: right;
+   
 }
 
 .header-container{
@@ -100,6 +119,6 @@ label{
 .next-button{
     margin-top: 3em;
     text-align: center;
-    margin-left: 15em;
+    
 }
 
