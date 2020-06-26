@@ -13,6 +13,7 @@ CREATE TABLE "registration" (
 CREATE TABLE "members" (
 	"id" INT NOT NULL UNIQUE,
 	"zip_code" INT,
+	"zip_code_personal" INT,
 	"first_name" VARCHAR(255) NOT NULL,
 	"last_name" VARCHAR(255) NOT NULL,
 	"prefix" VARCHAR(20),
@@ -28,6 +29,7 @@ CREATE TABLE "members" (
     "website" TEXT, 
     "title" TEXT,
     "city" TEXT,
+    "city_personal" TEXT,
     "license_number" TEXT,
     "license_type" INTEGER,
     "enabled" boolean DEFAULT true,

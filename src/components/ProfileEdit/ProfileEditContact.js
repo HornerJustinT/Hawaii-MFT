@@ -58,12 +58,17 @@ class ProfileEditContact extends Component {
                 title: this.props.profile.title,
                 age: this.props.profile.age,
                 phone: this.props.profile.phone[0],
+                phonePersonal: this.props.profile.phone_personal[0],
                 address: this.props.profile.address,
+                addressPersonal: this.props.profile.address_personal[0],
                 city: this.props.profile.city,
+                cityPersonal: this.props.profile.city_personal,
                 island: this.props.profile.island,
                 islandEdit: islandEdit[0].island_id,
                 email: this.props.profile.email,
+                emailPersonal: this.props.profile.email_personal,
                 zipCode: this.props.profile.zip_code,
+                zipCodePersonal: this.props.profile.zip_code_personal,
                 website: this.props.profile.website,
                 credentials: this.props.profile.credentials,
                 licenseState: this.props.profile.license_state,
@@ -248,9 +253,9 @@ class ProfileEditContact extends Component {
                             Email Address - Personal
                           </Form.Label>
                           <Form.Control
-                            defaultValue={this.props.profile.email}
+                            defaultValue={this.props.profile.email_personal}
                             onChange={(event) =>
-                              this.handleChange(event, "email")
+                              this.handleChange(event, "emailPersonal")
                             }
                           />
                           <Form.Text className="text-muted">
@@ -286,9 +291,9 @@ class ProfileEditContact extends Component {
                             Phone Number - Personal
                           </Form.Label>
                           <Form.Control
-                            defaultValue={this.state.phone}
+                            defaultValue={this.state.phone_personal}
                             onChange={(event) =>
-                              this.handleChange(event, "phone")
+                              this.handleChange(event, "phonePersonal")
                             }
                           />
                           <Form.Text className="text-muted">
@@ -342,9 +347,9 @@ class ProfileEditContact extends Component {
                             Address - Personal
                           </Form.Label>
                           <Form.Control
-                            defaultValue={this.props.profile.address}
+                            defaultValue={this.props.profile.address_personal}
                             onChange={(event) =>
-                              this.handleChange(event, "address")
+                              this.handleChange(event, "addressPersonal")
                             }
                           />
                           <Form.Text className="text-muted">
@@ -357,9 +362,9 @@ class ProfileEditContact extends Component {
                             City - Personal
                           </Form.Label>
                           <Form.Control
-                            defaultValue={this.props.profile.city}
+                            defaultValue={this.props.profile.city_personal}
                             onChange={(event) =>
-                              this.handleChange(event, "city")
+                              this.handleChange(event, "cityPersonal")
                             }
                           />
                           <Form.Text className="text-muted">
@@ -371,9 +376,9 @@ class ProfileEditContact extends Component {
                             Zip Code - Personal
                           </Form.Label>
                           <Form.Control
-                            defaultValue={this.props.profile.zip_code}
+                            defaultValue={this.props.profile.zip_code_personal}
                             onChange={(event) =>
-                              this.handleChange(event, "zipCode")
+                              this.handleChange(event, "zipCodePersonal")
                             }
                           />
                           <Form.Text className="text-muted">
@@ -419,7 +424,7 @@ class ProfileEditContact extends Component {
                               <Form.Control
                                 disabled={true}
                                 readOnly
-                                defaultValue={this.state.email}
+                                defaultValue={this.state.emailPersonal}
                               />
                               <Form.Text className="text-muted">
                                 Not Listed (for HIAMFT-use only)
@@ -456,7 +461,7 @@ class ProfileEditContact extends Component {
                               <Form.Control
                                 disabled={true}
                                 readOnly
-                                defaultValue={this.state.phone}
+                                defaultValue={this.state.phonePersonal}
                               />
                               <Form.Text className="text-muted">
                                 Not Listed (for HIAMFT-use only)
@@ -515,7 +520,7 @@ class ProfileEditContact extends Component {
                               <Form.Control
                                 disabled={true}
                                 readOnly
-                                defaultValue={this.state.address}
+                                defaultValue={this.state.addressPersonal}
                               />
                               <Form.Text className="text-muted">
                                 Not Listed (for HIAMFT-use only)
@@ -529,7 +534,7 @@ class ProfileEditContact extends Component {
                               <Form.Control
                                 disabled={true}
                                 readOnly
-                                defaultValue={this.state.city}
+                                defaultValue={this.state.cityPersonal}
                               />
                               <Form.Text className="text-muted">
                                 Not Listed (for HIAMFT-use only)
@@ -543,7 +548,7 @@ class ProfileEditContact extends Component {
                               <Form.Control
                                 disabled={true}
                                 readOnly
-                                defaultValue={this.state.zipCode}
+                                defaultValue={this.state.zipCodePersonal}
                               />
                               <Form.Text className="text-muted">
                                 Not Listed (for HIAMFT-use only)
