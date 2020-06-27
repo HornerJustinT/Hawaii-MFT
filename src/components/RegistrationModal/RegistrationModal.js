@@ -3,7 +3,6 @@ import React, { useState } from "react";
 //React-bootstrap imports
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
 import { connect } from "react-redux";
 
 function RegistrationModal(props) {
@@ -35,7 +34,7 @@ function RegistrationModal(props) {
                     Here is your unique registration link. Please copy and paste this now. You will not be able to retrieve it.
                 </Modal.Body>
                 <Modal.Body>
-                    {window.location.hostname}/#/create-profile/{registerNewUser()}
+                    {window.location.hostname}/#/register/{registerNewUser()}
                 </Modal.Body>                
             </Modal>
         </>

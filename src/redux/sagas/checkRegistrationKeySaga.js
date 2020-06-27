@@ -6,8 +6,11 @@ function* checkRegistrationKey(action) {
     console.log(`/api/checkRegistrationKey/${action.payload}`)
     try {
         const results = yield axios.get(`/api/checkRegistrationKey/${action.payload}`);
-        console.log(results);
-        yield put({type: 'CHECK_KEY', payload: results});
+        let allowed = false
+        if(results.data[0]&& results.data[0].used===false){
+            allowed = true
+        }
+        yield put({type: 'CHECK_KEY', payload: allowed});
         // should send registration key in the params
     } catch (error) {
         console.log('check Registration Key put failed', error);

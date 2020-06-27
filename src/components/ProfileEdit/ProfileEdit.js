@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router';
 
+import ProfileEditContact from './ProfileEditContact';
+import ProfileEditPractice from './ProfileEditPractice';
 
 //React Botstrap imports
 import Button from 'react-bootstrap/Button';
@@ -18,19 +20,14 @@ class ProfileEdit extends Component {
   state = {
     id: 0,
     clickBasic: false,
-    clickContact: false,
-    clickPractice: false,
     languages: [],
     languagesEdit: [],
-    treatmentApproaches: [],
   };
 
   //mounting component - dispatching to redux sagas to call data from server for retreival from profile,
   //languages, islands & treatments reducers (props).
   componentDidMount() {
     this.props.dispatch({ type: "FETCH_LANGUAGES" });
-    this.props.dispatch({ type: "FETCH_ISLANDS" });
-    this.props.dispatch({ type: "FETCH_TREATMENTS" });
 
     this.props.dispatch({
       type: "FETCH_PROFILE",
@@ -53,9 +50,7 @@ class ProfileEdit extends Component {
         "languages",
         "languages"
       );
-      const updatedIsland = this.syncDataEditIsland("islands", "island");
-      const islandEdit = updatedIsland[0];
-      // const updatedTreatments = this.syncDataEditTreatments("treatmentApproaches", "treatmentApproaches");
+
 
       //setting state in component update with all of the properties retrieved from props from the database
       //for this particular member's profile view.
@@ -72,7 +67,6 @@ class ProfileEdit extends Component {
         address: this.props.profile.address,
         city: this.props.profile.city,
         island: this.props.profile.island,
-        islandEdit: islandEdit[0].island_id,
         email: this.props.profile.email,
         zipCode: this.props.profile.zip_code,
         website: this.props.profile.website,
@@ -124,29 +118,6 @@ class ProfileEdit extends Component {
     }
   }; //end syncDataEditLanguage
 
-  //see comments above
-  syncDataEditIsland = (reducerName, profileName) => {
-    if (this.props[reducerName] && this.props.profile[profileName]) {
-      const updatedIsland = this.props.profile[profileName].map((island) => {
-        const results = this.props[reducerName].filter(
-          (object) => object.title === island
-        );
-        return results;
-      });
-      return updatedIsland;
-    }
-  }; //end syncDataEditIsland
-
-  //see comments above - this is commented code to render Treatments
-  // syncDataEditTreatments = (reducerName, profileName) => {
-  //   const updatedIsland = this.props.profile[profileName].map((treatment) => {
-  //     const results = this.props[reducerName].filter(
-  //      (object) => object.title === treatment)
-  //     return results[0].treatment_id
-  //   })
-  //   return updatedTreatments;
-  // }//end syncDataEditTreatments
-
   //this function handles the conditional rendering to switch between View and Edit modes
   handleEditBasic = () => {
     //setting state to indicate the Edit Basic Info button has been clicked
@@ -183,47 +154,6 @@ class ProfileEdit extends Component {
     });
   }; //end handleSaveBasic
 
-  //this function handles the conditional rendering to switch between View and Edit modes
-  handleEditContact = () => {
-    //setting state to indicate the Edit Basic Info button has been clicked
-    this.setState({
-      clickContact: true,
-    });
-  }; //end handleEditContact
-
-  //this function saves the new information entered into the Contact Info form
-  handleSaveContact = () => {
-    //resetting state to indicate the Save Changes button has been clicked
-    this.setState({
-      clickContact: false,
-    });
-    //dispatching to EditContact saga, sending updated state as payload
-    this.props.dispatch({
-      type: "EDIT_CONTACT",
-      payload: this.state,
-    });
-  }; //end handleSaveContact
-
-  //this function handles the conditional rendering to switch between View and Edit modes
-  handleEditPractice = () => {
-    //setting state to indicate the Edit Basic Info button has been clicked
-    this.setState({
-      clickPractice: true,
-    });
-  }; //end handleEditPractice
-
-  //this function saves the new information entered into the Practice Info form
-  handleSavePractice = () => {
-    //resetting state to indicate the Save Changes button has been clicked
-    this.setState({
-      clickPractice: false,
-    });
-    //dispatching to EditPractice saga, sending updated state as payload
-    this.props.dispatch({
-      type: "EDIT_PRACTICE",
-      payload: this.state,
-    });
-  }; //end handleSavePractice
 
   //handleChange resets state according to new data entered into form inputs
   handleChange = (event, propertyName) => {
@@ -253,23 +183,6 @@ class ProfileEdit extends Component {
     });
   }; //end handleLangChange
 
-  //see comments directly above
-  handleIslandChange = (event, editPropertyName, viewPropertyName) => {
-    const array = [];
-    for (let option of event.target.selectedOptions) {
-      array.push(Number(option.value));
-    }
-    const updatedIsland = array.map((id) => {
-      const results = this.props.islands.filter(
-        (object) => object.island_id === id
-      );
-      return results[0].title;
-    });
-    this.setState({
-      [editPropertyName]: array,
-      [viewPropertyName]: updatedIsland,
-    });
-  };
 
   displayLanguages = () => {
     if (this.state.clickBasic) {
@@ -309,50 +222,6 @@ class ProfileEdit extends Component {
               );
             })}
           </div>
-        </Form.Group>
-      );
-    }
-  };
-
-  displayIslands = () => {
-    if (this.state.clickContact) {
-      return (
-        <Form.Group>
-          <Form.Label variant="flat" className="label">
-            Island
-          </Form.Label>
-          <Form.Control
-            as="select"
-            value={this.state.islandEdit}
-            onChange={(event) =>
-              this.handleIslandChange(event, "islandEdit", "island")
-            }
-          >
-            {this.props.islands.map((island) => {
-              return (
-                <>
-                  <option key={island.island_id} value={island.island_id}>
-                    {island.title}
-                  </option>
-                </>
-              );
-            })}
-          </Form.Control>
-        </Form.Group>
-      );
-    } else {
-      return (
-        <Form.Group>
-          <Form.Label variant="flat" className="label">
-            Island
-          </Form.Label>
-          {this.state.island && (
-            <Form.Control
-              disabled="true"
-              readOnly
-              defaultValue={this.state.island}
-            />
-          )}
         </Form.Group>
       );
     }
@@ -505,455 +374,9 @@ class ProfileEdit extends Component {
             </div>
           )}
 
-          {/**Here is Contact Info render */}
+          <ProfileEditContact />
+          <ProfileEditPractice />
 
-          {this.state.clickContact && this.props.profile ? (
-            <div className="body">
-              <div className="flex-between row-wrap first">
-                <h4>Contact Info</h4>
-                <Button
-                  className="flex-between row-wrap"
-                  onClick={() => this.handleSaveContact()}
-                >
-                  Save Changes
-                </Button>
-              </div>
-              <div className="border">
-                <Form>
-                  <Form.Group>
-                    <Form.Label className="label">Phone Number</Form.Label>
-                    <Form.Control
-                      defaultValue={this.state.phone}
-                      onChange={(event) => this.handleChange(event, "phone")}
-                    />
-                    <Form.Text className="text-muted">
-                      Business - Listed
-                    </Form.Text>
-                  </Form.Group>
-
-                  <Form.Group>
-                    <Form.Label className="label">Email Address</Form.Label>
-                    <Form.Control
-                      defaultValue={this.props.profile.email}
-                      onChange={(event) => this.handleChange(event, "email")}
-                    />
-                    <Form.Text className="text-muted">
-                      Business - Listed
-                    </Form.Text>
-                  </Form.Group>
-
-                  <Form.Group>
-                    <Form.Label className="label">Website</Form.Label>
-                    <Form.Control
-                      defaultValue={this.props.profile.website}
-                      onChange={(event) => this.handleChange(event, "website")}
-                    />
-                  </Form.Group>
-                </Form>
-                <Form>
-                  {this.displayIslands()}
-                  <Form.Group>
-                    <Form.Label variant="flat" className="label">
-                      City
-                    </Form.Label>
-                    <Form.Control
-                      defaultValue={this.props.profile.city}
-                      onChange={(event) => this.handleChange(event, "city")}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label variant="flat" className="label">
-                      Zip Code
-                    </Form.Label>
-                    <Form.Control
-                      defaultValue={this.props.profile.zip_code}
-                      onChange={(event) => this.handleChange(event, "zipCode")}
-                    />
-                  </Form.Group>
-
-                  <Form.Group>
-                    <Form.Label className="label">Address</Form.Label>
-                    <Form.Control
-                      defaultValue={this.props.profile.address}
-                      onChange={(event) => this.handleChange(event, "address")}
-                    />
-                    <Form.Text className="text-muted">
-                      Business - Listed
-                    </Form.Text>
-                  </Form.Group>
-                </Form>
-              </div>
-            </div>
-          ) : (
-            <div className="body">
-              <div className="flex-between row-wrap first">
-                <h4>Contact Info</h4>
-                <Button
-                  className="flex-between row-wrap first"
-                  onClick={() => this.handleEditContact()}
-                >
-                  Edit Contact Info
-                </Button>
-              </div>
-              {this.props.profile && (
-                <>
-                  <div className="border">
-                    <Form>
-                      <Form.Group>
-                        <Form.Label className="label">Phone Number</Form.Label>
-                        <Form.Control
-                          disabled="true"
-                          readOnly
-                          defaultValue={this.state.phone}
-                        />
-                        <Form.Text className="text-muted">
-                          Business - Listed
-                        </Form.Text>
-                      </Form.Group>
-
-                      <Form.Group>
-                        <Form.Label className="label">Email Address</Form.Label>
-                        <Form.Control
-                          disabled="true"
-                          readOnly
-                          defaultValue={this.props.profile.email}
-                        />
-                        <Form.Text className="text-muted">
-                          Business - Listed
-                        </Form.Text>
-                      </Form.Group>
-
-                      <Form.Group>
-                        <Form.Label className="label">Website</Form.Label>
-                        <Form.Control
-                          disabled="true"
-                          readOnly
-                          defaultValue={this.props.profile.website}
-                        />
-                      </Form.Group>
-                    </Form>
-                    <Form>
-                      {this.displayIslands()}
-                      <Form.Group>
-                        <Form.Label className="label">Address</Form.Label>
-                        <Form.Control
-                          disabled="true"
-                          readOnly
-                          defaultValue={this.props.profile.address}
-                        />
-                        <Form.Text className="text-muted">
-                          Business - Listed
-                        </Form.Text>
-                      </Form.Group>
-                      <Form.Group>
-                        <Form.Label variant="flat" className="label">
-                          City
-                        </Form.Label>
-                        <Form.Control
-                          disabled="true"
-                          readOnly
-                          defaultValue={this.props.profile.city}
-                        />
-                      </Form.Group>
-                      <Form.Group>
-                        <Form.Label variant="flat" className="label">
-                          Zip Code
-                        </Form.Label>
-                        <Form.Control
-                          disabled="true"
-                          readOnly
-                          defaultValue={this.props.profile.zip_code}
-                        />
-                      </Form.Group>
-                    </Form>
-                  </div>
-                </>
-              )}
-            </div>
-          )}
-
-          {/**Here is Practice Info render */}
-          {/**Below is the skeleton, but the PUT functionality still needs to be written.*/}
-          {/* {this.state.clickPractice ? (
-            <div className="body">
-              <div className="flex-between row-wrap first">
-                <h4>Practice Info</h4>
-                <Button
-                  className="flex-between row-wrap"
-                  onClick={() => this.handleSavePractice()}
-                >
-                  Save Changes
-                </Button>
-              </div>
-              <div className="border">
-                <Form className="flex-between row-wrap">
-                  <Form.Group>
-                    <Form.Label className="label">Title</Form.Label>
-                    <Form.Control
-                      defaultValue={this.props.profile.title}
-                      onChange={(event) => this.handleChange(event, "title")}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="label">Credentials</Form.Label>
-                    <Form.Control
-                      defaultValue={this.props.profile.credentials}
-                      onChange={(event) =>
-                        this.handleChange(event, "credentials")
-                      }
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="label">
-                      Supervision Status
-                    </Form.Label>
-                    <Form.Control
-                      defaultValue={this.props.profile.supervisionStatus}
-                      onChange={(event) =>
-                        this.handleChange(event, "supervisionStatus")
-                      }
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="label">Telehealth</Form.Label>
-                    <Form.Control
-                      defaultValue={this.props.profile.telehealth}
-                      onChange={(event) =>
-                        this.handleChange(event, "telehealth")
-                      }
-                    />
-                  </Form.Group>
-                </Form>
-                <Form className="flex-between row-wrap">
-                  <Form.Group>
-                    <Form.Label className="label">License Number</Form.Label>
-                    <Form.Control
-                      defaultValue={this.props.profile.licenseNumber}
-                      onChange={(event) =>
-                        this.handleChange(event, "licenseNumber")
-                      }
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="label">
-                      License Expiration Date
-                    </Form.Label>
-                    <Form.Control
-                      defaultValue={this.props.profile.licenseExpiration}
-                      onChange={(event) =>
-                        this.handleChange(event, "licenseExpiration")
-                      }
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="label">License Type</Form.Label>
-                    <Form.Control
-                      defaultValue={this.props.profile.licenseType}
-                      onChange={(event) =>
-                        this.handleChange(event, "licenseType")
-                      }
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="label">Fees</Form.Label>
-                    <Form.Control
-                      defaultValue={this.props.profile.fees}
-                      onChange={(event) => this.handleChange(event, "fees")}
-                    />
-                  </Form.Group>
-                </Form>
-                <Form>
-                  <Form.Group>
-                    <Form.Label variant="flat" className="label">
-                      Treatment & Approaches
-                    </Form.Label>
-                    <Form.Control
-                      defaultValue={this.props.profile.treatmentPreferences}
-                      onChange={(event) =>
-                        this.handleChange(event, "treatmentPreferences")
-                      }
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label variant="flat" className="label">
-                      Specialties
-                    </Form.Label>
-                    <Form.Control
-                      defaultValue={this.props.profile.specialties}
-                      onChange={(event) =>
-                        this.handleChange(event, "specialties")
-                      }
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label variant="flat" className="label">
-                      Insurances Taken
-                    </Form.Label>
-                    <Form.Control
-                      defaultValue={this.props.profile.insurance}
-                      onChange={(event) =>
-                        this.handleChange(event, "insurance")
-                      }
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="label">Client Focus</Form.Label>
-                    <Form.Control
-                      defaultValue={this.props.profile.clientFocus}
-                      onChange={(event) =>
-                        this.handleChange(event, "clientFocus")
-                      }
-                    />
-                  </Form.Group>
-
-                  <Form.Group>
-                    <Form.Label className="label">Session Format</Form.Label>
-                    <Form.Control
-                      defaultValue={this.props.profile.sessionFormat}
-                      onChange={(event) =>
-                        this.handleChange(event, "sessionFormat")
-                      }
-                    />
-                  </Form.Group>
-                </Form>
-              </div>
-            </div>
-          ) : (
-            <div className="body">
-              <div className="flex-between row-wrap first">
-                <h4>Practice Info</h4>
-                <Button
-                  className="flex-between row-wrap"
-                  onClick={() => this.handleEditPractice()}
-                >
-                  Edit Practice Info
-                </Button>
-              </div>
-              <div className="border">
-                <Form className="flex-between row-wrap">
-                  <Form.Group>
-                    <Form.Label className="label">Title</Form.Label>
-                    <Form.Control
-                      disabled="true"
-                      readOnly
-                      defaultValue={this.props.profile.title}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="label">Credentials</Form.Label>
-                    <Form.Control
-                      disabled="true"
-                      readOnly
-                      defaultValue={this.props.profile.credentials}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="label">
-                      Supervision Status
-                    </Form.Label>
-                    <Form.Control
-                      disabled="true"
-                      readOnly
-                      defaultValue={this.props.profile.supervisionStatus}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="label">Telehealth</Form.Label>
-                    <Form.Control
-                      disabled="true"
-                      readOnly
-                      defaultValue={this.props.profile.telehealth}
-                    />
-                  </Form.Group>
-                </Form>
-                <Form className="flex-between row-wrap">
-                  <Form.Group>
-                    <Form.Label className="label">License Number</Form.Label>
-                    <Form.Control
-                      disabled="true"
-                      readOnly
-                      defaultValue={this.props.profile.licenseNumber}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="label">
-                      License Expiration Date
-                    </Form.Label>
-                    <Form.Control
-                      disabled="true"
-                      readOnly
-                      defaultValue={this.props.profile.licenseExpiration}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="label">License Type</Form.Label>
-                    <Form.Control
-                      disabled="true"
-                      readOnly
-                      defaultValue={this.props.profile.licenseType}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="label">Fees</Form.Label>
-                    <Form.Control
-                      disabled="true"
-                      readOnly
-                      defaultValue={this.props.profile.fees}
-                    />
-                  </Form.Group>
-                </Form>
-                <Form>
-                  <Form.Group>
-                    <Form.Label variant="flat" className="label">
-                      Treatment & Approaches
-                    </Form.Label>
-                    <Form.Control
-                      disabled="true"
-                      readOnly
-                      defaultValue={this.props.profile.treatmentPreferences}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label variant="flat" className="label">
-                      Specialties
-                    </Form.Label>
-                    <Form.Control
-                      disabled="true"
-                      readOnly
-                      defaultValue={this.props.profile.specialties}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label variant="flat" className="label">
-                      Insurances Taken
-                    </Form.Label>
-                    <Form.Control
-                      disabled="true"
-                      readOnly
-                      defaultValue={this.props.profile.insurance}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="label">Client Focus</Form.Label>
-                    <Form.Control
-                      disabled="true"
-                      readOnly
-                      defaultValue={this.props.profile.clientFocus}
-                    />
-                  </Form.Group>
-
-                  <Form.Group>
-                    <Form.Label className="label">Session Format</Form.Label>
-                    <Form.Control
-                      disabled="true"
-                      readOnly
-                      defaultValue={this.props.profile.sessionFormat}
-                    />
-                  </Form.Group>
-                </Form>
-              </div>
-            </div>
-          )} */}
           <div className="body">
             {this.state.enabled ? (
               <Button variant="danger" onClick={this.enablePress}>
