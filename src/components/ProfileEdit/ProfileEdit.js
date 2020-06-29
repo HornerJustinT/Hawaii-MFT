@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router';
-
+// Components
 import ProfileEditContact from './ProfileEditContact';
 import ProfileEditPractice from './ProfileEditPractice';
+import UploadModal from '../UploadModal/UploadModal';
 
 //React Botstrap imports
 import Button from 'react-bootstrap/Button';
@@ -233,6 +234,7 @@ class ProfileEdit extends Component {
         <>
           <div className="header">
             <h3>My Profile</h3>
+            <UploadModal></UploadModal>
           </div>
           {/**Here is Basic Info render */}
           {this.state.clickBasic ? (
