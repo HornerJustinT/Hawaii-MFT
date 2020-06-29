@@ -429,7 +429,7 @@ INSERT INTO "island"
 	("island_id", "title")
 VALUES
 	(1,'Kauai'),
-    (2,'Ohau'),
+    (2,'Oahu'),
     (3,'Maui'),
     (4,'Hawaii Island'),
     (5,'Lanai'),

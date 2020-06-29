@@ -154,7 +154,7 @@ class ProfileEdit extends Component {
   displayLanguages = () => {
     if (this.state.clickBasic) {
       return (
-        <Form.Group>
+        <Form.Group className="column">
           <Form.Label className="label">Languages Spoken</Form.Label>
           <Form.Control
             as="select"
@@ -178,7 +178,7 @@ class ProfileEdit extends Component {
       );
     } else {
       return (
-        <Form.Group>
+        <Form.Group className="column">
           <Form.Label className="label">Languages Spoken</Form.Label>
           <div>
             {this.state.languages.map((lang) => {
@@ -214,8 +214,8 @@ class ProfileEdit extends Component {
                 </Button>
               </div>
               <div className="border">
-                <Form className="flex-between row-wrap">
-                  <Form.Group>
+                <Form className="flex-between row-wrap row">
+                  <Form.Group className="columnThirds">
                     <Form.Label variant="flat" className="label">
                       Prefix
                     </Form.Label>
@@ -225,7 +225,7 @@ class ProfileEdit extends Component {
                     />
                   </Form.Group>
 
-                  <Form.Group>
+                  <Form.Group className="columnThirds">
                     <Form.Label className="label">First Name</Form.Label>
                     <Form.Control
                       defaultValue={this.props.profile.first_name}
@@ -235,15 +235,17 @@ class ProfileEdit extends Component {
                     />
                   </Form.Group>
 
-                  <Form.Group>
+                  <Form.Group className="columnThirds">
                     <Form.Label className="label">Last Name</Form.Label>
                     <Form.Control
                       defaultValue={this.props.profile.last_name}
                       onChange={(event) => this.handleChange(event, "lastName")}
                     />
                   </Form.Group>
+                </Form>
 
-                  <Form.Group>
+                <Form className="flex-between row-wrap row">
+                  <Form.Group className="column">
                     <Form.Label className="label">Age</Form.Label>
                     <Form.Control
                       type="number"
@@ -285,8 +287,8 @@ class ProfileEdit extends Component {
               {this.props.profile && (
                 <>
                   <div className="border">
-                    <Form className="flex-between row-wrap">
-                      <Form.Group>
+                    <Form className="flex-between row-wrap row">
+                      <Form.Group className="columnThirds">
                         <Form.Label className="label">Prefix</Form.Label>
                         <Form.Control
                           disabled={true}
@@ -294,7 +296,7 @@ class ProfileEdit extends Component {
                           defaultValue={this.props.profile.prefix}
                         />
                       </Form.Group>
-                      <Form.Group>
+                      <Form.Group className="columnThirds">
                         <Form.Label className="label">First Name</Form.Label>
                         <Form.Control
                           disabled={true}
@@ -302,7 +304,7 @@ class ProfileEdit extends Component {
                           defaultValue={this.props.profile.first_name}
                         />
                       </Form.Group>
-                      <Form.Group>
+                      <Form.Group className="columnThirds">
                         <Form.Label className="label">Last Name</Form.Label>
                         <Form.Control
                           disabled={true}
@@ -310,7 +312,10 @@ class ProfileEdit extends Component {
                           defaultValue={this.props.profile.last_name}
                         />
                       </Form.Group>
-                      <Form.Group>
+                    </Form>
+
+                    <Form className="flex-between row-wrap row">
+                      <Form.Group className="column">
                         <Form.Label className="label">Age</Form.Label>
                         <Form.Control
                           disabled={true}
