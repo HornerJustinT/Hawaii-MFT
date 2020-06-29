@@ -7,6 +7,7 @@ function* fetchProfile(action) {
     try {
         const response = yield axios.get(`/profile/${action.payload.id}`);
 
+        console.log( 'here is response', response);
         if (response === undefined && action.newUser){
             action.newUser()
         } else {
