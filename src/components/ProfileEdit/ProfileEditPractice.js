@@ -144,15 +144,15 @@ class ProfileEdit extends Component {
                 </Button>
               </div>
               <div className="border">
-                <Form className="flex-between row-wrap">
-                  <Form.Group>
+                <Form className="flex-between row-wrap row">
+                  <Form.Group className="column">
                     <Form.Label className="label">Title</Form.Label>
                     <Form.Control
                       defaultValue={this.props.profile.title}
                       onChange={(event) => this.handleChange(event, "title")}
                     />
                   </Form.Group>
-                  <Form.Group>
+                  <Form.Group className="column">
                     <Form.Label className="label">Credentials</Form.Label>
                     <Form.Control
                       defaultValue={this.props.profile.credentials}
@@ -161,7 +161,9 @@ class ProfileEdit extends Component {
                       }
                     />
                   </Form.Group>
-                  <Form.Group>
+                </Form>
+                <Form className="flex-between row-wrap row">
+                  <Form.Group className="column">
                     <Form.Label className="label">
                       Supervision Status
                     </Form.Label>
@@ -181,7 +183,7 @@ class ProfileEdit extends Component {
                       <option value="Supervisor">Supervisor</option>
                     </Form.Control>
                   </Form.Group>
-                  <Form.Group>
+                  <Form.Group className="column">
                     <Form.Label className="label">Telehealth</Form.Label>
                     <Form.Control
                       as="select"
@@ -196,8 +198,8 @@ class ProfileEdit extends Component {
                     </Form.Control>
                   </Form.Group>
                 </Form>
-                <Form className="flex-between row-wrap">
-                  <Form.Group>
+                <Form className="flex-between row-wrap row">
+                  <Form.Group className="columnThirds">
                     <Form.Label className="label">License Number</Form.Label>
                     <Form.Control
                       defaultValue={this.props.profile.license_number}
@@ -206,7 +208,7 @@ class ProfileEdit extends Component {
                       }
                     />
                   </Form.Group>
-                  <Form.Group>
+                  <Form.Group className="columnThirds">
                     <Form.Label className="label">
                       License Expiration Date
                     </Form.Label>
@@ -217,7 +219,7 @@ class ProfileEdit extends Component {
                       }
                     />
                   </Form.Group>
-                  <Form.Group>
+                  <Form.Group className="columnThirds">
                     <Form.Label className="label">License Type</Form.Label>
                     <Form.Control
                       defaultValue={this.props.profile.license}
@@ -226,16 +228,92 @@ class ProfileEdit extends Component {
                       }
                     />
                   </Form.Group>
-                  <Form.Group>
+                </Form>
+
+                <Form className="flex-between row-wrap row">
+                  <Form.Group className="columnThirds">
+                    <Form.Label className="label">Insurance</Form.Label>
+                    <Form.Control
+                      as="select"
+                      multiple={true}
+                      defaultValue={this.props.profile.insurance_id}
+                      onChange={(event) =>
+                        this.handleMultiChange(event, "insuranceEdit")
+                      }
+                    >
+                      {this.props.insuranceTaken.map((insurance) => {
+                        return (
+                          <>
+                            <option
+                              key={insurance.insurance_type_id}
+                              value={insurance.insurance_type_id}
+                            >
+                              {insurance.title}
+                            </option>
+                          </>
+                        );
+                      })}
+                    </Form.Control>
+                  </Form.Group>
+                  <Form.Group className="columnThirds">
                     <Form.Label className="label">Fees</Form.Label>
                     <Form.Control
                       defaultValue={this.props.profile.fees}
                       onChange={(event) => this.handleChange(event, "fees")}
                     />
                   </Form.Group>
+                  <Form.Group className="columnThirds">
+                    <Form.Label className="label">Session Format</Form.Label>
+                    <Form.Control
+                      as="select"
+                      multiple={true}
+                      defaultValue={this.props.profile.session_format_id}
+                      onChange={(event) =>
+                        this.handleMultiChange(event, "sessionFormatEdit")
+                      }
+                    >
+                      {this.props.sessionFormats.map((session) => {
+                        return (
+                          <>
+                            <option
+                              key={session.session_format_id}
+                              value={session.session_format_id}
+                            >
+                              {session.title}
+                            </option>
+                          </>
+                        );
+                      })}
+                    </Form.Control>
+                  </Form.Group>
                 </Form>
-                <Form>
-                  <Form.Group>
+
+                <Form className="flex-between row-wrap row">
+                  <Form.Group className="columnThirds">
+                    <Form.Label className="label">Client Focus</Form.Label>
+                    <Form.Control
+                      as="select"
+                      multiple={true}
+                      defaultValue={this.props.profile.client_focus_id}
+                      onChange={(event) =>
+                        this.handleMultiChange(event, "clientFocusEdit")
+                      }
+                    >
+                      {this.props.demographics.map((demographic) => {
+                        return (
+                          <>
+                            <option
+                              key={demographic.client_focus_id}
+                              value={demographic.client_focus_id}
+                            >
+                              {demographic.title}
+                            </option>
+                          </>
+                        );
+                      })}
+                    </Form.Control>
+                  </Form.Group>
+                  <Form.Group className="columnThirds">
                     <Form.Label className="label">
                       Treatment & Approaches
                     </Form.Label>
@@ -261,7 +339,7 @@ class ProfileEdit extends Component {
                       })}
                     </Form.Control>
                   </Form.Group>
-                  <Form.Group>
+                  <Form.Group className="columnThirds">
                     <Form.Label className="label">Specialties</Form.Label>
                     <Form.Control
                       as="select"
@@ -285,78 +363,6 @@ class ProfileEdit extends Component {
                       })}
                     </Form.Control>
                   </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="label">Insurance</Form.Label>
-                    <Form.Control
-                      as="select"
-                      multiple={true}
-                      defaultValue={this.props.profile.insurance_id}
-                      onChange={(event) =>
-                        this.handleMultiChange(event, "insuranceEdit")
-                      }
-                    >
-                      {this.props.insuranceTaken.map((insurance) => {
-                        return (
-                          <>
-                            <option
-                              key={insurance.insurance_type_id}
-                              value={insurance.insurance_type_id}
-                            >
-                              {insurance.title}
-                            </option>
-                          </>
-                        );
-                      })}
-                    </Form.Control>
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="label">Client Focus</Form.Label>
-                    <Form.Control
-                      as="select"
-                      multiple={true}
-                      defaultValue={this.props.profile.client_focus_id}
-                      onChange={(event) =>
-                        this.handleMultiChange(event, "clientFocusEdit")
-                      }
-                    >
-                      {this.props.demographics.map((demographic) => {
-                        return (
-                          <>
-                            <option
-                              key={demographic.client_focus_id}
-                              value={demographic.client_focus_id}
-                            >
-                              {demographic.title}
-                            </option>
-                          </>
-                        );
-                      })}
-                    </Form.Control>
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="label">Session Format</Form.Label>
-                    <Form.Control
-                      as="select"
-                      multiple={true}
-                      defaultValue={this.props.profile.session_format_id}
-                      onChange={(event) =>
-                        this.handleMultiChange(event, "sessionFormatEdit")
-                      }
-                    >
-                      {this.props.sessionFormats.map((session) => {
-                        return (
-                          <>
-                            <option
-                              key={session.session_format_id}
-                              value={session.session_format_id}
-                            >
-                              {session.title}
-                            </option>
-                          </>
-                        );
-                      })}
-                    </Form.Control>
-                  </Form.Group>
                 </Form>
               </div>
             </div>
@@ -372,8 +378,8 @@ class ProfileEdit extends Component {
                 </Button>
               </div>
               <div className="border">
-                <Form className="flex-between row-wrap">
-                  <Form.Group>
+                <Form className="flex-between row-wrap row">
+                  <Form.Group className="column">
                     <Form.Label className="label">Title</Form.Label>
                     <Form.Control
                       disabled={true}
@@ -381,7 +387,7 @@ class ProfileEdit extends Component {
                       value={this.state.title}
                     />
                   </Form.Group>
-                  <Form.Group>
+                  <Form.Group className="column">
                     <Form.Label className="label">Credentials</Form.Label>
                     <Form.Control
                       disabled={true}
@@ -389,7 +395,9 @@ class ProfileEdit extends Component {
                       value={this.state.credentials}
                     />
                   </Form.Group>
-                  <Form.Group>
+                </Form>
+                <Form className="flex-between row-wrap row">
+                  <Form.Group className="column">
                     <Form.Label className="label">
                       Supervision Status
                     </Form.Label>
@@ -399,7 +407,7 @@ class ProfileEdit extends Component {
                       value={this.state.supervisionStatus}
                     />
                   </Form.Group>
-                  <Form.Group>
+                  <Form.Group className="column">
                     <Form.Label className="label">Telehealth</Form.Label>
                     <Form.Control
                       disabled={true}
@@ -408,8 +416,9 @@ class ProfileEdit extends Component {
                     />
                   </Form.Group>
                 </Form>
-                <Form className="flex-between row-wrap">
-                  <Form.Group>
+
+                <Form className="flex-between row-wrap row">
+                  <Form.Group className="columnThirds">
                     <Form.Label className="label">License Number</Form.Label>
                     <Form.Control
                       disabled={true}
@@ -417,7 +426,7 @@ class ProfileEdit extends Component {
                       value={this.state.licenseNumber}
                     />
                   </Form.Group>
-                  <Form.Group>
+                  <Form.Group className="columnThirds">
                     <Form.Label className="label">
                       License Expiration Date
                     </Form.Label>
@@ -427,7 +436,7 @@ class ProfileEdit extends Component {
                       value={this.state.licenseExpiration}
                     />
                   </Form.Group>
-                  <Form.Group>
+                  <Form.Group className="columnThirds">
                     <Form.Label className="label">License Type</Form.Label>
                     <Form.Control
                       disabled={true}
@@ -435,7 +444,28 @@ class ProfileEdit extends Component {
                       value={this.state.license}
                     />
                   </Form.Group>
-                  <Form.Group>
+                </Form>
+                <Form className="flex-between row-wrap row">
+                  <Form.Group className="columnThirds">
+                    <Form.Label variant="flat" className="label">
+                      Insurances Taken
+                    </Form.Label>
+                    <div>
+                      {this.state.insurance &&
+                        this.state.insurance.map((insurance) => {
+                          return (
+                            <>
+                              <Form.Control
+                                disabled={true}
+                                readOnly
+                                defaultValue={insurance}
+                              />
+                            </>
+                          );
+                        })}
+                    </div>
+                  </Form.Group>
+                  <Form.Group className="columnThirds">
                     <Form.Label className="label">Fees</Form.Label>
                     <Form.Control
                       disabled={true}
@@ -443,54 +473,80 @@ class ProfileEdit extends Component {
                       value={this.state.fees}
                     />
                   </Form.Group>
+                  <Form.Group className="columnThirds">
+                    <Form.Label className="label">Session Format</Form.Label>
+                    <div>
+                      {this.state.sessionFormat &&
+                        this.state.sessionFormat.map((sessionFormat) => {
+                          return (
+                            <>
+                              <Form.Control
+                                disabled={true}
+                                readOnly
+                                defaultValue={sessionFormat}
+                              />
+                            </>
+                          );
+                        })}
+                    </div>
+                  </Form.Group>
                 </Form>
-                <Form>
-                  <Form.Group>
+
+                <Form className="flex-between row-wrap row">
+                  <Form.Group className="columnThirds">
+                    <Form.Label className="label">Client Focus</Form.Label>
+                    <div>
+                      {this.state.clientFocus &&
+                        this.state.clientFocus.map((focus) => {
+                          return (
+                            <>
+                              <Form.Control
+                                disabled={true}
+                                readOnly
+                                defaultValue={focus}
+                              />
+                            </>
+                          );
+                        })}
+                    </div>
+                  </Form.Group>
+                  <Form.Group className="columnThirds">
                     <Form.Label variant="flat" className="label">
                       Treatment & Approaches
                     </Form.Label>
-                    <Form.Control
-                      disabled={true}
-                      readOnly
-                      value={this.state.treatmentPreferences}
-                    />
+                    <div>
+                      {this.state.treatmentPreferences &&
+                        this.state.treatmentPreferences.map((treatment) => {
+                          return (
+                            <>
+                              <Form.Control
+                                disabled={true}
+                                readOnly
+                                defaultValue={treatment}
+                              />
+                            </>
+                          );
+                        })}
+                    </div>
                   </Form.Group>
-                  <Form.Group>
+                  <Form.Group className="columnThirds">
                     <Form.Label variant="flat" className="label">
                       Specialties
                     </Form.Label>
-                    <Form.Control
-                      disabled={true}
-                      readOnly
-                      value={this.state.specialty}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label variant="flat" className="label">
-                      Insurances Taken
-                    </Form.Label>
-                    <Form.Control
-                      disabled={true}
-                      readOnly
-                      value={this.state.insurance}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="label">Client Focus</Form.Label>
-                    <Form.Control
-                      disabled={true}
-                      readOnly
-                      value={this.state.clientFocus}
-                    />
-                  </Form.Group>
-
-                  <Form.Group>
-                    <Form.Label className="label">Session Format</Form.Label>
-                    <Form.Control
-                      disabled={true}
-                      readOnly
-                      value={this.state.sessionFormat}
-                    />
+                    <div>
+                      {this.state.specialty &&
+                        this.state.specialty.map((specialty) => {
+                          return (
+                            <>
+                              <Form.Control
+                                disabled={true}
+                                readOnly
+                                defaultValue={specialty}
+                              />
+                            </>
+                          );
+                        })}
+                    </div>
                   </Form.Group>
                 </Form>
               </div>
