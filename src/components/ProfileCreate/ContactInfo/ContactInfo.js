@@ -99,8 +99,7 @@ studentContactInfo = (e) =>{
 
        if(this.state.showStudentProfile){
         itemToRender = <div>
-           
-           <Form onSubmit={this.studentContactInfo}>
+            <Form onSubmit={this.studentContactInfo}>
              <br/>
              <Form.Check
               type="switch"
@@ -110,74 +109,78 @@ studentContactInfo = (e) =>{
               onChange={this.handleStudent}
             />
                 <br/>
-             <Form.Label>Island</Form.Label>
+             <label>Island</label>
              <br/>
              <Form.Control
-                 as="select" 
-                 onChange={this.handleInputChangeFor("island_id")}>
-                
-                {this.props.islands &&
-                      <>
-                      <option defaultValue='Select your Island'>Select your Island</option>
-                      {this.props.islands.map(island =>
-                        <option value={island.island_id}
+                 as="select" onChange={this.handleInputChangeFor("island_id")}>
+             {this.props.islands &&
+                   
+                   <>
+                   <option defaultValue='Select your Island'>Select your Island</option>
+                   {this.props.islands.map(island =>
+                    <option value={island.island_id}
         
                   key={island.island_id}>{island.title}</option>
                     )}
                    </>
                    } 
              </Form.Control>
-
+             <br/>
+             <br/>
              <Form.Label>Zip Code</Form.Label>
-             <Form.Control 
-                  type="number"
+             <br/>
+             <Form.Control type="number"
                   name="zip_code"
                   value={this.state.zip_code}
                   onChange={this.handleInputChangeFor("zip_code")}/>
-             
+             <br/>
              <Form.Label>Phone Number - Personal</Form.Label>
+             <br/>
              <Form.Control type="number"
                   name="personal_number"
                   value={this.state.personal_number}
                   onChange={this.handleInputChangeFor("personal_number")}/>
-
+             <br/>
              <Form.Label>Email Address - Personal</Form.Label>
+             <br/>
              <Form.Control type="text"
                   name="personal_email"
                   value={this.state.personal_email}
                   onChange={this.handleInputChangeFor("personal_email")}/>
-
+             <br/>
              <Form.Label>Website</Form.Label>
-             <Form.Conrol 
-                  type="text"
+             <br/>
+             <Form.Control type="text"
                   name="website"
                   value={this.state.website}
                   onChange={this.handleInputChangeFor("website")}/>
-
+             <br/>
              <Form.Label>Address - Home</Form.Label>
-             <Form.Control
-                  type="text"
+             <br/>
+             <Form.Control type="text"
                   name="address_home"
                   value={this.state.address_home}
                   onChange={this.handleInputChangeFor("address_home")}/>
-
+             <br/>
              <Form.Label>Address - Mailing</Form.Label>
-             <Form.Control
-                  type="text"
+             <br/>
+             <Form.Control type="text"
                   name="address_mailing"
                   value={this.state.address_mailing}
                   onChange={this.handleInputChangeFor("address_mailing")}/>
-
+             <br/>
+             <br/>
              <Form.Label>City</Form.Label>
-             <Form.Control 
-                  type="text"
+             <br/>
+             <Form.Control type="text"
                   name="city"
                   value={this.state.city}
                   onChange={this.handleInputChangeFor("city")}/>
+             <br/>
+             <br/>
             
            <Button type="submit">Next</Button>
             </Form>
-
             
         </div>
        }else{
