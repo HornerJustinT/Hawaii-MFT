@@ -47,10 +47,12 @@ class ProfileEdit extends Component {
     this.props.dispatch({
       type: "FETCH_PROFILE",
       payload: { id: this.props.match.params.id || this.props.user.id },
+      admin: this.props.match.params.id || false
     });
     this.getImage(this.props.user.id);
     console.log(this.state.profilePhoto);
   } //end componentDidMount
+
 
   //updating component to ensure all the data makes it to props for render
   componentDidUpdate(previousProps) {
@@ -80,10 +82,10 @@ class ProfileEdit extends Component {
         title: this.props.profile.title,
         age: this.props.profile.age,
         phone: this.props.profile.phone[0],
-        address: this.props.profile.address,
+        address: this.props.profile.address[0],
         city: this.props.profile.city,
         island: this.props.profile.island,
-        email: this.props.profile.email,
+        email: this.props.profile.email[0],
         zipCode: this.props.profile.zip_code,
         website: this.props.profile.website,
         credentials: this.props.profile.credentials,
@@ -97,42 +99,16 @@ class ProfileEdit extends Component {
         telehealth: this.props.profile.telehealth,
         statement: this.props.profile.statement,
         languages: this.props.profile.languages,
-        languagesEdit: updatedLanguages,
-        treatmentApproaches: this.props.treatmentPreferences,
-        // treatmentAproachesEdit: updatedTreatments,
+        languagesEdit: this.props.profile.languages_id,
         agesServed: this.props.profile.ages_served,
         clientFocus: this.props.profile.client_focus,
         insurance: this.props.profile.insurance,
         sessionFormat: this.props.profile.session_format,
-        specialty: this.props.profile.speciaty,
+        specialty: this.props.profile.specialty,
         treatmentPreferences: this.props.profile.treatment_preferences,
       });
     }
   } //end componentDidUpdate
-
-  //the syncDataEdit functions are called in componentDidUpdate to get IDs on values to be edited.
-  //the reducerName is the reducer that holds the array of objects with ids & values (all of the options from the DB)
-  //the profileName is the property in the profile that holds just the values for this specific user
-  //reducerName & profileName as arguments were written in the general sense originally to try to make this a
-  //generic function. Due to the way the database is set up, we found it easier in this instance to write a new
-  //function for each reducer & corresponding property to retrieve IDs for property titles.
-  //with some changes to the database, the following functions could become one generic function to be called to sync data.
-  syncDataEditLanguage = (reducerName, profileName) => {
-    //this conditional rendering is mitigating an async issue
-    if (this.props.profile[reducerName] && this.props.profile[profileName]) {
-      //mapping over user's languages from profile reducer (props) and using filter method to return
-      //the language object (language.id & language.title) from the languages reducer (all possibilities)
-      //where the language.id is the same as the value of langauges in profile reducer
-      //this allows us to get the name of the language ('Arabic') off the id ('2') retrieved from the user's profile.
-      const updatedLanguages = this.props.profile[profileName].map((lang) => {
-        const results = this.props[reducerName].filter(
-          (object) => object.title === lang
-        );
-        return results[0].language_id;
-      });
-      return updatedLanguages;
-    }
-  }; //end syncDataEditLanguage
 
   //this function handles the conditional rendering to switch between View and Edit modes
   handleEditBasic = () => {
@@ -200,11 +176,11 @@ class ProfileEdit extends Component {
   displayLanguages = () => {
     if (this.state.clickBasic) {
       return (
-        <Form.Group>
+        <Form.Group className="column">
           <Form.Label className="label">Languages Spoken</Form.Label>
           <Form.Control
             as="select"
-            multiple="true"
+            multiple={true}
             value={this.state.languagesEdit}
             onChange={(event) =>
               this.handleLangChange(event, "languagesEdit", "languages")
@@ -224,13 +200,13 @@ class ProfileEdit extends Component {
       );
     } else {
       return (
-        <Form.Group>
+        <Form.Group className="column">
           <Form.Label className="label">Languages Spoken</Form.Label>
           <div>
             {this.state.languages.map((lang) => {
               return (
                 <>
-                  <Form.Control disabled="true" readOnly defaultValue={lang} />
+                  <Form.Control disabled={true} readOnly defaultValue={lang} />
                 </>
               );
             })}
@@ -264,40 +240,42 @@ class ProfileEdit extends Component {
                 </Button>
               </div>
               <div className="border">
-                <Form className="flex-between row-wrap">
-                  <Form.Group>
+                <Form className="flex-between row-wrap row">
+                  <Form.Group className="columnThirds">
                     <Form.Label variant="flat" className="label">
                       Prefix
                     </Form.Label>
                     <Form.Control
-                      defaultValue={this.props.profile.prefix}
+                      defaultValue={this.state.prefix}
                       onChange={(event) => this.handleChange(event, "prefix")}
                     />
                   </Form.Group>
 
-                  <Form.Group>
+                  <Form.Group className="columnThirds">
                     <Form.Label className="label">First Name</Form.Label>
                     <Form.Control
-                      defaultValue={this.props.profile.first_name}
+                      defaultValue={this.state.firstName}
                       onChange={(event) =>
                         this.handleChange(event, "firstName")
                       }
                     />
                   </Form.Group>
 
-                  <Form.Group>
+                  <Form.Group className="columnThirds">
                     <Form.Label className="label">Last Name</Form.Label>
                     <Form.Control
-                      defaultValue={this.props.profile.last_name}
+                      defaultValue={this.state.lastName}
                       onChange={(event) => this.handleChange(event, "lastName")}
                     />
                   </Form.Group>
+                </Form>
 
-                  <Form.Group>
+                <Form className="flex-between row-wrap row">
+                  <Form.Group className="column">
                     <Form.Label className="label">Age</Form.Label>
                     <Form.Control
                       type="number"
-                      defaultValue={this.props.profile.age}
+                      defaultValue={this.state.age}
                       onChange={(event) => this.handleChange(event, "age")}
                     />
                     <Form.Text className="text-muted">
@@ -312,7 +290,7 @@ class ProfileEdit extends Component {
                     <Form.Control
                       as="textarea"
                       rows="5"
-                      defaultValue={this.props.profile.statement}
+                      defaultValue={this.state.statement}
                       onChange={(event) =>
                         this.handleChange(event, "statement")
                       }
@@ -335,37 +313,40 @@ class ProfileEdit extends Component {
               {this.props.profile && (
                 <>
                   <div className="border">
-                    <Form className="flex-between row-wrap">
-                      <Form.Group>
+                    <Form className="flex-between row-wrap row">
+                      <Form.Group className="columnThirds">
                         <Form.Label className="label">Prefix</Form.Label>
                         <Form.Control
-                          disabled="true"
+                          disabled={true}
                           readOnly
-                          defaultValue={this.props.profile.prefix}
+                          defaultValue={this.state.prefix}
                         />
                       </Form.Group>
-                      <Form.Group>
+                      <Form.Group className="columnThirds">
                         <Form.Label className="label">First Name</Form.Label>
                         <Form.Control
-                          disabled="true"
+                          disabled={true}
                           readOnly
-                          defaultValue={this.props.profile.first_name}
+                          defaultValue={this.state.firstName}
                         />
                       </Form.Group>
-                      <Form.Group>
+                      <Form.Group className="columnThirds">
                         <Form.Label className="label">Last Name</Form.Label>
                         <Form.Control
-                          disabled="true"
+                          disabled={true}
                           readOnly
-                          defaultValue={this.props.profile.last_name}
+                          defaultValue={this.state.lastName}
                         />
                       </Form.Group>
-                      <Form.Group>
+                    </Form>
+
+                    <Form className="flex-between row-wrap row">
+                      <Form.Group className="column">
                         <Form.Label className="label">Age</Form.Label>
                         <Form.Control
-                          disabled="true"
+                          disabled={true}
                           readOnly
-                          defaultValue={this.props.profile.age}
+                          defaultValue={this.state.age}
                         />
                         <Form.Text className="text-muted">
                           Not Listed - HIAMFT-Use Only
@@ -379,9 +360,9 @@ class ProfileEdit extends Component {
                         <Form.Control
                           as="textarea"
                           rows="5"
-                          disabled="true"
+                          disabled={true}
                           readOnly
-                          defaultValue={this.props.profile.statement}
+                          defaultValue={this.state.statement}
                         />
                       </Form.Group>
                     </Form>
