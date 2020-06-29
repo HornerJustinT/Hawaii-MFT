@@ -240,7 +240,7 @@ class ProfileEditContact extends Component {
                             Email Address - Business
                           </Form.Label>
                           <Form.Control
-                            defaultValue={this.props.profile.email}
+                            defaultValue={this.state.email}
                             onChange={(event) =>
                               this.handleChange(event, "email")
                             }
@@ -253,7 +253,7 @@ class ProfileEditContact extends Component {
                             Email Address - Personal
                           </Form.Label>
                           <Form.Control
-                            defaultValue={this.props.profile.email_personal}
+                            defaultValue={this.state.emailPersonal}
                             onChange={(event) =>
                               this.handleChange(event, "emailPersonal")
                             }
@@ -268,7 +268,7 @@ class ProfileEditContact extends Component {
                         <Form.Group>
                           <Form.Label className="label">Website</Form.Label>
                           <Form.Control
-                            defaultValue={this.props.profile.website}
+                            defaultValue={this.state.website}
                             onChange={(event) =>
                               this.handleChange(event, "website")
                             }
@@ -316,7 +316,7 @@ class ProfileEditContact extends Component {
                             Address - Business
                           </Form.Label>
                           <Form.Control
-                            defaultValue={this.props.profile.address}
+                            defaultValue={this.state.address}
                             onChange={(event) =>
                               this.handleChange(event, "address")
                             }
@@ -329,7 +329,7 @@ class ProfileEditContact extends Component {
                             City
                           </Form.Label>
                           <Form.Control
-                            defaultValue={this.props.profile.city}
+                            defaultValue={this.state.city}
                             onChange={(event) =>
                               this.handleChange(event, "city")
                             }
@@ -343,7 +343,7 @@ class ProfileEditContact extends Component {
                           </Form.Label>
                           <Form.Control
                             type="number"
-                            defaultValue={this.props.profile.zip_code}
+                            defaultValue={this.state.zipCode}
                             onChange={(event) =>
                               this.handleChange(event, "zipCode")
                             }
@@ -358,7 +358,7 @@ class ProfileEditContact extends Component {
                             Address - Personal
                           </Form.Label>
                           <Form.Control
-                            defaultValue={this.props.profile.address_personal}
+                            defaultValue={this.state.addressPersonal}
                             onChange={(event) =>
                               this.handleChange(event, "addressPersonal")
                             }
@@ -373,7 +373,7 @@ class ProfileEditContact extends Component {
                             City
                           </Form.Label>
                           <Form.Control
-                            defaultValue={this.props.profile.city_personal}
+                            defaultValue={this.state.cityPersonal}
                             onChange={(event) =>
                               this.handleChange(event, "cityPersonal")
                             }
@@ -388,7 +388,7 @@ class ProfileEditContact extends Component {
                           </Form.Label>
                           <Form.Control
                             type="number"
-                            defaultValue={this.props.profile.zip_code_personal}
+                            defaultValue={this.state.zipCodePersonal}
                             onChange={(event) =>
                               this.handleChange(event, "zipCodePersonal")
                             }

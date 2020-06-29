@@ -220,7 +220,7 @@ class ProfileEdit extends Component {
                       Prefix
                     </Form.Label>
                     <Form.Control
-                      defaultValue={this.props.profile.prefix}
+                      defaultValue={this.state.prefix}
                       onChange={(event) => this.handleChange(event, "prefix")}
                     />
                   </Form.Group>
@@ -228,7 +228,7 @@ class ProfileEdit extends Component {
                   <Form.Group className="columnThirds">
                     <Form.Label className="label">First Name</Form.Label>
                     <Form.Control
-                      defaultValue={this.props.profile.first_name}
+                      defaultValue={this.state.firstName}
                       onChange={(event) =>
                         this.handleChange(event, "firstName")
                       }
@@ -238,7 +238,7 @@ class ProfileEdit extends Component {
                   <Form.Group className="columnThirds">
                     <Form.Label className="label">Last Name</Form.Label>
                     <Form.Control
-                      defaultValue={this.props.profile.last_name}
+                      defaultValue={this.state.lastName}
                       onChange={(event) => this.handleChange(event, "lastName")}
                     />
                   </Form.Group>
@@ -249,7 +249,7 @@ class ProfileEdit extends Component {
                     <Form.Label className="label">Age</Form.Label>
                     <Form.Control
                       type="number"
-                      defaultValue={this.props.profile.age}
+                      defaultValue={this.state.age}
                       onChange={(event) => this.handleChange(event, "age")}
                     />
                     <Form.Text className="text-muted">
@@ -264,7 +264,7 @@ class ProfileEdit extends Component {
                     <Form.Control
                       as="textarea"
                       rows="5"
-                      defaultValue={this.props.profile.statement}
+                      defaultValue={this.state.statement}
                       onChange={(event) =>
                         this.handleChange(event, "statement")
                       }
@@ -293,7 +293,7 @@ class ProfileEdit extends Component {
                         <Form.Control
                           disabled={true}
                           readOnly
-                          defaultValue={this.props.profile.prefix}
+                          defaultValue={this.state.prefix}
                         />
                       </Form.Group>
                       <Form.Group className="columnThirds">
@@ -301,7 +301,7 @@ class ProfileEdit extends Component {
                         <Form.Control
                           disabled={true}
                           readOnly
-                          defaultValue={this.props.profile.first_name}
+                          defaultValue={this.state.firstName}
                         />
                       </Form.Group>
                       <Form.Group className="columnThirds">
@@ -309,7 +309,7 @@ class ProfileEdit extends Component {
                         <Form.Control
                           disabled={true}
                           readOnly
-                          defaultValue={this.props.profile.last_name}
+                          defaultValue={this.state.lastName}
                         />
                       </Form.Group>
                     </Form>
@@ -320,7 +320,7 @@ class ProfileEdit extends Component {
                         <Form.Control
                           disabled={true}
                           readOnly
-                          defaultValue={this.props.profile.age}
+                          defaultValue={this.state.age}
                         />
                         <Form.Text className="text-muted">
                           Not Listed - HIAMFT-Use Only
@@ -336,7 +336,7 @@ class ProfileEdit extends Component {
                           rows="5"
                           disabled={true}
                           readOnly
-                          defaultValue={this.props.profile.statement}
+                          defaultValue={this.state.statement}
                         />
                       </Form.Group>
                     </Form>
