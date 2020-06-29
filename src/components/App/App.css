@@ -77,6 +77,18 @@ body {
     flex-flow: row wrap-reverse;
 }
 
+.align-center {
+    align-items: center;
+}
+
+.align-auto {
+    align-items: auto;
+}
+
+.align-baseline {
+    align-items: baseline;
+}
+
 .save,.next,.back{
     margin-top:100px;
     padding:10px;
