@@ -207,7 +207,7 @@ class ProfileEdit extends Component {
                       as="select"
                       defaultValue={this.props.profile.telehealth}
                       onChange={(event) =>
-                        this.handleChange(event, "telehealth")
+                        this.handleChangeBoolean(event, "telehealth")
                       }
                       width={"193px"}
                     >
