@@ -153,32 +153,33 @@ router.put("/contact", rejectUnauthenticated, async (req, res) => {
         WHERE id = $6;`;
 
         //declaring variables for island queries
-        const island = req.body.islandEdit;
+        const island = req.body.islandEdit || "N/A";
         const islandQuery = `INSERT INTO "island_pivot" ("island_id", "member_id") VALUES ($1, $2)`;
         const islandDeleteQuery = `DELETE FROM island_pivot WHERE member_id = $1;`;
 
         //declaring variables for phone queries
-        const phone = req.body.phone;
+        const phone = req.body.phone || "N/A";
         const phoneQuery = `INSERT INTO "phone_table" ("number", "member_id", "business") VALUES ($1, $2, $3)`;
         const phoneDeleteQuery = `DELETE FROM phone_table WHERE member_id = $1;`;
 
-        const phonePersonal = req.body.phonePersonal;
+        const phonePersonal = req.body.phonePersonal || "N/A";
         const phoneQueryPersonal = `INSERT INTO "phone_table" ("number", "member_id", "business") VALUES ($1, $2, $3)`;
         const phoneDeleteQueryPersonal = `DELETE FROM phone_table WHERE member_id = $1 AND business = $2;`;
 
-        const email = req.body.email;
+        const email = req.body.email || "N/A";
         const emailQuery = `INSERT INTO "email_table" ("email", "member_id", "business") VALUES ($1, $2, $3)`;
         const emailDeleteQuery = `DELETE FROM email_table WHERE member_id = $1;`;
 
-        const emailPersonal = req.body.emailPersonal;
+        const emailPersonal = req.body.emailPersonal || "N/A";
         const emailQueryPersonal = `INSERT INTO "email_table" ("email", "member_id", "business") VALUES ($1, $2, $3)`;
         const emailDeleteQueryPersonal = `DELETE FROM email_table WHERE member_id = $1 AND business = $2;`;
 
-        const address = req.body.address;
+        const address = req.body.address || "N/A";
         const addressQuery = `INSERT INTO "address_table" ("address", "member_id", "business") VALUES ($1, $2, $3)`;
         const addressDeleteQuery = `DELETE FROM address_table WHERE member_id = $1;`;
 
-        const addressPersonal = req.body.addressPersonal;
+
+        const addressPersonal = req.body.addressPersonal || 'N/A';
         const addressQueryPersonal = `INSERT INTO "address_table" ("address", "member_id", "business") VALUES ($1, $2, $3)`;
         const addressDeleteQueryPersonal = `DELETE FROM address_table WHERE member_id = $1 AND business = $2;`;
 
@@ -245,6 +246,7 @@ router.put("/contact", rejectUnauthenticated, async (req, res) => {
         if (Array.isArray(address)) {
           queryAddress = address[0];
         }
+
         await connection.query(addressDeleteQuery, [req.user.id]);
         await connection.query(addressQuery, [
           queryAddress || address,
@@ -252,9 +254,20 @@ router.put("/contact", rejectUnauthenticated, async (req, res) => {
           "TRUE",
         ]);
 
-        //EmailPersonal PUT & DELETE
-        await connection.query(addressDeleteQueryPersonal, [req.body.id,"FALSE"]);
-        await connection.query(addressQueryPersonal, [addressPersonal,req.body.id,"FALSE"]);
+        //AddressPersonal PUT & DELETE
+        queryAddress = null;
+        if (Array.isArray(addressPersonal)) {
+          queryAddress = addressPersonal[0];
+        }
+        await connection.query(addressDeleteQueryPersonal, [
+          req.body.id,
+          "FALSE",
+        ]);
+        await connection.query(addressQueryPersonal, [
+          queryAddress || addressPersonal,
+          req.body.id,
+          "FALSE",
+        ]);
 
         await connection.query("COMMIT;");
         res.sendStatus(200);
