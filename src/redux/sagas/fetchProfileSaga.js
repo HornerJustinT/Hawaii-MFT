@@ -7,9 +7,14 @@ function* fetchProfile(action) {
     try {
         const response = yield axios.get(`/profile/${action.payload.id}`);
 
-        console.log( 'here is response', response.data);
-        //sends data to the profile reducer of one specific member
-        yield put({ type: 'GET_PROFILE_REDUCER', payload: response.data });
+        console.log( 'here is response', response);
+        if (!action.admin && !response.data[0]){
+            //! REPLACE THIS BEFORE DEPLOYING
+            window.location.replace("http://localhost:3000/#/create-profile");
+        } else {
+            //sends data to the profile reducer of one specific member
+            yield put({ type: 'GET_PROFILE_REDUCER', payload: response.data });
+        }
     } catch (error) {
         console.log('fetchProfile saga GET request failed', error);
     }

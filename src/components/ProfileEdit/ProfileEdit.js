@@ -31,7 +31,8 @@ class ProfileEdit extends Component {
 
     this.props.dispatch({
       type: "FETCH_PROFILE",
-      payload: { id: this.props.match.params.id || this.props.user.id }
+      payload: { id: this.props.match.params.id || this.props.user.id },
+      admin: this.props.match.params.id || false
     });
   } //end componentDidMount
 
