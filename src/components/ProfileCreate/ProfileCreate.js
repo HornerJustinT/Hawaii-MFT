@@ -7,16 +7,6 @@ import "./profileCreate.css"
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { number } from 'prop-types';
-
-
-// const formValid = formErrors =>{
-//   let valid = true;
-//   Object.values(formerrors).forEach(val =>{
-//     val.length > 0 && (valid=false);
-//   });
-//   return valid
-// }
 
 
 class ProfileCreate extends Component {
