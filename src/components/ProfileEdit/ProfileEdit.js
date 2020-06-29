@@ -32,8 +32,10 @@ class ProfileEdit extends Component {
     this.props.dispatch({
       type: "FETCH_PROFILE",
       payload: { id: this.props.match.params.id || this.props.user.id },
+      newUser: this.props.history.push("/create-profile")
     });
   } //end componentDidMount
+
 
   //updating component to ensure all the data makes it to props for render
   componentDidUpdate(previousProps) {
@@ -42,15 +44,6 @@ class ProfileEdit extends Component {
       previousProps.profile.id !== this.props.profile.id &&
       this.props.profile.phone
     ) {
-      //declaring new variables for state with return from syncDataEditLanguage & syncDataEditIsland
-      //these functions retrieve an id based on the title of each item (ex. island title & island id)
-      //the last line of this code block is commented out to demonstrate the next steps for finishing
-      //the Practice Info section, which is currently not functional.
-      const updatedLanguages = this.syncDataEditLanguage(
-        "languages",
-        "languages"
-      );
-
 
       //setting state in component update with all of the properties retrieved from props from the database
       //for this particular member's profile view.
@@ -81,7 +74,7 @@ class ProfileEdit extends Component {
         telehealth: this.props.profile.telehealth,
         statement: this.props.profile.statement,
         languages: this.props.profile.languages,
-        languagesEdit: updatedLanguages,
+        languagesEdit: this.props.profile.languages_id,
         treatmentApproaches: this.props.treatmentPreferences,
         // treatmentAproachesEdit: updatedTreatments,
         agesServed: this.props.profile.ages_served,
@@ -93,30 +86,6 @@ class ProfileEdit extends Component {
       });
     }
   } //end componentDidUpdate
-
-  //the syncDataEdit functions are called in componentDidUpdate to get IDs on values to be edited.
-  //the reducerName is the reducer that holds the array of objects with ids & values (all of the options from the DB)
-  //the profileName is the property in the profile that holds just the values for this specific user
-  //reducerName & profileName as arguments were written in the general sense originally to try to make this a
-  //generic function. Due to the way the database is set up, we found it easier in this instance to write a new
-  //function for each reducer & corresponding property to retrieve IDs for property titles.
-  //with some changes to the database, the following functions could become one generic function to be called to sync data.
-  syncDataEditLanguage = (reducerName, profileName) => {
-    //this conditional rendering is mitigating an async issue
-    if (this.props.profile[reducerName] && this.props.profile[profileName]) {
-      //mapping over user's languages from profile reducer (props) and using filter method to return
-      //the language object (language.id & language.title) from the languages reducer (all possibilities)
-      //where the language.id is the same as the value of langauges in profile reducer
-      //this allows us to get the name of the language ('Arabic') off the id ('2') retrieved from the user's profile.
-      const updatedLanguages = this.props.profile[profileName].map((lang) => {
-        const results = this.props[reducerName].filter(
-          (object) => object.title === lang
-        );
-        return results[0].language_id;
-      });
-      return updatedLanguages;
-    }
-  }; //end syncDataEditLanguage
 
   //this function handles the conditional rendering to switch between View and Edit modes
   handleEditBasic = () => {
@@ -191,7 +160,7 @@ class ProfileEdit extends Component {
           <Form.Label className="label">Languages Spoken</Form.Label>
           <Form.Control
             as="select"
-            multiple="true"
+            multiple={true}
             value={this.state.languagesEdit}
             onChange={(event) =>
               this.handleLangChange(event, "languagesEdit", "languages")
@@ -217,7 +186,7 @@ class ProfileEdit extends Component {
             {this.state.languages.map((lang) => {
               return (
                 <>
-                  <Form.Control disabled="true" readOnly defaultValue={lang} />
+                  <Form.Control disabled={true} readOnly defaultValue={lang} />
                 </>
               );
             })}
@@ -322,7 +291,7 @@ class ProfileEdit extends Component {
                       <Form.Group>
                         <Form.Label className="label">Prefix</Form.Label>
                         <Form.Control
-                          disabled="true"
+                          disabled={true}
                           readOnly
                           defaultValue={this.props.profile.prefix}
                         />
@@ -330,7 +299,7 @@ class ProfileEdit extends Component {
                       <Form.Group>
                         <Form.Label className="label">First Name</Form.Label>
                         <Form.Control
-                          disabled="true"
+                          disabled={true}
                           readOnly
                           defaultValue={this.props.profile.first_name}
                         />
@@ -338,7 +307,7 @@ class ProfileEdit extends Component {
                       <Form.Group>
                         <Form.Label className="label">Last Name</Form.Label>
                         <Form.Control
-                          disabled="true"
+                          disabled={true}
                           readOnly
                           defaultValue={this.props.profile.last_name}
                         />
@@ -346,7 +315,7 @@ class ProfileEdit extends Component {
                       <Form.Group>
                         <Form.Label className="label">Age</Form.Label>
                         <Form.Control
-                          disabled="true"
+                          disabled={true}
                           readOnly
                           defaultValue={this.props.profile.age}
                         />
@@ -362,7 +331,7 @@ class ProfileEdit extends Component {
                         <Form.Control
                           as="textarea"
                           rows="5"
-                          disabled="true"
+                          disabled={true}
                           readOnly
                           defaultValue={this.props.profile.statement}
                         />

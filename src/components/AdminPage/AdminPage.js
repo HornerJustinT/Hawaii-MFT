@@ -48,7 +48,7 @@ class AdminPage extends Component {
   };
   resetProfile = (id) =>{
     this.props.dispatch({type:"PROFILE_RESET"}) 
-    this.props.history.push(`/edit-profile/${id}`)
+    this.props.history.push(`/admin-edit-profile/${id}`)
   }
   // When the page loads
   componentDidMount() {

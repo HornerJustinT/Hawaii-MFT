@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "./ProfileView.css";
 import { connect } from "react-redux";
 import Button from 'react-bootstrap/Button';
-// import EmailModal from '../EmailModal/EmailModal'
+import EmailModal from '../EmailModal/EmailModal'
+
 import {
   Map,
   InfoWindow,
@@ -36,17 +37,17 @@ class ProfileView extends Component {
 
   telehealth=(doesTelehealth)=>{
     if(doesTelehealth){
-      return <p>Yes I do provide telehealth</p>
+      return <>Yes I do provide telehealth</>
     }
     else{
-      return <p>No, I do not provide telehealth at this time</p>
+      return <>No, I do not provide telehealth at this time</>
     }
   }
   credentials=(credentials)=>{// checks if credentials are there function
     if(credentials){
       return<ul>{this.props.profile[0].credentials.map((credentials,key) =>
         <p key={key}>{credentials}</p>)}
-        </ul>
+      </ul>
     }
   }
   website=(website)=>{// checks if website is there function
@@ -69,11 +70,15 @@ class ProfileView extends Component {
         `https://maps.googleapis.com/maps/api/geocode/json?address=${url_address}&key=${API_KEY}`
       )
         .then((data) => data.json())
-        .then((data) =>
-          this.setState({
-            lat: data.results[0].geometry.location.lat,
-            lng: data.results[0].geometry.location.lng,
-          })
+        .then((data) => {
+            console.log(data)
+            if (data.results[0]) {
+              this.setState({
+                lat: data.results[0].geometry.location.lat,
+                lng: data.results[0].geometry.location.lng,
+              });
+            }
+          }
         );
     }
   };
@@ -209,9 +214,9 @@ class ProfileView extends Component {
                 </h3>
               </div>
 
-              {/* <div className="emailModal">
-                <EmailModal props = {this.props.profile.id}></EmailModal>
-              </div> */}
+              <div className="emailModal">
+                <EmailModal />
+              </div>
               <div className="contact">
                 <h4>Contact</h4>
                 <ul>
@@ -241,7 +246,7 @@ class ProfileView extends Component {
                     <Marker
                       position={{ lat: this.state.lat, lng: this.state.lng }}
                     />
-                    <InfoWindow></InfoWindow>
+                    <InfoWindow><>Information</></InfoWindow>
                   </Map>
                 </div>
               </div>
