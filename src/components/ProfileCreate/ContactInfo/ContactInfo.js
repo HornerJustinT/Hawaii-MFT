@@ -56,46 +56,154 @@ class ContactInfo extends Component{
         })
       } 
 
-     
+
+      validate = () => {
+          let islandError = '';
+           let zipCodeError = '';
+           let  businessNumberError = '';
+            let personalNumberError = '';
+            let emailError = '';
+            let personalEmailError ='';
+            let websiteError ='';
+           let addressOfficeError ='';
+            let addressHomeError = '';
+            let addressMailingError ='';
+            let cityError = '';
+          let formIsValid = true;
+  
+          if(this.state.city === ''){
+            formIsValid=false;
+            cityError = 'City Name is required'
+          }else if(!this.state.city.match(/^[a-zA-Z_]+$/) ){
+              formIsValid=false;
+              cityError = "City Name is invalid" 
+          }
+  
+          if(this.state.address_mailing === ''){
+            formIsValid=false;
+            addressMailingError = 'Mailing Address is required'
+          }
+
+          if(this.state.address_home=== ''){
+               formIsValid=false;
+               addressHomeError = 'Home Address is required'
+          }
+
+          if(this.state.address_office === ''){
+               formIsValid=false;
+               addressOfficeError = 'Office Address is required'
+          }
+          if(this.state.website === ''){
+               formIsValid=false;
+               websiteError = 'Website Address is required'
+          }
+
+          if(this.state.personal_email === ''){
+            formIsValid=false;
+            personalEmailError = 'Personal Email is required'
+          }else if(!this.state.personal_email.include('@') ){
+              formIsValid=false;
+              personalEmailError = "Personal Email is not valid"
+          }
+          if(this.state.email === ''){
+               formIsValid=false;
+               emailError = 'Business Email is required'
+          }else if(!this.state.email.include('@') ){
+                 formIsValid=false;
+                 emailError = "Business Email is not valid"
+             }
+          if(this.state.personal_number === ''){
+               formIsValid=false;
+               personalNumberError = 'Personal Number is required'
+             }
+
+          if(this.state.business_number === ''){
+               formIsValid=false;
+               businessNumberError = 'Business Number is required'
+             }
+        
+          if(this.state.zip_code === ''){
+            formIsValid=false;
+            zipCodeError = 'Zip Code is required! '
+          }else if(!isNaN(this.state.zip_code)===false ){
+              formIsValid = false;
+              zipCodeError = "Age input is invalid"
+          }
+
+          if(this.state.island_id === ''){
+               formIsValid=false;
+              islandError = 'Island Name is required! '
+          }else if(!isNaN(this.state.island_id)===false ){
+                 formIsValid = false;
+                 islandError = "Island Name is invalid"
+          }
+  
+          if(cityError || addressMailingError || addressHomeError || addressOfficeError 
+               || websiteError  || personalEmailError || emailError ||  personalNumberError 
+               || businessNumberError|| zipCodeError || islandError){
+            this.setState({cityError, addressMailingError, addressHomeError, addressOfficeError, 
+               websiteError, personalEmailError,  emailError,  personalNumberError, 
+               businessNumberError, zipCodeError,  islandError});
+          
+          }else{
+            return true;
+          }
+  
+        }
+
       addContactInfo = (event) =>{
 //this will send all the contact info from contactinfo page into SET_ADDRESS reducer
 //once they are sent to the reducer, the data can then be retrievied in practiceInfo
 //where it will be bunched up all together with all other inputs from other pages
 //it will then gets used to dispatch an action for post request to the server
           event.preventDefault();
-          this.props.dispatch({type:'ADD_ADDRESS', 
-                              payload:{island_id: this.state.island_id, 
-                                        email: this.state.email,
-                                        personal_email:this.state.personal_email,
-                                        business_number:this.state.business_number,
-                                        personal_number:this.state.personal_number,
-                                        address_office:this.state.address_office,
-                                        address_home:this.state.address_home,
-                                        address_mailing:this.state.address_mailing,
-                                        zip_code: this.state.zip_code,
-                                        city: this.state.city,
-                                        website: this.state.website
-          }});
-          this.props.history.push('/practice');               
-     }
+          const isValid = this.validate();
+          if(!isValid){
+               return false
+               }else{
+                    this.props.dispatch({type:'ADD_ADDRESS', 
+                    payload:{island_id: this.state.island_id, 
+                              email: this.state.email,
+                              personal_email:this.state.personal_email,
+                              business_number:this.state.business_number,
+                              personal_number:this.state.personal_number,
+                              address_office:this.state.address_office,
+                              address_home:this.state.address_home,
+                              address_mailing:this.state.address_mailing,
+                              zip_code: this.state.zip_code,
+                              city: this.state.city,
+                              website: this.state.website
+                         }});
+          // this.props.history.push('/practice');  
+                 return true;
+               }
+ }
 
 studentContactInfo = (e) =>{
   e.preventDefault();
 
-  this.props.dispatch({
-    type: 'ADD_ADDRESS',
-    payload:{
-      island_id: this.state.island_id, 
-      email: this.state.email,
-      personal_email:this.state.personal_email,
-      personal_number:this.state.personal_number,
-      address_home:this.state.address_home,
-      address_mailing:this.state.address_mailing,
-      zip_code: this.state.zip_code,
-      city: this.state.city,
-      website: this.state.website
-    }});
-  this.props.history.push('/student'); 
+  const isValid = this.validate();
+  if(!isValid){
+     return false
+     }else{
+          this.props.dispatch({
+               type: 'ADD_ADDRESS',
+               payload:{
+                 island_id: this.state.island_id, 
+                 email: this.state.email,
+                 personal_email:this.state.personal_email,
+                 personal_number:this.state.personal_number,
+                 address_home:this.state.address_home,
+                 address_mailing:this.state.address_mailing,
+                 zip_code: this.state.zip_code,
+                 city: this.state.city,
+                 website: this.state.website
+               }});
+     // this.props.history.push('/student'); 
+       return true;
+     }
+ 
+ 
 }
 
      handleStudent =(e)=>{
@@ -272,7 +380,7 @@ studentContactInfo = (e) =>{
                   name="personal_email"
                   value={this.state.personal_email}
                   onChange={this.handleInputChangeFor("personal_email")}/>
-                   <h4 className="error">{this.state.personal_email}</h4>
+                   <h4 className="error">{this.state.personalEmailError}</h4>
              <br/>
              <Form.Label>Website</Form.Label>
              <br/>
