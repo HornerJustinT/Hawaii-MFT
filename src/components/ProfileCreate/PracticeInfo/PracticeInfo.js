@@ -88,6 +88,7 @@ handleInputChangeFor = propertyName => (event) =>{
 //this action will dispatch all the info collegeted from all three pages
 //and those are createprofile, contactinfo and practicinfo pages
       event.preventDefault();
+      
       this.props.dispatch({type:'ADD_MEMBER',
         payload:{
           prefix:this.props.createProfile.prefix,
