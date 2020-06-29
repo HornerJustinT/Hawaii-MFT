@@ -40,9 +40,7 @@ class ProfileEdit extends Component {
 
   //updating component to ensure all the data makes it to props for render
   componentDidUpdate(previousProps) {
-    if (
-      previousProps !== this.props
-    ) {
+    if (previousProps !== this.props) {
       //declaring new variables for state with return from syncDataEditLanguage & syncDataEditIsland
       //these functions retrieve an id based on the title of each item (ex. island title & island id)
       //the last line of this code block is commented out to demonstrate the next steps for finishing
@@ -102,7 +100,7 @@ class ProfileEdit extends Component {
       payload: this.state,
     });
 
-    this.props.dispatch({type: "PROFILE_RESET"});
+    this.props.dispatch({ type: "PROFILE_RESET" });
 
     this.props.dispatch({
       type: "FETCH_PROFILE",
@@ -126,6 +124,19 @@ class ProfileEdit extends Component {
       [editPropertyName]: array,
     });
   }; //end handleLangChange
+
+  //handleChangeBoolean resets state according to new data entered into form inputs requiring Boolean values
+  handleChangeBoolean = (event, propertyName) => {
+    if (event.target.value === "true") {
+      this.setState({
+        [propertyName]: true,
+      });
+    } else {
+      this.setState({
+        [propertyName]: false,
+      });
+    }
+  }; //end handleChange
 
   render() {
     if (this.props.profile) {
