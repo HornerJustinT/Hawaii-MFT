@@ -27,7 +27,18 @@ class ContactInfo extends Component{
             address_home:'',
             address_mailing:'',
             city:'',
-            showStudentProfile: false
+            showStudentProfile: false,
+            islandError:'',
+            zipCodeError:'',
+            businessNumberError:'',
+            personalNumberError:'',
+            emailError:'',
+            personalEmailError:'',
+            websiteError:'',
+            addressOfficeError:'',
+            addressHomeError:'',
+            addressMailingError:'',
+            cityError:'',
            }
 
            componentDidMount (){
@@ -125,6 +136,7 @@ studentContactInfo = (e) =>{
                    </>
                    } 
              </Form.Control>
+             <h4 className="error">{this.state.islandError}</h4>
              <br/>
              <br/>
              <Form.Label>Zip Code</Form.Label>
@@ -133,6 +145,7 @@ studentContactInfo = (e) =>{
                   name="zip_code"
                   value={this.state.zip_code}
                   onChange={this.handleInputChangeFor("zip_code")}/>
+                  <h4 className="error">{this.state.zipCodeError}</h4>
              <br/>
              <Form.Label>Phone Number - Personal</Form.Label>
              <br/>
@@ -140,6 +153,7 @@ studentContactInfo = (e) =>{
                   name="personal_number"
                   value={this.state.personal_number}
                   onChange={this.handleInputChangeFor("personal_number")}/>
+                  <h4 className="error">{this.state.personalNumberError}</h4>
              <br/>
              <Form.Label>Email Address - Personal</Form.Label>
              <br/>
@@ -147,6 +161,7 @@ studentContactInfo = (e) =>{
                   name="personal_email"
                   value={this.state.personal_email}
                   onChange={this.handleInputChangeFor("personal_email")}/>
+                  <h4 className="error">{this.state.personalEmailError}</h4>
              <br/>
              <Form.Label>Website</Form.Label>
              <br/>
@@ -154,6 +169,7 @@ studentContactInfo = (e) =>{
                   name="website"
                   value={this.state.website}
                   onChange={this.handleInputChangeFor("website")}/>
+                  <h4 className="error">{this.state.websiteError}</h4>
              <br/>
              <Form.Label>Address - Home</Form.Label>
              <br/>
@@ -161,6 +177,7 @@ studentContactInfo = (e) =>{
                   name="address_home"
                   value={this.state.address_home}
                   onChange={this.handleInputChangeFor("address_home")}/>
+                  <h4 className="error">{this.state.addressHomeError}</h4>
              <br/>
              <Form.Label>Address - Mailing</Form.Label>
              <br/>
@@ -168,6 +185,7 @@ studentContactInfo = (e) =>{
                   name="address_mailing"
                   value={this.state.address_mailing}
                   onChange={this.handleInputChangeFor("address_mailing")}/>
+                  <h4 className="error">{this.state.addressMailingError}</h4>
              <br/>
              <br/>
              <Form.Label>City</Form.Label>
@@ -176,6 +194,7 @@ studentContactInfo = (e) =>{
                   name="city"
                   value={this.state.city}
                   onChange={this.handleInputChangeFor("city")}/>
+                  <h4 className="error">{this.state.cityError}</h4>
              <br/>
              <br/>
             
@@ -211,6 +230,7 @@ studentContactInfo = (e) =>{
                    </>
                    } 
              </Form.Control>
+             <h4 className="error">{this.state.islandError}</h4>
              <br/>
              <br/>
              <Form.Label>Zip Code</Form.Label>
@@ -219,6 +239,7 @@ studentContactInfo = (e) =>{
                   name="zip_code"
                   value={this.state.zip_code}
                   onChange={this.handleInputChangeFor("zip_code")}/>
+                   <h4 className="error">{this.state.zipCodeError}</h4>
                 <br/>
              <Form.Label>Phone Number - Business</Form.Label>
              <br/>
@@ -226,6 +247,7 @@ studentContactInfo = (e) =>{
                   name="business_number"
                   value={this.state.business_number}
                   onChange={this.handleInputChangeFor("business_number")}/>
+                   <h4 className="error">{this.state.businessNumberError}</h4>
              <br/>
              <br/>
              <Form.Label>Phone Number - Personal</Form.Label>
@@ -234,6 +256,7 @@ studentContactInfo = (e) =>{
                   name="personal_number"
                   value={this.state.personal_number}
                   onChange={this.handleInputChangeFor("personal_number")}/>
+                   <h4 className="error">{this.state.personalNumberError}</h4>
                 <br/>
              <Form.Label>Email Address - Business</Form.Label>
              <br/>
@@ -241,6 +264,7 @@ studentContactInfo = (e) =>{
                   name="email"
                   value={this.state.email}
                   onChange={this.handleInputChangeFor("email")}/>
+                   <h4 className="error">{this.state.emailError}</h4>
              <br/>
              <Form.Label>Email Address - Personal</Form.Label>
              <br/>
@@ -248,6 +272,7 @@ studentContactInfo = (e) =>{
                   name="personal_email"
                   value={this.state.personal_email}
                   onChange={this.handleInputChangeFor("personal_email")}/>
+                   <h4 className="error">{this.state.personal_email}</h4>
              <br/>
              <Form.Label>Website</Form.Label>
              <br/>
@@ -255,6 +280,7 @@ studentContactInfo = (e) =>{
                   name="website"
                   value={this.state.website}
                   onChange={this.handleInputChangeFor("website")}/>
+                   <h4 className="error">{this.state.websiteError}</h4>
              <br/>
              <Form.Label>Address - Office</Form.Label>
              <br/>
@@ -262,6 +288,7 @@ studentContactInfo = (e) =>{
                   name="address_office"
                   value={this.state.address_office}
                   onChange={this.handleInputChangeFor("address_office")}/>
+                   <h4 className="error">{this.state.addressOfficeError}</h4>
              <br/>
              <Form.Label>Address - Home</Form.Label>
              <br/>
@@ -269,6 +296,7 @@ studentContactInfo = (e) =>{
                   name="address_home"
                   value={this.state.address_home}
                   onChange={this.handleInputChangeFor("address_home")}/>
+                   <h4 className="error">{this.state.addressHomeError}</h4>
              <br/>
              <Form.Label>Address - Mailing</Form.Label>
              <br/>
@@ -276,6 +304,7 @@ studentContactInfo = (e) =>{
                   name="address_mailing"
                   value={this.state.address_mailing}
                   onChange={this.handleInputChangeFor("address_mailing")}/>
+                   <h4 className="error">{this.state.addressMailingError}</h4>
              <br/>
              <br/>
              <Form.Label>City</Form.Label>
@@ -284,6 +313,7 @@ studentContactInfo = (e) =>{
                   name="city"
                   value={this.state.city}
                   onChange={this.handleInputChangeFor("city")}/>
+                   <h4 className="error">{this.state.cityError}</h4>
              <br/>
              <br/>
             
