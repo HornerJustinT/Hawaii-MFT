@@ -26,19 +26,18 @@ class ProfileEdit extends Component {
     languagesEdit: [],
     profilePhoto: "",
   };
-  getImage() {
+  getImage = (id) => {
     storage
-      .child(`images/${this.props.user.id}photo`)
+      .child(`images/${id}photo`)
       .getDownloadURL()
       .then((url) => {
-        this.setState({ profilePhoto: url });
+        this.setState({ profilePhoto: url});
+      }).then(()=>{
+        this.forceUpdate();
       })
       .catch((error) => {
         // Handle any errors
       });
-    console.log(
-      storage.child(`images/${this.props.user.id}photo`).getDownloadURL()
-    );
   }
   //mounting component - dispatching to redux sagas to call data from server for retreival from profile,
   //languages, islands & treatments reducers (props).
@@ -49,7 +48,7 @@ class ProfileEdit extends Component {
       type: "FETCH_PROFILE",
       payload: { id: this.props.match.params.id || this.props.user.id },
     });
-    this.getImage();
+    this.getImage(this.props.user.id);
     console.log(this.state.profilePhoto);
   } //end componentDidMount
 
@@ -249,7 +248,7 @@ class ProfileEdit extends Component {
           <div className="header">
             <h3>My Profile</h3>{" "}
             <img className = "photo" src={this.state.profilePhoto}></img>
-            <UploadModal name={this.props.user}></UploadModal>
+            <UploadModal refresh = {this.getImage} name={this.props.user}></UploadModal>
           </div>
 
           {/**Here is Basic Info render */}
