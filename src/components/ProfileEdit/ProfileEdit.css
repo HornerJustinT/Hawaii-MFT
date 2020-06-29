@@ -1,7 +1,10 @@
 .header {
     margin: 2em;
 }
-
+.photo {
+    height: 250px;
+    width: 400px;
+}
 .body {
     border-style: solid;
     border: .5em black;

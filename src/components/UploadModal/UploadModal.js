@@ -9,14 +9,15 @@ import { storage } from "../../Firebase";
 
 function RegistrationModal(props) {
   const [show, setShow] = useState(false);
-  const [sImage, setImage] = useState('')
-  const [progress,setProgress] = useState(0);
+  const [sImage, setImage] = useState("");
+  const [progress, setProgress] = useState(0);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleUpload = (event) => {
-    console.log(sImage)
-    const image = sImage
-    const uploadTask = storage.ref(`images/${image.name}`).put(image);
+    console.log(sImage);
+    console.log(props);
+    const image = sImage;
+    const uploadTask = storage.ref(`images/${props.name.id}photo`).put(image);
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -24,7 +25,7 @@ function RegistrationModal(props) {
         const progress = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
-        setProgress(progress)
+        setProgress(progress);
       },
       (error) => {
         //error function
@@ -32,30 +33,10 @@ function RegistrationModal(props) {
       },
       () => {
         //complete function
-        storage
-          .ref("images")
-          .child(image.name)
-          .getDownloadURL()
-          .then((url) => {
-            console.log(url);
-            this.setState({ url });
-          });
+        storage.ref("images").child(image.name);
       }
     );
   };
-  // let handleChange = (uploadedImage) =>{
-  //   console.log('in handle change')
-  //   stateImage = uploadedImage;
-  //   console.log(uploadedImage)
-  //   console.log(props)
-    
-  // }
-  // const updateProgress = (progress)=>{
-  //   stateProgress = progress
-  // }
-  // const saveImage = () =>{
-  //   console.log('in save image')
-  // }
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -67,7 +48,10 @@ function RegistrationModal(props) {
           <Modal.Title>Upload An Image</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <input type = "file" onChange={ e => setImage(e.target.files[0]) }></input>
+          <input
+            type="file"
+            onChange={(e) => setImage(e.target.files[0])}
+          ></input>
           <progress value={0} max="100" />
           <button onClick={handleUpload}>Upload</button>
           {/* <button onClick={}>Save Image</button> */}
