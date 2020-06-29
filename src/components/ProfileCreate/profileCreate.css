@@ -14,7 +14,7 @@ input{
     height: 2em;
     display: inline-block;
    border-radius: 10px;
-   background-color: lightcyan;
+   /* background-color: lightcyan; */
    border:  0.15px solid black;
    padding: 1.25em;
    margin: 1em;
@@ -106,6 +106,10 @@ label{
    
 }
 
+.header{
+    margin: 1em;
+}
+
 .header-container{
     margin-top: 0;
     margin-bottom: 2em;
@@ -121,4 +125,6 @@ label{
     text-align: center;
     
 }
+
+
 
