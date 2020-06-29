@@ -70,19 +70,20 @@ class ContactInfo extends Component{
 
 studentContactInfo = (e) =>{
   e.preventDefault();
-this.props.dispatch({
-  type: 'ADD_ADDRESS',
-  payload:{
-    island_id: this.state.island_id, 
-    email: this.state.email,
-    personal_email:this.state.personal_email,
-    personal_number:this.state.personal_number,
-    address_home:this.state.address_home,
-    address_mailing:this.state.address_mailing,
-    zip_code: this.state.zip_code,
-    city: this.state.city,
-    website: this.state.website
-  }});
+
+  this.props.dispatch({
+    type: 'ADD_ADDRESS',
+    payload:{
+      island_id: this.state.island_id, 
+      email: this.state.email,
+      personal_email:this.state.personal_email,
+      personal_number:this.state.personal_number,
+      address_home:this.state.address_home,
+      address_mailing:this.state.address_mailing,
+      zip_code: this.state.zip_code,
+      city: this.state.city,
+      website: this.state.website
+    }});
   this.props.history.push('/student'); 
 }
 
@@ -95,6 +96,7 @@ this.props.dispatch({
    
     render (){
       let itemToRender;
+
        if(this.state.showStudentProfile){
         itemToRender = <div>
            
@@ -111,79 +113,67 @@ this.props.dispatch({
              <label>Island</label>
              <br/>
              <Form.Control
-                 as="select" onChange={this.handleInputChangeFor("island_id")}>
-             {this.props.islands &&
-                   
-                   <>
-                   <option defaultValue='Select your Island'>Select your Island</option>
-                   {this.props.islands.map(island =>
-                    <option value={island.island_id}
+                 as="select" 
+                 onChange={this.handleInputChangeFor("island_id")}>
+                
+                {this.props.islands &&
+                      <>
+                      <option defaultValue='Select your Island'>Select your Island</option>
+                      {this.props.islands.map(island =>
+                        <option value={island.island_id}
         
                   key={island.island_id}>{island.title}</option>
                     )}
                    </>
                    } 
              </Form.Control>
-             <br/>
-             <br/>
+
              <Form.Label>Zip Code</Form.Label>
-             <br/>
              <Form.Control 
                   type="number"
                   name="zip_code"
                   value={this.state.zip_code}
                   onChange={this.handleInputChangeFor("zip_code")}/>
-                <br/>
-             <br/>
+             
              <Form.Label>Phone Number - Personal</Form.Label>
-             <br/>
              <Form.Control type="number"
                   name="personal_number"
                   value={this.state.personal_number}
                   onChange={this.handleInputChangeFor("personal_number")}/>
-                <br/>
+
              <Form.Label>Email Address - Personal</Form.Label>
-             <br/>
              <Form.Control type="text"
                   name="personal_email"
                   value={this.state.personal_email}
                   onChange={this.handleInputChangeFor("personal_email")}/>
-             <br/>
+
              <Form.Label>Website</Form.Label>
-             <br/>
              <Form.Conrol 
                   type="text"
                   name="website"
                   value={this.state.website}
                   onChange={this.handleInputChangeFor("website")}/>
-             <br/>
 
              <Form.Label>Address - Home</Form.Label>
-             <br/>
              <Form.Control
                   type="text"
                   name="address_home"
                   value={this.state.address_home}
                   onChange={this.handleInputChangeFor("address_home")}/>
-             <br/>
+
              <Form.Label>Address - Mailing</Form.Label>
-             <br/>
              <Form.Control
                   type="text"
                   name="address_mailing"
                   value={this.state.address_mailing}
                   onChange={this.handleInputChangeFor("address_mailing")}/>
-             <br/>
-             <br/>
+
              <Form.Label>City</Form.Label>
-             <br/>
              <Form.Control 
                   type="text"
                   name="city"
                   value={this.state.city}
                   onChange={this.handleInputChangeFor("city")}/>
-             <br/>
-             <br/>
             
            <Button type="submit">Next</Button>
             </Form>

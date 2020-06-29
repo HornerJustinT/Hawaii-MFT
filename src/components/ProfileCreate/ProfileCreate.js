@@ -78,67 +78,66 @@ componentDidMount(){
           })
       }
 
-      validate = () =>{
-      let prefixError = '';
-  let firstNameError = '';
-  let lastNameError = '';
-  let languageError = '';
-  let ageError = '';
-  let memberError ='';
-  let formIsValid = true;
+      validate = () => {
+        let prefixError = '';
+        let firstNameError = '';
+        let lastNameError = '';
+        let languageError = '';
+        let ageError = '';
+        let memberError ='';
+        let formIsValid = true;
 
-  if(this.state.prefix === ''){
-    formIsValid=false;
-     prefixError = 'Prefix is required'
-  }else if(!this.state.prefix.match(/^[a-zA-Z_]+$/) ){
-      formIsValid=false;
-     prefixError = "Prefix is invalid"
-     
-  }
-  if(this.state.first_name === ''){
-    formIsValid=false;
-     firstNameError = 'First Name is required'
-  }else if(!this.state.first_name.match(/^[a-zA-Z_]+$/) ){
-      formIsValid=false;
-      firstNameError = "First Name is invalid"
-     
-  }
+        if(this.state.prefix === ''){
+          formIsValid=false;
+          prefixError = 'Prefix is required'
+        }else if(!this.state.prefix.match(/^[a-zA-Z_]+$/) ){
+            formIsValid=false;
+          prefixError = "Prefix is invalid" 
+        }
 
-  if(this.state.last_name === ''){
-    formIsValid=false;
-    lastNameError = 'Last Name is required'
-  }else if(!this.state.last_name.match(/^[a-zA-Z_]+$/) ){
-      formIsValid=false;
-      lastNameError = "Last Name is invalid"
-     
-  }
+        if(this.state.first_name === ''){
+          formIsValid=false;
+          firstNameError = 'First Name is required'
+        }else if(!this.state.first_name.match(/^[a-zA-Z_]+$/) ){
+            formIsValid=false;
+            firstNameError = "First Name is invalid"
+        }
+
+        if(this.state.last_name === ''){
+          formIsValid=false;
+          lastNameError = 'Last Name is required'
+        }else if(!this.state.last_name.match(/^[a-zA-Z_]+$/) ){
+            formIsValid=false;
+            lastNameError = "Last Name is invalid"
+        }
 
 
-  if(this.state.language_id === ''){
-    formIsValid=false;
-    languageError  = 'Language is required, choose at least one language! '
-  }
- 
-  if(this.state.age === ''){
-    formIsValid=false;
-    ageError= 'Age is required! '
-  }else if(!isNaN(this.state.age)===false ){
-      formIsValid=false;
-      ageError= "Age input is invalid"
-     
-  }
+        if(this.state.language_id === ''){
+          formIsValid=false;
+          languageError  = 'Language is required, choose at least one language! '
+        }
+      
+        if(this.state.age === ''){
+          formIsValid=false;
+          ageError= 'Age is required! '
+        }else if(!isNaN(this.state.age)===false ){
+            formIsValid=false;
+            ageError= "Age input is invalid"
+        }
 
  
-  if(this.state.hiamft_member_account_info === ''){
-    formIsValid=false;
-    memberError = 'About me section is required!'   
-  }
-  
-   if(prefixError || firstNameError || lastNameError || languageError || ageError || memberError){
-    this.setState({prefixError, firstNameError, lastNameError, languageError, ageError, memberError});
-   
-   }
-    return true;
+        if(this.state.hiamft_member_account_info === ''){
+          formIsValid=false;
+          memberError = 'About me section is required!'   
+        }
+        
+        if(prefixError || firstNameError || lastNameError || languageError || ageError || memberError){
+          this.setState({prefixError, firstNameError, lastNameError, languageError, ageError, memberError});
+        
+        }else{
+          return true;
+        }
+
       }
       
 //upload all the inputs into the members table
@@ -149,24 +148,25 @@ componentDidMount(){
     addMembers = (event) =>{
      event.preventDefault();
      const isValid = this.validate();
- if(!isValid){
-   return false
- }else{
 
-  this.props.dispatch({
-         type:'ADD_CREATE_PROFILE',
-         payload:{
-            prefix:this.state.prefix,
-            first_name:this.state.first_name,
-            last_name:this.state.last_name,
-            age:this.state.age,
-            hiamft_member_account_info:this.state.hiamft_member_account_info,
-            language_id:this.state.language_id
-         }
-     });
- }
-    this.props.history.push('/contact-info');
-    return true
+    if(!isValid){
+      return false
+      }else{
+        this.props.dispatch({
+              type:'ADD_CREATE_PROFILE',
+              payload:{
+                  prefix:this.state.prefix,
+                  first_name:this.state.first_name,
+                  last_name:this.state.last_name,
+                  age:this.state.age,
+                  hiamft_member_account_info:this.state.hiamft_member_account_info,
+                  language_id:this.state.language_id
+              }
+        });
+
+        this.props.history.push("/contact-info");
+        return true;
+      }
     }
 
    
