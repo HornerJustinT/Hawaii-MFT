@@ -6,6 +6,7 @@ import { withRouter } from 'react-router';
 //React Botstrap imports
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 //CSS file imports
 import "./ProfileEdit.css";
@@ -160,6 +161,12 @@ class ProfileEdit extends Component {
                         this.handleChange(event, "credentials")
                       }
                     />
+                    <Form.Text className="text-muted">
+                      Please indicate the credentials you would like to have
+                      listed in your HIAMFT Directory listing. Type them in as
+                      they would appear following your name. Example: PhD, LMFT,
+                      LP
+                    </Form.Text>
                   </Form.Group>
                 </Form>
                 <Form className="flex-between row-wrap row">
@@ -213,6 +220,7 @@ class ProfileEdit extends Component {
                       License Expiration Date
                     </Form.Label>
                     <Form.Control
+                      type="date"
                       defaultValue={this.props.profile.license_expiration}
                       onChange={(event) =>
                         this.handleChange(event, "licenseExpiration")
@@ -257,10 +265,13 @@ class ProfileEdit extends Component {
                   </Form.Group>
                   <Form.Group className="columnThirds">
                     <Form.Label className="label">Fees</Form.Label>
-                    <Form.Control
-                      defaultValue={this.props.profile.fees}
-                      onChange={(event) => this.handleChange(event, "fees")}
-                    />
+                    <InputGroup.Prepend>
+                      <InputGroup.Text>$</InputGroup.Text>
+                      <Form.Control
+                        defaultValue={this.props.profile.fees}
+                        onChange={(event) => this.handleChange(event, "fees")}
+                      />
+                    </InputGroup.Prepend>
                   </Form.Group>
                   <Form.Group className="columnThirds">
                     <Form.Label className="label">Session Format</Form.Label>
@@ -431,6 +442,7 @@ class ProfileEdit extends Component {
                       License Expiration Date
                     </Form.Label>
                     <Form.Control
+                      type="date"
                       disabled={true}
                       readOnly
                       value={this.state.licenseExpiration}
@@ -467,11 +479,14 @@ class ProfileEdit extends Component {
                   </Form.Group>
                   <Form.Group className="columnThirds">
                     <Form.Label className="label">Fees</Form.Label>
-                    <Form.Control
-                      disabled={true}
-                      readOnly
-                      value={this.state.fees}
-                    />
+                    <InputGroup.Prepend>
+                      <InputGroup.Text>$</InputGroup.Text>
+                      <Form.Control
+                        disabled={true}
+                        readOnly
+                        value={this.state.fees}
+                      />
+                    </InputGroup.Prepend>
                   </Form.Group>
                   <Form.Group className="columnThirds">
                     <Form.Label className="label">Session Format</Form.Label>
