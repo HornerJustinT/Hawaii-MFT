@@ -101,14 +101,14 @@ class ContactInfo extends Component{
           if(this.state.personal_email === ''){
             formIsValid=false;
             personalEmailError = 'Personal Email is required'
-          }else if(!this.state.personal_email.include('@') ){
+          }else if(!this.state.personal_email.includes('@') ){
               formIsValid=false;
               personalEmailError = "Personal Email is not valid"
           }
           if(this.state.email === ''){
                formIsValid=false;
                emailError = 'Business Email is required'
-          }else if(!this.state.email.include('@') ){
+          }else if(!this.state.email.includes('@') ){
                  formIsValid=false;
                  emailError = "Business Email is not valid"
              }
@@ -133,9 +133,6 @@ class ContactInfo extends Component{
           if(this.state.island_id === ''){
                formIsValid=false;
               islandError = 'Island Name is required! '
-          }else if(!isNaN(this.state.island_id)===false ){
-                 formIsValid = false;
-                 islandError = "Island Name is invalid"
           }
   
           if(cityError || addressMailingError || addressHomeError || addressOfficeError 
@@ -174,7 +171,7 @@ class ContactInfo extends Component{
                               city: this.state.city,
                               website: this.state.website
                          }});
-          // this.props.history.push('/practice');  
+          this.props.history.push('/practice');  
                  return true;
                }
  }
@@ -199,7 +196,7 @@ studentContactInfo = (e) =>{
                  city: this.state.city,
                  website: this.state.website
                }});
-     // this.props.history.push('/student'); 
+     this.props.history.push('/student'); 
        return true;
      }
  
