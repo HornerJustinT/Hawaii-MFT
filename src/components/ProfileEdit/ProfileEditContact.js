@@ -333,6 +333,7 @@ class ProfileEditContact extends Component {
                           />
                           <Form.Text className="text-muted">Listed</Form.Text>
                         </Form.Group>
+                        
                         <Form.Group className="columnThirds">
                           <Form.Label variant="flat" className="label">
                             Zip Cod
