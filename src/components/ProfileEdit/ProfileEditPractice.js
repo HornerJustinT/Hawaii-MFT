@@ -136,14 +136,22 @@ class ProfileEdit extends Component {
         [propertyName]: false,
       });
     }
-  }; //end handleChange
+  }; //end handleChangeBoolean
+
+  renderTelehealth = () => {
+    if(this.state.telehealth == true){
+      return "Yes, I offer telehealth."
+    }
+    else{
+      return "No, I do not offer telehealth."
+    }
+  }
 
   render() {
     if (this.props.profile) {
       return (
         <>
           {/**Here is Practice Info render */}
-          {/**Below is the skeleton, but the PUT functionality still needs to be written.*/}
           {this.state.clickPractice ? (
             <div className="body">
               <div className="flex-between row-wrap first">
@@ -211,8 +219,8 @@ class ProfileEdit extends Component {
                       }
                       width={"193px"}
                     >
-                      <option value={true}>True</option>
-                      <option value={false}>False</option>
+                      <option value={true}>Yes, I offer telehealth.</option>
+                      <option value={false}>No, I do not offer telehealth.</option>
                     </Form.Control>
                   </Form.Group>
                 </Form>
@@ -434,7 +442,7 @@ class ProfileEdit extends Component {
                     <Form.Control
                       disabled={true}
                       readOnly
-                      value={this.state.telehealth}
+                      value={this.renderTelehealth()}
                     />
                   </Form.Group>
                 </Form>
