@@ -21,7 +21,9 @@ router.get('/:id', async (req, res) => {
 			array_agg(DISTINCT session_format.title) AS session_format,
 			array_agg(DISTINCT session_format.session_format_id) AS session_format_id,
 			array_agg(DISTINCT specialty.title) AS specialty,
-			array_agg(DISTINCT specialty.specialty_id) AS specialty_id,
+      array_agg(DISTINCT specialty.specialty_id) AS specialty_id,
+      array_agg(DISTINCT license_type.title) AS license_type,
+      array_agg(DISTINCT license_type.license_type_id) AS license_type_id,
 			array_agg(DISTINCT treatment_preferences.title) AS treatment_preferences,
 			array_agg(DISTINCT treatment_preferences.treatment_preferences_id) AS treatment_preferences_id,
 			ARRAY(SELECT DISTINCT phone_table.number FROM phone_table WHERE phone_table.business = true AND phone_table.member_id = m.id) AS phone,
@@ -34,7 +36,10 @@ router.get('/:id', async (req, res) => {
 			FROM members m
 			
 			JOIN languages_pivot ON languages_pivot.member_id = m.id
-			JOIN languages ON languages.language_id = languages_pivot.language_id
+      JOIN languages ON languages.language_id = languages_pivot.language_id
+      
+      JOIN license_type_pivot ON license_type_pivot.member_id = m.id
+      JOIN license_type ON license_type.license_type_id =license_type_pivot.license_type_id
 			
 			JOIN age_groups_served_pivot ON age_groups_served_pivot.member_id = m.id
 			JOIN age_groups_served ON age_groups_served.age_groups_served_id = age_groups_served_pivot.age_groups_served_id
@@ -47,8 +52,6 @@ router.get('/:id', async (req, res) => {
 			
 			JOIN island_pivot ON island_pivot.member_id = m.id
 			JOIN island ON island.island_id = island_pivot.island_id
-			
-      JOIN license_type ON license_type.license_type_id = m.license_type
 
 			JOIN session_format_pivot ON session_format_pivot.member_id = m.id
 			JOIN session_format ON session_format.session_format_id = session_format_pivot.session_format_id
@@ -89,12 +92,12 @@ router.put('/', rejectUnauthenticated, async (req, res) => {
             "license_state", 
             "license_expiration", "hiamft_member_account_info", 
             "supervision_status","fees", "credentials","telehealth", 
-             "license_number", "license_type")
+             "license_number")
         = 
             ($1, $2, $3, $4, $5, $6, $7, $8,
             $9, $10, $11, $12, $13, 
-            $14, $15)
-        WHERE id = $16;`;
+            $14)
+        WHERE id = $15;`;
 
         //declaring variables for language queries
         const languages = req.body.languagesEdit;
@@ -117,7 +120,6 @@ router.put('/', rejectUnauthenticated, async (req, res) => {
           req.body.credentials,
           req.body.telehealth,
           req.body.licenseNumber,
-          req.body.licenseType,
           req.body.id,
         ]);
         //Languages PUT & DELETE Queries
@@ -293,6 +295,7 @@ async function repeatingInserts (connection, table, row, member, values) {
 }
 
 router.put("/practice", rejectUnauthenticated, async (req, res) => {
+
   const connection = await pool.connect();
 
   try {
@@ -300,20 +303,21 @@ router.put("/practice", rejectUnauthenticated, async (req, res) => {
 
     let queryText = `UPDATE "members" SET 
       ("license_state", "license_expiration", "credentials", 
-      "fees", "license_type", "license_number", "title", "telehealth")
+      "fees", "license_number", "title", "telehealth", "license_type", "supervision_status")
         =
-      ($1, $2, $3, $4, $5, $6, $7, $8)
-      WHERE "id" = $9;`;
+      ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      WHERE "id" = $10;`;
 
     await connection.query(queryText, [
       req.body.licenseState,
       req.body.licenseExpiration,
       req.body.credentials,
       req.body.fees,
-      req.body.licenseType,
       req.body.licenseNumber,
       req.body.title,
       req.body.telehealth,
+      req.body.licenseType,
+      req.body.supervisionStatus,
       req.body.id,
     ]);
     

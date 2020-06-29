@@ -240,7 +240,7 @@ class ProfileEditContact extends Component {
                             Email Address - Business
                           </Form.Label>
                           <Form.Control
-                            defaultValue={this.props.profile.email}
+                            defaultValue={this.state.email}
                             onChange={(event) =>
                               this.handleChange(event, "email")
                             }
@@ -253,7 +253,7 @@ class ProfileEditContact extends Component {
                             Email Address - Personal
                           </Form.Label>
                           <Form.Control
-                            defaultValue={this.props.profile.email_personal}
+                            defaultValue={this.state.emailPersonal}
                             onChange={(event) =>
                               this.handleChange(event, "emailPersonal")
                             }
@@ -268,7 +268,7 @@ class ProfileEditContact extends Component {
                         <Form.Group>
                           <Form.Label className="label">Website</Form.Label>
                           <Form.Control
-                            defaultValue={this.props.profile.website}
+                            defaultValue={this.state.website}
                             onChange={(event) =>
                               this.handleChange(event, "website")
                             }
@@ -287,7 +287,9 @@ class ProfileEditContact extends Component {
                               this.handleChange(event, "phone")
                             }
                           />
-                          <Form.Text className="text-muted">Listed</Form.Text>
+                          <Form.Text className="text-muted">
+                            Listed. Please enter in this format: (xxx) xxx-xxxx.
+                          </Form.Text>
                         </Form.Group>
 
                         <Form.Group className="column">
@@ -295,13 +297,14 @@ class ProfileEditContact extends Component {
                             Phone Number - Personal
                           </Form.Label>
                           <Form.Control
-                            defaultValue={this.state.phone_personal}
+                            defaultValue={this.state.phonePersonal}
                             onChange={(event) =>
                               this.handleChange(event, "phonePersonal")
                             }
                           />
                           <Form.Text className="text-muted">
-                            Not Listed (for HIAMFT-use only)
+                            Not Listed (for HIAMFT-use only). Please enter in
+                            this format: (xxx) xxx-xxxx.
                           </Form.Text>
                         </Form.Group>
                       </Form>
@@ -313,7 +316,7 @@ class ProfileEditContact extends Component {
                             Address - Business
                           </Form.Label>
                           <Form.Control
-                            defaultValue={this.props.profile.address}
+                            defaultValue={this.state.address}
                             onChange={(event) =>
                               this.handleChange(event, "address")
                             }
@@ -326,20 +329,21 @@ class ProfileEditContact extends Component {
                             City
                           </Form.Label>
                           <Form.Control
-                            defaultValue={this.props.profile.city}
+                            defaultValue={this.state.city}
                             onChange={(event) =>
                               this.handleChange(event, "city")
                             }
                           />
                           <Form.Text className="text-muted">Listed</Form.Text>
                         </Form.Group>
-                        
+
                         <Form.Group className="columnThirds">
                           <Form.Label variant="flat" className="label">
-                            Zip Cod
+                            Zip Code
                           </Form.Label>
                           <Form.Control
-                            defaultValue={this.props.profile.zip_code}
+                            type="number"
+                            defaultValue={this.state.zipCode}
                             onChange={(event) =>
                               this.handleChange(event, "zipCode")
                             }
@@ -354,7 +358,7 @@ class ProfileEditContact extends Component {
                             Address - Personal
                           </Form.Label>
                           <Form.Control
-                            defaultValue={this.props.profile.address_personal}
+                            defaultValue={this.state.addressPersonal}
                             onChange={(event) =>
                               this.handleChange(event, "addressPersonal")
                             }
@@ -369,7 +373,7 @@ class ProfileEditContact extends Component {
                             City
                           </Form.Label>
                           <Form.Control
-                            defaultValue={this.props.profile.city_personal}
+                            defaultValue={this.state.cityPersonal}
                             onChange={(event) =>
                               this.handleChange(event, "cityPersonal")
                             }
@@ -383,7 +387,8 @@ class ProfileEditContact extends Component {
                             Zip Code
                           </Form.Label>
                           <Form.Control
-                            defaultValue={this.props.profile.zip_code_personal}
+                            type="number"
+                            defaultValue={this.state.zipCodePersonal}
                             onChange={(event) =>
                               this.handleChange(event, "zipCodePersonal")
                             }
@@ -460,7 +465,7 @@ class ProfileEditContact extends Component {
                                 defaultValue={this.state.phone}
                               />
                               <Form.Text className="text-muted">
-                                Listed
+                                Listed.
                               </Form.Text>
                             </Form.Group>
 
@@ -474,7 +479,7 @@ class ProfileEditContact extends Component {
                                 defaultValue={this.state.phonePersonal}
                               />
                               <Form.Text className="text-muted">
-                                Not Listed (for HIAMFT-use only)
+                                Not Listed (for HIAMFT-use only).
                               </Form.Text>
                             </Form.Group>
                           </Form>
