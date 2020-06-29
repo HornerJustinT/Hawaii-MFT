@@ -1,12 +1,6 @@
-.profileView-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
 .rightside{
-    padding-top: 7em;
-    margin-right: 4em;
+    margin: 4em 4em 20em 0em;
+    width: 20%;
 }
 
 .contact{
@@ -18,10 +12,29 @@
   width: 250px;
   height: 250px;
 }
+
 .bio-container{
     display: flex;
     flex-direction: column;
-    margin: 4em;
+    margin: 3em;
+    width: 65%;
+}
+
+@media screen and (max-width: 1200px){
+    .bio-container {
+        width: 95%;
+        margin: auto;
+    }
+    .rightside{
+        margin: auto;
+        width: 95%;
+    }
+}
+
+.btn-container{
+    display: flex;
+    flex-direction: column;
+    margin: 1em 0em 0em 3em;
 }
 
 .bio{
