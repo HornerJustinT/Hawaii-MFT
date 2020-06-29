@@ -110,7 +110,7 @@ studentContactInfo = (e) =>{
               onChange={this.handleStudent}
             />
                 <br/>
-             <label>Island</label>
+             <Form.Label>Island</Form.Label>
              <br/>
              <Form.Control
                  as="select" 
