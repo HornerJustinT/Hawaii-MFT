@@ -31,6 +31,7 @@ class ProfileEdit extends Component {
     specialtyEdit: this.props.profile.specialty_id,
     treatmentPreferences: this.props.profile.treatment_preferences,
     treatmentEdit: this.props.profile.treatment_preferences_id,
+    student: this.props.student,
   };
 
   //mounting component - dispatching to redux sagas to call data from server for retreival from profile,
@@ -225,8 +226,6 @@ class ProfileEdit extends Component {
     ) {
       return (
         <>
-          {JSON.stringify(this.state)}
-
           {/**Here is Practice Info render */}
           {this.state.clickPractice ? (
             <div className="body">
@@ -642,7 +641,11 @@ class ProfileEdit extends Component {
         </>
       );
     } else {
-      return <p> user not found </p>;
+      return (
+      <>
+      <p> user not found </p>
+      </>
+      );
     }
   }
 }
@@ -657,7 +660,7 @@ const putReduxStateOnProps = (reduxStore) => ({
   insuranceTaken: reduxStore.insuranceTaken,
   license: reduxStore.license,
   sessionFormats: reduxStore.sessionFormats,
-
+  student: reduxStore.student,
 });
 
 export default withRouter(connect(putReduxStateOnProps)(ProfileEdit));

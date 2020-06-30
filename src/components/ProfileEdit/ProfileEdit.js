@@ -145,17 +145,17 @@ class ProfileEdit extends Component {
     });
   }; //end handleChange
 
-  handleStudent = () => {
-    this.setState({
-
-    })
-  };
-
-  // handleTherapist = () => {
+  // handleStudent = () => {
   //   this.setState({
-  //     student: false,
+  //     student: true,
   //   });
-  // };
+
+  //   this.props.dispatch({
+  //     type: 'STUDENT',
+  //     payload: true,
+  //   })
+  // }
+
 
   //every multiselect needs its own handle[Property]Change function
   //this functions take the new id of an item selected in the multiselect
@@ -222,8 +222,7 @@ class ProfileEdit extends Component {
   };
 
   render() {
-
-    if (this.props.profile && this.state.languages) {
+    if (this.props.profile && this.state.languages && !this.state.student) {
       return (
         <>
           <div className="header">
@@ -234,16 +233,16 @@ class ProfileEdit extends Component {
               name={this.props.user}
             ></UploadModal>
           </div>
-          <div>
+          {/* <div>
             <Form>
               <Form.Check
                 type="switch"
                 id="custom-switch"
                 label="I am a Student"
-                onChange={this.handleStudent()}
+                onChange={this.handleStudent}
               />
             </Form>
-          </div>
+          </div> */}
 
           {/**Here is Basic Info render */}
           {this.state.clickBasic ? (

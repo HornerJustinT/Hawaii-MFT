@@ -16,6 +16,8 @@ import registrationKeyValidation from './registrationKeyValidationReducer';
 import sessionFormats from './sessionFormatReducer';
 import createProfile from './profileCreateReducer';
 import contactAddress from './contactAddressReducer';
+import student from './studentReducer';
+
 
 
 // rootReducer is the primary reducer for our entire project
@@ -42,6 +44,7 @@ const rootReducer = combineReducers({
   specialtys, //will have all the info about the practice for the members
   treatmentPreferences, // will have all the treament approaches
   user, // will have an id and username if someone is logged in
+  student, //will hold whether the user is a student or not
 });
 
 export default rootReducer;
