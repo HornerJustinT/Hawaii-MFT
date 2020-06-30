@@ -35,7 +35,7 @@ class ProfileView extends Component {
       type: "FETCH_PROFILE",
       payload: this.props.match.params,
     });
-    this.getImage();
+    this.getImage(this.props.match.params.id)
   }
 
   telehealth=(doesTelehealth)=>{
@@ -100,6 +100,7 @@ class ProfileView extends Component {
     }
   };
   getImage = (id) => {
+    console.log(id)
     storage
       .child(`images/${id}photo`)
       .getDownloadURL()
@@ -108,7 +109,18 @@ class ProfileView extends Component {
       }).then(()=>{
         this.forceUpdate();
       })
-      .catch((error) => {
+      .catch((error) => { // if no photo found
+        storage 
+          .child(`images/noFile.png`)
+          .getDownloadURL()
+          .then((url) =>{
+            this.setState({profilePhoto:url});
+          }).then(()=>{
+            this.forceUpdate();
+          })
+          .catch((error) => {
+            console.log('No file found photo also not found')
+          })
         // Handle any errors
       });
   }
@@ -296,6 +308,7 @@ class ProfileView extends Component {
 }
 const mapStateToProps = (state) => ({// props
   profile: state.profile,
+  user: state.user
 });
 
 export default connect(mapStateToProps)(
