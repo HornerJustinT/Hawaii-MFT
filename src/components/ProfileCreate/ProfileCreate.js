@@ -1,13 +1,16 @@
 import React, { Component} from 'react';
+import firebase from "../../Firebase";
 //used to connect the component to the reducer
 import { connect } from 'react-redux';
 import "./profileCreate.css"
+
 
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-
+import UploadModal from "../UploadModal/UploadModal";
+var storage = firebase.storage().ref();
 
 class ProfileCreate extends Component {
     //create a state 
@@ -24,6 +27,7 @@ class ProfileCreate extends Component {
       languageError:'',
       ageError:'',
       memberError:'',
+      profilePhoto:'',
      }
     
 //when the document is ready it will fetch all the languages
@@ -66,6 +70,19 @@ componentDidMount(){
             hiamft_member_account_info:'',
             language_id:'',
           })
+      }
+      getImage = (id) => {
+        storage
+          .child(`images/${id}photo`)
+          .getDownloadURL()
+          .then((url) => {
+            this.setState({ profilePhoto: url});
+          }).then(()=>{
+            this.forceUpdate();
+          })
+          .catch((error) => {
+            // Handle any errors
+          });
       }
 
       validate = () => {
@@ -186,6 +203,8 @@ componentDidMount(){
             <div className="text-center">
               <h3 className="subtitle">Basic Info</h3>
             </div>
+            <UploadModal refresh = {this.getImage} name={this.props.user}></UploadModal>
+            <img className = "photo" src={this.state.profilePhoto}></img>
             <Form onSubmit={this.addMembers}>
               <div className="inputs">
                 <div className="box-1">
