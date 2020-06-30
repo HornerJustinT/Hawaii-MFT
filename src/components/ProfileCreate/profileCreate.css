@@ -19,10 +19,17 @@ input{
    padding: 1.25em;
    margin: 1em;
 }
+
 .photo {
     height: 250px;
     width: 250px;
+    margin: 10px;
 }
+
+.text-center {
+    text-align: center;
+}
+
 select{
     width:20em;
     height: 10em;
@@ -73,10 +80,11 @@ label{
 .container-input{
     display: inline-block;
     vertical-align: middle;
-    margin:0;
     margin:0 0 7px 0;
-    
-   
+}
+
+.label {
+    width: 33%;
 }
 
 .inputs{
@@ -95,10 +103,10 @@ label{
     flex: 1;
     position: relative;
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     text-align: right;
-    margin-left: 0;
-    padding-right: 5em;
+    width: 50%;
+    padding: 0em 1em;
 }
 
 .box-2{
@@ -106,7 +114,8 @@ label{
     position: relative;
     display: inline-block;
     text-align: right;
-   
+    width: 50%;
+    padding: 0em 2em;
 }
 
 .header{
@@ -120,7 +129,11 @@ label{
 
 .subtitle{
     margin-top: 0.5em;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
+}
+
+.name-group {
+    padding: 0em 5em;
 }
 
 .next-button{
@@ -128,6 +141,3 @@ label{
     text-align: center;
     
 }
-
-
-
