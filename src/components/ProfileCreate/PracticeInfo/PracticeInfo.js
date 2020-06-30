@@ -29,6 +29,23 @@ class PracticeInfo extends Component{
          specialty_id:'',
          treatment_preferences_id:'',
          age_groups_served_id:'',
+         //write the errors for all the practiceInfo inputs
+         licenseStateError:'',
+         licenseNumberError:'',
+         licenseTypeError:'',
+         supervisionStatusError:'',
+         feesError:'',
+         licenseExpirationError:'',
+         credentialsError:'',
+         telehealthError:'',
+         statementError:'',
+         titleError:'',
+         sessionFormatIdError:'',
+         clientFocusIdError:'',
+         specialtyIdError:'',
+         treatmentPreferencesIdError:'',
+         ageGroupsError:'',
+         insuranceTypeIdError:''
 
      }
    
@@ -67,7 +84,122 @@ handleInputChangeFor = propertyName => (event) =>{
         event.preventDefault()
      
     }
+    validate = () => {
+      let licenseStateError = '';
+      let licenseNumberError = '';
+      let licenseTypeError = '';
+      let supervisionStatusError = '';
+      let feesError = '';
+      let licenseExpirationError = '';
+      let  credentialsError = '';
+      let telehealthError = '';
+      let statementError = '';
+      let titleError= '';
+      let sessionFormatIdError = '';
+      let  clientFocusIdError = '';
+      let specialtyIdError = '';
+      let treatmentPreferencesIdError = '';
+      let  ageGroupsError = '';
+      let insuranceTypeIdError = '';
 
+      let formIsValid = true;
+
+      if(this.state.license_state === ''){
+        formIsValid=false;
+        licenseStateError = 'State Name is required'
+      }else if(!this.state.license_state.match(/^[a-zA-Z_]+$/) ){
+          formIsValid=false;
+          licenseStateError = "State Name is invalid" 
+      }
+      if(this.state.title === ''){
+        formIsValid=false;
+        titleError = 'Title is required'
+      }else if(!this.state.title.match(/^[a-zA-Z_]+$/) ){
+          formIsValid=false;
+          titleError = "Title is invalid" 
+      }
+      if(this.state.statement === ''){
+        formIsValid=false;
+        statementError = 'Statement is required'
+      }else if(!this.state.statement.match(/^[a-zA-Z_]+$/) ){
+          formIsValid=false;
+          statementError  = "Statement is invalid" 
+      }
+
+      if(this.state.license_number === ''){
+        formIsValid=false;
+        licenseNumberError = 'License Number is required'
+      }else if(!isNaN(this.state.license_number) === false ){
+          formIsValid=false;
+          licenseNumberError = "License Number is invalid" 
+      }
+      if(this.state.fees === ''){
+        formIsValid=false;
+        feesError = 'Fees is required'
+      }else if(!isNaN(this.state.fees) === false ){
+          formIsValid=false;
+          feesError = "Fees is invalid" 
+      }
+      if(this.state.license_type === ''){
+        formIsValid=false;
+        licenseTypeError = 'License Type is required'
+      }
+
+      if(this.state.supervision_status === ''){
+           formIsValid=false;
+           supervisionStatusError = 'Supervision status is required'
+      }
+
+      if(this.state.license_expiration === ''){
+           formIsValid=false;
+           licenseExpirationError = 'License experation is required'
+      }
+      if(this.state.telehealth === ''){
+           formIsValid=false;
+           telehealthError = 'Telehealth choice is required'
+      }
+      if(this.state.session_format_id === ''){
+        formIsValid=false;
+        sessionFormatIdError = 'Session Format is required'
+        }
+        if(this.state.client_focus_id === ''){
+        formIsValid=false;
+        clientFocusIdError = 'Client Focus group is required'
+        }
+        if(this.state.specialty_id === ''){
+        formIsValid=false;
+       specialtyIdError = 'Specialty choice is required'
+        }
+        if(this.state.treatment_preferences_id === ''){
+        formIsValid=false;
+        treatmentPreferencesIdError = 'Treatment Preference is required'
+        }
+        if(this.state.age_groups_served_id === ''){
+        formIsValid=false;
+        ageGroupsError = 'Age Group is required'
+       }
+       if(this.state.credentials === ''){
+         formIsValid=false;
+        credentialsError = 'Credentials is required'
+        }
+        if(this.state.insurance_type_id === ''){
+          formIsValid=false;
+         insuranceTypeIdError = 'Insurance Taken is required'
+         }
+
+      if( licenseStateError || licenseNumberError || licenseTypeError||   supervisionStatusError
+           || feesError ||  licenseExpirationError ||   credentialsError 
+           ||  telehealthError||  statementError || titleError || sessionFormatIdError || clientFocusIdError
+           ||  specialtyIdError || treatmentPreferencesIdError|| ageGroupsError||  insuranceTypeIdError){
+        this.setState({licenseStateError, licenseNumberError, licenseTypeError, supervisionStatusError,
+           feesError, licenseExpirationError, credentialsError,telehealthError, statementError, titleError, sessionFormatIdError, clientFocusIdError,
+          specialtyIdError, treatmentPreferencesIdError, ageGroupsError, insuranceTypeIdError});
+      
+      }else{
+        return true;
+      }
+
+    }
   //every multiselect needs its own handle[Property]Change function
   //this functions take the new id of an item selected in the multiselect
   //and converts it to a title (name).
@@ -88,47 +220,54 @@ handleInputChangeFor = propertyName => (event) =>{
 //this action will dispatch all the info collegeted from all three pages
 //and those are createprofile, contactinfo and practicinfo pages
       event.preventDefault();
-      
-      this.props.dispatch({type:'ADD_MEMBER',
-        payload:{
-          prefix:this.props.createProfile.prefix,
-          first_name:this.props.createProfile.first_name,
-          last_name:this.props.createProfile.last_name,
-          age:this.props.createProfile.age,
-          hiamft_member_account_info:this.props.createProfile.hiamft_member_account_info,
-          license_state:this.state.license_state,
-          supervision_status:this.state.supervision_status,
-          fees:this.state.fees,
-          license_expiration:this.state.license_expiration,
-          license_number:this.state.license_number,
-          license_type:this.state.license_type_id,
-          credentials:this.state.credentials,
-          telehealth:this.state.telehealth,
-          statement:this.state.statement,
-          title:this.state.title,
-          website:this.props.contactAddress.website,
-          city:this.props.contactAddress.city,
-          zip_code: this.props.contactAddress.zip_code,
-          island_id: this.props.contactAddress.island_id,
-          email: this.props.contactAddress.email,
-          personal_email:this.props.contactAddress.personal_email,
-          business_number:this.props.contactAddress.business_number,
-          personal_number:this.props.contactAddress.personal_number,
-          address_office:this.props.contactAddress.address_office,
-          address_home:this.props.contactAddress.address_home,
-          address_mailing:this.props.contactAddress.address_mailing,
-          session_format_id:this.state.session_format_id,
-          client_focus_id:this.state.client_focus_id,
-          specialty_id:this.state.specialty_id,
-          treatment_preferences_id:this.state.treatment_preferences_id,
-          age_groups_served_id:this.state.age_groups_served_id,
-          insurance_type_id:this.state.insurance_type_id,
-          language_id:this.props.createProfile.language_id
-         }
-        });
-//this will reset the inputs on the parcticeinfo page
-this.props.history.push(`/edit-profile`)
+
+
+      const isValid = this.validate();
+      if(!isValid){
+         return false
+         }else{
+          this.props.dispatch({type:'ADD_MEMBER',
+          payload:{
+            prefix:this.props.createProfile.prefix,
+            first_name:this.props.createProfile.first_name,
+            last_name:this.props.createProfile.last_name,
+            age:this.props.createProfile.age,
+            hiamft_member_account_info:this.props.createProfile.hiamft_member_account_info,
+            license_state:this.state.license_state,
+            supervision_status:this.state.supervision_status,
+            fees:this.state.fees,
+            license_expiration:this.state.license_expiration,
+            license_number:this.state.license_number,
+            license_type:this.state.license_type_id,
+            credentials:this.state.credentials,
+            telehealth:this.state.telehealth,
+            statement:this.state.statement,
+            title:this.state.title,
+            website:this.props.contactAddress.website,
+            city:this.props.contactAddress.city,
+            zip_code: this.props.contactAddress.zip_code,
+            island_id: this.props.contactAddress.island_id,
+            email: this.props.contactAddress.email,
+            personal_email:this.props.contactAddress.personal_email,
+            business_number:this.props.contactAddress.business_number,
+            personal_number:this.props.contactAddress.personal_number,
+            address_office:this.props.contactAddress.address_office,
+            address_home:this.props.contactAddress.address_home,
+            address_mailing:this.props.contactAddress.address_mailing,
+            session_format_id:this.state.session_format_id,
+            client_focus_id:this.state.client_focus_id,
+            specialty_id:this.state.specialty_id,
+            treatment_preferences_id:this.state.treatment_preferences_id,
+            age_groups_served_id:this.state.age_groups_served_id,
+            insurance_type_id:this.state.insurance_type_id,
+            language_id:this.props.createProfile.language_id,
+           }
+          });
+          this.props.history.push(`/edit-profile`)
+          //this will reset the inputs on the parcticeinfo page
      this.handleReset();
+           return true;
+         }
     }
 
     handleReset = ()=>{
@@ -171,6 +310,7 @@ this.props.history.push(`/edit-profile`)
                     value={this.state.title}
                     onChange={this.handleInputChangeFor("title")}
                   />
+                   <h4 className="error">{this.state.titleError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -181,6 +321,7 @@ this.props.history.push(`/edit-profile`)
                     value={this.state.credentials}
                     onChange={this.handleInputChangeFor("credentials")}
                   />
+                   <h4 className="error">{this.state.credentialsError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -206,6 +347,7 @@ this.props.history.push(`/edit-profile`)
                       </>
                     )}
                   </Form.Control>
+                  <h4 className="error">{this.state.licenseTypeError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -216,6 +358,7 @@ this.props.history.push(`/edit-profile`)
                     value={this.state.license_state}
                     onChange={this.handleInputChangeFor("license_state")}
                   />
+                   <h4 className="error">{this.state.licenseStateError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -226,6 +369,7 @@ this.props.history.push(`/edit-profile`)
                     value={this.state.license_number}
                     onChange={this.handleInputChangeFor("license_number")}
                   />
+                   <h4 className="error">{this.state.licenseNumberError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -236,6 +380,7 @@ this.props.history.push(`/edit-profile`)
                     value={this.state.license_expiration}
                     onChange={this.handleInputChangeFor("license_expiration")}
                   />
+                   <h4 className="error">{this.state.licenseExpirationError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -246,6 +391,7 @@ this.props.history.push(`/edit-profile`)
                     value={this.state.statement}
                     onChange={this.handleInputChangeFor("statement")}
                   />
+                   <h4 className="error">{this.state.statementError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -256,6 +402,7 @@ this.props.history.push(`/edit-profile`)
                     value={this.state.fees}
                     onChange={this.handleInputChangeFor("fees")}
                   />
+                   <h4 className="error">{this.state.feesError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -283,6 +430,7 @@ this.props.history.push(`/edit-profile`)
                       </>
                     )}
                   </Form.Control>
+                  <h4 className="error">{this.state.specialtyIdError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -297,6 +445,7 @@ this.props.history.push(`/edit-profile`)
                     <option value="AAMFT approved">AAMFT approved</option>
                     <option value="Supervisor">Supervisor</option>
                   </Form.Control>
+                  <h4 className="error">{this.state.supervisionStatusError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -324,7 +473,9 @@ this.props.history.push(`/edit-profile`)
                       </>
                     )}
                   </Form.Control>
+                  <h4 className="error">{this.state.insuranceTypeIdError}</h4>
                 </Form.Group>
+                
 
                 <Form.Group>
                   <Form.Label>Are you providing telehealth?</Form.Label>
@@ -337,6 +488,7 @@ this.props.history.push(`/edit-profile`)
                     <option>Yes</option>
                     <option>No</option>
                   </Form.Control>
+                  <h4 className="error">{this.state.telehealthError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -364,6 +516,7 @@ this.props.history.push(`/edit-profile`)
                       </>
                     )}
                   </Form.Control>
+                  <h4 className="error">{this.state.treatmentPreferencesIdError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -391,6 +544,7 @@ this.props.history.push(`/edit-profile`)
                       </>
                     )}
                   </Form.Control>
+                  <h4 className="error">{this.state.clientFocusIdError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -417,6 +571,7 @@ this.props.history.push(`/edit-profile`)
                       </>
                     )}
                   </Form.Control>
+                  <h4 className="error">{this.state.ageGroupsError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -444,6 +599,7 @@ this.props.history.push(`/edit-profile`)
                       </>
                     )}
                   </Form.Control>
+                  <h4 className="error">{this.state.sessionFormatIdError}</h4>
                 </Form.Group>
 
                 <Form.Group>
