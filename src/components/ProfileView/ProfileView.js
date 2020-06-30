@@ -35,7 +35,7 @@ class ProfileView extends Component {
       type: "FETCH_PROFILE",
       payload: this.props.match.params,
     });
-    this.getImage();
+    this.getImage(this.props.profile.id);
   }
 
   telehealth=(doesTelehealth)=>{
@@ -100,6 +100,7 @@ class ProfileView extends Component {
     }
   };
   getImage = (id) => {
+    console.log(id)
     storage
       .child(`images/${id}photo`)
       .getDownloadURL()
