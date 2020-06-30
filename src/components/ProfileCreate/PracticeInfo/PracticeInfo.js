@@ -45,7 +45,7 @@ class PracticeInfo extends Component{
          specialtyIdError:'',
          treatmentPreferencesIdError:'',
          ageGroupsError:'',
-         insuranceTypeIdError:'',
+         insuranceTypeIdError:''
 
      }
    
@@ -106,7 +106,7 @@ handleInputChangeFor = propertyName => (event) =>{
 
       if(this.state.license_state === ''){
         formIsValid=false;
-        licenseStateError = 'Sate Name is required'
+        licenseStateError = 'State Name is required'
       }else if(!this.state.license_state.match(/^[a-zA-Z_]+$/) ){
           formIsValid=false;
           licenseStateError = "State Name is invalid" 
@@ -182,6 +182,10 @@ handleInputChangeFor = propertyName => (event) =>{
          formIsValid=false;
         credentialsError = 'Credentials is required'
         }
+        if(this.state.insurance_type_id === ''){
+          formIsValid=false;
+         insuranceTypeIdError = 'Insurance Taken is required'
+         }
 
       if( licenseStateError || licenseNumberError || licenseTypeError||   supervisionStatusError
            || feesError ||  licenseExpirationError ||   credentialsError 
@@ -216,47 +220,54 @@ handleInputChangeFor = propertyName => (event) =>{
 //this action will dispatch all the info collegeted from all three pages
 //and those are createprofile, contactinfo and practicinfo pages
       event.preventDefault();
-      
-      this.props.dispatch({type:'ADD_MEMBER',
-        payload:{
-          prefix:this.props.createProfile.prefix,
-          first_name:this.props.createProfile.first_name,
-          last_name:this.props.createProfile.last_name,
-          age:this.props.createProfile.age,
-          hiamft_member_account_info:this.props.createProfile.hiamft_member_account_info,
-          license_state:this.state.license_state,
-          supervision_status:this.state.supervision_status,
-          fees:this.state.fees,
-          license_expiration:this.state.license_expiration,
-          license_number:this.state.license_number,
-          license_type:this.state.license_type_id,
-          credentials:this.state.credentials,
-          telehealth:this.state.telehealth,
-          statement:this.state.statement,
-          title:this.state.title,
-          website:this.props.contactAddress.website,
-          city:this.props.contactAddress.city,
-          zip_code: this.props.contactAddress.zip_code,
-          island_id: this.props.contactAddress.island_id,
-          email: this.props.contactAddress.email,
-          personal_email:this.props.contactAddress.personal_email,
-          business_number:this.props.contactAddress.business_number,
-          personal_number:this.props.contactAddress.personal_number,
-          address_office:this.props.contactAddress.address_office,
-          address_home:this.props.contactAddress.address_home,
-          address_mailing:this.props.contactAddress.address_mailing,
-          session_format_id:this.state.session_format_id,
-          client_focus_id:this.state.client_focus_id,
-          specialty_id:this.state.specialty_id,
-          treatment_preferences_id:this.state.treatment_preferences_id,
-          age_groups_served_id:this.state.age_groups_served_id,
-          insurance_type_id:this.state.insurance_type_id,
-          language_id:this.props.createProfile.language_id,
-         }
-        });
-//this will reset the inputs on the parcticeinfo page
-this.props.history.push(`/edit-profile`)
+
+
+      const isValid = this.validate();
+      if(!isValid){
+         return false
+         }else{
+          this.props.dispatch({type:'ADD_MEMBER',
+          payload:{
+            prefix:this.props.createProfile.prefix,
+            first_name:this.props.createProfile.first_name,
+            last_name:this.props.createProfile.last_name,
+            age:this.props.createProfile.age,
+            hiamft_member_account_info:this.props.createProfile.hiamft_member_account_info,
+            license_state:this.state.license_state,
+            supervision_status:this.state.supervision_status,
+            fees:this.state.fees,
+            license_expiration:this.state.license_expiration,
+            license_number:this.state.license_number,
+            license_type:this.state.license_type_id,
+            credentials:this.state.credentials,
+            telehealth:this.state.telehealth,
+            statement:this.state.statement,
+            title:this.state.title,
+            website:this.props.contactAddress.website,
+            city:this.props.contactAddress.city,
+            zip_code: this.props.contactAddress.zip_code,
+            island_id: this.props.contactAddress.island_id,
+            email: this.props.contactAddress.email,
+            personal_email:this.props.contactAddress.personal_email,
+            business_number:this.props.contactAddress.business_number,
+            personal_number:this.props.contactAddress.personal_number,
+            address_office:this.props.contactAddress.address_office,
+            address_home:this.props.contactAddress.address_home,
+            address_mailing:this.props.contactAddress.address_mailing,
+            session_format_id:this.state.session_format_id,
+            client_focus_id:this.state.client_focus_id,
+            specialty_id:this.state.specialty_id,
+            treatment_preferences_id:this.state.treatment_preferences_id,
+            age_groups_served_id:this.state.age_groups_served_id,
+            insurance_type_id:this.state.insurance_type_id,
+            language_id:this.props.createProfile.language_id,
+           }
+          });
+          this.props.history.push(`/edit-profile`)
+          //this will reset the inputs on the parcticeinfo page
      this.handleReset();
+           return true;
+         }
     }
 
     handleReset = ()=>{
@@ -464,6 +475,7 @@ this.props.history.push(`/edit-profile`)
                   </Form.Control>
                   <h4 className="error">{this.state.insuranceTypeIdError}</h4>
                 </Form.Group>
+                
 
                 <Form.Group>
                   <Form.Label>Are you providing telehealth?</Form.Label>
