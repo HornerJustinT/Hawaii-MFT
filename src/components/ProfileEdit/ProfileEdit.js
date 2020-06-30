@@ -64,8 +64,12 @@ class ProfileEdit extends Component {
       payload: { id: this.props.match.params.id || this.props.user.id },
       admin: this.props.match.params.id || false,
     });
-    this.getImage(this.props.user.id);
-    console.log(this.state.profilePhoto);
+    if(this.props.match.params.id){
+      this.getImage(this.props.match.params.id)
+    }
+    else{
+      this.getImage(this.props.user.id)
+    }
   } //end componentDidMount
 
   //updating component to ensure all the data makes it to props for render
