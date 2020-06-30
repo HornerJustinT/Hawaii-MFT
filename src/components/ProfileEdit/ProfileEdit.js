@@ -61,14 +61,6 @@ class ProfileEdit extends Component {
       previousProps.profile.id !== this.props.profile.id &&
       this.props.profile.phone
     ) {
-      //declaring new variables for state with return from syncDataEditLanguage & syncDataEditIsland
-      //these functions retrieve an id based on the title of each item (ex. island title & island id)
-      //the last line of this code block is commented out to demonstrate the next steps for finishing
-      //the Practice Info section, which is currently not functional.
-      const updatedLanguages = this.syncDataEditLanguage(
-        "languages",
-        "languages"
-      );
 
       //setting state in component update with all of the properties retrieved from props from the database
       //for this particular member's profile view.

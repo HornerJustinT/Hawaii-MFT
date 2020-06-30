@@ -3,7 +3,7 @@ import "./ProfileView.css";
 import { connect } from "react-redux";
 import Button from 'react-bootstrap/Button';
 import EmailModal from '../EmailModal/EmailModal'
-
+import firebase from "../../Firebase";
 import {
   Map,
   InfoWindow,
@@ -14,6 +14,7 @@ import {
 //CSS import
 import "../App/App.css";
 
+var storage = firebase.storage().ref();
 const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY;
 
 const mapStyles = {
@@ -26,6 +27,7 @@ class ProfileView extends Component {
   state = {
     lat: 0,
     lng: 0,
+    profilePhoto: '',
   };
   
   componentDidMount() {// fetchs profile info
@@ -33,6 +35,7 @@ class ProfileView extends Component {
       type: "FETCH_PROFILE",
       payload: this.props.match.params,
     });
+    this.getImage();
   }
 
   telehealth=(doesTelehealth)=>{
@@ -96,6 +99,19 @@ class ProfileView extends Component {
       });
     }
   };
+  getImage = (id) => {
+    storage
+      .child(`images/${id}photo`)
+      .getDownloadURL()
+      .then((url) => {
+        this.setState({ profilePhoto: url});
+      }).then(()=>{
+        this.forceUpdate();
+      })
+      .catch((error) => {
+        // Handle any errors
+      });
+  }
   home = () => {
     this.props.history.push('/home')
   }
@@ -229,7 +245,9 @@ class ProfileView extends Component {
                   {this.props.profile.city}, {this.props.profile.island}
                 </h3>
               </div>
-
+              <div>
+                   <img width ='200' height = '200' src ={this.state.profilePhoto}/>
+                   </div>
               <div className="emailModal">
                 <EmailModal />
               </div>

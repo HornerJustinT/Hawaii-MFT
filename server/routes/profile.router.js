@@ -5,7 +5,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // GET ROUTE for specific members gets all the info on a single person based on the param id
 router.get('/:id', async (req, res) => {
     const connection = await pool.connect();
-
+    console.log('req is' + req.params.id)
     try {
          let query = `SELECT m.*, 
          array_agg(DISTINCT languages.title) AS languages,
@@ -56,7 +56,7 @@ router.get('/:id', async (req, res) => {
          JOIN treatment_preferences_pivot ON treatment_preferences_pivot.member_id = m.id
          JOIN treatment_preferences ON treatment_preferences.treatment_preferences_id = treatment_preferences_pivot.treatment_preferences_id		
            
-               WHERE id = 1
+               WHERE id = $1
          GROUP BY m.id, m.zip_code, m.zip_code_personal, m.first_name, m.last_name, m.prefix, m.age, m.license_state, m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials, island.title,
          m.telehealth, m.statement, m.website, m.title, m.city, m.city_personal, m.license_number, m.license_type, m.enabled;`;
       
