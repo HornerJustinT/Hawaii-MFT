@@ -9,6 +9,8 @@ import "./profileCreate.css"
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import InputGroup from "react-bootstrap/InputGroup";
+import FormControl from "react-bootstrap/FormControl";
 import UploadModal from "../UploadModal/UploadModal";
 var storage = firebase.storage().ref();
 
@@ -215,26 +217,53 @@ componentDidMount(){
             <div className="text-center">
               <h3 className="subtitle">Basic Info</h3>
             </div>
-            <UploadModal refresh = {this.getImage} name={this.props.user}></UploadModal>
-            <img className = "photo" src={this.state.profilePhoto}></img>
-            <Form onSubmit={this.addMembers}>
-              <div className="inputs">
-                <div className="box-1">
-                  <div className="container-box">
-                    <div className="label-container">
-                      <Form.Label>Prefix</Form.Label>
-                    </div>
-                    <div className="container-input">
-                      <Form.Control
-                        type="text"
-                        name="prefix"
-                        value={this.state.prefix}
-                        onChange={this.handleInputChangeFor("prefix")}
-                      />
-                      <h4 className="error">{this.state.prefixError}</h4>
-                    </div>
-                  </div>
+            {/* <div className="text-center">
+              <img className="photo" src={this.state.profilePhoto}></img>
+              <div>
+                <UploadModal
+                  refresh={this.getImage}
+                  name={this.props.user}
+                  style={{"margin-bottom": "15px"}}
+                ></UploadModal>
+              </div>
+            </div> */}
 
+            <div className="flex-between row-nowrap">
+              <h6 className="label">Prefix</h6>
+              <h6 className="label">First Name</h6>
+              <h6 className="label">Last Name</h6>
+            </div>
+            <InputGroup className="mb-3">
+              <FormControl
+                type="text"
+                name="prefix"
+                value={this.state.prefix}
+                onChange={this.handleInputChangeFor("prefix")}
+                className="prefix"
+              />
+
+              <FormControl
+                type="text"
+                name="first_name"
+                value={this.state.first_name}
+                onChange={this.handleInputChangeFor("first_name")}
+              />
+
+              <FormControl
+                type="text"
+                name="last_name"
+                value={this.state.last_name}
+                onChange={this.handleInputChangeFor("last_name")}
+              />
+            </InputGroup>
+            <div className="flex-between row-nowrap">
+              <h4 className="label error">{this.state.prefixError}</h4>
+              <h4 className="label error">{this.state.firstNameError}</h4>
+              <h4 className="label error">{this.state.lastNameError}</h4>
+            </div>
+            <Form onSubmit={this.addMembers}>
+              <div className="inputs align-center">
+                <div className="box-1">
                   <div className="container-box">
                     <div className="label-container">
                       <Form.Label>Age</Form.Label>
@@ -249,6 +278,25 @@ componentDidMount(){
                       <h4 className="error">{this.state.ageError}</h4>
                     </div>
                   </div>
+                  <div className="container-box">
+                    <div className="label-container">
+                      <Form.Label>About You</Form.Label>
+                    </div>
+                    <div className="container-input">
+                      <Form.Control
+                        as="textarea"
+                        type="text"
+                        name="hiamft_member_account_info"
+                        value={this.state.hiamft_member_account_info}
+                        onChange={this.handleInputChangeFor(
+                          "hiamft_member_account_info"
+                        )}
+                      />
+                      <h4 className="error">{this.state.memberError}</h4>
+                    </div>
+                  </div>
+                </div>
+                <div className="box-2">
                   <div className="container-box">
                     <div className="label-container">
                       <Form.Label>Language</Form.Label>
@@ -278,57 +326,6 @@ componentDidMount(){
                         )}
                       </Form.Control>{" "}
                       <h4 className="error">{this.state.languageError}</h4>
-                    </div>
-                  </div>
-                </div>
-                <div className="box-2">
-                  <div className="container-box">
-                    <div className="label-container">
-                      <Form.Label>First Name</Form.Label>
-                    </div>
-                    <div className="container-input">
-                      <Form.Control
-                        type="text"
-                        name="first_name"
-                        value={this.state.first_name}
-                        onChange={this.handleInputChangeFor("first_name")}
-                      />
-                      <h4 className="error">{this.state.firstNameError}</h4>
-                    </div>
-                  </div>
-
-                  <div className="container-box">
-                    <div className="label-container">
-                      <Form.Label>Last Name</Form.Label>
-                    </div>
-                    <div className="container-input">
-                      {" "}
-                      <Form.Control
-                        type="text"
-                        name="last_name"
-                        value={this.state.last_name}
-                        onChange={this.handleInputChangeFor("last_name")}
-                      />
-                      <h4 className="error">{this.state.lastNameError}</h4>
-                    </div>
-                  </div>
-
-                  <div className="container-box">
-                    <div className="label-container">
-                      {" "}
-                      <Form.Label>About You</Form.Label>
-                    </div>
-                    <div className="container-input">
-                      <Form.Control
-                        as="textarea"
-                        type="text"
-                        name="hiamft_member_account_info"
-                        value={this.state.hiamft_member_account_info}
-                        onChange={this.handleInputChangeFor(
-                          "hiamft_member_account_info"
-                        )}
-                      />
-                      <h4 className="error">{this.state.memberError}</h4>
                     </div>
                   </div>
                 </div>
