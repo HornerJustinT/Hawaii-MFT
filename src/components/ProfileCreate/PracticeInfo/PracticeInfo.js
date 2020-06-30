@@ -29,6 +29,24 @@ class PracticeInfo extends Component{
          specialty_id:'',
          treatment_preferences_id:'',
          age_groups_served_id:'',
+         //write the errors for all the practiceInfo inputs
+         licenseStateError:'',
+         licenseNumberError:'',
+         licenseTypeError:'',
+         supervisionStatusError:'',
+         feesError:'',
+         licenseExpiration:'',
+         specialtyError:'',
+         credentialsError:'',
+         telehealthError:'',
+         statementError:'',
+         titleError:'',
+         sessionFormatIdError:'',
+         clientFocusIdError:'',
+         specialtyIdError:'',
+         treatmentPreferencesIdError:'',
+         ageGroupsError:'',
+         insuranceTypeIdError:'',
 
      }
    
@@ -123,7 +141,7 @@ handleInputChangeFor = propertyName => (event) =>{
           treatment_preferences_id:this.state.treatment_preferences_id,
           age_groups_served_id:this.state.age_groups_served_id,
           insurance_type_id:this.state.insurance_type_id,
-          language_id:this.props.createProfile.language_id
+          language_id:this.props.createProfile.language_id,
          }
         });
 //this will reset the inputs on the parcticeinfo page
