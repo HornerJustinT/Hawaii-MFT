@@ -110,6 +110,19 @@ class ProfileView extends Component {
         this.forceUpdate();
       })
       .catch((error) => {
+        storage 
+          .child(`images/noFile.png`)
+          .getDownloadURL()
+          .then((url) =>{
+            this.setState({profilePhoto:url});
+          }).then(()=>{
+            this.forceUpdate();
+          })
+          .catch((error) => {
+            console.log('No file found photo also not found')
+          })
+        // console.log('no photo found')
+        // this.setState({profilePhoto:'https://firebasestorage.googleapis.com/v0/b/splendid-parsec-277719.appspot.com/o/images%2FnoFile.png'})
         // Handle any errors
       });
   }
