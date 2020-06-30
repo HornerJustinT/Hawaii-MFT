@@ -35,7 +35,7 @@ class ProfileView extends Component {
       type: "FETCH_PROFILE",
       payload: this.props.match.params,
     });
-    this.getImage(this.props.profile.id);
+    this.getImage(this.props.match.params.id)
   }
 
   telehealth=(doesTelehealth)=>{
@@ -297,6 +297,7 @@ class ProfileView extends Component {
 }
 const mapStateToProps = (state) => ({// props
   profile: state.profile,
+  user: state.user
 });
 
 export default connect(mapStateToProps)(
