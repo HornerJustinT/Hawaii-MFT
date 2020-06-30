@@ -409,7 +409,7 @@ class ProfileEdit extends Component {
 
           <div className="body">
             {this.state.enabled ? (
-              <Button variant="danger" onClick={this.enablePress}>
+              <Button variant="danger" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) this.enablePress() } }>
                 Disable Account
               </Button>
             ) : (
