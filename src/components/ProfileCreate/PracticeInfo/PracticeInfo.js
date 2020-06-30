@@ -36,7 +36,6 @@ class PracticeInfo extends Component{
          supervisionStatusError:'',
          feesError:'',
          licenseExpirationError:'',
-         specialtyError:'',
          credentialsError:'',
          telehealthError:'',
          statementError:'',
@@ -92,7 +91,6 @@ handleInputChangeFor = propertyName => (event) =>{
       let supervisionStatusError = '';
       let feesError = '';
       let licenseExpirationError = '';
-      let specialtyError = '';
       let  credentialsError = '';
       let telehealthError = '';
       let statementError = '';
@@ -170,7 +168,7 @@ handleInputChangeFor = propertyName => (event) =>{
         }
         if(this.state.specialty_id === ''){
         formIsValid=false;
-       specialtyError = 'Specialty choice is required'
+       specialtyIdError = 'Specialty choice is required'
         }
         if(this.state.treatment_preferences_id === ''){
         formIsValid=false;
@@ -186,12 +184,11 @@ handleInputChangeFor = propertyName => (event) =>{
         }
 
       if( licenseStateError || licenseNumberError || licenseTypeError||   supervisionStatusError
-           || feesError ||  licenseExpirationError||  specialtyError ||   credentialsError 
+           || feesError ||  licenseExpirationError ||   credentialsError 
            ||  telehealthError||  statementError || titleError || sessionFormatIdError || clientFocusIdError
            ||  specialtyIdError || treatmentPreferencesIdError|| ageGroupsError||  insuranceTypeIdError){
         this.setState({licenseStateError, licenseNumberError, licenseTypeError, supervisionStatusError,
-           feesError, licenseExpirationError, specialtyError, credentialsError,
-           telehealthError, statementError, titleError, sessionFormatIdError, clientFocusIdError,
+           feesError, licenseExpirationError, credentialsError,telehealthError, statementError, titleError, sessionFormatIdError, clientFocusIdError,
           specialtyIdError, treatmentPreferencesIdError, ageGroupsError, insuranceTypeIdError});
       
       }else{
@@ -302,6 +299,7 @@ this.props.history.push(`/edit-profile`)
                     value={this.state.title}
                     onChange={this.handleInputChangeFor("title")}
                   />
+                   <h4 className="error">{this.state.titleError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -312,6 +310,7 @@ this.props.history.push(`/edit-profile`)
                     value={this.state.credentials}
                     onChange={this.handleInputChangeFor("credentials")}
                   />
+                   <h4 className="error">{this.state.credentialsError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -337,6 +336,7 @@ this.props.history.push(`/edit-profile`)
                       </>
                     )}
                   </Form.Control>
+                  <h4 className="error">{this.state.licenseTypeError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -347,6 +347,7 @@ this.props.history.push(`/edit-profile`)
                     value={this.state.license_state}
                     onChange={this.handleInputChangeFor("license_state")}
                   />
+                   <h4 className="error">{this.state.licenseStateError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -357,6 +358,7 @@ this.props.history.push(`/edit-profile`)
                     value={this.state.license_number}
                     onChange={this.handleInputChangeFor("license_number")}
                   />
+                   <h4 className="error">{this.state.licenseNumberError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -367,6 +369,7 @@ this.props.history.push(`/edit-profile`)
                     value={this.state.license_expiration}
                     onChange={this.handleInputChangeFor("license_expiration")}
                   />
+                   <h4 className="error">{this.state.licenseExpirationError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -377,6 +380,7 @@ this.props.history.push(`/edit-profile`)
                     value={this.state.statement}
                     onChange={this.handleInputChangeFor("statement")}
                   />
+                   <h4 className="error">{this.state.statementError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -387,6 +391,7 @@ this.props.history.push(`/edit-profile`)
                     value={this.state.fees}
                     onChange={this.handleInputChangeFor("fees")}
                   />
+                   <h4 className="error">{this.state.feesError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -414,6 +419,7 @@ this.props.history.push(`/edit-profile`)
                       </>
                     )}
                   </Form.Control>
+                  <h4 className="error">{this.state.specialtyIdError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -428,6 +434,7 @@ this.props.history.push(`/edit-profile`)
                     <option value="AAMFT approved">AAMFT approved</option>
                     <option value="Supervisor">Supervisor</option>
                   </Form.Control>
+                  <h4 className="error">{this.state.supervisionStatusError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -455,6 +462,7 @@ this.props.history.push(`/edit-profile`)
                       </>
                     )}
                   </Form.Control>
+                  <h4 className="error">{this.state.insuranceTypeIdError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -468,6 +476,7 @@ this.props.history.push(`/edit-profile`)
                     <option>Yes</option>
                     <option>No</option>
                   </Form.Control>
+                  <h4 className="error">{this.state.telehealthError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -495,6 +504,7 @@ this.props.history.push(`/edit-profile`)
                       </>
                     )}
                   </Form.Control>
+                  <h4 className="error">{this.state.treatmentPreferencesIdError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -522,6 +532,7 @@ this.props.history.push(`/edit-profile`)
                       </>
                     )}
                   </Form.Control>
+                  <h4 className="error">{this.state.clientFocusIdError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -548,6 +559,7 @@ this.props.history.push(`/edit-profile`)
                       </>
                     )}
                   </Form.Control>
+                  <h4 className="error">{this.state.ageGroupsError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -575,6 +587,7 @@ this.props.history.push(`/edit-profile`)
                       </>
                     )}
                   </Form.Control>
+                  <h4 className="error">{this.state.sessionFormatIdError}</h4>
                 </Form.Group>
 
                 <Form.Group>
