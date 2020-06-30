@@ -35,7 +35,7 @@ class PracticeInfo extends Component{
          licenseTypeError:'',
          supervisionStatusError:'',
          feesError:'',
-         licenseExpiration:'',
+         licenseExpirationError:'',
          specialtyError:'',
          credentialsError:'',
          telehealthError:'',
@@ -85,7 +85,120 @@ handleInputChangeFor = propertyName => (event) =>{
         event.preventDefault()
      
     }
+    validate = () => {
+      let licenseStateError = '';
+      let licenseNumberError = '';
+      let licenseTypeError = '';
+      let supervisionStatusError = '';
+      let feesError = '';
+      let licenseExpirationError = '';
+      let specialtyError = '';
+      let  credentialsError = '';
+      let telehealthError = '';
+      let statementError = '';
+      let titleError= '';
+      let sessionFormatIdError = '';
+      let  clientFocusIdError = '';
+      let specialtyIdError = '';
+      let treatmentPreferencesIdError = '';
+      let  ageGroupsError = '';
+      let insuranceTypeIdError = '';
 
+      let formIsValid = true;
+
+      if(this.state.license_state === ''){
+        formIsValid=false;
+        licenseStateError = 'Sate Name is required'
+      }else if(!this.state.license_state.match(/^[a-zA-Z_]+$/) ){
+          formIsValid=false;
+          licenseStateError = "State Name is invalid" 
+      }
+      if(this.state.title === ''){
+        formIsValid=false;
+        titleError = 'Title is required'
+      }else if(!this.state.title.match(/^[a-zA-Z_]+$/) ){
+          formIsValid=false;
+          titleError = "Title is invalid" 
+      }
+      if(this.state.statement === ''){
+        formIsValid=false;
+        statementError = 'Statement is required'
+      }else if(!this.state.statement.match(/^[a-zA-Z_]+$/) ){
+          formIsValid=false;
+          statementError  = "Statement is invalid" 
+      }
+
+      if(this.state.license_number === ''){
+        formIsValid=false;
+        licenseNumberError = 'License Number is required'
+      }else if(!isNaN(this.state.license_number) === false ){
+          formIsValid=false;
+          licenseNumberError = "License Number is invalid" 
+      }
+      if(this.state.fees === ''){
+        formIsValid=false;
+        feesError = 'Fees is required'
+      }else if(!isNaN(this.state.fees) === false ){
+          formIsValid=false;
+          feesError = "Fees is invalid" 
+      }
+      if(this.state.license_type === ''){
+        formIsValid=false;
+        licenseTypeError = 'License Type is required'
+      }
+
+      if(this.state.supervision_status === ''){
+           formIsValid=false;
+           supervisionStatusError = 'Supervision status is required'
+      }
+
+      if(this.state.license_expiration === ''){
+           formIsValid=false;
+           licenseExpirationError = 'License experation is required'
+      }
+      if(this.state.telehealth === ''){
+           formIsValid=false;
+           telehealthError = 'Telehealth choice is required'
+      }
+      if(this.state.session_format_id === ''){
+        formIsValid=false;
+        sessionFormatIdError = 'Session Format is required'
+        }
+        if(this.state.client_focus_id === ''){
+        formIsValid=false;
+        clientFocusIdError = 'Client Focus group is required'
+        }
+        if(this.state.specialty_id === ''){
+        formIsValid=false;
+       specialtyError = 'Specialty choice is required'
+        }
+        if(this.state.treatment_preferences_id === ''){
+        formIsValid=false;
+        treatmentPreferencesIdError = 'Treatment Preference is required'
+        }
+        if(this.state.age_groups_served_id === ''){
+        formIsValid=false;
+        ageGroupsError = 'Age Group is required'
+       }
+       if(this.state.credentials === ''){
+         formIsValid=false;
+        credentialsError = 'Credentials is required'
+        }
+
+      if( licenseStateError || licenseNumberError || licenseTypeError||   supervisionStatusError
+           || feesError ||  licenseExpirationError||  specialtyError ||   credentialsError 
+           ||  telehealthError||  statementError || titleError || sessionFormatIdError || clientFocusIdError
+           ||  specialtyIdError || treatmentPreferencesIdError|| ageGroupsError||  insuranceTypeIdError){
+        this.setState({licenseStateError, licenseNumberError, licenseTypeError, supervisionStatusError,
+           feesError, licenseExpirationError, specialtyError, credentialsError,
+           telehealthError, statementError, titleError, sessionFormatIdError, clientFocusIdError,
+          specialtyIdError, treatmentPreferencesIdError, ageGroupsError, insuranceTypeIdError});
+      
+      }else{
+        return true;
+      }
+
+    }
   //every multiselect needs its own handle[Property]Change function
   //this functions take the new id of an item selected in the multiselect
   //and converts it to a title (name).
