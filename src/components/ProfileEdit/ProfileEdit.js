@@ -1,19 +1,21 @@
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import { withRouter } from 'react-router';
-
-import ProfileEditContact from './ProfileEditContact';
-import ProfileEditPractice from './ProfileEditPractice';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
+import firebase from "../../Firebase";
+// Components
+import ProfileEditContact from "./ProfileEditContact";
+import ProfileEditPractice from "./ProfileEditPractice";
+import UploadModal from "../UploadModal/UploadModal";
 
 //React Botstrap imports
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 //CSS file imports
 import "./ProfileEdit.css";
 import "../App/App.css";
 
-
+var storage = firebase.storage().ref();
 
 class ProfileEdit extends Component {
   //setting state, particularly for conditional render of Basic, Contact & Practice sections
@@ -22,8 +24,21 @@ class ProfileEdit extends Component {
     clickBasic: false,
     languages: [],
     languagesEdit: [],
+    profilePhoto: "",
   };
-
+  getImage = (id) => {
+    storage
+      .child(`images/${id}photo`)
+      .getDownloadURL()
+      .then((url) => {
+        this.setState({ profilePhoto: url});
+      }).then(()=>{
+        this.forceUpdate();
+      })
+      .catch((error) => {
+        // Handle any errors
+      });
+  }
   //mounting component - dispatching to redux sagas to call data from server for retreival from profile,
   //languages, islands & treatments reducers (props).
   componentDidMount() {
@@ -34,6 +49,8 @@ class ProfileEdit extends Component {
       payload: { id: this.props.match.params.id || this.props.user.id },
       admin: this.props.match.params.id || false
     });
+    this.getImage(this.props.user.id);
+    console.log(this.state.profilePhoto);
   } //end componentDidMount
 
 
@@ -44,6 +61,14 @@ class ProfileEdit extends Component {
       previousProps.profile.id !== this.props.profile.id &&
       this.props.profile.phone
     ) {
+      //declaring new variables for state with return from syncDataEditLanguage & syncDataEditIsland
+      //these functions retrieve an id based on the title of each item (ex. island title & island id)
+      //the last line of this code block is commented out to demonstrate the next steps for finishing
+      //the Practice Info section, which is currently not functional.
+      const updatedLanguages = this.syncDataEditLanguage(
+        "languages",
+        "languages"
+      );
 
       //setting state in component update with all of the properties retrieved from props from the database
       //for this particular member's profile view.
@@ -95,18 +120,17 @@ class ProfileEdit extends Component {
 
   // Enables or disabled the profile based on if its enabled already or not
   enablePress = () => {
-
     // Send the dispatch to redux
     this.props.dispatch({
       type: "ENABLE_PROFILE",
-      payload: {id: this.state.id, enabled: !this.state.enabled}
+      payload: { id: this.state.id, enabled: !this.state.enabled },
     });
 
     // Updates it locally because it doesn't update otherwise
     this.setState({
       enabled: !this.state.enabled,
     });
-  }
+  };
 
   //this function saves the new information entered into the Basic Info form
   handleSaveBasic = () => {
@@ -120,7 +144,6 @@ class ProfileEdit extends Component {
       payload: this.state,
     });
   }; //end handleSaveBasic
-
 
   //handleChange resets state according to new data entered into form inputs
   handleChange = (event, propertyName) => {
@@ -149,7 +172,6 @@ class ProfileEdit extends Component {
       [viewPropertyName]: updatedLanguages,
     });
   }; //end handleLangChange
-
 
   displayLanguages = () => {
     if (this.state.clickBasic) {
@@ -198,9 +220,13 @@ class ProfileEdit extends Component {
     if (this.props.profile && this.state.languages) {
       return (
         <>
+
           <div className="header">
-            <h3>My Profile</h3>
+            <h3>My Profile</h3>{" "}
+            <img className = "photo" src={this.state.profilePhoto}></img>
+            <UploadModal refresh = {this.getImage} name={this.props.user}></UploadModal>
           </div>
+
           {/**Here is Basic Info render */}
           {this.state.clickBasic ? (
             <div className="body">
@@ -340,10 +366,13 @@ class ProfileEdit extends Component {
                         />
                       </Form.Group>
                     </Form>
+                    
                   </div>
+                  
                 </>
               )}
             </div>
+            
           )}
 
           <ProfileEditContact />
@@ -367,11 +396,11 @@ class ProfileEdit extends Component {
 }
 
 const putReduxStateOnProps = (reduxStore) => ({
-    user: reduxStore.user,
-    profile: reduxStore.profile,
-    languages: reduxStore.languages,
-    islands: reduxStore.islands,
-    treatments: reduxStore.treatmentPreferences
+  user: reduxStore.user,
+  profile: reduxStore.profile,
+  languages: reduxStore.languages,
+  islands: reduxStore.islands,
+  treatments: reduxStore.treatmentPreferences,
 });
 
 export default withRouter(connect(putReduxStateOnProps)(ProfileEdit));
