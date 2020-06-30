@@ -72,6 +72,7 @@ componentDidMount(){
           })
       }
       getImage = (id) => {
+        console.log(id)
         storage
           .child(`images/${id}photo`)
           .getDownloadURL()
@@ -80,7 +81,18 @@ componentDidMount(){
           }).then(()=>{
             this.forceUpdate();
           })
-          .catch((error) => {
+          .catch((error) => { // if no photo found
+            storage 
+              .child(`images/noFile.png`)
+              .getDownloadURL()
+              .then((url) =>{
+                this.setState({profilePhoto:url});
+              }).then(()=>{
+                this.forceUpdate();
+              })
+              .catch((error) => {
+                console.log('No file found photo also not found')
+              })
             // Handle any errors
           });
       }

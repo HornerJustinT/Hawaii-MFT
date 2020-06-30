@@ -109,7 +109,7 @@ class ProfileView extends Component {
       }).then(()=>{
         this.forceUpdate();
       })
-      .catch((error) => {
+      .catch((error) => { // if no photo found
         storage 
           .child(`images/noFile.png`)
           .getDownloadURL()
@@ -121,8 +121,6 @@ class ProfileView extends Component {
           .catch((error) => {
             console.log('No file found photo also not found')
           })
-        // console.log('no photo found')
-        // this.setState({profilePhoto:'https://firebasestorage.googleapis.com/v0/b/splendid-parsec-277719.appspot.com/o/images%2FnoFile.png'})
         // Handle any errors
       });
   }
