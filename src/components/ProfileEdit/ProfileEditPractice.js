@@ -19,6 +19,19 @@ class ProfileEdit extends Component {
   state = {
     id: 0,
     clickPractice: false,
+    agesServed: this.props.profile.ages_served,
+    agesServedEdit: this.props.profile.ages_served_id,
+    clientFocus: this.props.profile.client_focus,
+    clientFocusEdit: this.props.profile.client_focus_id,
+    insurance: this.props.profile.insurance,
+    insuranceEdit: this.props.profile.insurance_id,
+    sessionFormat: this.props.profile.session_format,
+    sessionFormatEdit: this.props.profile.session_format_id,
+    specialty: this.props.profile.specialty,
+    specialtyEdit: this.props.profile.specialty_id,
+    treatmentPreferences: this.props.profile.treatment_preferences,
+    treatmentEdit: this.props.profile.treatment_preferences_id,
+    student: this.props.student,
   };
 
   //mounting component - dispatching to redux sagas to call data from server for retreival from profile,
@@ -28,7 +41,7 @@ class ProfileEdit extends Component {
     this.props.dispatch({ type: "FETCH_AGE_GROUPS" });
     this.props.dispatch({ type: "FETCH_DEMOGRPHICS" });
     this.props.dispatch({ type: "FETCH_INSURANCE_TAKEN" });
-    this.props.dispatch({ type: "FETCH_LICENSE_TYPE" });
+    // this.props.dispatch({ type: "FETCH_LICENSE_TYPE" });
     this.props.dispatch({ type: "FETCH_SESSION_FORMAT" });
     this.props.dispatch({ type: "FETCH_SPECIALTY" });
     this.props.dispatch({ type: "FETCH_TREATMENT_APPROACHES" });
@@ -40,7 +53,11 @@ class ProfileEdit extends Component {
 
   //updating component to ensure all the data makes it to props for render
   componentDidUpdate(previousProps) {
-    if (previousProps !== this.props) {
+    if (
+      this.state.id !== this.props.user.id &&
+      previousProps.profile.id !== this.props.profile.id &&
+      this.props.profile.specialty
+    ) {
       //declaring new variables for state with return from syncDataEditLanguage & syncDataEditIsland
       //these functions retrieve an id based on the title of each item (ex. island title & island id)
       //the last line of this code block is commented out to demonstrate the next steps for finishing
@@ -58,7 +75,7 @@ class ProfileEdit extends Component {
         // license: this.props.profile.license,
         licenseState: this.props.profile.license_state,
         licenseExpiration: this.props.profile.license_expiration,
-        licenseNumber: this.props.license.license_number,
+        licenseNumber: this.props.profile.license_number,
         licenseType: this.props.profile.license_type,
         licenseTypeEdit: this.props.profile.license_type_id,
         hiamftMemberInfo: this.props.profile.hiamft_member_account_info,
@@ -101,12 +118,14 @@ class ProfileEdit extends Component {
       payload: this.state,
     });
 
-    this.props.dispatch({ type: "PROFILE_RESET" });
+    // window.location.reload(false);
 
-    this.props.dispatch({
-      type: "FETCH_PROFILE",
-      payload: { id: this.props.match.params.id || this.props.user.id },
-    });
+    // this.props.dispatch({ type: "PROFILE_RESET" });
+
+    // this.props.dispatch({
+    //   type: "FETCH_PROFILE",
+    //   payload: { id: this.props.match.params.id || this.props.user.id },
+    // });
   }; //end handleSavePractice
 
   //handleChange resets state according to new data entered into form inputs
@@ -124,6 +143,11 @@ class ProfileEdit extends Component {
     this.setState({
       [editPropertyName]: array,
     });
+
+    this.props.dispatch({
+      type: "FETCH_PROFILE",
+      payload: { id: this.props.match.params.id || this.props.user.id },
+    });
   }; //end handleLangChange
 
   //handleChangeBoolean resets state according to new data entered into form inputs requiring Boolean values
@@ -140,22 +164,68 @@ class ProfileEdit extends Component {
   }; //end handleChangeBoolean
 
   renderTelehealth = () => {
-    if(this.state.telehealth == true){
-      return "Yes, I offer telehealth."
+    if (this.state.telehealth == true) {
+      return "Yes, I offer telehealth.";
+    } else {
+      return "No, I do not offer telehealth.";
     }
-    else{
-      return "No, I do not offer telehealth."
+  };
+
+  displayInsurance = () => {
+    if (this.state.clickPractice) {
+      return (
+        <Form.Group className="columnThirds">
+          <Form.Label className="label">Insurances Accepted</Form.Label>
+          <Form.Control
+            as="select"
+            multiple={true}
+            value={this.state.insuranceEdit}
+            onChange={(event) => this.handleMultiChange(event, "insuranceEdit")}
+          >
+            {this.props.insuranceTaken.map((insurance) => {
+              return (
+                <>
+                  <option
+                    key={insurance.insurance_type_id}
+                    value={insurance.insurance_type_id}
+                  >
+                    {insurance.title}
+                  </option>
+                </>
+              );
+            })}
+          </Form.Control>
+        </Form.Group>
+      );
+    } else {
+      return (
+        <Form.Group className="columnThirds">
+          <Form.Label variant="flat" className="label">
+            Insurances Accepted
+          </Form.Label>
+          <div>
+            {this.props.profile.insurance.map((insurance) => {
+                return (
+                  <>
+                    <Form.Control disabled={true} readOnly defaultValue={insurance} />
+                  </>
+                );
+              })}
+          </div>
+        </Form.Group>
+      );
     }
-  }
+  };
 
   render() {
-    if (this.props.profile) {
+    if (
+      this.props.profile &&
+      this.state.specialty &&
+      this.state.clientFocus &&
+      this.state.insurance
+    ) {
       return (
         <>
-          {JSON.stringify(this.state.licenseType)}
-          <br></br>
-          <br />
-          {JSON.stringify(this.state.licenseTypeEdit)}
           {/**Here is Practice Info render */}
           {this.state.clickPractice ? (
             <div className="body">
@@ -173,14 +243,14 @@ class ProfileEdit extends Component {
                   <Form.Group className="column">
                     <Form.Label className="label">Title</Form.Label>
                     <Form.Control
-                      defaultValue={this.state.title}
+                      value={this.state.title}
                       onChange={(event) => this.handleChange(event, "title")}
                     />
                   </Form.Group>
                   <Form.Group className="column">
                     <Form.Label className="label">Credentials</Form.Label>
                     <Form.Control
-                      defaultValue={this.state.credentials}
+                      value={this.state.credentials}
                       onChange={(event) =>
                         this.handleChange(event, "credentials")
                       }
@@ -200,7 +270,7 @@ class ProfileEdit extends Component {
                     </Form.Label>
                     <Form.Control
                       as="select"
-                      defaultValue={this.state.supervisionStatus}
+                      value={this.state.supervisionStatus}
                       onChange={(event) =>
                         this.handleChange(event, "supervisionStatus")
                       }
@@ -218,7 +288,7 @@ class ProfileEdit extends Component {
                     <Form.Label className="label">Telehealth</Form.Label>
                     <Form.Control
                       as="select"
-                      defaultValue={this.state.telehealth}
+                      value={this.state.telehealth}
                       onChange={(event) =>
                         this.handleChangeBoolean(event, "telehealth")
                       }
@@ -235,7 +305,7 @@ class ProfileEdit extends Component {
                   <Form.Group className="columnThirds">
                     <Form.Label className="label">License Number</Form.Label>
                     <Form.Control
-                      defaultValue={this.state.licenseNumber}
+                      value={this.state.licenseNumber}
                       onChange={(event) =>
                         this.handleChange(event, "licenseNumber")
                       }
@@ -247,7 +317,7 @@ class ProfileEdit extends Component {
                     </Form.Label>
                     <Form.Control
                       type="date"
-                      defaultValue={this.state.licenseExpiration}
+                      value={this.state.licenseExpiration}
                       onChange={(event) =>
                         this.handleChange(event, "licenseExpiration")
                       }
@@ -257,7 +327,7 @@ class ProfileEdit extends Component {
                     <Form.Label className="label">License Type</Form.Label>
                     <Form.Control
                       as="select"
-                      defaultValue={this.state.licenseType}
+                      value={this.state.licenseType}
                       onChange={(event) =>
                         this.handleChange(event, "licenseTypeEdit")
                       }
@@ -280,36 +350,14 @@ class ProfileEdit extends Component {
                 </Form>
 
                 <Form className="flex-between row-wrap row">
-                  <Form.Group className="columnThirds">
-                    <Form.Label className="label">Insurance</Form.Label>
-                    <Form.Control
-                      as="select"
-                      multiple={true}
-                      defaultValue={this.state.insuranceEdit}
-                      onChange={(event) =>
-                        this.handleMultiChange(event, "insuranceEdit")
-                      }
-                    >
-                      {this.props.insuranceTaken.map((insurance) => {
-                        return (
-                          <>
-                            <option
-                              key={insurance.insurance_type_id}
-                              value={insurance.insurance_type_id}
-                            >
-                              {insurance.title}
-                            </option>
-                          </>
-                        );
-                      })}
-                    </Form.Control>
-                  </Form.Group>
+                  {this.displayInsurance()}
+
                   <Form.Group className="columnThirds">
                     <Form.Label className="label">Fees</Form.Label>
                     <InputGroup.Prepend>
                       <InputGroup.Text>$</InputGroup.Text>
                       <Form.Control
-                        defaultValue={this.state.fees}
+                        value={this.state.fees}
                         onChange={(event) => this.handleChange(event, "fees")}
                       />
                     </InputGroup.Prepend>
@@ -319,7 +367,7 @@ class ProfileEdit extends Component {
                     <Form.Control
                       as="select"
                       multiple={true}
-                      defaultValue={this.state.sessionFormatEdit}
+                      value={this.state.sessionFormatEdit}
                       onChange={(event) =>
                         this.handleMultiChange(event, "sessionFormatEdit")
                       }
@@ -346,7 +394,7 @@ class ProfileEdit extends Component {
                     <Form.Control
                       as="select"
                       multiple={true}
-                      defaultValue={this.state.clientFocusEdit}
+                      value={this.state.clientFocusEdit}
                       onChange={(event) =>
                         this.handleMultiChange(event, "clientFocusEdit")
                       }
@@ -372,7 +420,7 @@ class ProfileEdit extends Component {
                     <Form.Control
                       as="select"
                       multiple={true}
-                      defaultValue={this.state.treatmentEdit}
+                      value={this.state.treatmentEdit}
                       onChange={(event) =>
                         this.handleMultiChange(event, "treatmentEdit")
                       }
@@ -396,7 +444,7 @@ class ProfileEdit extends Component {
                     <Form.Control
                       as="select"
                       multiple={true}
-                      defaultValue={this.state.specialtyEdit}
+                      value={this.state.specialtyEdit}
                       onChange={(event) =>
                         this.handleMultiChange(event, "specialtyEdit")
                       }
@@ -499,25 +547,7 @@ class ProfileEdit extends Component {
                   </Form.Group>
                 </Form>
                 <Form className="flex-between row-wrap row">
-                  <Form.Group className="columnThirds">
-                    <Form.Label variant="flat" className="label">
-                      Insurances Taken
-                    </Form.Label>
-                    <div>
-                      {this.state.insurance &&
-                        this.state.insurance.map((insurance) => {
-                          return (
-                            <>
-                              <Form.Control
-                                disabled={true}
-                                readOnly
-                                defaultValue={insurance}
-                              />
-                            </>
-                          );
-                        })}
-                    </div>
-                  </Form.Group>
+                  {this.displayInsurance()}
                   <Form.Group className="columnThirds">
                     <Form.Label className="label">Fees</Form.Label>
                     <InputGroup.Prepend>
@@ -539,7 +569,7 @@ class ProfileEdit extends Component {
                               <Form.Control
                                 disabled={true}
                                 readOnly
-                                defaultValue={sessionFormat}
+                                value={sessionFormat}
                               />
                             </>
                           );
@@ -559,7 +589,7 @@ class ProfileEdit extends Component {
                               <Form.Control
                                 disabled={true}
                                 readOnly
-                                defaultValue={focus}
+                                value={focus}
                               />
                             </>
                           );
@@ -578,7 +608,7 @@ class ProfileEdit extends Component {
                               <Form.Control
                                 disabled={true}
                                 readOnly
-                                defaultValue={treatment}
+                                value={treatment}
                               />
                             </>
                           );
@@ -597,7 +627,7 @@ class ProfileEdit extends Component {
                               <Form.Control
                                 disabled={true}
                                 readOnly
-                                defaultValue={specialty}
+                                value={specialty}
                               />
                             </>
                           );
@@ -611,7 +641,11 @@ class ProfileEdit extends Component {
         </>
       );
     } else {
-      return <p> user not found </p>;
+      return (
+      <>
+      <p> user not found </p>
+      </>
+      );
     }
   }
 }
@@ -626,7 +660,7 @@ const putReduxStateOnProps = (reduxStore) => ({
   insuranceTaken: reduxStore.insuranceTaken,
   license: reduxStore.license,
   sessionFormats: reduxStore.sessionFormats,
-
+  student: reduxStore.student,
 });
 
 export default withRouter(connect(putReduxStateOnProps)(ProfileEdit));
