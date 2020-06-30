@@ -25,20 +25,23 @@ class ProfileEdit extends Component {
     languages: [],
     languagesEdit: [],
     profilePhoto: "",
+    student: false,
   };
+
   getImage = (id) => {
     storage
       .child(`images/${id}photo`)
       .getDownloadURL()
       .then((url) => {
-        this.setState({ profilePhoto: url});
-      }).then(()=>{
+        this.setState({ profilePhoto: url });
+      })
+      .then(() => {
         this.forceUpdate();
       })
       .catch((error) => {
         // Handle any errors
       });
-  }
+  };
   //mounting component - dispatching to redux sagas to call data from server for retreival from profile,
   //languages, islands & treatments reducers (props).
   componentDidMount() {
@@ -47,12 +50,11 @@ class ProfileEdit extends Component {
     this.props.dispatch({
       type: "FETCH_PROFILE",
       payload: { id: this.props.match.params.id || this.props.user.id },
-      admin: this.props.match.params.id || false
+      admin: this.props.match.params.id || false,
     });
     this.getImage(this.props.user.id);
     console.log(this.state.profilePhoto);
   } //end componentDidMount
-
 
   //updating component to ensure all the data makes it to props for render
   componentDidUpdate(previousProps) {
@@ -61,7 +63,6 @@ class ProfileEdit extends Component {
       previousProps.profile.id !== this.props.profile.id &&
       this.props.profile.phone
     ) {
-
       //setting state in component update with all of the properties retrieved from props from the database
       //for this particular member's profile view.
       //as above, treatmentApproaches has been commented out
@@ -144,6 +145,18 @@ class ProfileEdit extends Component {
     });
   }; //end handleChange
 
+  handleStudent = () => {
+    this.setState({
+
+    })
+  };
+
+  // handleTherapist = () => {
+  //   this.setState({
+  //     student: false,
+  //   });
+  // };
+
   //every multiselect needs its own handle[Property]Change function
   //this functions take the new id of an item selected in the multiselect
   //and converts it to a title (name).
@@ -209,14 +222,27 @@ class ProfileEdit extends Component {
   };
 
   render() {
+
     if (this.props.profile && this.state.languages) {
       return (
         <>
-
           <div className="header">
-            <h3>My Profile</h3>{" "}
-            <img className = "photo" src={this.state.profilePhoto}></img>
-            <UploadModal refresh = {this.getImage} name={this.props.user}></UploadModal>
+            <h3>My Profile</h3>
+            <img className="photo" src={this.state.profilePhoto}></img>
+            <UploadModal
+              refresh={this.getImage}
+              name={this.props.user}
+            ></UploadModal>
+          </div>
+          <div>
+            <Form>
+              <Form.Check
+                type="switch"
+                id="custom-switch"
+                label="I am a Student"
+                onChange={this.handleStudent()}
+              />
+            </Form>
           </div>
 
           {/**Here is Basic Info render */}
@@ -242,7 +268,6 @@ class ProfileEdit extends Component {
                       onChange={(event) => this.handleChange(event, "prefix")}
                     />
                   </Form.Group>
-
                   <Form.Group className="columnThirds">
                     <Form.Label className="label">First Name</Form.Label>
                     <Form.Control
@@ -358,13 +383,10 @@ class ProfileEdit extends Component {
                         />
                       </Form.Group>
                     </Form>
-                    
                   </div>
-                  
                 </>
               )}
             </div>
-            
           )}
 
           <ProfileEditContact />
