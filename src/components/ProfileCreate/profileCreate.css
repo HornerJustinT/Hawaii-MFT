@@ -105,9 +105,8 @@ label{
     display: flex;
     flex-direction: column;
     text-align: right;
-    margin-left: 0;
-    padding-right: 5em;
     width: 50%;
+    padding: 0em 1em;
 }
 
 .box-2{
@@ -116,7 +115,7 @@ label{
     display: inline-block;
     text-align: right;
     width: 50%;
-   
+    padding: 0em 2em;
 }
 
 .header{
@@ -133,11 +132,12 @@ label{
     margin-bottom: 1em;
 }
 
+.name-group {
+    padding: 0em 5em;
+}
+
 .next-button{
     margin-top: 3em;
     text-align: center;
     
 }
-
-
-

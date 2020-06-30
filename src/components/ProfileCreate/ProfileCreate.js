@@ -226,42 +226,43 @@ componentDidMount(){
                   style={{"margin-bottom": "15px"}}
                 ></UploadModal>
               </div>
-            </div> */}
-
-            <div className="flex-between row-nowrap">
-              <h6 className="label">Prefix</h6>
-              <h6 className="label">First Name</h6>
-              <h6 className="label">Last Name</h6>
-            </div>
-            <InputGroup className="mb-3">
-              <FormControl
-                type="text"
-                name="prefix"
-                value={this.state.prefix}
-                onChange={this.handleInputChangeFor("prefix")}
-                className="prefix"
-              />
-
-              <FormControl
-                type="text"
-                name="first_name"
-                value={this.state.first_name}
-                onChange={this.handleInputChangeFor("first_name")}
-              />
-
-              <FormControl
-                type="text"
-                name="last_name"
-                value={this.state.last_name}
-                onChange={this.handleInputChangeFor("last_name")}
-              />
-            </InputGroup>
-            <div className="flex-between row-nowrap">
-              <h4 className="label error">{this.state.prefixError}</h4>
-              <h4 className="label error">{this.state.firstNameError}</h4>
-              <h4 className="label error">{this.state.lastNameError}</h4>
-            </div>
+      </div> */}
             <Form onSubmit={this.addMembers}>
+              <div className="name-group">
+                <div className="flex-between row-nowrap">
+                  <h6 className="label">Prefix</h6>
+                  <h6 className="label">First Name</h6>
+                  <h6 className="label">Last Name</h6>
+                </div>
+                <InputGroup>
+                  <FormControl
+                    type="text"
+                    name="prefix"
+                    value={this.state.prefix}
+                    onChange={this.handleInputChangeFor("prefix")}
+                    className="prefix"
+                  />
+
+                  <FormControl
+                    type="text"
+                    name="first_name"
+                    value={this.state.first_name}
+                    onChange={this.handleInputChangeFor("first_name")}
+                  />
+
+                  <FormControl
+                    type="text"
+                    name="last_name"
+                    value={this.state.last_name}
+                    onChange={this.handleInputChangeFor("last_name")}
+                  />
+                </InputGroup>
+                <div className="flex-between row-nowrap">
+                  <h4 className="label error">{this.state.prefixError}</h4>
+                  <h4 className="label error">{this.state.firstNameError}</h4>
+                  <h4 className="label error">{this.state.lastNameError}</h4>
+                </div>
+              </div>
               <div className="inputs align-center">
                 <div className="box-1">
                   <div className="container-box">
