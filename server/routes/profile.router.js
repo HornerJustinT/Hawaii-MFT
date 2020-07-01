@@ -58,9 +58,7 @@ router.get('/:id', async (req, res) => {
            
                WHERE id = $1
          GROUP BY m.id, m.zip_code, m.zip_code_personal, m.first_name, m.last_name, m.prefix, m.age, m.license_state, m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials, island.title,
-         m.telehealth, m.statement, m.website, m.title, m.city, m.city_personal, m.license_number, m.license_type, m.enabled;`;
-      
-
+         m.telehealth, m.statement, m.website, m.title, m.city, m.city_personal, m.license_number, m.license_type, m.enabled, m.student;`;
         const members = await connection.query(query, [req.params.id]);
         res.send(members.rows)
 
@@ -384,6 +382,19 @@ router.put("/enable", rejectUnauthenticated, async (req, res) => {
     console.log('error updating members', error);
     res.sendStatus(500);
   });
+});
+
+router.put("/student", (req, res) => {
+  console.log('made it to server for student', req.body.student, req.user.id);
+  const sqlQuery = 'UPDATE members SET "student" = $1 WHERE "id" = $2;';
+
+  pool.query(sqlQuery, [req.body.student, req.user.id])
+      .then(result => {
+          res.sendStatus(200);
+      }).catch(error => {
+          console.log(`Error on query for student ${error}`);
+          res.sendStatus(500);
+      })
 });
 
 

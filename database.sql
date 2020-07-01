@@ -33,6 +33,7 @@ CREATE TABLE "members" (
     "license_number" TEXT,
     "license_type" INTEGER,
     "enabled" boolean DEFAULT true,
+    "student" boolean DEFAULT false,
 	FOREIGN KEY ("id") REFERENCES "user"("id")
 );
 

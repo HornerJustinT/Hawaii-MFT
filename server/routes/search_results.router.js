@@ -53,7 +53,7 @@ router.get('/', async (req, res) => {
 
 			GROUP BY m.id, license_type.title, m.zip_code, m.zip_code_personal, m.first_name, m.last_name, m.prefix, m.age, m.license_state,
 			m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials,
-			m.telehealth, m.statement, m.website, m.title, m.city, m.city_personal, m.license_number, m.license_type, m.enabled;`;
+			m.telehealth, m.statement, m.website, m.title, m.city, m.city_personal, m.license_number, m.license_type, m.enabled, m.student;`;
 
         const members = await connection.query(query);
         res.send(members.rows)
@@ -114,7 +114,7 @@ router.get("/:zip", async (req, res) => {
 
 			GROUP BY m.id, license_type.title, m.zip_code, m.first_name, m.last_name, m.prefix, m.age, m.license_state,
 			m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials,
-			m.telehealth, m.statement, m.website, m.title, m.city, m.license_number, m.license_type, m.enabled;`;
+			m.telehealth, m.statement, m.website, m.title, m.city, m.license_number, m.license_type, m.enabled, m.student;`;
     const members = await connection.query(query, ["%" + req.params.zip.toLowerCase() + "%"]);
     res.send(members.rows);
   } catch (error) {

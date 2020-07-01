@@ -17,19 +17,18 @@ import "../App/App.css";
 
 var storage = firebase.storage().ref();
 
-class ProfileEdit extends Component {
+class ProfileEditStudent extends Component {
   //setting state, particularly for conditional render of Basic, Contact & Practice sections
   state = {
-    id: this.props.user,
+    id: 0,
     clickBasic: false,
     languages: [],
     languagesEdit: [],
     profilePhoto: "",
-    student: false,
   };
 
   getImage = (id) => {
-    console.log(id)
+    console.log(id);
     storage
       .child(`images/${id}photo`)
       .getDownloadURL()
@@ -39,18 +38,20 @@ class ProfileEdit extends Component {
       .then(() => {
         this.forceUpdate();
       })
-      .catch((error) => { // if no photo found
-        storage 
+      .catch((error) => {
+        // if no photo found
+        storage
           .child(`images/noFile.png`)
           .getDownloadURL()
-          .then((url) =>{
-            this.setState({profilePhoto:url});
-          }).then(()=>{
+          .then((url) => {
+            this.setState({ profilePhoto: url });
+          })
+          .then(() => {
             this.forceUpdate();
           })
           .catch((error) => {
-            console.log('No file found photo also not found')
-          })
+            console.log("No file found photo also not found");
+          });
         // Handle any errors
       });
   };
@@ -64,22 +65,8 @@ class ProfileEdit extends Component {
       payload: { id: this.props.match.params.id || this.props.user.id },
       admin: this.props.match.params.id || false,
     });
-    this.getImage(this.props.user.id);
-    console.log("is studnet" + this.props.profile.student);
 
-
-  } //end componentDidMount
-
-  //updating component to ensure all the data makes it to props for render
-  componentDidUpdate(previousProps) {
-    if (
-      this.state.id !== this.props.user.id &&
-      previousProps.profile.id !== this.props.profile.id &&
-      this.props.profile.phone
-    ) {
-      //setting state in component update with all of the properties retrieved from props from the database
-      //for this particular member's profile view.
-      //as above, treatmentApproaches has been commented out
+    if(this.props.profile.phone){
       this.setState({
         id: this.props.profile.id,
         enabled: this.props.profile.enabled,
@@ -114,12 +101,59 @@ class ProfileEdit extends Component {
         specialty: this.props.profile.specialty,
         treatmentPreferences: this.props.profile.treatment_preferences,
       });
-        if (this.props.profile.student) {
-          this.pushStudent();
-        }
+
+    }
+
+    this.getImage(this.props.user.id);
+  } //end componentDidMount
+
+  //updating component to ensure all the data makes it to props for render
+  componentDidUpdate(previousProps) {
+    if (
+      this.state.id !== this.props.user.id &&
+      previousProps.profile.id !== this.props.profile.id &&
+      this.props.profile.phone
+    ) {
+      this.setState({
+        id: this.props.profile.id,
+        enabled: this.props.profile.enabled,
+        prefix: this.props.profile.prefix,
+        firstName: this.props.profile.first_name,
+        lastName: this.props.profile.last_name,
+        title: this.props.profile.title,
+        age: this.props.profile.age,
+        phone: this.props.profile.phone[0],
+        address: this.props.profile.address[0],
+        city: this.props.profile.city,
+        island: this.props.profile.island,
+        email: this.props.profile.email[0],
+        zipCode: this.props.profile.zip_code,
+        website: this.props.profile.website,
+        credentials: this.props.profile.credentials,
+        licenseState: this.props.profile.license_state,
+        licenseExpiration: this.props.profile.license_expiration,
+        licenseNumber: this.props.profile.license_number,
+        licenseType: this.props.profile.license_type,
+        hiamftMemberInfo: this.props.profile.hiamft_member_account_info,
+        supervisionStatus: this.props.profile.supervision_status,
+        fees: this.props.profile.fees,
+        telehealth: this.props.profile.telehealth,
+        statement: this.props.profile.statement,
+        languages: this.props.profile.languages,
+        languagesEdit: this.props.profile.languages_id,
+        agesServed: this.props.profile.ages_served,
+        clientFocus: this.props.profile.client_focus,
+        insurance: this.props.profile.insurance,
+        sessionFormat: this.props.profile.session_format,
+        specialty: this.props.profile.specialty,
+        treatmentPreferences: this.props.profile.treatment_preferences,
+      });
+      //setting state in component update with all of the properties retrieved from props from the database
+      //for this particular member's profile view.
+      //as above, treatmentApproaches has been commented out
+      
     }
   } //end componentDidUpdate
-
 
   //this function handles the conditional rendering to switch between View and Edit modes
   handleEditBasic = () => {
@@ -163,24 +197,16 @@ class ProfileEdit extends Component {
     });
   }; //end handleChange
 
-  handleStudent = () => {
-    this.setState({
-      student: !this.state.student,
-    },()=>{
-      if(this.state.student === true){
-        this.props.dispatch({
-          type: "STUDENT",
-          payload: this.state,
-        });
-      }
-    });
-    this.pushStudent();
-  }
+  // handleStudent = () => {
+  //   this.setState({
+  //     student: true,
+  //   });
 
-  pushStudent = () => {
-    this.props.history.push('/edit-student');
-  }
-
+  //   this.props.dispatch({
+  //     type: 'STUDENT',
+  //     payload: true,
+  //   })
+  // }
 
   //every multiselect needs its own handle[Property]Change function
   //this functions take the new id of an item selected in the multiselect
@@ -247,7 +273,7 @@ class ProfileEdit extends Component {
   };
 
   render() {
-    if (this.props.profile && this.state.languages && this.state.student === false) {
+    if (this.props.profile && this.state.languages && !this.state.student) {
       return (
         <>
           <div className="header">
@@ -258,7 +284,7 @@ class ProfileEdit extends Component {
               name={this.props.user}
             ></UploadModal>
           </div>
-          <div>
+          {/* <div>
             <Form>
               <Form.Check
                 type="switch"
@@ -267,7 +293,7 @@ class ProfileEdit extends Component {
                 onChange={this.handleStudent}
               />
             </Form>
-          </div>
+          </div> */}
 
           {/**Here is Basic Info render */}
           {this.state.clickBasic ? (
@@ -427,8 +453,6 @@ class ProfileEdit extends Component {
           </div>
         </>
       );
-    } else if ( this.state.student === true){
-      {this.pushStudent()}
     } else {
       return <p> user not found </p>;
     }
@@ -443,4 +467,4 @@ const putReduxStateOnProps = (reduxStore) => ({
   treatments: reduxStore.treatmentPreferences,
 });
 
-export default withRouter(connect(putReduxStateOnProps)(ProfileEdit));
+export default withRouter(connect(putReduxStateOnProps)(ProfileEditStudent));

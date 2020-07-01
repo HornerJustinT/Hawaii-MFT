@@ -33,6 +33,7 @@ import studentProfile from "../ProfileCreate/studentProfile/studentProfile";
 import ProfileEdit from '../ProfileEdit/ProfileEdit';
 import ProfileView from "../ProfileView/ProfileView";
 import RegisterPage from '../RegisterPage/RegisterPage';
+import ProfileEditStudent from '../ProfileEdit/ProfileEditStudent';
 
 
 // CSS
@@ -75,6 +76,7 @@ class App extends Component {
 
             {/*User only sees these routes if logged in*/}
             <ProtectedRoute exact path="/edit-profile" component={ProfileEdit} />
+            <ProtectedRoute exact path="/edit-student" component={ProfileEditStudent} />
 
             <ProtectedRoute exact path="/contact-info" component={ContactInfo} />
             <ProtectedRoute exact path="/practice" component={PracticeInfo} />
