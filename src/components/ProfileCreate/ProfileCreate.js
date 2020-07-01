@@ -31,7 +31,6 @@ class ProfileCreate extends Component {
       languageError:'',
       ageError:'',
       memberError:'',
-      profilePhoto:'',
       shouldBlockNavigation : true,
      }
     
@@ -84,31 +83,7 @@ componentDidUpdate = () => {
             language_id:'',
           })
       }
-      getImage = (id) => {
-        console.log(id)
-        storage
-          .child(`images/${id}photo`)
-          .getDownloadURL()
-          .then((url) => {
-            this.setState({ profilePhoto: url});
-          }).then(()=>{
-            this.forceUpdate();
-          })
-          .catch((error) => { // if no photo found
-            storage 
-              .child(`images/noFile.png`)
-              .getDownloadURL()
-              .then((url) =>{
-                this.setState({profilePhoto:url});
-              }).then(()=>{
-                this.forceUpdate();
-              })
-              .catch((error) => {
-                console.log('No file found photo also not found')
-              })
-            // Handle any errors
-          });
-      }
+      
 
       validate = () => {
         let prefixError = '';
@@ -240,16 +215,7 @@ componentDidUpdate = () => {
             <div className="text-center">
               <h3 className="subtitle">Basic Info</h3>
             </div>
-            {/* <div className="text-center">
-              <img className="photo" src={this.state.profilePhoto}></img>
-              <div>
-                <UploadModal
-                  refresh={this.getImage}
-                  name={this.props.user}
-                  style={{"margin-bottom": "15px"}}
-                ></UploadModal>
-              </div>
-      </div> */}
+           
             <Form onSubmit={this.addMembers}>
               <div className="name-group">
                 <div className="flex-between row-nowrap">
