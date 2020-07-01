@@ -185,6 +185,8 @@ class AdminPage extends Component {
   switchChange = (event) => {
     this.setState({
       showDisabled: event.target.checked
+    },()=>{this.searchTherapists()
+
     })
   }
 
