@@ -122,7 +122,7 @@ componentDidUpdate = () => {
         if(this.state.prefix === ''){
           formIsValid=false;
           prefixError = 'Prefix is required'
-        }else if(!this.state.prefix.match(/^[a-zA-Z_]+$/) ){
+        }else if(!this.state.prefix.match(/^[\.a-zA-Z_]+$/) ){
             formIsValid=false;
           prefixError = "Prefix is invalid" 
         }

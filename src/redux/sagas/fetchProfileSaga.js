@@ -4,6 +4,8 @@ import { put, takeLatest } from 'redux-saga/effects';
 // will be fired on "FETCH_PROFILE" actions
 //initiates GET request when profile views load
 function* fetchProfile(action) {
+    console.log('here is action.payload for profile GET', action.payload.id);
+    
     try {
         const response = yield axios.get(`/profile/${action.payload.id}`);
 

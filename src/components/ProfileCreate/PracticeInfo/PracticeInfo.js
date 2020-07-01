@@ -276,33 +276,11 @@ handleInputChangeFor = propertyName => (event) =>{
             this.props.history.push("/edit-profile");
           });
           //this will reset the inputs on the parcticeinfo page
-     this.handleReset();
            return true;
          }
     }
 
-    handleReset = ()=>{
-      this.setState({
-        license_state:'',
-        license_number:'',
-        license_type:'',
-        supervision_status:'',
-        fees:'',
-        license_expiration:'',
-        specialty:'',
-        credentials:'',
-        telehealth:'',
-        statement:'',
-        title:'',
-        session_format_id:'',
-        client_focus_id:'',
-        specialty_id:'',
-        treatment_preferences_id:'',
-        age_groups_served_id:'',
-        insurance_type_id:'',
-
-      })
-    }
+   
     render (){
         return (
           <>
@@ -321,7 +299,7 @@ handleInputChangeFor = propertyName => (event) =>{
 
               <Form onSubmit={this.addMembersInfo}>
                 <Form.Group>
-                  <Form.Label>Title </Form.Label>
+                  <Form.Label>Title*</Form.Label>
                   <Form.Control
                     type="text"
                     name="title"
@@ -332,7 +310,7 @@ handleInputChangeFor = propertyName => (event) =>{
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>Credentials </Form.Label>
+                  <Form.Label>Credentials*</Form.Label>
                   <Form.Control
                     type="text"
                     name="title"
