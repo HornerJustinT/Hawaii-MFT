@@ -301,6 +301,12 @@ studentContactInfo = (e) =>{
                   onChange={this.handleInputChangeFor("city")}/>
                   <h4 className="error">{this.state.cityError}</h4>
              <br/>
+             <Form.Control type="text"
+                  name="city"
+                  value={this.state.city}
+                  onChange={this.handleInputChangeFor("city")}/>
+                  <h4 className="error">{this.state.cityError}</h4>
+             <br/>
              <br/>
             
            <Button type="submit">Next</Button>
