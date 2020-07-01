@@ -4,12 +4,14 @@ import React, { useState, useCallback, useRef, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { connect } from "react-redux";
+import Form from "react-bootstrap/Form";
 import ReactCrop from "react-image-crop";
 import "../UploadModal/UploadModal.css";
 import "react-image-crop/dist/ReactCrop.css";
 //FireBase
 import { storage } from "../../Firebase";
 import ModalHeader from "react-bootstrap/ModalHeader";
+
 const pixelRatio = 2;
 function getResizedCanvas(canvas, newWidth, newHeight) {
   const tmpCanvas = document.createElement("canvas");
@@ -161,8 +163,7 @@ function RegistrationModal(props) {
           <Modal.Header closeButton>
             <Modal.Title>Please Wait ....</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-          </Modal.Body>
+          <Modal.Body></Modal.Body>
         </Modal>
       </>
     );
@@ -173,14 +174,20 @@ function RegistrationModal(props) {
           Upload A Profile Picture
         </Button>
 
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose} size='xl' >
           <Modal.Header closeButton>
             <Modal.Title>Upload An Image</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div>
-              <input type="file" accept="image/*" onChange={onSelectFile} />
-            </div>
+            <Form>
+              <Form.Group>
+                <Form.File
+                  label="Photo Upload"
+                  accept="image/*"
+                  onChange={onSelectFile}
+                />
+              </Form.Group>
+            </Form>
             <ReactCrop
               src={upImg}
               onImageLoaded={onLoad}
@@ -198,8 +205,8 @@ function RegistrationModal(props) {
                 }}
               />
             </div>
-            <h3>After choosing your file, please crop your profile photo</h3>
-            <button onClick={startPromise}>Upload</button>
+            <h3>After choosing your file, please crop your profile photo and press upload</h3>
+            <Button onClick={startPromise}>Upload</Button>
             {/* <button onClick={}>Save Image</button> */}
           </Modal.Body>
           <div></div>

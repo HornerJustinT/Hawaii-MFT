@@ -4,6 +4,8 @@ import firebase from "../../Firebase";
 import { connect } from 'react-redux';
 import "./profileCreate.css"
 
+import { Prompt } from 'react-router'
+
 
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
@@ -30,6 +32,7 @@ class ProfileCreate extends Component {
       ageError:'',
       memberError:'',
       profilePhoto:'',
+      shouldBlockNavigation : true,
      }
     
 //when the document is ready it will fetch all the languages
@@ -37,6 +40,13 @@ class ProfileCreate extends Component {
 componentDidMount(){
  this.getLanguages()
 
+}
+componentDidUpdate = () => {
+  if (this.state.shouldBlockNavigation) {
+    window.onbeforeunload = () => true
+  } else {
+    window.onbeforeunload = undefined
+  }
 }
 
 //take in the information from the input
@@ -48,6 +58,7 @@ componentDidMount(){
           [propertyName]:event.target.value
         });
       } 
+      
 
 
 
@@ -184,8 +195,11 @@ componentDidMount(){
                   language_id:this.state.language_id
               }
         });
+        this.setState({shouldBlockNavigation:false},()=>{
+          this.props.history.push("/contact-info");
+        });
 
-        this.props.history.push("/contact-info");
+        // this.props.history.push("/contact-info");
         return true;
       }
     }
@@ -202,9 +216,18 @@ componentDidMount(){
        
     
     }
+    
     render (){
       return (
-        <>
+
+        <><div>
+                          <Prompt
+        when={this.state.shouldBlockNavigation}
+        message='You have unsaved changes, are you sure you want to leave?'
+      />
+
+        </div>
+
           <div className="container">
             <header>
               {" "}

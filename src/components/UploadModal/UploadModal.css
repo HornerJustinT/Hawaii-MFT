@@ -1,4 +1,7 @@
 img {
     max-width: 100%;
   }
-  
+
+.form-control-file{
+  height:100%;
+}
