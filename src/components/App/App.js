@@ -34,6 +34,8 @@ import ProfileEdit from '../ProfileEdit/ProfileEdit';
 import ProfileView from "../ProfileView/ProfileView";
 import RegisterPage from '../RegisterPage/RegisterPage';
 import ProfileEditStudent from '../ProfileEdit/ProfileEditStudent';
+import ForgotPassword from "../ForgotPassword/ForgotPassword";
+import NewPassword from "../NewPassword/NewPassword";
 
 
 // CSS
@@ -71,6 +73,8 @@ class App extends Component {
             <Route exact path="/register/:id" component={RegisterPage} />
             {/*This is a route anyone can see, no login necessary */}
             <Route exact path="/login" component={LoginPage} />
+            <Route exact path="/forgotpassword" component={ForgotPassword} />
+            <Route exact path="/newpassword" component={NewPassword} />
             {/*This is a route anyone can see, no login necessary */}
             <ProtectedRoute exact path="/create-profile" component={ProfileCreate} />
 
