@@ -66,7 +66,27 @@ componentDidUpdate = () => {
           [propertyName]:event.target.value
         })
       } 
+      
 
+      validateStudent = () =>{
+        let personalEmailError ='';
+        let formIsValid = true;
+
+        if(this.state.personal_email === ''){
+          formIsValid=false;
+          personalEmailError = 'Personal Email is required'
+        }else if(!this.state.personal_email.includes('@') ){
+            formIsValid=false;
+            personalEmailError = "Personal Email is not valid"
+        }
+
+        if(personalEmailError){
+          this.setState({personalEmailError})
+        }else{
+          return true;
+        }
+
+      }
 
       validate = () => {
           let islandError = '';
@@ -198,7 +218,7 @@ componentDidUpdate = () => {
 studentContactInfo = (e) =>{
   e.preventDefault();
 
-  const isValid = this.validate();
+  const isValid = this.validateStudent();
   if(!isValid){
      return false
      }else{
@@ -254,7 +274,7 @@ studentContactInfo = (e) =>{
               onChange={this.handleStudent}
             />
                 <br/>
-             <Form.Label>Island*</Form.Label>
+             <Form.Label>Island</Form.Label>
              <br/>
              <Form.Control
                  as="select" onChange={this.handleInputChangeFor("island_id")}>
@@ -273,7 +293,7 @@ studentContactInfo = (e) =>{
              <h4 className="error">{this.state.islandError}</h4>
              <br/>
              <br/>
-             <Form.Label>Zip Code*</Form.Label>
+             <Form.Label>Zip Code</Form.Label>
              <br/>
              <Form.Control type="number"
                   name="zip_code"
@@ -282,7 +302,7 @@ studentContactInfo = (e) =>{
                   onChange={this.handleInputChangeFor("zip_code")}/>
                   <h4 className="error">{this.state.zipCodeError}</h4>
              <br/>
-             <Form.Label>Phone Number - Personal*</Form.Label>
+             <Form.Label>Phone Number - Personal</Form.Label>
              <br/>
              <Form.Control type="number"
                   name="personal_number"
@@ -300,7 +320,7 @@ studentContactInfo = (e) =>{
                   onChange={this.handleInputChangeFor("personal_email")}/>
                   <h4 className="error">{this.state.personalEmailError}</h4>
              <br/>
-             <Form.Label>Website*</Form.Label>
+             <Form.Label>Website</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="website"
@@ -309,7 +329,7 @@ studentContactInfo = (e) =>{
                   onChange={this.handleInputChangeFor("website")}/>
                   <h4 className="error">{this.state.websiteError}</h4>
              <br/>
-             <Form.Label>Address - Home*</Form.Label>
+             <Form.Label>Address - Home</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="address_home"
@@ -318,7 +338,7 @@ studentContactInfo = (e) =>{
                   onChange={this.handleInputChangeFor("address_home")}/>
                   <h4 className="error">{this.state.addressHomeError}</h4>
              <br/>
-             <Form.Label>City*</Form.Label>
+             <Form.Label>City</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="city"
