@@ -34,8 +34,7 @@ class ProfileEditContact extends Component {
     componentDidUpdate(previousProps) {
         if (
             this.state.id !== this.props.user.id &&
-            previousProps.profile.id !== this.props.profile.id &&
-            this.props.profile.phone
+            previousProps.profile.id !== this.props.profile.id 
         ) {
             //declaring new variables for state with return from syncDataEditLanguage & syncDataEditIsland
             //these functions retrieve an id based on the title of each item (ex. island title & island id)
@@ -90,6 +89,7 @@ class ProfileEditContact extends Component {
                 sessionFormat: this.props.profile.session_format,
                 specialty: this.props.profile.speciaty,
                 treatmentPreferences: this.props.profile.treatment_preferences,
+                student: this.props.profile.student,
             });
         }
     } //end componentDidUpdate
@@ -579,7 +579,7 @@ class ProfileEditContact extends Component {
               </>
             );
         } else {
-            return <p> user not found </p>;
+            return <p>Contact Info not found. Please refresh your browser.</p>;
         }
     }
 }

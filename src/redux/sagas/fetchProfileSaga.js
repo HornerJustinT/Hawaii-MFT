@@ -9,7 +9,7 @@ function* fetchProfile(action) {
     try {
         const response = yield axios.get(`/profile/${action.payload.id}`);
 
-        console.log( 'here is response', response);
+        console.log( 'here is response.data', response.data);
         if (!action.admin && !response.data[0]){
             //! REPLACE THIS BEFORE DEPLOYING
             window.location.replace("http://localhost:3000/#/create-profile");
