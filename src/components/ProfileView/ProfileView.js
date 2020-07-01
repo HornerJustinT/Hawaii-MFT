@@ -65,10 +65,11 @@ class ProfileView extends Component {
 
   setMAP = () => { // function that sets the map latitudes only when it was unchanged to stop infinete loop. I do not know how to set up async for when the dispatch is done.
     if (this.state.lat === 0 && this.state.lng === 0 ) {
-      const url_address = encodeURI(this.props.profile.address[0]).replace(
+      const url_address = encodeURI(this.props.profile.address[0] + " " + this.props.profile.city + " Hawaii " + this.props.profile.zip_code).replace(
         /%20/g,
         "+"
       );
+      console.log(url_address)
       fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${url_address}&key=${API_KEY}`
       )
