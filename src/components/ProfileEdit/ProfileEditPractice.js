@@ -38,6 +38,7 @@ class ProfileEdit extends Component {
   //languages, islands & treatments reducers (props).
 
   componentDidMount() {
+    console.log(this.props)
     this.props.dispatch({ type: "FETCH_AGE_GROUPS" });
     this.props.dispatch({ type: "FETCH_DEMOGRPHICS" });
     this.props.dispatch({ type: "FETCH_INSURANCE_TAKEN" });

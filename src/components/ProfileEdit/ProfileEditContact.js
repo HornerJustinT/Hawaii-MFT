@@ -28,6 +28,55 @@ class ProfileEditContact extends Component {
           type: "FETCH_PROFILE",
           payload: { id: this.props.match.params.id || this.props.user.id },
         });
+        if(this.props.profile.languages){
+          const updatedIsland = this.syncDataEditIsland("islands", "island");
+          const islandEdit = updatedIsland[0];
+          this.setState({
+            id: this.props.profile.id,
+            enabled: this.props.profile.enabled,
+            prefix: this.props.profile.prefix,
+            firstName: this.props.profile.first_name,
+            lastName: this.props.profile.last_name,
+            title: this.props.profile.title,
+            age: this.props.profile.age,
+            phone: this.props.profile.phone[0],
+            phonePersonal: this.props.profile.phone_personal[0],
+            address: this.props.profile.address[0],
+            addressPersonal: this.props.profile.address_personal[0],
+            city: this.props.profile.city,
+            cityPersonal: this.props.profile.city_personal,
+            island: this.props.profile.island,
+            islandEdit: islandEdit[0].island_id,
+            email: this.props.profile.email[0],
+            emailPersonal: this.props.profile.email_personal[0],
+            zipCode: this.props.profile.zip_code,
+            zipCodePersonal: this.props.profile.zip_code_personal,
+            website: this.props.profile.website,
+            credentials: this.props.profile.credentials,
+            licenseState: this.props.profile.license_state,
+            licenseExpiration: this.props.profile.license_expiration,
+            licenseNumber: this.props.profile.license_number,
+            licenseType: this.props.profile.license_type,
+            hiamftMemberInfo: this.props.profile.hiamft_member_account_info,
+            supervisionStatus: this.props.profile.supervision_status,
+            fees: this.props.profile.fees,
+            telehealth: this.props.profile.telehealth,
+            statement: this.props.profile.statement,
+            languages: this.props.profile.languages,
+            // languagesEdit: updatedLanguages,
+            treatmentApproaches: this.props.treatmentPreferences,
+            // treatmentAproachesEdit: updatedTreatments,
+            agesServed: this.props.profile.ages_served,
+            clientFocus: this.props.profile.client_focus,
+            insurance: this.props.profile.insurance,
+            sessionFormat: this.props.profile.session_format,
+            specialty: this.props.profile.speciaty,
+            treatmentPreferences: this.props.profile.treatment_preferences,
+            student: this.props.profile.student,
+        });
+          
+
+        }
     } //end componentDidMount
 
     //updating component to ensure all the data makes it to props for render
@@ -219,6 +268,7 @@ class ProfileEditContact extends Component {
     };
 
     render() {
+      console.log(this.props);
         if (this.props.profile && this.state.languages) {
             return (
               <>
