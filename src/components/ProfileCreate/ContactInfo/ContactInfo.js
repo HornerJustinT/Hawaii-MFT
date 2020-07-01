@@ -235,7 +235,7 @@ studentContactInfo = (e) =>{
               onChange={this.handleStudent}
             />
                 <br/>
-             <label>Island</label>
+             <Form.Label>Island *</Form.Label>
              <br/>
              <Form.Control
                  as="select" onChange={this.handleInputChangeFor("island_id")}>
@@ -254,59 +254,66 @@ studentContactInfo = (e) =>{
              <h4 className="error">{this.state.islandError}</h4>
              <br/>
              <br/>
-             <Form.Label>Zip Code</Form.Label>
+             <Form.Label>Zip Code *</Form.Label>
              <br/>
              <Form.Control type="number"
                   name="zip_code"
+                  placeholder='Please fill your zip code'
                   value={this.state.zip_code}
                   onChange={this.handleInputChangeFor("zip_code")}/>
                   <h4 className="error">{this.state.zipCodeError}</h4>
              <br/>
-             <Form.Label>Phone Number - Personal</Form.Label>
+             <Form.Label>Phone Number - Personal *</Form.Label>
              <br/>
              <Form.Control type="number"
                   name="personal_number"
+                  placeholder='Please fill in your personal phone number'
                   value={this.state.personal_number}
                   onChange={this.handleInputChangeFor("personal_number")}/>
                   <h4 className="error">{this.state.personalNumberError}</h4>
              <br/>
-             <Form.Label>Email Address - Personal</Form.Label>
+             <Form.Label>Email Address - Personal *</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="personal_email"
+                  placeholder='Please fill in your personal email address'
                   value={this.state.personal_email}
                   onChange={this.handleInputChangeFor("personal_email")}/>
                   <h4 className="error">{this.state.personalEmailError}</h4>
              <br/>
-             <Form.Label>Website</Form.Label>
+             <Form.Label>Website *</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="website"
+                  placeholder='Please fill in your website'
                   value={this.state.website}
                   onChange={this.handleInputChangeFor("website")}/>
                   <h4 className="error">{this.state.websiteError}</h4>
              <br/>
-             <Form.Label>Address - Home</Form.Label>
+             <Form.Label>Address - Home *</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="address_home"
+                  placeholder='Please fill in your home address'
                   value={this.state.address_home}
                   onChange={this.handleInputChangeFor("address_home")}/>
                   <h4 className="error">{this.state.addressHomeError}</h4>
              <br/>
-             <Form.Label>Address - Mailing</Form.Label>
+             <Form.Label>Address - Mailing *</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="address_mailing"
+                  placeholder='Please fill in your mailing address'
                   value={this.state.address_mailing}
                   onChange={this.handleInputChangeFor("address_mailing")}/>
                   <h4 className="error">{this.state.addressMailingError}</h4>
              <br/>
              <br/>
-             <Form.Label>City</Form.Label>
+             <Form.Label>City *</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="city"
+                  placeholder='Please fill in your city name'
                   value={this.state.city}
                   onChange={this.handleInputChangeFor("city")}/>
                   <h4 className="error">{this.state.cityError}</h4>
@@ -329,7 +336,7 @@ studentContactInfo = (e) =>{
               onChange={this.handleStudent}
             />
                 <br/>
-             <label>Island</label>
+             <label>Island *</label>
              <br/>
              <Form.Control
                  as="select" onChange={this.handleInputChangeFor("island_id")}>
@@ -348,92 +355,103 @@ studentContactInfo = (e) =>{
              <h4 className="error">{this.state.islandError}</h4>
              <br/>
              <br/>
-             <Form.Label>Zip Code</Form.Label>
+             <Form.Label>Zip Code *</Form.Label>
              <br/>
              <Form.Control type="number"
                   name="zip_code"
+                  placeholder='Please fill in your Zip code'
                   value={this.state.zip_code}
                   onChange={this.handleInputChangeFor("zip_code")}/>
                    <h4 className="error">{this.state.zipCodeError}</h4>
                 <br/>
-             <Form.Label>Phone Number - Business</Form.Label>
+             <Form.Label>Phone Number - Business *</Form.Label>
              <br/>
              <Form.Control type="number"
                   name="business_number"
+                  placeholder='Please fill in your business phone number'
                   value={this.state.business_number}
                   onChange={this.handleInputChangeFor("business_number")}/>
                    <h4 className="error">{this.state.businessNumberError}</h4>
              <br/>
              <br/>
-             <Form.Label>Phone Number - Personal</Form.Label>
+             <Form.Label>Phone Number - Personal *</Form.Label>
              <br/>
              <Form.Control type="number"
                   name="personal_number"
+                  placeholder='Please fill in your personal phone number'
                   value={this.state.personal_number}
                   onChange={this.handleInputChangeFor("personal_number")}/>
                    <h4 className="error">{this.state.personalNumberError}</h4>
                 <br/>
-             <Form.Label>Email Address - Business</Form.Label>
+             <Form.Label>Email Address - Business *</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="email"
+                  placeholder='Please fill in your business email address'
                   value={this.state.email}
                   onChange={this.handleInputChangeFor("email")}/>
                    <h4 className="error">{this.state.emailError}</h4>
              <br/>
-             <Form.Label>Email Address - Personal</Form.Label>
+             <Form.Label>Email Address - Personal *</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="personal_email"
+                  placeholder='Please fill in your personal email address'
                   value={this.state.personal_email}
                   onChange={this.handleInputChangeFor("personal_email")}/>
                    <h4 className="error">{this.state.personalEmailError}</h4>
              <br/>
-             <Form.Label>Website</Form.Label>
+             <Form.Label>Website *</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="website"
+                  placeholder='Please fill in your website'
                   value={this.state.website}
                   onChange={this.handleInputChangeFor("website")}/>
                    <h4 className="error">{this.state.websiteError}</h4>
              <br/>
-             <Form.Label>Address - Office</Form.Label>
+             <Form.Label>Address - Office *</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="address_office"
+                  placeholder='Please fill in your office address'
                   value={this.state.address_office}
                   onChange={this.handleInputChangeFor("address_office")}/>
                    <h4 className="error">{this.state.addressOfficeError}</h4>
              <br/>
-             <Form.Label>Address - Home</Form.Label>
+             <Form.Label>Address - Home *</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="address_home"
+                  placeholder='Please fill in your home address'
                   value={this.state.address_home}
                   onChange={this.handleInputChangeFor("address_home")}/>
                    <h4 className="error">{this.state.addressHomeError}</h4>
              <br/>
-             <Form.Label>Address - Mailing</Form.Label>
+             <Form.Label>Address - Mailing *</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="address_mailing"
+                  placeholder='Please fill in your mailing address'
                   value={this.state.address_mailing}
                   onChange={this.handleInputChangeFor("address_mailing")}/>
                    <h4 className="error">{this.state.addressMailingError}</h4>
              <br/>
              <br/>
-             <Form.Label>City - Home</Form.Label>
+             <Form.Label>City - Home *</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="city"
+                  placeholder='Please fill in your city'
                   value={this.state.city}
                   onChange={this.handleInputChangeFor("city")}/>
                    <h4 className="error">{this.state.cityError}</h4>
              <br/>
-             <Form.Label>City - Business</Form.Label>
+             <Form.Label>City - Business *</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="city"
+                  placeholder='Please fill in your city'
                   value={this.state.city_bussiness}
                   onChange={this.handleInputChangeFor("city_bussiness")}/>
                   <h4 className="error">{this.state.businessCityError}</h4>
