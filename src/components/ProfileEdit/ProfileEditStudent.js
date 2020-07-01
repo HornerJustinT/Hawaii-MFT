@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import firebase from "../../Firebase";
 // Components
-import ProfileEditContact from "./ProfileEditContact";
-import ProfileEditPractice from "./ProfileEditPractice";
+import ProfileEditContactStudent from "./ProfileEditContactStudent";
+import ProfileEditPracticeStudent from "./ProfileEditPracticeStudent";
 import UploadModal from "../UploadModal/UploadModal";
 
 //React Botstrap imports
@@ -20,7 +20,7 @@ var storage = firebase.storage().ref();
 class ProfileEditStudent extends Component {
   //setting state, particularly for conditional render of Basic, Contact & Practice sections
   state = {
-    id: 0,
+    id: this.props.user,
     clickBasic: false,
     languages: [],
     languagesEdit: [],
@@ -66,7 +66,7 @@ class ProfileEditStudent extends Component {
       admin: this.props.match.params.id || false,
     });
 
-    if(this.props.profile.phone){
+    if (this.props.profile.phone) {
       this.setState({
         id: this.props.profile.id,
         enabled: this.props.profile.enabled,
@@ -100,8 +100,8 @@ class ProfileEditStudent extends Component {
         sessionFormat: this.props.profile.session_format,
         specialty: this.props.profile.specialty,
         treatmentPreferences: this.props.profile.treatment_preferences,
+        student: this.props.profile.student,
       });
-
     }
 
     this.getImage(this.props.user.id);
@@ -147,11 +147,12 @@ class ProfileEditStudent extends Component {
         sessionFormat: this.props.profile.session_format,
         specialty: this.props.profile.specialty,
         treatmentPreferences: this.props.profile.treatment_preferences,
+        student: this.props.profile.student,
       });
+
       //setting state in component update with all of the properties retrieved from props from the database
       //for this particular member's profile view.
       //as above, treatmentApproaches has been commented out
-      
     }
   } //end componentDidUpdate
 
@@ -197,16 +198,31 @@ class ProfileEditStudent extends Component {
     });
   }; //end handleChange
 
-  // handleStudent = () => {
-  //   this.setState({
-  //     student: true,
-  //   });
+  handleStudent = () => {
+    console.log("in handleStudent");
 
-  //   this.props.dispatch({
-  //     type: 'STUDENT',
-  //     payload: true,
-  //   })
-  // }
+    this.setState({
+      student: false,
+    });
+    this.handleDispatch();
+  };
+
+  handleDispatch = () => {
+    console.log("in handleDispatch");
+
+    this.props.dispatch({
+      type: "STUDENT",
+      payload: {
+        student: false,
+        id: this.state.id,
+      },
+    });
+    this.pushTherapist();
+  };
+
+  pushTherapist = () => {
+    this.props.history.push("/edit-profile");
+  };
 
   //every multiselect needs its own handle[Property]Change function
   //this functions take the new id of an item selected in the multiselect
@@ -273,189 +289,176 @@ class ProfileEditStudent extends Component {
   };
 
   render() {
-    if (this.props.profile && this.state.languages && !this.state.student) {
-      return (
-        <>
-          <div className="header">
-            <h3>My Profile</h3>
-            <img className="photo" src={this.state.profilePhoto}></img>
-            <UploadModal
-              refresh={this.getImage}
-              name={this.props.user}
-            ></UploadModal>
-          </div>
-          {/* <div>
-            <Form>
-              <Form.Check
-                type="switch"
-                id="custom-switch"
-                label="I am a Student"
-                onChange={this.handleStudent}
-              />
-            </Form>
-          </div> */}
+    return (
+      <>
+        <div className="header">
+          <h3>My Profile</h3>
+          <img className="photo" src={this.state.profilePhoto}></img>
+          <UploadModal
+            refresh={this.getImage}
+            name={this.props.user}
+          ></UploadModal>
+        </div>
+        <div>
+          <Form>
+            <Button onClick={this.handleStudent}>I am a not a Student</Button>
+          </Form>    
+        </div>
 
-          {/**Here is Basic Info render */}
-          {this.state.clickBasic ? (
-            <div className="body">
-              <div className="flex-between row-wrap">
-                <h4>Basic Info</h4>
-                <Button
-                  className="flex-between row-wrap"
-                  onClick={() => this.handleSaveBasic()}
-                >
-                  Save Changes
-                </Button>
-              </div>
-              <div className="border">
-                <Form className="flex-between row-wrap row">
-                  <Form.Group className="columnThirds">
-                    <Form.Label variant="flat" className="label">
-                      Prefix
-                    </Form.Label>
-                    <Form.Control
-                      defaultValue={this.state.prefix}
-                      onChange={(event) => this.handleChange(event, "prefix")}
-                    />
-                  </Form.Group>
-                  <Form.Group className="columnThirds">
-                    <Form.Label className="label">First Name</Form.Label>
-                    <Form.Control
-                      defaultValue={this.state.firstName}
-                      onChange={(event) =>
-                        this.handleChange(event, "firstName")
-                      }
-                    />
-                  </Form.Group>
-
-                  <Form.Group className="columnThirds">
-                    <Form.Label className="label">Last Name</Form.Label>
-                    <Form.Control
-                      defaultValue={this.state.lastName}
-                      onChange={(event) => this.handleChange(event, "lastName")}
-                    />
-                  </Form.Group>
-                </Form>
-
-                <Form className="flex-between row-wrap row">
-                  <Form.Group className="column">
-                    <Form.Label className="label">Age</Form.Label>
-                    <Form.Control
-                      type="number"
-                      defaultValue={this.state.age}
-                      onChange={(event) => this.handleChange(event, "age")}
-                    />
-                    <Form.Text className="text-muted">
-                      Not Listed - HIAMFT-Use Only
-                    </Form.Text>
-                  </Form.Group>
-                  {this.displayLanguages()}
-                </Form>
-                <Form>
-                  <Form.Group>
-                    <Form.Label className="label">About You</Form.Label>
-                    <Form.Control
-                      as="textarea"
-                      rows="5"
-                      defaultValue={this.state.statement}
-                      onChange={(event) =>
-                        this.handleChange(event, "statement")
-                      }
-                    />
-                  </Form.Group>
-                </Form>
-              </div>
-            </div>
-          ) : (
-            <div className="body">
-              <div className="flex-between row-wrap">
-                <h4>Basic Info</h4>
-                <Button
-                  className="flex-between row-wrap"
-                  onClick={() => this.handleEditBasic()}
-                >
-                  Edit Basic Info
-                </Button>
-              </div>
-              {this.props.profile && (
-                <>
-                  <div className="border">
-                    <Form className="flex-between row-wrap row">
-                      <Form.Group className="columnThirds">
-                        <Form.Label className="label">Prefix</Form.Label>
-                        <Form.Control
-                          disabled={true}
-                          readOnly
-                          defaultValue={this.state.prefix}
-                        />
-                      </Form.Group>
-                      <Form.Group className="columnThirds">
-                        <Form.Label className="label">First Name</Form.Label>
-                        <Form.Control
-                          disabled={true}
-                          readOnly
-                          defaultValue={this.state.firstName}
-                        />
-                      </Form.Group>
-                      <Form.Group className="columnThirds">
-                        <Form.Label className="label">Last Name</Form.Label>
-                        <Form.Control
-                          disabled={true}
-                          readOnly
-                          defaultValue={this.state.lastName}
-                        />
-                      </Form.Group>
-                    </Form>
-
-                    <Form className="flex-between row-wrap row">
-                      <Form.Group className="column">
-                        <Form.Label className="label">Age</Form.Label>
-                        <Form.Control
-                          disabled={true}
-                          readOnly
-                          defaultValue={this.state.age}
-                        />
-                        <Form.Text className="text-muted">
-                          Not Listed - HIAMFT-Use Only
-                        </Form.Text>
-                      </Form.Group>
-                      {this.displayLanguages()}
-                    </Form>
-                    <Form className="last">
-                      <Form.Group>
-                        <Form.Label className="label">About You</Form.Label>
-                        <Form.Control
-                          as="textarea"
-                          rows="5"
-                          disabled={true}
-                          readOnly
-                          defaultValue={this.state.statement}
-                        />
-                      </Form.Group>
-                    </Form>
-                  </div>
-                </>
-              )}
-            </div>
-          )}
-
-          <ProfileEditContact />
-          <ProfileEditPractice />
-
+        {/**Here is Basic Info render */}
+        {this.state.clickBasic ? (
           <div className="body">
-            {this.state.enabled ? (
-              <Button variant="danger" onClick={this.enablePress}>
-                Disable Account
+            <div className="flex-between row-wrap">
+              <h4>Basic Info</h4>
+              <Button
+                className="flex-between row-wrap"
+                onClick={() => this.handleSaveBasic()}
+              >
+                Save Changes
               </Button>
-            ) : (
-              <Button onClick={this.enablePress}>Enable Account</Button>
+            </div>
+            <div className="border">
+              <Form className="flex-between row-wrap row">
+                <Form.Group className="columnThirds">
+                  <Form.Label variant="flat" className="label">
+                    Prefix
+                  </Form.Label>
+                  <Form.Control
+                    defaultValue={this.state.prefix}
+                    onChange={(event) => this.handleChange(event, "prefix")}
+                  />
+                </Form.Group>
+                <Form.Group className="columnThirds">
+                  <Form.Label className="label">First Name</Form.Label>
+                  <Form.Control
+                    defaultValue={this.state.firstName}
+                    onChange={(event) => this.handleChange(event, "firstName")}
+                  />
+                </Form.Group>
+
+                <Form.Group className="columnThirds">
+                  <Form.Label className="label">Last Name</Form.Label>
+                  <Form.Control
+                    defaultValue={this.state.lastName}
+                    onChange={(event) => this.handleChange(event, "lastName")}
+                  />
+                </Form.Group>
+              </Form>
+
+              <Form className="flex-between row-wrap row">
+                <Form.Group className="column">
+                  <Form.Label className="label">Age</Form.Label>
+                  <Form.Control
+                    type="number"
+                    defaultValue={this.state.age}
+                    onChange={(event) => this.handleChange(event, "age")}
+                  />
+                  <Form.Text className="text-muted">
+                    Not Listed - HIAMFT-Use Only
+                  </Form.Text>
+                </Form.Group>
+                {this.displayLanguages()}
+              </Form>
+              <Form>
+                <Form.Group>
+                  <Form.Label className="label">About You</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows="5"
+                    defaultValue={this.state.statement}
+                    onChange={(event) => this.handleChange(event, "statement")}
+                  />
+                </Form.Group>
+              </Form>
+            </div>
+          </div>
+        ) : (
+          <div className="body">
+            <div className="flex-between row-wrap">
+              <h4>Basic Info</h4>
+              <Button
+                className="flex-between row-wrap"
+                onClick={() => this.handleEditBasic()}
+              >
+                Edit Basic Info
+              </Button>
+            </div>
+            {this.props.profile && (
+              <>
+                <div className="border">
+                  <Form className="flex-between row-wrap row">
+                    <Form.Group className="columnThirds">
+                      <Form.Label className="label">Prefix</Form.Label>
+                      <Form.Control
+                        disabled={true}
+                        readOnly
+                        defaultValue={this.state.prefix}
+                      />
+                    </Form.Group>
+                    <Form.Group className="columnThirds">
+                      <Form.Label className="label">First Name</Form.Label>
+                      <Form.Control
+                        disabled={true}
+                        readOnly
+                        defaultValue={this.state.firstName}
+                      />
+                    </Form.Group>
+                    <Form.Group className="columnThirds">
+                      <Form.Label className="label">Last Name</Form.Label>
+                      <Form.Control
+                        disabled={true}
+                        readOnly
+                        defaultValue={this.state.lastName}
+                      />
+                    </Form.Group>
+                  </Form>
+
+                  <Form className="flex-between row-wrap row">
+                    <Form.Group className="column">
+                      <Form.Label className="label">Age</Form.Label>
+                      <Form.Control
+                        disabled={true}
+                        readOnly
+                        defaultValue={this.state.age}
+                      />
+                      <Form.Text className="text-muted">
+                        Not Listed - HIAMFT-Use Only
+                      </Form.Text>
+                    </Form.Group>
+                    {this.displayLanguages()}
+                  </Form>
+                  <Form className="last">
+                    <Form.Group>
+                      <Form.Label className="label">About You</Form.Label>
+                      <Form.Control
+                        as="textarea"
+                        rows="5"
+                        disabled={true}
+                        readOnly
+                        defaultValue={this.state.statement}
+                      />
+                    </Form.Group>
+                  </Form>
+                </div>
+              </>
             )}
           </div>
-        </>
-      );
-    } else {
-      return <p> user not found </p>;
-    }
+        )}
+
+        <ProfileEditContactStudent />
+        <ProfileEditPracticeStudent />
+
+        <div className="body">
+          {this.state.enabled ? (
+            <Button variant="danger" onClick={this.enablePress}>
+              Disable Account
+            </Button>
+          ) : (
+            <Button onClick={this.enablePress}>Enable Account</Button>
+          )}
+        </div>
+      </>
+    );
   }
 }
 

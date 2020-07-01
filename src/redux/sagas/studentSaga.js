@@ -8,7 +8,7 @@ function* setStudent(action) {
   try {
     yield axios.put(`/profile/student`, action.payload);
     yield put({ type: 'FETCH_PROFILE', payload: action.payload});
-    // action.payload.window.location.reload(false);
+    
 
     } catch (error) {
         console.log('Error in sending members info to the server', error);

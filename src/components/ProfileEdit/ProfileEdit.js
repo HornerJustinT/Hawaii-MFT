@@ -20,12 +20,12 @@ var storage = firebase.storage().ref();
 class ProfileEdit extends Component {
   //setting state, particularly for conditional render of Basic, Contact & Practice sections
   state = {
-    id: this.props.user,
+    id: 0,
     clickBasic: false,
     languages: [],
     languagesEdit: [],
     profilePhoto: "",
-    student: false,
+    student: this.props.profile.student,
   };
 
   getImage = (id) => {
@@ -65,7 +65,6 @@ class ProfileEdit extends Component {
       admin: this.props.match.params.id || false,
     });
     this.getImage(this.props.user.id);
-    console.log("is studnet" + this.props.profile.student);
 
     if(this.props.match.params.id){
       this.getImage(this.props.match.params.id)
@@ -120,8 +119,10 @@ class ProfileEdit extends Component {
         sessionFormat: this.props.profile.session_format,
         specialty: this.props.profile.specialty,
         treatmentPreferences: this.props.profile.treatment_preferences,
+        student: this.props.profile.student,
       });
-        if (this.props.profile.student) {
+
+      if (this.props.profile.student) {
           this.pushStudent();
         }
     }
@@ -171,18 +172,40 @@ class ProfileEdit extends Component {
   }; //end handleChange
 
   handleStudent = () => {
+    console.log('in handleStudent');
+
     this.setState({
-      student: !this.state.student,
-    },()=>{
-      if(this.state.student === true){
-        this.props.dispatch({
-          type: "STUDENT",
-          payload: this.state,
-        });
-      }
-    });
-    this.pushStudent();
+      student: true,
+    })
+  this.handleDispatch();
   }
+
+  handleDispatch = () => {
+    console.log('in handleDispatch');
+
+    this.props.dispatch({
+        type: "STUDENT",
+        payload: {
+          student: true,
+          id: this.state.id,
+        }      
+      })
+      this.pushStudent();
+  }
+  
+  //   this.setState({
+  //     student: true,
+  //   },()=>{
+  //     if(this.state.student === true){
+  //       this.props.dispatch({
+  //         type: "STUDENT",
+  //         payload: this.state,
+  //       });
+  //     }
+  //   });
+  //   console.log('$$still a student?', this.state.student);
+  //   this.pushStudent();
+  // }
 
   pushStudent = () => {
     this.props.history.push('/edit-student');
@@ -254,6 +277,7 @@ class ProfileEdit extends Component {
   };
 
   render() {
+
     if (this.props.profile && this.state.languages && this.state.student === false) {
       return (
         <>
@@ -267,12 +291,7 @@ class ProfileEdit extends Component {
           </div>
           <div>
             <Form>
-              <Form.Check
-                type="switch"
-                id="custom-switch"
-                label="I am a Student"
-                onChange={this.handleStudent}
-              />
+              <Button onClick={this.handleStudent}>I am a Student</Button>
             </Form>
           </div>
 
@@ -425,7 +444,17 @@ class ProfileEdit extends Component {
 
           <div className="body">
             {this.state.enabled ? (
-              <Button variant="danger" onClick={() => { if (window.confirm('Are you sure you wish to disable this account? The account will no longer be present in the search directory. You may re-enable it in the my profile page.')) this.enablePress() } }>
+              <Button
+                variant="danger"
+                onClick={() => {
+                  if (
+                    window.confirm(
+                      "Are you sure you wish to disable this account? The account will no longer be present in the search directory. You may re-enable it in the my profile page."
+                    )
+                  )
+                    this.enablePress();
+                }}
+              >
                 Disable Account
               </Button>
             ) : (

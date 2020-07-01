@@ -1,20 +1,17 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
 
 //React Botstrap imports
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 
 //CSS file imports
 import "./ProfileEdit.css";
 import "../App/App.css";
 
-
-
-class ProfileEdit extends Component {
+class ProfileEditStudent extends Component {
   //setting state, particularly for conditional render of Basic, Contact & Practice sections
   state = {
     id: 0,
@@ -41,6 +38,7 @@ class ProfileEdit extends Component {
     this.props.dispatch({ type: "FETCH_AGE_GROUPS" });
     this.props.dispatch({ type: "FETCH_DEMOGRPHICS" });
     this.props.dispatch({ type: "FETCH_INSURANCE_TAKEN" });
+    // this.props.dispatch({ type: "FETCH_LICENSE_TYPE" });
     this.props.dispatch({ type: "FETCH_SESSION_FORMAT" });
     this.props.dispatch({ type: "FETCH_SPECIALTY" });
     this.props.dispatch({ type: "FETCH_TREATMENT_APPROACHES" });
@@ -93,7 +91,6 @@ class ProfileEdit extends Component {
         specialtyEdit: this.props.profile.specialty_id,
         treatmentPreferences: this.props.profile.treatment_preferences,
         treatmentEdit: this.props.profile.treatment_preferences_id,
-        student: this.props.profile.student,
       });
     }
   } //end componentDidUpdate
@@ -205,12 +202,16 @@ class ProfileEdit extends Component {
           </Form.Label>
           <div>
             {this.props.profile.insurance.map((insurance) => {
-                return (
-                  <>
-                    <Form.Control disabled={true} readOnly defaultValue={insurance} />
-                  </>
-                );
-              })}
+              return (
+                <>
+                  <Form.Control
+                    disabled={true}
+                    readOnly
+                    defaultValue={insurance}
+                  />
+                </>
+              );
+            })}
           </div>
         </Form.Group>
       );
@@ -218,7 +219,6 @@ class ProfileEdit extends Component {
   };
 
   render() {
-    console.log('KRISTEN, here is state', this.state);
     if (
       this.props.profile &&
       this.state.specialty &&
@@ -643,9 +643,9 @@ class ProfileEdit extends Component {
       );
     } else {
       return (
-      <>
-      <p> user not found </p>
-      </>
+        <>
+          <p> user not found </p>
+        </>
       );
     }
   }
@@ -664,4 +664,4 @@ const putReduxStateOnProps = (reduxStore) => ({
   student: reduxStore.student,
 });
 
-export default withRouter(connect(putReduxStateOnProps)(ProfileEdit));
+export default withRouter(connect(putReduxStateOnProps)(ProfileEditStudent));
