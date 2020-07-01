@@ -27,7 +27,6 @@ class ContactInfo extends Component{
             website:'',
             address_office:'',
             address_home:'',
-            address_mailing:'',
             city:'',
             cityOfBussiness:'',
             showStudentProfile: false,
@@ -80,7 +79,6 @@ componentDidUpdate = () => {
             let websiteError ='';
            let addressOfficeError ='';
             let addressHomeError = '';
-            let addressMailingError ='';
             let cityError = '';
             let businessCityError ='';
           let formIsValid = true;
@@ -99,11 +97,6 @@ componentDidUpdate = () => {
                  formIsValid=false;
                  businessCityError = "City - Business is invalid" 
              }
-  
-          if(this.state.address_mailing === ''){
-            formIsValid=false;
-            addressMailingError = 'Mailing Address is required'
-          }
 
           if(this.state.address_home=== ''){
                formIsValid=false;
@@ -164,10 +157,10 @@ componentDidUpdate = () => {
               islandError = 'Island Name is required! '
           }
   
-          if(cityError || businessCityError || addressMailingError || addressHomeError || addressOfficeError 
+          if(cityError || businessCityError || addressHomeError || addressOfficeError 
                || websiteError  || personalEmailError || emailError ||  personalNumberError 
                || businessNumberError|| zipCodeError || islandError || business_zipCodeError){
-            this.setState({cityError, addressMailingError, addressHomeError, addressOfficeError, 
+            this.setState({cityError, addressHomeError, addressOfficeError, 
                websiteError, personalEmailError,  emailError,  personalNumberError, 
                businessNumberError, zipCodeError,  islandError, businessCityError, business_zipCodeError});
           
@@ -195,7 +188,6 @@ componentDidUpdate = () => {
                               personal_number:this.state.personal_number,
                               address_office:this.state.address_office,
                               address_home:this.state.address_home,
-                              address_mailing:this.state.address_mailing,
                               zip_code: this.state.zip_code,
                               business_zip_code: this.state.business_zip_code,
                               city: this.state.city,
@@ -331,16 +323,6 @@ studentContactInfo = (e) =>{
                   onChange={this.handleInputChangeFor("address_home")}/>
                   <h4 className="error">{this.state.addressHomeError}</h4>
              <br/>
-             <Form.Label>Address - Mailing*</Form.Label>
-             <br/>
-             <Form.Control type="text"
-                  name="address_mailing"
-                  placeholder='Please fill in your mailing address'
-                  value={this.state.address_mailing}
-                  onChange={this.handleInputChangeFor("address_mailing")}/>
-                  <h4 className="error">{this.state.addressMailingError}</h4>
-             <br/>
-             <br/>
              <Form.Label>City*</Form.Label>
              <br/>
              <Form.Control type="text"
@@ -475,16 +457,6 @@ studentContactInfo = (e) =>{
                   value={this.state.address_home}
                   onChange={this.handleInputChangeFor("address_home")}/>
                    <h4 className="error">{this.state.addressHomeError}</h4>
-             <br/>
-             <Form.Label>Address - Mailing*</Form.Label>
-             <br/>
-             <Form.Control type="text"
-                  name="address_mailing"
-                  placeholder='Please fill in your mailing address'
-                  value={this.state.address_mailing}
-                  onChange={this.handleInputChangeFor("address_mailing")}/>
-                   <h4 className="error">{this.state.addressMailingError}</h4>
-             <br/>
              <br/>
              <Form.Label>City - Personal*</Form.Label>
              <br/>

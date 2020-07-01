@@ -321,7 +321,7 @@ handleInputChangeFor = propertyName => (event) =>{
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>License Type</Form.Label>
+                  <Form.Label>License Type*</Form.Label>
                   <br />
                   <Form.Control
                     as="select"
@@ -347,7 +347,7 @@ handleInputChangeFor = propertyName => (event) =>{
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>License State of Issue</Form.Label>
+                  <Form.Label>License State of Issue*</Form.Label>
                   <Form.Control
                     type="text"
                     name="license_state"
@@ -358,7 +358,7 @@ handleInputChangeFor = propertyName => (event) =>{
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>License Number</Form.Label>
+                  <Form.Label>License Number*</Form.Label>
                   <Form.Control
                     type="number"
                     name="license_number"
@@ -369,7 +369,7 @@ handleInputChangeFor = propertyName => (event) =>{
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>License Expiration Date</Form.Label>
+                  <Form.Label>License Expiration Date*</Form.Label>
                   <Form.Control
                     type="date"
                     name="license_expiration"
@@ -380,7 +380,7 @@ handleInputChangeFor = propertyName => (event) =>{
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>Statement</Form.Label>
+                  <Form.Label>Statement*</Form.Label>
                   <Form.Control
                     type="text"
                     name="statement"
@@ -391,7 +391,7 @@ handleInputChangeFor = propertyName => (event) =>{
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>Fees</Form.Label>
+                  <Form.Label>Fees*</Form.Label>
                   <Form.Control
                     type="text"
                     name="fees"
@@ -402,7 +402,7 @@ handleInputChangeFor = propertyName => (event) =>{
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>Specialization</Form.Label>
+                  <Form.Label>Specialization*</Form.Label>
                   <Form.Control
                     as="select"
                     multiple={true}
@@ -430,7 +430,7 @@ handleInputChangeFor = propertyName => (event) =>{
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>Supervision Status</Form.Label>
+                  <Form.Label>Supervision Status*</Form.Label>
                   <Form.Control
                     as="select"
                     onChange={this.handleInputChangeFor("supervision_status")}
@@ -445,7 +445,7 @@ handleInputChangeFor = propertyName => (event) =>{
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>Insurance Taken</Form.Label>
+                  <Form.Label>Insurance Taken*</Form.Label>
                   <Form.Control
                     as="select"
                     multiple={true}
@@ -474,7 +474,7 @@ handleInputChangeFor = propertyName => (event) =>{
                 
 
                 <Form.Group>
-                  <Form.Label>Are you providing telehealth?</Form.Label>
+                  <Form.Label>Are you providing telehealth?*</Form.Label>
                   <Form.Control
                     as="select"
                     name="telehealth"
@@ -488,7 +488,7 @@ handleInputChangeFor = propertyName => (event) =>{
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>Treatment Approaches/Preferences</Form.Label>
+                  <Form.Label>Treatment Approaches/Preferences*</Form.Label>
                   <Form.Control
                     as="select"
                     multiple={true}
@@ -516,7 +516,7 @@ handleInputChangeFor = propertyName => (event) =>{
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>Client Focus</Form.Label>
+                  <Form.Label>Client Focus*</Form.Label>
                   <Form.Control
                     as="select"
                     multiple={true}
@@ -571,7 +571,7 @@ handleInputChangeFor = propertyName => (event) =>{
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>Session Format(s)</Form.Label>
+                  <Form.Label>Session Format(s)*</Form.Label>
                   <Form.Control
                     as="select"
                     multiple={true}
