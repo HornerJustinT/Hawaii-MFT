@@ -136,10 +136,10 @@ class ContactInfo extends Component{
         
           if(this.state.zip_code === ''){
             formIsValid=false;
-            zipCodeError = 'Zip Code is required! '
+            zipCodeError = 'Personal Zip Code is required! '
           }else if(!isNaN(this.state.zip_code)===false ){
               formIsValid = false;
-              zipCodeError = "Zip code is invalid"
+              zipCodeError = "Personal Zip code is invalid"
           }
 
           if(this.state.business_zip_code === ''){
@@ -383,7 +383,7 @@ studentContactInfo = (e) =>{
                   placeholder='Please fill in your Zip code'
                   value={this.state.business_zip_code}
                   onChange={this.handleInputChangeFor("zip_code")}/>
-                   <h4 className="error">{this.state.zipCodeError}</h4>
+                   <h4 className="error">{this.state.business_zipCodeError}</h4>
              <Form.Label>Phone Number - Business*</Form.Label>
              <br/>
              <Form.Control type="number"

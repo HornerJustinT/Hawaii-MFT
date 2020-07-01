@@ -281,7 +281,7 @@ handleInputChangeFor = propertyName => (event) =>{
 
               <Form onSubmit={this.addMembersInfo}>
                 <Form.Group>
-                  <Form.Label>Title </Form.Label>
+                  <Form.Label>Title*</Form.Label>
                   <Form.Control
                     type="text"
                     name="title"
@@ -292,7 +292,7 @@ handleInputChangeFor = propertyName => (event) =>{
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>Credentials </Form.Label>
+                  <Form.Label>Credentials*</Form.Label>
                   <Form.Control
                     type="text"
                     name="title"
