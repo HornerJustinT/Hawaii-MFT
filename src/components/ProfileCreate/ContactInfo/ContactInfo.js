@@ -28,7 +28,7 @@ class ContactInfo extends Component{
             address_home:'',
             address_mailing:'',
             city:'',
-            city_business:'',
+            cityOfBussiness:'',
             showStudentProfile: false,
             islandError:'',
             zipCodeError:'',
@@ -86,7 +86,7 @@ class ContactInfo extends Component{
           if(this.state.city_business === ''){
                formIsValid=false;
                businessCityError = 'City - Business is required'
-             }else if(!this.state.city_business.match(/^[a-zA-Z_]+$/) ){
+             }else if(!this.state.cityOfBussiness.match(/^[a-zA-Z_]+$/) ){
                  formIsValid=false;
                  businessCityError = "City - Business is invalid" 
              }
@@ -190,7 +190,7 @@ class ContactInfo extends Component{
                               zip_code: this.state.zip_code,
                               business_zip_code: this.state.business_zip_code,
                               city: this.state.city,
-                              city_business: this.state.city_bussiness,
+                              cityOfBusiness: this.state.cityOfBussiness,
                               website: this.state.website
                          }});
           this.props.history.push('/practice');  
@@ -382,7 +382,7 @@ studentContactInfo = (e) =>{
                   name="zip_code"
                   placeholder='Please fill in your Zip code'
                   value={this.state.business_zip_code}
-                  onChange={this.handleInputChangeFor("zip_code")}/>
+                  onChange={this.handleInputChangeFor("business_zip_code")}/>
                    <h4 className="error">{this.state.business_zipCodeError}</h4>
              <Form.Label>Phone Number - Business*</Form.Label>
              <br/>
@@ -472,8 +472,8 @@ studentContactInfo = (e) =>{
              <Form.Control type="text"
                   name="city"
                   placeholder='Please fill in your city'
-                  value={this.state.city_bussiness}
-                  onChange={this.handleInputChangeFor("city_bussiness")}/>
+                  value={this.state.cityOfBussiness}
+                  onChange={this.handleInputChangeFor("cityOfBussiness")}/>
                   <h4 className="error">{this.state.businessCityError}</h4>
              <br/>
             
