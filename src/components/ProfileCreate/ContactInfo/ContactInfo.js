@@ -1,4 +1,5 @@
 import React,{ Component } from 'react';
+import { Prompt } from 'react-router'
 //this connects the the component to the redux store
 import { connect } from 'react-redux';
 
@@ -39,6 +40,7 @@ class ContactInfo extends Component{
             addressHomeError:'',
             addressMailingError:'',
             cityError:'',
+            shouldBlockNavigation : true,
            }
 
            componentDidMount (){
@@ -50,6 +52,13 @@ class ContactInfo extends Component{
 //take in the information from the input
 //when users either choose options from drop down or put info into the input
 //the state is changed when there are input data
+componentDidUpdate = () => {
+     if (this.state.shouldBlockNavigation) {
+       window.onbeforeunload = () => true
+     } else {
+       window.onbeforeunload = undefined
+     }
+   }
     handleInputChangeFor = propertyName => (event) =>{
         this.setState({
           [propertyName]:event.target.value
@@ -171,8 +180,9 @@ class ContactInfo extends Component{
                               city: this.state.city,
                               website: this.state.website
                          }});
-          this.props.history.push('/practice');  
-                 return true;
+                         this.setState({shouldBlockNavigation:false},()=>{
+                              this.props.history.push("/practice");
+                            });
                }
  }
 
@@ -196,7 +206,9 @@ studentContactInfo = (e) =>{
                  city: this.state.city,
                  website: this.state.website
                }});
-     this.props.history.push('/student'); 
+               this.setState({shouldBlockNavigation:false},()=>{
+                    this.props.history.push("/student");
+                  });
        return true;
      }
  
@@ -214,7 +226,15 @@ studentContactInfo = (e) =>{
       let itemToRender;
 
        if(this.state.showStudentProfile){
-        itemToRender = <div>
+        itemToRender = 
+        <div>
+             <div>
+                          <Prompt
+        when={this.state.shouldBlockNavigation}
+        message='You have unsaved changes, are you sure you want to leave?'
+      />
+
+        </div>
             <Form onSubmit={this.studentContactInfo}>
              <br/>
              <Form.Check
@@ -308,7 +328,15 @@ studentContactInfo = (e) =>{
             
         </div>
        }else{
-         itemToRender = <div>
+         itemToRender = 
+         <div>
+              <div>
+                          <Prompt
+        when={this.state.shouldBlockNavigation}
+        message='You have unsaved changes, are you sure you want to leave?'
+      />
+
+        </div>
                    <Form onSubmit={this.addContactInfo}>
              <br/>
              <Form.Check
