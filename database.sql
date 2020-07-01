@@ -163,6 +163,12 @@ CREATE TABLE "email_table"(
 	"email" VARCHAR(255),
 	"member_id" INT NOT NULL,
 	FOREIGN KEY ("member_id") REFERENCES "members"("id"));
+
+CREATE TABLE password_reset (
+    id BIGINT PRIMARY KEY,
+    username text
+);
+
 -- Everything below is temporary data for our tables
 INSERT INTO "languages" 
     ("title")
