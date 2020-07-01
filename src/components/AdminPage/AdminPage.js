@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
+import ReactTooltip from "react-tooltip";
 
 // Components
 import RegistrationModal from '../RegistrationModal/RegistrationModal';
@@ -207,6 +208,7 @@ class AdminPage extends Component {
   render() {
     return (
       <>
+      <ReactTooltip />
         <div className="container search-bar">
           {Object.keys(this.state.criteria).map((Mainkey) => (
             <>
@@ -269,14 +271,16 @@ class AdminPage extends Component {
                 variant="success"
                 onClick={this.addFilter}
                 className="btnFilter"
+                data-tip="This button adds filters to filter the members listed below. To search with these filters click the search button"
               >
                 Add Filter
               </Button>
-
+              
               <Button
                 variant="primary"
                 onClick={this.searchTherapists}
                 className="btnFilter"
+                data-tip = "This button searchs the members table with the filters currently present"
               >
                 Search
               </Button>
@@ -297,7 +301,9 @@ class AdminPage extends Component {
             <tbody>
               {this.props.members[0] &&
                 this.props.members.map((therapist) => (
+                  
                   <tr>
+                    <ReactTooltip/>
                     <td>{therapist.id}</td>
                     <td>
                       {therapist.first_name} {therapist.last_name}
@@ -308,7 +314,9 @@ class AdminPage extends Component {
                       <Button
                         variant="primary"
                         onClick={() => this.resetProfile(therapist.id)}
+                        data-tip = "This button will direct you to the edit profile page for this member"
                       >
+                        
                         View
                       </Button>
                     </td>
@@ -317,11 +325,16 @@ class AdminPage extends Component {
             </tbody>
           </Table>
           <div className="download flex-between">
+          <ReactTooltip/>
             {this.state.csv && (
-              <Button variant="success" onClick={this.downloadClick} download>
+              
+              
+              <Button variant="success" data-tip = "This buton will download all of the member info of the members on this page into an csv file."onClick={this.downloadClick} download>
                 Click to download
+                <ReactTooltip/>
               </Button>
             )}
+            
             <RegistrationModal />
           </div>
         </div>

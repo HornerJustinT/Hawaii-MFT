@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import ReactTooltip from "react-tooltip";
 //React-bootstrap imports
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -31,7 +31,8 @@ class RegistrationModal extends Component {
     render() { 
         return (
           <>
-            <Button variant="primary" onClick={this.handleShow}>
+                <ReactTooltip />
+            <Button variant="primary" onClick={this.handleShow} data-tip= "This Button will set up a unique registration link. Send this to a member who needs to register.">
               Register New User
             </Button>
 
@@ -41,7 +42,7 @@ class RegistrationModal extends Component {
               </Modal.Header>
               <Modal.Body>
                 Here is your unique registration link. Please copy and paste
-                this now. You will not be able to retrieve it.
+                this now. You will not be able to retrieve it once the window is closed.
               </Modal.Body>
               <Modal.Body>
                 {window.location.hostname}/#/register/{this.state.registration_key}
