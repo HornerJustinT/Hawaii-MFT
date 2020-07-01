@@ -27,7 +27,6 @@ class ContactInfo extends Component{
             website:'',
             address_office:'',
             address_home:'',
-            address_mailing:'',
             city:'',
             cityOfBussiness:'',
             showStudentProfile: false,
@@ -67,7 +66,27 @@ componentDidUpdate = () => {
           [propertyName]:event.target.value
         })
       } 
+      
 
+      validateStudent = () =>{
+        let personalEmailError ='';
+        let formIsValid = true;
+
+        if(this.state.personal_email === ''){
+          formIsValid=false;
+          personalEmailError = 'Personal Email is required'
+        }else if(!this.state.personal_email.includes('@') ){
+            formIsValid=false;
+            personalEmailError = "Personal Email is not valid"
+        }
+
+        if(personalEmailError){
+          this.setState({personalEmailError})
+        }else{
+          return true;
+        }
+
+      }
 
       validate = () => {
           let islandError = '';
@@ -77,10 +96,8 @@ componentDidUpdate = () => {
             let personalNumberError = '';
             let emailError = '';
             let personalEmailError ='';
-            let websiteError ='';
            let addressOfficeError ='';
             let addressHomeError = '';
-            let addressMailingError ='';
             let cityError = '';
             let businessCityError ='';
           let formIsValid = true;
@@ -99,11 +116,6 @@ componentDidUpdate = () => {
                  formIsValid=false;
                  businessCityError = "City - Business is invalid" 
              }
-  
-          if(this.state.address_mailing === ''){
-            formIsValid=false;
-            addressMailingError = 'Mailing Address is required'
-          }
 
           if(this.state.address_home=== ''){
                formIsValid=false;
@@ -114,11 +126,7 @@ componentDidUpdate = () => {
                formIsValid=false;
                addressOfficeError = 'Office Address is required'
           }
-          if(this.state.website === ''){
-               formIsValid=false;
-               websiteError = 'Website Address is required'
-          }
-
+        
           if(this.state.personal_email === ''){
             formIsValid=false;
             personalEmailError = 'Personal Email is required'
@@ -164,11 +172,11 @@ componentDidUpdate = () => {
               islandError = 'Island Name is required! '
           }
   
-          if(cityError || businessCityError || addressMailingError || addressHomeError || addressOfficeError 
-               || websiteError  || personalEmailError || emailError ||  personalNumberError 
+          if(cityError || businessCityError || addressHomeError || addressOfficeError 
+              || personalEmailError || emailError ||  personalNumberError 
                || businessNumberError|| zipCodeError || islandError || business_zipCodeError){
-            this.setState({cityError, addressMailingError, addressHomeError, addressOfficeError, 
-               websiteError, personalEmailError,  emailError,  personalNumberError, 
+            this.setState({cityError, addressHomeError, addressOfficeError, 
+                personalEmailError,  emailError,  personalNumberError, 
                businessNumberError, zipCodeError,  islandError, businessCityError, business_zipCodeError});
           
           }else{
@@ -195,7 +203,6 @@ componentDidUpdate = () => {
                               personal_number:this.state.personal_number,
                               address_office:this.state.address_office,
                               address_home:this.state.address_home,
-                              address_mailing:this.state.address_mailing,
                               zip_code: this.state.zip_code,
                               business_zip_code: this.state.business_zip_code,
                               city: this.state.city,
@@ -211,7 +218,7 @@ componentDidUpdate = () => {
 studentContactInfo = (e) =>{
   e.preventDefault();
 
-  const isValid = this.validate();
+  const isValid = this.validateStudent();
   if(!isValid){
      return false
      }else{
@@ -266,7 +273,7 @@ studentContactInfo = (e) =>{
               onChange={this.handleStudent}
             />
                 <br/>
-             <Form.Label>Island*</Form.Label>
+             <Form.Label>Island</Form.Label>
              <br/>
              <Form.Control
                  as="select" onChange={this.handleInputChangeFor("island_id")}>
@@ -285,7 +292,7 @@ studentContactInfo = (e) =>{
              <h4 className="error">{this.state.islandError}</h4>
              <br/>
              <br/>
-             <Form.Label>Zip Code*</Form.Label>
+             <Form.Label>Zip Code</Form.Label>
              <br/>
              <Form.Control type="number"
                   name="zip_code"
@@ -294,7 +301,7 @@ studentContactInfo = (e) =>{
                   onChange={this.handleInputChangeFor("zip_code")}/>
                   <h4 className="error">{this.state.zipCodeError}</h4>
              <br/>
-             <Form.Label>Phone Number - Personal*</Form.Label>
+             <Form.Label>Phone Number - Personal</Form.Label>
              <br/>
              <Form.Control type="number"
                   name="personal_number"
@@ -312,7 +319,7 @@ studentContactInfo = (e) =>{
                   onChange={this.handleInputChangeFor("personal_email")}/>
                   <h4 className="error">{this.state.personalEmailError}</h4>
              <br/>
-             <Form.Label>Website*</Form.Label>
+             <Form.Label>Website</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="website"
@@ -321,7 +328,7 @@ studentContactInfo = (e) =>{
                   onChange={this.handleInputChangeFor("website")}/>
                   <h4 className="error">{this.state.websiteError}</h4>
              <br/>
-             <Form.Label>Address - Home*</Form.Label>
+             <Form.Label>Address - Home</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="address_home"
@@ -330,17 +337,7 @@ studentContactInfo = (e) =>{
                   onChange={this.handleInputChangeFor("address_home")}/>
                   <h4 className="error">{this.state.addressHomeError}</h4>
              <br/>
-             <Form.Label>Address - Mailing*</Form.Label>
-             <br/>
-             <Form.Control type="text"
-                  name="address_mailing"
-                  placeholder='Please fill in your mailing address'
-                  value={this.state.address_mailing}
-                  onChange={this.handleInputChangeFor("address_mailing")}/>
-                  <h4 className="error">{this.state.addressMailingError}</h4>
-             <br/>
-             <br/>
-             <Form.Label>City*</Form.Label>
+             <Form.Label>City</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="city"
@@ -474,16 +471,6 @@ studentContactInfo = (e) =>{
                   value={this.state.address_home}
                   onChange={this.handleInputChangeFor("address_home")}/>
                    <h4 className="error">{this.state.addressHomeError}</h4>
-             <br/>
-             <Form.Label>Address - Mailing*</Form.Label>
-             <br/>
-             <Form.Control type="text"
-                  name="address_mailing"
-                  placeholder='Please fill in your mailing address'
-                  value={this.state.address_mailing}
-                  onChange={this.handleInputChangeFor("address_mailing")}/>
-                   <h4 className="error">{this.state.addressMailingError}</h4>
-             <br/>
              <br/>
              <Form.Label>City - Personal*</Form.Label>
              <br/>

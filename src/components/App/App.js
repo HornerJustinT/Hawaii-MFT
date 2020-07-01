@@ -29,6 +29,7 @@ import HomePage from "../HomePage/HomePage";
 import LoginPage from '../LoginPage/LoginPage';
 import PracticeInfo from "../ProfileCreate/PracticeInfo/PracticeInfo";
 import ProfileCreate from "../ProfileCreate/ProfileCreate";
+import uploadImage from '../ProfileCreate/uploadImage/uploadImage'
 import studentProfile from "../ProfileCreate/studentProfile/studentProfile";
 import ProfileEdit from '../ProfileEdit/ProfileEdit';
 import ProfileView from "../ProfileView/ProfileView";
@@ -84,6 +85,7 @@ class App extends Component {
 
             <ProtectedRoute exact path="/contact-info" component={ContactInfo} />
             <ProtectedRoute exact path="/practice" component={PracticeInfo} />
+            <ProtectedRoute exact path="/uploadimage" component={uploadImage} />
             <ProtectedRoute exact path="/student" component={studentProfile} />
 
             {/* Admin View */}
