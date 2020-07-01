@@ -238,7 +238,6 @@ studentContactInfo = (e) =>{
 }
 
      handleStudent =(e)=>{
-       e.preventDefault();
        this.setState({
          showStudentProfile: !this.state.showStudentProfile
        })
