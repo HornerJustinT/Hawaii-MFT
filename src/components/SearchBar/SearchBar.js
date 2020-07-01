@@ -164,8 +164,13 @@ class SearchBar extends Component {
   }
 
   switchChange = (event) => {
+    console.log(this.state.advanced);
     this.setState({
       advanced: event.target.checked,
+    },()=>{
+      if(this.state.advanced === false){// If the advanced search is turned off it resets the search.
+        this.props.dispatch({type:"FETCH_MEMBERS"})
+      }
     });
   };
 

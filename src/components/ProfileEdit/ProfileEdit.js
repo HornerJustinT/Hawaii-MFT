@@ -64,12 +64,18 @@ class ProfileEdit extends Component {
       payload: { id: this.props.match.params.id || this.props.user.id },
       admin: this.props.match.params.id || false,
     });
-    this.getImage(this.props.user.id);
-    console.log(this.state.profilePhoto);
+    if(this.props.match.params.id){
+      this.getImage(this.props.match.params.id)
+    }
+    else{
+      this.getImage(this.props.user.id)
+    }
+
   } //end componentDidMount
 
   //updating component to ensure all the data makes it to props for render
   componentDidUpdate(previousProps) {
+    console.log(this.state);
     if (
       this.state.id !== this.props.user.id &&
       previousProps.profile.id !== this.props.profile.id &&
@@ -405,7 +411,7 @@ class ProfileEdit extends Component {
 
           <div className="body">
             {this.state.enabled ? (
-              <Button variant="danger" onClick={this.enablePress}>
+              <Button variant="danger" onClick={() => { if (window.confirm('Are you sure you wish to disable this account? The account will no longer be present in the search directory. You may re-enable it in the my profile page.')) this.enablePress() } }>
                 Disable Account
               </Button>
             ) : (

@@ -1,4 +1,5 @@
 import React,{ Component } from 'react';
+import { Prompt } from 'react-router'
 //this connects the component to th redux store
 import { connect } from 'react-redux';
 
@@ -45,7 +46,8 @@ class PracticeInfo extends Component{
          specialtyIdError:'',
          treatmentPreferencesIdError:'',
          ageGroupsError:'',
-         insuranceTypeIdError:''
+         insuranceTypeIdError:'',
+         shouldBlockNavigation : true
 
      }
    
@@ -60,6 +62,13 @@ componentDidMount (){
     this.props.dispatch({type:'FETCH_DEMOGRPHICS'});
     this.props.dispatch({type:'FETCH_AGE_GROUPS'});
     this.props.dispatch({type:'FETCH_SESSION_FORMAT'});
+}
+componentDidUpdate = () => {
+  if (this.state.shouldBlockNavigation) {
+    window.onbeforeunload = () => true
+  } else {
+    window.onbeforeunload = undefined
+  }
 }
 
 //take in the information from the input
@@ -263,7 +272,9 @@ handleInputChangeFor = propertyName => (event) =>{
             language_id:this.props.createProfile.language_id,
            }
           });
-          this.props.history.push(`/edit-profile`)
+          this.setState({shouldBlockNavigation:false},()=>{
+            this.props.history.push("/edit-profile");
+          });
           //this will reset the inputs on the parcticeinfo page
      this.handleReset();
            return true;
@@ -295,6 +306,13 @@ handleInputChangeFor = propertyName => (event) =>{
     render (){
         return (
           <>
+<div>
+                          <Prompt
+        when={this.state.shouldBlockNavigation}
+        message='You have unsaved changes, are you sure you want to leave?'
+      />
+
+        </div>
             <div className="container">
               <header>
                 <h1 className="text-center">Practice Info</h1>
