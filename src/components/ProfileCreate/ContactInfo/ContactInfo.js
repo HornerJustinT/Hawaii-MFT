@@ -27,6 +27,7 @@ class ContactInfo extends Component{
             address_home:'',
             address_mailing:'',
             city:'',
+            city_business:'',
             showStudentProfile: false,
             islandError:'',
             zipCodeError:'',
@@ -69,15 +70,23 @@ class ContactInfo extends Component{
             let addressHomeError = '';
             let addressMailingError ='';
             let cityError = '';
+            let businessCityError ='';
           let formIsValid = true;
   
           if(this.state.city === ''){
             formIsValid=false;
-            cityError = 'City Name is required'
+            cityError = 'City - Home is required'
           }else if(!this.state.city.match(/^[a-zA-Z_]+$/) ){
               formIsValid=false;
-              cityError = "City Name is invalid" 
+              cityError = "City - Home is invalid" 
           }
+          if(this.state.city_business === ''){
+               formIsValid=false;
+               businessCityError = 'City - Business is required'
+             }else if(!this.state.city_business.match(/^[a-zA-Z_]+$/) ){
+                 formIsValid=false;
+                 businessCityError = "City - Business is invalid" 
+             }
   
           if(this.state.address_mailing === ''){
             formIsValid=false;
@@ -135,12 +144,12 @@ class ContactInfo extends Component{
               islandError = 'Island Name is required! '
           }
   
-          if(cityError || addressMailingError || addressHomeError || addressOfficeError 
+          if(cityError || businessCityError || addressMailingError || addressHomeError || addressOfficeError 
                || websiteError  || personalEmailError || emailError ||  personalNumberError 
                || businessNumberError|| zipCodeError || islandError){
             this.setState({cityError, addressMailingError, addressHomeError, addressOfficeError, 
                websiteError, personalEmailError,  emailError,  personalNumberError, 
-               businessNumberError, zipCodeError,  islandError});
+               businessNumberError, zipCodeError,  islandError, businessCityError});
           
           }else{
             return true;
@@ -169,6 +178,7 @@ class ContactInfo extends Component{
                               address_mailing:this.state.address_mailing,
                               zip_code: this.state.zip_code,
                               city: this.state.city,
+                              city_business: this.state.city_bussiness,
                               website: this.state.website
                          }});
           this.props.history.push('/practice');  
@@ -293,20 +303,12 @@ studentContactInfo = (e) =>{
                   <h4 className="error">{this.state.addressMailingError}</h4>
              <br/>
              <br/>
-             <Form.Label>City - Home</Form.Label>
+             <Form.Label>City</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="city"
                   value={this.state.city}
                   onChange={this.handleInputChangeFor("city")}/>
-                  <h4 className="error">{this.state.cityError}</h4>
-             <br/>
-             <Form.Label>City - Business</Form.Label>
-             <br/>
-             <Form.Control type="text"
-                  name="city"
-                  value={this.state.cityBussiness}
-                  onChange={this.handleInputChangeFor("cityBussiness")}/>
                   <h4 className="error">{this.state.cityError}</h4>
              <br/>
              <br/>
@@ -420,7 +422,7 @@ studentContactInfo = (e) =>{
                    <h4 className="error">{this.state.addressMailingError}</h4>
              <br/>
              <br/>
-             <Form.Label>City</Form.Label>
+             <Form.Label>City - Home</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="city"
@@ -428,6 +430,13 @@ studentContactInfo = (e) =>{
                   onChange={this.handleInputChangeFor("city")}/>
                    <h4 className="error">{this.state.cityError}</h4>
              <br/>
+             <Form.Label>City - Business</Form.Label>
+             <br/>
+             <Form.Control type="text"
+                  name="city"
+                  value={this.state.city_bussiness}
+                  onChange={this.handleInputChangeFor("city_bussiness")}/>
+                  <h4 className="error">{this.state.businessCityError}</h4>
              <br/>
             
            <Button type="submit">Next</Button>
