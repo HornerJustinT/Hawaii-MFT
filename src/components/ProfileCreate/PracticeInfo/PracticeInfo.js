@@ -273,7 +273,7 @@ handleInputChangeFor = propertyName => (event) =>{
            }
           });
           this.setState({shouldBlockNavigation:false},()=>{
-            this.props.history.push("/edit-profile");
+            this.props.history.push("/uploadimage");
           });
           //this will reset the inputs on the parcticeinfo page
            return true;

@@ -6,14 +6,23 @@ import { connect } from 'react-redux';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import "./uploadImage.css";
 import UploadModal from "../../UploadModal/UploadModal";
+
+
+
+
 var storage = firebase.storage().ref();
 
 class uploadImage extends Component {
   state= {
     profilephoto: ''
   }
-  componentDidMount
+
+
+  componentDidMount(){
+
+  }
 
   getImage = (id) => {
     console.log(id)
@@ -44,7 +53,10 @@ class uploadImage extends Component {
 
 
 
-
+handleNext = (e) =>{
+  e.preventDefault()
+  this.props.history.push("/edit-profile");
+}
 
 
 
@@ -55,7 +67,7 @@ class uploadImage extends Component {
 
           
      <div className="text-center">
-         <h1><header className='uploadImage'>Upload your Profile Image</header></h1>
+         <h1><header className='uploadImage'>Upload Your Profile Image</header></h1>
               <img className="photo" src={this.state.profilePhoto}></img>
               <div>
                 <UploadModal
@@ -64,8 +76,10 @@ class uploadImage extends Component {
                   style={{"margin-bottom": "15px"}}
                 ></UploadModal>
               </div>
+              <div className='toEditView'><Button onClick={this.handleNext}>Next</Button></div>
+              
       </div>
-
+      
           </>
         )
     }
