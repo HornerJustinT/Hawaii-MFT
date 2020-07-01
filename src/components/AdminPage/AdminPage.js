@@ -303,7 +303,7 @@ class AdminPage extends Component {
                 this.props.members.map((therapist) => (
                   
                   <tr>
-                    <ReactTooltip/>
+
                     <td>{therapist.id}</td>
                     <td>
                       {therapist.first_name} {therapist.last_name}
@@ -320,6 +320,7 @@ class AdminPage extends Component {
                         View
                       </Button>
                     </td>
+                    <ReactTooltip/>
                   </tr>
                 ))}
             </tbody>
