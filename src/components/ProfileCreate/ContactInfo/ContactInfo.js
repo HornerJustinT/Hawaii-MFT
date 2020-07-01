@@ -293,7 +293,7 @@ studentContactInfo = (e) =>{
                   <h4 className="error">{this.state.addressMailingError}</h4>
              <br/>
              <br/>
-             <Form.Label>City</Form.Label>
+             <Form.Label>City - Home</Form.Label>
              <br/>
              <Form.Control type="text"
                   name="city"
@@ -301,10 +301,12 @@ studentContactInfo = (e) =>{
                   onChange={this.handleInputChangeFor("city")}/>
                   <h4 className="error">{this.state.cityError}</h4>
              <br/>
+             <Form.Label>City - Business</Form.Label>
+             <br/>
              <Form.Control type="text"
                   name="city"
-                  value={this.state.city}
-                  onChange={this.handleInputChangeFor("city")}/>
+                  value={this.state.cityBussiness}
+                  onChange={this.handleInputChangeFor("cityBussiness")}/>
                   <h4 className="error">{this.state.cityError}</h4>
              <br/>
              <br/>
