@@ -10,10 +10,7 @@ class EmailModal extends Component {
   state = {
     show: false,
     recipients: "",
-    message: `Hello, 
-${this.props.profile.first_name} ${this.props.profile.last_name} is a colleague of mine I think they would be a great fit for you! Below is their contact info.
-Best wishes!\n\nContact Info:\nWebsite: ${this.props.profile.website}\nPhone Number: ${this.props.profile.phone}\nBusiness Address: ${this.props.profile.address}`,
-  };
+    message:''};
 
   modalChange = (event) => {
     this.setState({
@@ -28,8 +25,13 @@ Best wishes!\n\nContact Info:\nWebsite: ${this.props.profile.website}\nPhone Num
   };
 
   handleShow = () => {
+    console.log(this.props)
     this.setState({
       show: true,
+      message: `Hello, 
+      ${this.props.profile.first_name} ${this.props.profile.last_name} is a colleague of mine I think they would be a great fit for you! Below is their contact info.
+      Best wishes!\n\nContact Info:\nWebsite: ${this.props.profile.website}\nPhone Number: ${this.props.profile.phone}\nBusiness Address: ${this.props.profile.address}`,
+        
     });
   };
 
