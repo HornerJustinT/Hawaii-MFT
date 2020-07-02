@@ -256,7 +256,7 @@ class SearchBar extends Component {
                   />
                 </div>
                 <SearchSelect
-                  name="Session Format(s)"
+                  name="Session Format"
                   array={this.state.data.session_format}
                   onChange={(event) =>
                     this.onSearchChangeAdv(event, "session_format")
