@@ -198,7 +198,7 @@ class SearchBar extends Component {
                   />
                 </Form.Group>
                 <SearchSelect
-                  name="Languages"
+                  name="Languages Spoken"
                   array={this.state.data.languages}
                   onChange={(event) =>
                     this.onSearchChangeAdv(event, "languages")
