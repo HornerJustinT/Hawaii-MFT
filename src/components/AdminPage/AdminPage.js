@@ -130,7 +130,7 @@ class AdminPage extends Component {
         ...this.state.criteria,
         [Mainkey]: null,
       },
-    });
+    },()=>{this.searchTherapists()})
   };
 
   // Shows another bar on the page
@@ -154,6 +154,7 @@ class AdminPage extends Component {
         }
       }
     }
+    this.searchTherapists();
   };
 
 

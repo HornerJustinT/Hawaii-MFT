@@ -53,7 +53,7 @@ class NavBar extends Component{
               }
 
             </NavDropdown>
-            <Navbar.Brand href="#home">The Hawaiian Islands Marriage and Family Therapy Directory</Navbar.Brand>
+            <Navbar.Brand href="#home">The Hawaiian Islands Marriage and Family Therapist Directory</Navbar.Brand>
           </Nav>
 
           {/* If the user is NOT logged show the Login and Register links; otherwise, show nothing.*/}
