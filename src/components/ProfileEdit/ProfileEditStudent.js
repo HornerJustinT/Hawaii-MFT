@@ -300,9 +300,14 @@ class ProfileEditStudent extends Component {
           ></UploadModal>
         </div>
         <div>
-          <Form>
+          <Form className="header">
+            <Form.Check
+              type="switch"
+              id="custom-switch"
+              label="I am not a Student"
+            />
             <Button onClick={this.handleStudent}>I am a not a Student</Button>
-          </Form>    
+          </Form>
         </div>
 
         {/**Here is Basic Info render */}
