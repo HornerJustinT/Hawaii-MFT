@@ -193,7 +193,7 @@ class SearchBar extends Component {
                   <Form.Label>Island, City or Zip Code</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="City or Zip Code"
+                    placeholder="Island, City or Zip Code"
                     onChange={(event) => this.onSearchChangeAdv(event, "zip")}
                   />
                 </Form.Group>
