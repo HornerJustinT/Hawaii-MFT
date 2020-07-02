@@ -239,7 +239,7 @@ class SearchBar extends Component {
                 />
                 <div className="flex-between advanced-input">
                   <SearchSelect
-                    name="Age Focus"
+                    name="Ages Worked With"
                     array={this.state.data.ages_served}
                     onChange={(event) =>
                       this.onSearchChangeAdv(event, "ages_served")
