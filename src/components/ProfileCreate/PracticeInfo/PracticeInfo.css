@@ -1,0 +1,18 @@
+.container{
+
+    border: solid .00000015em #cccccc;
+    margin-top: 2em;
+    margin-left: 2em;
+    margin-right: 4em;
+    padding-top: 0px;
+    padding-bottom: 0px;
+   
+}
+
+h1{
+    margin-top: 0;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+
