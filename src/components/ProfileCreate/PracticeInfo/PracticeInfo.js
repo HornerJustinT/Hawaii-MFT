@@ -352,7 +352,7 @@ handleInputChangeFor = propertyName => (event) =>{
                   <Form.Label>License State of Issue*</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder='Please fill in your license state of issues'
+                    placeholder='Please fill in your license state of issue'
                     name="license_state"
                     value={this.state.license_state}
                     onChange={this.handleInputChangeFor("license_state")}
