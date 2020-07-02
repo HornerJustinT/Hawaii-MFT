@@ -299,18 +299,6 @@ handleInputChangeFor = propertyName => (event) =>{
 
               <Form onSubmit={this.addMembersInfo}>
                 <Form.Group>
-                  <Form.Label>Title*</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder='Please fill in your title'
-                    name="title"
-                    value={this.state.title}
-                    onChange={this.handleInputChangeFor("title")}
-                  />
-                   <h4 className="error">{this.state.titleError}</h4>
-                </Form.Group>
-
-                <Form.Group>
                   <Form.Label>Credentials*</Form.Label>
                   <Form.Control
                     type="text"
