@@ -96,7 +96,7 @@ handleInputChangeFor = propertyName => (event) =>{
          }
         });
 //this will reset the inputs on the parcticeinfo page
-this.props.history.push(`/edit-profile`)
+this.props.history.push("/uploadimage");
      this.handleReset();
     }
 
@@ -126,21 +126,12 @@ this.props.history.push(`/edit-profile`)
         return(
             <>
             <div className='container'>
-        <header><h1>Student Info</h1></header>
+             
+        <header><h1 className="text-center">Student Info</h1></header>
         <br/>
         <ProgressBar now={75} />
         <br/>
         <Form onSubmit={this.addMembersInfo}>
-        <br/>
-        <br/>
-        <Form.Group>
-        <Form.Label>Title </Form.Label><br/><Form.Control type="text"
-                  name="title"
-                  placeholder='Please fill in your title'
-                  value={this.state.title}
-                  onChange={this.handleInputChangeFor("title")}/>
-                  </Form.Group>
-        <br/>
         <br/>
         <Form.Group>
         <Form.Label>Specialization</Form.Label><br/><Form.Control   as="select" onChange={this.handleInputChangeFor("specialty_id")}>
@@ -207,10 +198,9 @@ this.props.history.push(`/edit-profile`)
                    } 
            </Form.Control>
            </Form.Group>
-        <br/>
-        <br/>
-        <Button className='save' type="submit">Save</Button>
+           <Button type="submit">Next</Button>
         </Form>
+       
             </div>
            
             </>
