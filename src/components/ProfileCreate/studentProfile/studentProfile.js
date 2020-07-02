@@ -96,7 +96,7 @@ handleInputChangeFor = propertyName => (event) =>{
          }
         });
 //this will reset the inputs on the parcticeinfo page
-this.props.history.push(`/edit-profile/${this.props.user.id}`)
+this.props.history.push(`/edit-profile`)
      this.handleReset();
     }
 

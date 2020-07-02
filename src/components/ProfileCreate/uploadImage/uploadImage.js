@@ -55,7 +55,7 @@ class uploadImage extends Component {
 
 handleNext = (e) =>{
   e.preventDefault()
-  this.props.history.push("/edit-profile");
+  this.props.history.push(`/edit-profile/${this.props.user.id}`)
 }
 
 
@@ -64,10 +64,13 @@ handleNext = (e) =>{
         return(
 
           <>
-
           
      <div className="text-center">
+       <div className='container'>
          <h1><header className='uploadImage'>Upload Your Profile Image</header></h1>
+         <ProgressBar now={100} />
+         <br/>
+         <br/>
               <img className="photo" src={this.state.profilePhoto}></img>
               <div>
                 <UploadModal
@@ -77,7 +80,7 @@ handleNext = (e) =>{
                 ></UploadModal>
               </div>
               <div className='toEditView'><Button onClick={this.handleNext}>Next</Button></div>
-              
+              </div>  
       </div>
       
           </>

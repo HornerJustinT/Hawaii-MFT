@@ -302,6 +302,7 @@ handleInputChangeFor = propertyName => (event) =>{
                   <Form.Label>Title*</Form.Label>
                   <Form.Control
                     type="text"
+                    placeholder='Please fill in your title'
                     name="title"
                     value={this.state.title}
                     onChange={this.handleInputChangeFor("title")}
@@ -313,6 +314,7 @@ handleInputChangeFor = propertyName => (event) =>{
                   <Form.Label>Credentials*</Form.Label>
                   <Form.Control
                     type="text"
+                    placeholder='Please fill in your credentials'
                     name="title"
                     value={this.state.credentials}
                     onChange={this.handleInputChangeFor("credentials")}
@@ -350,6 +352,7 @@ handleInputChangeFor = propertyName => (event) =>{
                   <Form.Label>License State of Issue*</Form.Label>
                   <Form.Control
                     type="text"
+                    placeholder='Please fill in your license state of issues'
                     name="license_state"
                     value={this.state.license_state}
                     onChange={this.handleInputChangeFor("license_state")}
@@ -361,6 +364,7 @@ handleInputChangeFor = propertyName => (event) =>{
                   <Form.Label>License Number*</Form.Label>
                   <Form.Control
                     type="number"
+                    placeholder='Please fill in your license number'
                     name="license_number"
                     value={this.state.license_number}
                     onChange={this.handleInputChangeFor("license_number")}
@@ -372,6 +376,7 @@ handleInputChangeFor = propertyName => (event) =>{
                   <Form.Label>License Expiration Date*</Form.Label>
                   <Form.Control
                     type="date"
+                    placeholder='Please fill in your license expiration date'
                     name="license_expiration"
                     value={this.state.license_expiration}
                     onChange={this.handleInputChangeFor("license_expiration")}
@@ -383,6 +388,7 @@ handleInputChangeFor = propertyName => (event) =>{
                   <Form.Label>Statement*</Form.Label>
                   <Form.Control
                     type="text"
+                    placeholder='Please fill in your statement'
                     name="statement"
                     value={this.state.statement}
                     onChange={this.handleInputChangeFor("statement")}
@@ -394,6 +400,7 @@ handleInputChangeFor = propertyName => (event) =>{
                   <Form.Label>Fees*</Form.Label>
                   <Form.Control
                     type="text"
+                    placeholder='Please fill in fees'
                     name="fees"
                     value={this.state.fees}
                     onChange={this.handleInputChangeFor("fees")}
@@ -405,6 +412,7 @@ handleInputChangeFor = propertyName => (event) =>{
                   <Form.Label>Specialization*</Form.Label>
                   <Form.Control
                     as="select"
+                    placeholder='Please fill in your specialization'
                     multiple={true}
                     onChange={(event) =>
                       this.handleMultiChange(event, "specialty_id")
@@ -477,6 +485,7 @@ handleInputChangeFor = propertyName => (event) =>{
                   <Form.Label>Are you providing telehealth?*</Form.Label>
                   <Form.Control
                     as="select"
+                    placeholder='Please choose if you are providing telehealth'
                     name="telehealth"
                     value={this.state.telehealth}
                     onChange={this.handleInputChangeFor("telehealth")}
