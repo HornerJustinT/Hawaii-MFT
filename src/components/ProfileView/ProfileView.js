@@ -259,7 +259,7 @@ class ProfileView extends Component {
                 </h3>
               </div>
               <div>
-                   <img width ='200' height = '200' src ={this.state.profilePhoto}/>
+                   <img className = 'profile' width ='200' height = '200' src ={this.state.profilePhoto}/>
                    </div>
               <div className="emailModal">
                 <EmailModal />
