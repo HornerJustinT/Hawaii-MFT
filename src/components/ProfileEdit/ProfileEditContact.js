@@ -268,7 +268,6 @@ class ProfileEditContact extends Component {
     };
 
     render() {
-      console.log(this.props);
         if (this.props.profile && this.state.languages) {
             return (
               <>
@@ -363,7 +362,7 @@ class ProfileEditContact extends Component {
                       <Form className="flex-between row-wrap row">
                         <Form.Group className="columnThirds">
                           <Form.Label className="label">
-                            Address - Business
+                            Street Address - Business
                           </Form.Label>
                           <Form.Control
                             defaultValue={this.state.address}
@@ -405,7 +404,7 @@ class ProfileEditContact extends Component {
                       <Form className="flex-between row-wrap row">
                         <Form.Group className="columnThirds">
                           <Form.Label className="label">
-                            Address - Personal
+                            Street Address - Personal
                           </Form.Label>
                           <Form.Control
                             defaultValue={this.state.addressPersonal}
@@ -494,8 +493,8 @@ class ProfileEditContact extends Component {
                             </Form.Group>
                           </Form>
 
-                          <Form className="flex-between row-wrap row">
-                            <Form.Group className="columnThirds">
+                          <Form>
+                            <Form.Group >
                               <Form.Label className="label">Website</Form.Label>
                               <Form.Control
                                 disabled={true}

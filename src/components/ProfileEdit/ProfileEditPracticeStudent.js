@@ -14,8 +14,19 @@ import "../App/App.css";
 class ProfileEditStudent extends Component {
   //setting state, particularly for conditional render of Basic, Contact & Practice sections
   state = {
-    id: 0,
     clickPractice: false,
+    id: this.props.profile.id,
+    title: this.props.profile.title,
+    credentials: this.props.profile.credentials,
+    licenseState: this.props.profile.license_state,
+    licenseExpiration: this.props.profile.license_expiration,
+    licenseNumber: this.props.profile.license_number,
+    licenseType: this.props.profile.license_type,
+    licenseTypeEdit: this.props.profile.license_type_id,
+    hiamftMemberInfo: this.props.profile.hiamft_member_account_info,
+    supervisionStatus: this.props.profile.supervision_status,
+    fees: this.props.profile.fees,
+    telehealth: this.props.profile.telehealth,
     agesServed: this.props.profile.ages_served,
     agesServedEdit: this.props.profile.ages_served_id,
     clientFocus: this.props.profile.client_focus,
@@ -69,7 +80,6 @@ class ProfileEditStudent extends Component {
         id: this.props.profile.id,
         title: this.props.profile.title,
         credentials: this.props.profile.credentials,
-        // license: this.props.profile.license,
         licenseState: this.props.profile.license_state,
         licenseExpiration: this.props.profile.license_expiration,
         licenseNumber: this.props.profile.license_number,
@@ -231,7 +241,8 @@ class ProfileEditStudent extends Component {
           {this.state.clickPractice ? (
             <div className="body">
               <div className="flex-between row-wrap first">
-                <h4>Practice Info</h4>
+                <h4>Practice Interests & Focus Areas</h4>
+                <p></p>
                 <Button
                   className="flex-between row-wrap"
                   onClick={() => this.handleSavePractice()}
@@ -240,23 +251,6 @@ class ProfileEditStudent extends Component {
                 </Button>
               </div>
               <div className="border">
-                <Form className="flex-between row-wrap row">
-                  <Form.Group className="column">
-                    <Form.Label className="label">Credentials</Form.Label>
-                    <Form.Control
-                      value={this.state.credentials}
-                      onChange={(event) =>
-                        this.handleChange(event, "credentials")
-                      }
-                    />
-                    <Form.Text className="text-muted">
-                      Please indicate the credentials you would like to have
-                      listed in your HIAMFT Directory listing. Type them in as
-                      they would appear following your name. Example: PhD, LMFT,
-                      LP
-                    </Form.Text>
-                  </Form.Group>
-                </Form>
                 <Form className="flex-between row-wrap row">
                   <Form.Group className="column">
                     <Form.Label className="label">
@@ -354,7 +348,7 @@ class ProfileEditStudent extends Component {
           ) : (
             <div className="body">
               <div className="flex-between row-wrap first">
-                <h4>Practice Info</h4>
+                <h4>Practice Interests & Focus Areas</h4>
                 <Button
                   className="flex-between row-wrap"
                   onClick={() => this.handleEditPractice()}
@@ -363,16 +357,6 @@ class ProfileEditStudent extends Component {
                 </Button>
               </div>
               <div className="border">
-                <Form className="flex-between row-wrap row">
-                  <Form.Group className="column">
-                    <Form.Label className="label">Credentials</Form.Label>
-                    <Form.Control
-                      disabled={true}
-                      readOnly
-                      value={this.state.credentials}
-                    />
-                  </Form.Group>
-                </Form>
                 <Form className="flex-between row-wrap row">
                   <Form.Group className="column">
                     <Form.Label className="label">
