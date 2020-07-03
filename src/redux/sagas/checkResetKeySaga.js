@@ -21,6 +21,7 @@ function* newPassword(action) {
     console.log(action.payload)
   try {
     yield axios.post(`/api/user/passwordreset`, action.payload);
+    action.props.history.push('/login')
   } catch (error) {
     console.log("check reset Key put failed", error);
   }
