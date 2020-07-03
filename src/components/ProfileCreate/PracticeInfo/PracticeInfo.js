@@ -2,6 +2,7 @@ import React,{ Component } from 'react';
 import { Prompt } from 'react-router'
 //this connects the component to th redux store
 import { connect } from 'react-redux';
+import "./PracticeInfo.css"
 
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
