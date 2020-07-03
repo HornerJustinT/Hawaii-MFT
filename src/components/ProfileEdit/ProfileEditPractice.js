@@ -282,7 +282,7 @@ class ProfileEdit extends Component {
                         Hawai'i qualified
                       </option>
                       <option value="MFT supervisor">MFT supervisor</option>
-                      <option value="AAMFT approved">AAMFT approved</option>
+                      <option value="AAMFT approved">AAMFT-approved</option>
                       <option value="Supervisor">Supervisor</option>
                     </Form.Control>
                   </Form.Group>

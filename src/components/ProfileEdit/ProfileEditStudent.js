@@ -293,20 +293,28 @@ class ProfileEditStudent extends Component {
       <>
         <div className="header">
           <h3>My Profile</h3>
+        </div>
+        <div className="body border">
           <img className="photo" src={this.state.profilePhoto}></img>
+        </div>
+        <div className="body">
           <UploadModal
             refresh={this.getImage}
             name={this.props.user}
           ></UploadModal>
         </div>
-        <div>
-          <Form className="header">
+        <div className="body">
+          <Form className="flex-between row-wrap">
             <Form.Check
               type="switch"
               id="custom-switch"
               label="I am not a Student"
             />
-            <Button onClick={this.handleStudent}>I am a not a Student</Button>
+            <Button 
+              className="flex-between row-wrap" 
+              onClick={this.handleStudent}
+              >I am a not a Student
+            </Button>
           </Form>
         </div>
 
