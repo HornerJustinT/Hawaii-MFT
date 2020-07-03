@@ -27,6 +27,32 @@ router.post('/register', (req, res, next) => {
     .catch(() => res.sendStatus(500));
 });
 
+router.post("/passwordreset", (req, res) => {
+  console.log(req.body);
+  const username = req.body.username;
+  const password = encryptLib.encryptPassword(req.body.password);
+
+  const queryText = `UPDATE "user" SET "password" = $1 WHERE "username" = $2`;
+  pool
+    .query(queryText, [password, username])
+    .then(() => {
+      let queryText = 'DELETE FROM "password_reset" WHERE key = $1';
+      pool
+        .query(queryText, [req.body.key])
+        .then((result) => {
+          res.sendStatus(200);
+        })
+        .catch((error) => {
+          console.log('error deleting from "password_reset', error);
+          res.sendStatus(500);
+        });
+    })
+    .catch((error) => {
+      console.log(error)
+      res.sendStatus(500)
+    });
+});
+
 // Handles login form authenticate/login POST
 // userStrategy.authenticate('local') is middleware that we run on this route
 // this middleware will run our POST if successful

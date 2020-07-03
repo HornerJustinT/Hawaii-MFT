@@ -3,22 +3,34 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 // will be fired on "create Registration key" actions
 function* checkResetKey(action) {
-  console.log(`/api/checkRegistrationKey/${action.payload}`);
   try {
     const results = yield axios.get(`/api/checkResetKey/${action.payload}`);
-    let allowed = false;
-    if (results.data[0] && results.data[0].used === false) {
-      allowed = true;
+    let payload = {}
+    if (results.data.rows[0]) {
+      payload = results.data.rows[0];
     }
-    yield put({ type: "CHECK_KEY", payload: allowed });
+    yield put({ type: "PASSWORD_VALIDATION", payload: payload });
     // should send registration key in the params
   } catch (error) {
     console.log("check reset Key put failed", error);
   }
 }
 
-function* checkRegistrationKeySaga() {
-    yield takeLatest('CHECK_RESET_KEY', checkResetKey);
+// will be fired on "create Registration key" actions
+function* newPassword(action) {
+    console.log(action.payload)
+  try {
+    yield axios.post(`/api/user/passwordreset`, action.payload);
+    action.props.history.push('/login')
+  } catch (error) {
+    console.log("check reset Key put failed", error);
+  }
 }
 
-export default checkRegistrationKeySaga;
+
+function* checkResetKeySaga() {
+  yield takeLatest("CHECK_RESET_KEY", checkResetKey);
+  yield takeLatest("NEW_PASSWORD", newPassword);
+}
+
+export default checkResetKeySaga;

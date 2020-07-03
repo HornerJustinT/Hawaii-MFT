@@ -17,6 +17,8 @@ const create_profileRouter = require("./routes/create_profile.router");
 const advancedRouter = require("./routes/advanced.router");
 const createRegistrationKeyRouter = require("./routes/create_registration_key.router");
 const checkRegistrationKeyRouter = require("./routes/check_registration_key.router");
+const createResetKeyRouter = require("./routes/create_reset_key.router");
+const checkResetKeyRouter = require("./routes/check_reset_key.router");
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -38,6 +40,8 @@ app.use("/api/profile", create_profileRouter);
 app.use("/api/advanced", advancedRouter);
 app.use("/api/createRegistrationKey", createRegistrationKeyRouter);
 app.use("/api/checkRegistrationKey", checkRegistrationKeyRouter);
+app.use("/api/createResetKey", createResetKeyRouter);
+app.use("/api/checkResetKey", checkResetKeyRouter);
 
 // Serve static files
 app.use(express.static('build'));
