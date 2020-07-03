@@ -8,7 +8,6 @@ const router = express.Router();
  * POST route template
  */
 router.post("/modal", async (req, res) => {
-    console.log(req.body)
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
     service: "gmail",

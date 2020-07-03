@@ -74,7 +74,7 @@ class App extends Component {
             {/*This is a route anyone can see, no login necessary */}
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/forgotpassword" component={ForgotPassword} />
-            <Route exact path="/newpassword" component={NewPassword} />
+            <Route exact path="/passwordreset/:key" component={NewPassword} />
             {/*This is a route anyone can see, no login necessary */}
             <ProtectedRoute exact path="/create-profile" component={ProfileCreate} />
 
