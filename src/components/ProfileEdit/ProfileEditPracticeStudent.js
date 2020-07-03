@@ -168,55 +168,55 @@ class ProfileEditStudent extends Component {
     }
   };
 
-  displayInsurance = () => {
-    if (this.state.clickPractice) {
-      return (
-        <Form.Group className="columnThirds">
-          <Form.Label className="label">Insurances Accepted</Form.Label>
-          <Form.Control
-            as="select"
-            multiple={true}
-            value={this.state.insuranceEdit}
-            onChange={(event) => this.handleMultiChange(event, "insuranceEdit")}
-          >
-            {this.props.insuranceTaken.map((insurance) => {
-              return (
-                <>
-                  <option
-                    key={insurance.insurance_type_id}
-                    value={insurance.insurance_type_id}
-                  >
-                    {insurance.title}
-                  </option>
-                </>
-              );
-            })}
-          </Form.Control>
-        </Form.Group>
-      );
-    } else {
-      return (
-        <Form.Group className="columnThirds">
-          <Form.Label variant="flat" className="label">
-            Insurances Accepted
-          </Form.Label>
-          <div>
-            {this.props.profile.insurance.map((insurance) => {
-              return (
-                <>
-                  <Form.Control
-                    disabled={true}
-                    readOnly
-                    defaultValue={insurance}
-                  />
-                </>
-              );
-            })}
-          </div>
-        </Form.Group>
-      );
-    }
-  };
+  // displayInsurance = () => {
+  //   if (this.state.clickPractice) {
+  //     return (
+  //       <Form.Group className="columnThirds">
+  //         <Form.Label className="label">Insurances Accepted</Form.Label>
+  //         <Form.Control
+  //           as="select"
+  //           multiple={true}
+  //           value={this.state.insuranceEdit}
+  //           onChange={(event) => this.handleMultiChange(event, "insuranceEdit")}
+  //         >
+  //           {this.props.insuranceTaken.map((insurance) => {
+  //             return (
+  //               <>
+  //                 <option
+  //                   key={insurance.insurance_type_id}
+  //                   value={insurance.insurance_type_id}
+  //                 >
+  //                   {insurance.title}
+  //                 </option>
+  //               </>
+  //             );
+  //           })}
+  //         </Form.Control>
+  //       </Form.Group>
+  //     );
+  //   } else {
+  //     return (
+  //       <Form.Group className="columnThirds">
+  //         <Form.Label variant="flat" className="label">
+  //           Insurances Accepted
+  //         </Form.Label>
+  //         <div>
+  //           {this.props.profile.insurance.map((insurance) => {
+  //             return (
+  //               <>
+  //                 <Form.Control
+  //                   disabled={true}
+  //                   readOnly
+  //                   defaultValue={insurance}
+  //                 />
+  //               </>
+  //             );
+  //           })}
+  //         </div>
+  //       </Form.Group>
+  //     );
+  //   }
+  // };
 
   render() {
     if (
@@ -241,13 +241,6 @@ class ProfileEditStudent extends Component {
               </div>
               <div className="border">
                 <Form className="flex-between row-wrap row">
-                  <Form.Group className="column">
-                    <Form.Label className="label">Title</Form.Label>
-                    <Form.Control
-                      value={this.state.title}
-                      onChange={(event) => this.handleChange(event, "title")}
-                    />
-                  </Form.Group>
                   <Form.Group className="column">
                     <Form.Label className="label">Credentials</Form.Label>
                     <Form.Control
@@ -276,119 +269,12 @@ class ProfileEditStudent extends Component {
                         this.handleChange(event, "supervisionStatus")
                       }
                     >
-                      <option value="None">None</option>
-                      <option value="Hawai'i qualified">
-                        Hawai'i qualified
-                      </option>
-                      <option value="MFT supervisor">MFT supervisor</option>
-                      <option value="AAMFT approved">AAMFT approved</option>
-                      <option value="Supervisor">Supervisor</option>
-                    </Form.Control>
-                  </Form.Group>
-                  <Form.Group className="column">
-                    <Form.Label className="label">Telehealth</Form.Label>
-                    <Form.Control
-                      as="select"
-                      value={this.state.telehealth}
-                      onChange={(event) =>
-                        this.handleChangeBoolean(event, "telehealth")
-                      }
-                      width={"193px"}
-                    >
-                      <option value={true}>Yes, I offer telehealth.</option>
-                      <option value={false}>
-                        No, I do not offer telehealth.
+                      <option value="Student">
+                        Student
                       </option>
                     </Form.Control>
                   </Form.Group>
                 </Form>
-                <Form className="flex-between row-wrap row">
-                  <Form.Group className="columnThirds">
-                    <Form.Label className="label">License Number</Form.Label>
-                    <Form.Control
-                      value={this.state.licenseNumber}
-                      onChange={(event) =>
-                        this.handleChange(event, "licenseNumber")
-                      }
-                    />
-                  </Form.Group>
-                  <Form.Group className="columnThirds">
-                    <Form.Label className="label">
-                      License Expiration Date
-                    </Form.Label>
-                    <Form.Control
-                      type="date"
-                      value={this.state.licenseExpiration}
-                      onChange={(event) =>
-                        this.handleChange(event, "licenseExpiration")
-                      }
-                    />
-                  </Form.Group>
-                  <Form.Group className="columnThirds">
-                    <Form.Label className="label">License Type</Form.Label>
-                    <Form.Control
-                      as="select"
-                      value={this.state.licenseType}
-                      onChange={(event) =>
-                        this.handleChange(event, "licenseTypeEdit")
-                      }
-                    >
-                      {this.props.profile &&
-                        this.props.license.map((license) => {
-                          return (
-                            <>
-                              <option
-                                key={license.license_type_id}
-                                value={license.license_type_id}
-                              >
-                                {license.title}
-                              </option>
-                            </>
-                          );
-                        })}
-                    </Form.Control>
-                  </Form.Group>
-                </Form>
-
-                <Form className="flex-between row-wrap row">
-                  {this.displayInsurance()}
-
-                  <Form.Group className="columnThirds">
-                    <Form.Label className="label">Fees</Form.Label>
-                    <InputGroup.Prepend>
-                      <InputGroup.Text>$</InputGroup.Text>
-                      <Form.Control
-                        value={this.state.fees}
-                        onChange={(event) => this.handleChange(event, "fees")}
-                      />
-                    </InputGroup.Prepend>
-                  </Form.Group>
-                  <Form.Group className="columnThirds">
-                    <Form.Label className="label">Session Format</Form.Label>
-                    <Form.Control
-                      as="select"
-                      multiple={true}
-                      value={this.state.sessionFormatEdit}
-                      onChange={(event) =>
-                        this.handleMultiChange(event, "sessionFormatEdit")
-                      }
-                    >
-                      {this.props.sessionFormats.map((session) => {
-                        return (
-                          <>
-                            <option
-                              key={session.session_format_id}
-                              value={session.session_format_id}
-                            >
-                              {session.title}
-                            </option>
-                          </>
-                        );
-                      })}
-                    </Form.Control>
-                  </Form.Group>
-                </Form>
-
                 <Form className="flex-between row-wrap row">
                   <Form.Group className="columnThirds">
                     <Form.Label className="label">Client Focus</Form.Label>
@@ -415,9 +301,7 @@ class ProfileEditStudent extends Component {
                     </Form.Control>
                   </Form.Group>
                   <Form.Group className="columnThirds">
-                    <Form.Label className="label">
-                      Treatment & Approaches
-                    </Form.Label>
+                    <Form.Label className="label">Treatments/Approaches</Form.Label>
                     <Form.Control
                       as="select"
                       multiple={true}
@@ -481,14 +365,6 @@ class ProfileEditStudent extends Component {
               <div className="border">
                 <Form className="flex-between row-wrap row">
                   <Form.Group className="column">
-                    <Form.Label className="label">Title</Form.Label>
-                    <Form.Control
-                      disabled={true}
-                      readOnly
-                      value={this.state.title}
-                    />
-                  </Form.Group>
-                  <Form.Group className="column">
                     <Form.Label className="label">Credentials</Form.Label>
                     <Form.Control
                       disabled={true}
@@ -505,80 +381,10 @@ class ProfileEditStudent extends Component {
                     <Form.Control
                       disabled={true}
                       readOnly
-                      value={this.state.supervisionStatus}
-                    />
-                  </Form.Group>
-                  <Form.Group className="column">
-                    <Form.Label className="label">Telehealth</Form.Label>
-                    <Form.Control
-                      disabled={true}
-                      readOnly
-                      value={this.renderTelehealth()}
+                      value="Student"
                     />
                   </Form.Group>
                 </Form>
-
-                <Form className="flex-between row-wrap row">
-                  <Form.Group className="columnThirds">
-                    <Form.Label className="label">License Number</Form.Label>
-                    <Form.Control
-                      disabled={true}
-                      readOnly
-                      value={this.state.licenseNumber}
-                    />
-                  </Form.Group>
-                  <Form.Group className="columnThirds">
-                    <Form.Label className="label">
-                      License Expiration Date
-                    </Form.Label>
-                    <Form.Control
-                      type="date"
-                      disabled={true}
-                      readOnly
-                      value={this.state.licenseExpiration}
-                    />
-                  </Form.Group>
-                  <Form.Group className="columnThirds">
-                    <Form.Label className="label">License Type</Form.Label>
-                    <Form.Control
-                      disabled={true}
-                      readOnly
-                      value={this.state.licenseType}
-                    />
-                  </Form.Group>
-                </Form>
-                <Form className="flex-between row-wrap row">
-                  {this.displayInsurance()}
-                  <Form.Group className="columnThirds">
-                    <Form.Label className="label">Fees</Form.Label>
-                    <InputGroup.Prepend>
-                      <InputGroup.Text>$</InputGroup.Text>
-                      <Form.Control
-                        disabled={true}
-                        readOnly
-                        value={this.state.fees}
-                      />
-                    </InputGroup.Prepend>
-                  </Form.Group>
-                  <Form.Group className="columnThirds">
-                    <Form.Label className="label">Session Format</Form.Label>
-                    <div>
-                      {this.state.sessionFormat &&
-                        this.state.sessionFormat.map((sessionFormat) => {
-                          return (
-                            <>
-                              <Form.Control
-                                disabled={true}
-                                readOnly
-                                value={sessionFormat}
-                              />
-                            </>
-                          );
-                        })}
-                    </div>
-                  </Form.Group>
-                </Form>
-
                 <Form className="flex-between row-wrap row">
                   <Form.Group className="columnThirds">
                     <Form.Label className="label">Client Focus</Form.Label>
@@ -599,7 +405,7 @@ class ProfileEditStudent extends Component {
                   </Form.Group>
                   <Form.Group className="columnThirds">
                     <Form.Label variant="flat" className="label">
-                      Treatment & Approaches
+                      Treatments/Approaches
                     </Form.Label>
                     <div>
                       {this.state.treatmentPreferences &&
