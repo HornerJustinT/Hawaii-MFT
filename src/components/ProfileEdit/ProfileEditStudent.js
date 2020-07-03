@@ -198,32 +198,6 @@ class ProfileEditStudent extends Component {
     });
   }; //end handleChange
 
-  handleStudent = () => {
-    console.log("in handleStudent");
-
-    this.setState({
-      student: false,
-    });
-    this.handleDispatch();
-  };
-
-  handleDispatch = () => {
-    console.log("in handleDispatch");
-
-    this.props.dispatch({
-      type: "STUDENT",
-      payload: {
-        student: false,
-        id: this.state.id,
-      },
-    });
-    this.pushTherapist();
-  };
-
-  pushTherapist = () => {
-    this.props.history.push("/edit-profile");
-  };
-
   //every multiselect needs its own handle[Property]Change function
   //this functions take the new id of an item selected in the multiselect
   //and converts it to a title (name).
@@ -289,7 +263,10 @@ class ProfileEditStudent extends Component {
   };
 
   render() {
-    return (
+    if (this.props.profile.student){
+      return (
+
+
       <>
         <div className="header">
           <h3>My Profile</h3>
@@ -302,20 +279,6 @@ class ProfileEditStudent extends Component {
             refresh={this.getImage}
             name={this.props.user}
           ></UploadModal>
-        </div>
-        <div className="body">
-          <Form className="flex-between row-wrap">
-            <Form.Check
-              type="switch"
-              id="custom-switch"
-              label="I am not a Student"
-            />
-            <Button 
-              className="flex-between row-wrap" 
-              onClick={this.handleStudent}
-              >I am a not a Student
-            </Button>
-          </Form>
         </div>
 
         {/**Here is Basic Info render */}
@@ -367,8 +330,8 @@ class ProfileEditStudent extends Component {
                     onChange={(event) => this.handleChange(event, "age")}
                   />
                   <Form.Text className="text-muted">
-                    Not Listed - HIAMFT-Use Only
-                  </Form.Text>
+                      Not Listed (for HIAMFT-use only)
+                    </Form.Text>
                 </Form.Group>
                 {this.displayLanguages()}
               </Form>
@@ -434,9 +397,9 @@ class ProfileEditStudent extends Component {
                         readOnly
                         defaultValue={this.state.age}
                       />
-                      <Form.Text className="text-muted">
-                        Not Listed - HIAMFT-Use Only
-                      </Form.Text>
+                    <Form.Text className="text-muted">
+                      Not Listed (for HIAMFT-use only)
+                    </Form.Text>
                     </Form.Group>
                     {this.displayLanguages()}
                   </Form>
@@ -471,7 +434,14 @@ class ProfileEditStudent extends Component {
           )}
         </div>
       </>
-    );
+      );
+    }else{
+      return(
+        <>
+          <p>404: page not found</p>
+        </>
+      );
+    }
   }
 }
 

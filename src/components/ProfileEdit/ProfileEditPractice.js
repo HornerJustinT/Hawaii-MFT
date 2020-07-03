@@ -17,8 +17,19 @@ import "../App/App.css";
 class ProfileEdit extends Component {
   //setting state, particularly for conditional render of Basic, Contact & Practice sections
   state = {
-    id: 0,
     clickPractice: false,
+    id: this.props.profile.id,
+    title: this.props.profile.title,
+    credentials: this.props.profile.credentials,
+    licenseState: this.props.profile.license_state,
+    licenseExpiration: this.props.profile.license_expiration,
+    licenseNumber: this.props.profile.license_number,
+    licenseType: this.props.profile.license_type,
+    licenseTypeEdit: this.props.profile.license_type_id,
+    hiamftMemberInfo: this.props.profile.hiamft_member_account_info,
+    supervisionStatus: this.props.profile.supervision_status,
+    fees: this.props.profile.fees,
+    telehealth: this.props.profile.telehealth,
     agesServed: this.props.profile.ages_served,
     agesServedEdit: this.props.profile.ages_served_id,
     clientFocus: this.props.profile.client_focus,
@@ -31,7 +42,7 @@ class ProfileEdit extends Component {
     specialtyEdit: this.props.profile.specialty_id,
     treatmentPreferences: this.props.profile.treatment_preferences,
     treatmentEdit: this.props.profile.treatment_preferences_id,
-    student: this.props.student,
+    student: this.props.profile.student,
   };
 
   //mounting component - dispatching to redux sagas to call data from server for retreival from profile,
@@ -72,7 +83,6 @@ class ProfileEdit extends Component {
         id: this.props.profile.id,
         title: this.props.profile.title,
         credentials: this.props.profile.credentials,
-        // license: this.props.profile.license,
         licenseState: this.props.profile.license_state,
         licenseExpiration: this.props.profile.license_expiration,
         licenseNumber: this.props.profile.license_number,

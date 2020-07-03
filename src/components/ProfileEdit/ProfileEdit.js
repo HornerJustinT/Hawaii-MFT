@@ -77,7 +77,6 @@ class ProfileEdit extends Component {
 
   //updating component to ensure all the data makes it to props for render
   componentDidUpdate(previousProps) {
-    console.log(this.state);
     if (
       this.state.id !== this.props.user.id &&
       previousProps.profile.id !== this.props.profile.id &&
@@ -128,6 +127,10 @@ class ProfileEdit extends Component {
     }
   } //end componentDidUpdate
 
+  pushStudent = () => {
+    this.props.history.push('/edit-student');
+  }
+
 
   //this function handles the conditional rendering to switch between View and Edit modes
   handleEditBasic = () => {
@@ -170,47 +173,6 @@ class ProfileEdit extends Component {
       [propertyName]: event.target.value,
     });
   }; //end handleChange
-
-  handleStudent = () => {
-    console.log('in handleStudent');
-
-    this.setState({
-      student: true,
-    })
-  this.handleDispatch();
-  }
-
-  handleDispatch = () => {
-    console.log('in handleDispatch');
-
-    this.props.dispatch({
-        type: "STUDENT",
-        payload: {
-          student: true,
-          id: this.state.id,
-        }      
-      })
-      this.pushStudent();
-  }
-  
-  //   this.setState({
-  //     student: true,
-  //   },()=>{
-  //     if(this.state.student === true){
-  //       this.props.dispatch({
-  //         type: "STUDENT",
-  //         payload: this.state,
-  //       });
-  //     }
-  //   });
-  //   console.log('$$still a student?', this.state.student);
-  //   this.pushStudent();
-  // }
-
-  pushStudent = () => {
-    this.props.history.push('/edit-student');
-  }
-
 
   //every multiselect needs its own handle[Property]Change function
   //this functions take the new id of an item selected in the multiselect
@@ -283,21 +245,15 @@ class ProfileEdit extends Component {
         <>
           <div className="header">
             <h3>My Profile</h3>
+          </div>
+          <div className="body">
             <img className="photo" src={this.state.profilePhoto}></img>
+          </div>
+          <div className="body">
             <UploadModal
               refresh={this.getImage}
               name={this.props.user}
             ></UploadModal>
-          </div>
-          <div>
-            <Form className="header">
-              <Form.Check
-                type="switch"
-                id="custom-switch"
-                label="I am a Student"
-              />
-              <Button onClick={this.handleStudent}>I am a Student</Button>
-            </Form>
           </div>
 
           {/**Here is Basic Info render */}
@@ -351,7 +307,7 @@ class ProfileEdit extends Component {
                       onChange={(event) => this.handleChange(event, "age")}
                     />
                     <Form.Text className="text-muted">
-                      Not Listed - HIAMFT-Use Only
+                      Not Listed (for HIAMFT-use only)
                     </Form.Text>
                   </Form.Group>
                   {this.displayLanguages()}
@@ -420,9 +376,9 @@ class ProfileEdit extends Component {
                           readOnly
                           defaultValue={this.state.age}
                         />
-                        <Form.Text className="text-muted">
-                          Not Listed - HIAMFT-Use Only
-                        </Form.Text>
+                          <Form.Text className="text-muted">
+                            Not Listed (for HIAMFT-use only)
+                          </Form.Text>
                       </Form.Group>
                       {this.displayLanguages()}
                     </Form>
