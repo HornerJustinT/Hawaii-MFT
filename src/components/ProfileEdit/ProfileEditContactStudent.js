@@ -263,8 +263,8 @@ class ProfileEditContactStudent extends Component {
                 </Button>
               </div>
               <div className="border">
-                <Form className="flex-between row-wrap row">
-                  <Form.Group className="columnThirds">
+                <Form className="flex-container row-wrap">
+                  <Form.Group >
                     <Form.Label className="label">
                       Email Address
                     </Form.Label>
@@ -274,7 +274,7 @@ class ProfileEditContactStudent extends Component {
                     />
                     <Form.Text className="text-muted">Listed</Form.Text>
                   </Form.Group>
-                  <Form.Group className="columnThirds">
+                  <Form.Group >
                     <Form.Label className="label">Website</Form.Label>
                     <Form.Control
                       defaultValue={this.state.website}
@@ -282,7 +282,7 @@ class ProfileEditContactStudent extends Component {
                     />
                     <Form.Text className="text-muted">Listed</Form.Text>
                   </Form.Group>
-                  <Form.Group className="columnThirds">
+                  <Form.Group >
                     <Form.Label className="label">
                       Phone Number
                     </Form.Label>
@@ -299,8 +299,8 @@ class ProfileEditContactStudent extends Component {
 
                 <Form>{this.displayIslands()}</Form>
 
-                <Form className="flex-between row-wrap row">
-                  <Form.Group className="columnThirds">
+                <Form className="flex-container row-wrap">
+                  <Form.Group>
                     <Form.Label className="label">
                       Street Address
                     </Form.Label>
@@ -313,7 +313,7 @@ class ProfileEditContactStudent extends Component {
                     </Form.Text>
                   </Form.Group>
 
-                  <Form.Group className="columnThirds">
+                  <Form.Group>
                     <Form.Label variant="flat" className="label">
                       City
                     </Form.Label>
@@ -326,7 +326,7 @@ class ProfileEditContactStudent extends Component {
                     </Form.Text>
                   </Form.Group>
 
-                  <Form.Group className="columnThirds">
+                  <Form.Group>
                     <Form.Label variant="flat" className="label">
                       Zip Code
                     </Form.Label>
@@ -356,8 +356,8 @@ class ProfileEditContactStudent extends Component {
               {this.props.profile && (
                 <>
                   <div className="border">
-                    <Form className="flex-between row-wrap row">
-                      <Form.Group className="columnThirds">
+                    <Form className="flex-container row-wrap">
+                      <Form.Group>
                         <Form.Label className="label">
                           Email Address
                         </Form.Label>
@@ -368,7 +368,7 @@ class ProfileEditContactStudent extends Component {
                         />
                         <Form.Text className="text-muted">Listed</Form.Text>
                       </Form.Group>
-                      <Form.Group className="columnThirds">
+                      <Form.Group >
                         <Form.Label className="label">Website</Form.Label>
                         <Form.Control
                           disabled={true}
@@ -377,7 +377,7 @@ class ProfileEditContactStudent extends Component {
                         />
                         <Form.Text className="text-muted">Listed</Form.Text>
                       </Form.Group>
-                        <Form.Group className="columnThirds">
+                        <Form.Group >
                         <Form.Label className="label">
                           Phone Number
                         </Form.Label>
@@ -392,8 +392,8 @@ class ProfileEditContactStudent extends Component {
 
                     <Form>{this.displayIslands()}</Form>
 
-                    <Form className="flex-between row-wrap row">
-                      <Form.Group className="columnThirds">
+                    <Form className="flex-container row-wrap">
+                      <Form.Group >
                         <Form.Label className="label">
                           Street Address
                         </Form.Label>
@@ -405,7 +405,7 @@ class ProfileEditContactStudent extends Component {
                           <Form.Text className="text-muted">Not Listed (for HIAMFT-use only)</Form.Text>
                       </Form.Group>
 
-                      <Form.Group className="columnThirds">
+                      <Form.Group >
                         <Form.Label variant="flat" className="label">
                           City
                         </Form.Label>
@@ -417,7 +417,7 @@ class ProfileEditContactStudent extends Component {
                           <Form.Text className="text-muted">Not Listed (for HIAMFT-use only)</Form.Text>
                       </Form.Group>
 
-                      <Form.Group className="columnThirds">
+                      <Form.Group >
                         <Form.Label variant="flat" className="label">
                           Zip Code
                         </Form.Label>

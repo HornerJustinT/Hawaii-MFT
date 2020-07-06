@@ -178,56 +178,6 @@ class ProfileEditStudent extends Component {
     }
   };
 
-  // displayInsurance = () => {
-  //   if (this.state.clickPractice) {
-  //     return (
-  //       <Form.Group className="columnThirds">
-  //         <Form.Label className="label">Insurances Accepted</Form.Label>
-  //         <Form.Control
-  //           as="select"
-  //           multiple={true}
-  //           value={this.state.insuranceEdit}
-  //           onChange={(event) => this.handleMultiChange(event, "insuranceEdit")}
-  //         >
-  //           {this.props.insuranceTaken.map((insurance) => {
-  //             return (
-  //               <>
-  //                 <option
-  //                   key={insurance.insurance_type_id}
-  //                   value={insurance.insurance_type_id}
-  //                 >
-  //                   {insurance.title}
-  //                 </option>
-  //               </>
-  //             );
-  //           })}
-  //         </Form.Control>
-  //       </Form.Group>
-  //     );
-  //   } else {
-  //     return (
-  //       <Form.Group className="columnThirds">
-  //         <Form.Label variant="flat" className="label">
-  //           Insurances Accepted
-  //         </Form.Label>
-  //         <div>
-  //           {this.props.profile.insurance.map((insurance) => {
-  //             return (
-  //               <>
-  //                 <Form.Control
-  //                   disabled={true}
-  //                   readOnly
-  //                   defaultValue={insurance}
-  //                 />
-  //               </>
-  //             );
-  //           })}
-  //         </div>
-  //       </Form.Group>
-  //     );
-  //   }
-  // };
-
   render() {
     if (
       this.props.profile &&
@@ -269,8 +219,8 @@ class ProfileEditStudent extends Component {
                     </Form.Control>
                   </Form.Group>
                 </Form>
-                <Form className="flex-between row-wrap row">
-                  <Form.Group className="columnThirds">
+                <Form className="flex-container row-wrap">
+                  <Form.Group >
                     <Form.Label className="label">Client Focus</Form.Label>
                     <Form.Control
                       as="select"
@@ -294,7 +244,7 @@ class ProfileEditStudent extends Component {
                       })}
                     </Form.Control>
                   </Form.Group>
-                  <Form.Group className="columnThirds">
+                  <Form.Group >
                     <Form.Label className="label">Treatments/Approaches</Form.Label>
                     <Form.Control
                       as="select"
@@ -318,7 +268,7 @@ class ProfileEditStudent extends Component {
                       })}
                     </Form.Control>
                   </Form.Group>
-                  <Form.Group className="columnThirds">
+                  <Form.Group >
                     <Form.Label className="label">Specialties</Form.Label>
                     <Form.Control
                       as="select"
@@ -369,8 +319,8 @@ class ProfileEditStudent extends Component {
                     />
                   </Form.Group>
                 </Form>
-                <Form className="flex-between row-wrap row">
-                  <Form.Group className="columnThirds">
+                <Form className="flex-container row-wrap">
+                  <Form.Group >
                     <Form.Label className="label">Client Focus</Form.Label>
                     <div>
                       {this.state.clientFocus &&
@@ -387,7 +337,7 @@ class ProfileEditStudent extends Component {
                         })}
                     </div>
                   </Form.Group>
-                  <Form.Group className="columnThirds">
+                  <Form.Group >
                     <Form.Label variant="flat" className="label">
                       Treatments/Approaches
                     </Form.Label>
@@ -406,7 +356,7 @@ class ProfileEditStudent extends Component {
                         })}
                     </div>
                   </Form.Group>
-                  <Form.Group className="columnThirds">
+                  <Form.Group >
                     <Form.Label variant="flat" className="label">
                       Specialties
                     </Form.Label>

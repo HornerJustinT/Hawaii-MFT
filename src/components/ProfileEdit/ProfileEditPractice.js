@@ -6,6 +6,7 @@ import { withRouter } from 'react-router';
 //React Botstrap imports
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
 import InputGroup from 'react-bootstrap/InputGroup';
 
 //CSS file imports
@@ -185,7 +186,7 @@ class ProfileEdit extends Component {
   displayInsurance = () => {
     if (this.state.clickPractice) {
       return (
-        <Form.Group className="columnThirds">
+        <Form.Group >
           <Form.Label className="label">Insurances Accepted</Form.Label>
           <Form.Control
             as="select"
@@ -210,7 +211,7 @@ class ProfileEdit extends Component {
       );
     } else {
       return (
-        <Form.Group className="columnThirds">
+        <Form.Group >
           <Form.Label variant="flat" className="label">
             Insurances Accepted
           </Form.Label>
@@ -275,7 +276,7 @@ class ProfileEdit extends Component {
                     </Form.Text>
                   </Form.Group>
                 </Form>
-                <Form className="flex-between row-wrap row">
+                <Form className="row">
                   <Form.Group className="column">
                     <Form.Label className="label">
                       Supervision Status
@@ -313,58 +314,60 @@ class ProfileEdit extends Component {
                     </Form.Control>
                   </Form.Group>
                 </Form>
-                <Form className="flex-between row-wrap row">
-                  <Form.Group className="columnThirds">
-                    <Form.Label className="label">License Number</Form.Label>
-                    <Form.Control
-                      value={this.state.licenseNumber}
-                      onChange={(event) =>
-                        this.handleChange(event, "licenseNumber")
-                      }
-                    />
-                  </Form.Group>
-                  <Form.Group className="columnThirds">
-                    <Form.Label className="label">
-                      License Expiration Date
+                <Form className="flex-container row-wrap">
+                  <Form.Row>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">License Number</Form.Label>
+                      <Form.Control
+                        value={this.state.licenseNumber}
+                        onChange={(event) =>
+                          this.handleChange(event, "licenseNumber")
+                        }
+                      />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">
+                        License Expiration
                     </Form.Label>
-                    <Form.Control
-                      type="date"
-                      value={this.state.licenseExpiration}
-                      onChange={(event) =>
-                        this.handleChange(event, "licenseExpiration")
-                      }
-                    />
-                  </Form.Group>
-                  <Form.Group className="columnThirds">
-                    <Form.Label className="label">License Type</Form.Label>
-                    <Form.Control
-                      as="select"
-                      value={this.state.licenseType}
-                      onChange={(event) =>
-                        this.handleChange(event, "licenseTypeEdit")
-                      }
-                    >
-                      {this.props.profile &&
-                        this.props.license.map((license) => {
-                          return (
-                            <>
-                              <option
-                                key={license.license_type_id}
-                                value={license.license_type_id}
-                              >
-                                {license.title}
-                              </option>
-                            </>
-                          );
-                        })}
-                    </Form.Control>
-                  </Form.Group>
+                      <Form.Control
+                        type="date"
+                        value={this.state.licenseExpiration}
+                        onChange={(event) =>
+                          this.handleChange(event, "licenseExpiration")
+                        }
+                      />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">License Type</Form.Label>
+                      <Form.Control
+                        as="select"
+                        value={this.state.licenseType}
+                        onChange={(event) =>
+                          this.handleChange(event, "licenseTypeEdit")
+                        }
+                      >
+                        {this.props.profile &&
+                          this.props.license.map((license) => {
+                            return (
+                              <>
+                                <option
+                                  key={license.license_type_id}
+                                  value={license.license_type_id}
+                                >
+                                  {license.title}
+                                </option>
+                              </>
+                            );
+                          })}
+                      </Form.Control>
+                    </Form.Group>
+                  </Form.Row>
                 </Form>
 
-                <Form className="flex-between row-wrap row">
+                <Form className="flex-container row-wrap">
                   {this.displayInsurance()}
 
-                  <Form.Group className="columnThirds">
+                  <Form.Group >
                     <Form.Label className="label">Fees</Form.Label>
                     <InputGroup.Prepend>
                       <InputGroup.Text>$</InputGroup.Text>
@@ -374,7 +377,7 @@ class ProfileEdit extends Component {
                       />
                     </InputGroup.Prepend>
                   </Form.Group>
-                  <Form.Group className="columnThirds">
+                  <Form.Group >
                     <Form.Label className="label">Session Format</Form.Label>
                     <Form.Control
                       as="select"
@@ -400,8 +403,8 @@ class ProfileEdit extends Component {
                   </Form.Group>
                 </Form>
 
-                <Form className="flex-between row-wrap row">
-                  <Form.Group className="columnThirds">
+                <Form className="flex-container row-wrap">
+                  <Form.Group>
                     <Form.Label className="label">Client Focus</Form.Label>
                     <Form.Control
                       as="select"
@@ -425,7 +428,7 @@ class ProfileEdit extends Component {
                       })}
                     </Form.Control>
                   </Form.Group>
-                  <Form.Group className="columnThirds">
+                  <Form.Group>
                     <Form.Label className="label">
                       Treatment & Approaches
                     </Form.Label>
@@ -451,7 +454,7 @@ class ProfileEdit extends Component {
                       })}
                     </Form.Control>
                   </Form.Group>
-                  <Form.Group className="columnThirds">
+                  <Form.Group>
                     <Form.Label className="label">Specialties</Form.Label>
                     <Form.Control
                       as="select"
@@ -529,8 +532,9 @@ class ProfileEdit extends Component {
                   </Form.Group>
                 </Form>
 
-                <Form className="flex-between row-wrap row">
-                  <Form.Group className="columnThirds">
+                <Form className="flex-container row-wrap">
+                  <Form.Row>
+                  <Form.Group as={Col}>
                     <Form.Label className="label">License Number</Form.Label>
                     <Form.Control
                       disabled={true}
@@ -538,9 +542,9 @@ class ProfileEdit extends Component {
                       value={this.state.licenseNumber}
                     />
                   </Form.Group>
-                  <Form.Group className="columnThirds">
+                      <Form.Group as={Col}>
                     <Form.Label className="label">
-                      License Expiration Date
+                      License Expiration
                     </Form.Label>
                     <Form.Control
                       type="date"
@@ -549,7 +553,7 @@ class ProfileEdit extends Component {
                       value={this.state.licenseExpiration}
                     />
                   </Form.Group>
-                  <Form.Group className="columnThirds">
+                      <Form.Group as={Col}>
                     <Form.Label className="label">License Type</Form.Label>
                     <Form.Control
                       disabled={true}
@@ -557,10 +561,11 @@ class ProfileEdit extends Component {
                       value={this.state.licenseType}
                     />
                   </Form.Group>
+                  </Form.Row>
                 </Form>
-                <Form className="flex-between row-wrap row">
+                <Form className="flex-container row-wrap">
                   {this.displayInsurance()}
-                  <Form.Group className="columnThirds">
+                  <Form.Group >
                     <Form.Label className="label">Fees</Form.Label>
                     <InputGroup.Prepend>
                       <InputGroup.Text>$</InputGroup.Text>
@@ -571,7 +576,7 @@ class ProfileEdit extends Component {
                       />
                     </InputGroup.Prepend>
                   </Form.Group>
-                  <Form.Group className="columnThirds">
+                  <Form.Group>
                     <Form.Label className="label">Session Format</Form.Label>
                     <div>
                       {this.state.sessionFormat &&
@@ -590,8 +595,8 @@ class ProfileEdit extends Component {
                   </Form.Group>
                 </Form>
 
-                <Form className="flex-between row-wrap row">
-                  <Form.Group className="columnThirds">
+                <Form className="flex-container row-wrap">
+                  <Form.Group>
                     <Form.Label className="label">Client Focus</Form.Label>
                     <div>
                       {this.state.clientFocus &&
@@ -608,7 +613,7 @@ class ProfileEdit extends Component {
                         })}
                     </div>
                   </Form.Group>
-                  <Form.Group className="columnThirds">
+                  <Form.Group>
                     <Form.Label variant="flat" className="label">
                       Treatment & Approaches
                     </Form.Label>
@@ -627,7 +632,7 @@ class ProfileEdit extends Component {
                         })}
                     </div>
                   </Form.Group>
-                  <Form.Group className="columnThirds">
+                  <Form.Group>
                     <Form.Label variant="flat" className="label">
                       Specialties
                     </Form.Label>
