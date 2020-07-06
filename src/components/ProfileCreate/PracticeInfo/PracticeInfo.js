@@ -48,10 +48,10 @@ class PracticeInfo extends Component{
          treatmentPreferencesIdError:'',
          ageGroupsError:'',
          insuranceTypeIdError:'',
-         shouldBlockNavigation : true
-
+         shouldBlockNavigation : true,
+        
      }
-   
+  
 componentDidMount (){
   //dispatch actions in order to fetch the data for options that users can select
   //the actions are dispatched when document is on ready to be used 
@@ -150,10 +150,10 @@ handleInputChangeFor = propertyName => (event) =>{
           formIsValid=false;
           feesError = "Fees is invalid" 
       }
-      if(this.state.license_type === ''){
+      if(this.state.license_type_id === ''){
         formIsValid=false;
         licenseTypeError = 'License Type is required'
-      }
+   }
 
       if(this.state.supervision_status === ''){
            formIsValid=false;
@@ -197,7 +197,7 @@ handleInputChangeFor = propertyName => (event) =>{
          insuranceTypeIdError = 'Insurance Taken is required'
          }
 
-      if( licenseStateError || licenseNumberError || licenseTypeError||   supervisionStatusError
+      if( licenseStateError || licenseNumberError || licenseTypeError ||   supervisionStatusError
            || feesError ||  licenseExpirationError ||   credentialsError 
            ||  telehealthError||  statementError || titleError || sessionFormatIdError || clientFocusIdError
            ||  specialtyIdError || treatmentPreferencesIdError|| ageGroupsError||  insuranceTypeIdError){
@@ -283,6 +283,7 @@ handleInputChangeFor = propertyName => (event) =>{
 
    
     render (){
+     
         return (
           <>
 <div>
@@ -332,21 +333,22 @@ handleInputChangeFor = propertyName => (event) =>{
                   >
                     {this.props.license && (
                       <>
-                        <option value="" defaultValue="Select License Type">
+                        <option value='' defaultValue="Select License Type">
                           Select License Type
                         </option>
-                        {this.props.license.map((licensetype) => (
+                        {this.props.license.map((type) => (
                           <option
-                            value={licensetype.license_type_id}
-                            key={licensetype.license_type_id}
+                            value={type.license_type_id}
+                            key={type.license_type_id}
                           >
-                            {licensetype.title}
+                            {type.title}
                           </option>
+                           
                         ))}
                       </>
                     )}
                   </Form.Control>
-                  <h4 className="error">{this.state.licenseTypeError}</h4>
+                        <h4 className="error">{this.state.licenseTypeError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -416,7 +418,7 @@ handleInputChangeFor = propertyName => (event) =>{
                     placeholder='Please fill in your specialization'
                     multiple={true}
                     onChange={(event) =>
-                      this.handleMultiChange(event, "specialty_id")
+                      this.handleMultiChange(event,"specialty_id")
                     }
                   >
                     {this.props.specialtys && (
@@ -609,7 +611,9 @@ handleInputChangeFor = propertyName => (event) =>{
                 </Form.Group>
 
                 <Form.Group>
+                  <div  className="next-button">
                   <Button type="submit">Next</Button>
+                  </div>
                 </Form.Group>
               </Form>
             </div>
