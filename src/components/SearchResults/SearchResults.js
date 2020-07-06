@@ -8,6 +8,14 @@ import Card from "react-bootstrap/Card";
 import './SearchResults.css'
 
 class SearchResults extends Component {
+
+  truncateString = (str, num) => {
+    if (str.length <= num) {
+      return str
+    }
+    return str.slice(0, num) + '...'
+  }
+
     render() { 
         return (
           <>
@@ -55,11 +63,6 @@ class SearchResults extends Component {
                           {therapist.first_name} {therapist.last_name}
                         </div>
                         <div className="island">
-                          {/*
-                            I don't know if this is how location is supposed to be
-                            displayed in terms of city and island but its what was
-                            shown in the wireframe so it is staying in the skeleton.
-                          */}
                           {therapist.city},{' '}
                           {therapist.island[0]}
                         </div>
@@ -99,7 +102,8 @@ class SearchResults extends Component {
                     </Card.Subtitle>
                     <Card.Text>
                       <div className="flex-between row-wrap-reverse">
-                        <div className="description">{therapist.statement}</div>
+                        <div className="description">{this.truncateString(therapist.statement, 250)}
+                        </div>
                         {/* Contact is aligned to the right for visual appeal */}
                         <div className="contact-info">
                           {therapist.email[0]} <br />
