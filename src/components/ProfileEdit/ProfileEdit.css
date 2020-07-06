@@ -59,3 +59,11 @@
     flex: 33.33%;
     padding: 1em;
 }
+
+li{
+    padding: 0;
+}
+
+ul{
+    padding: 0;
+}

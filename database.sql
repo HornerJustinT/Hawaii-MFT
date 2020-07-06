@@ -25,7 +25,7 @@ CREATE TABLE "members" (
 	"fees" VARCHAR(255),
     "credentials" TEXT,
     "telehealth" BOOLEAN,
-    "statement" VARCHAR(255),
+    "statement" VARCHAR(10000),
     "website" TEXT, 
     "title" TEXT,
     "city" TEXT,

@@ -189,6 +189,14 @@ class SearchBar extends Component {
                     onChange={(event) => this.onSearchChangeAdv(event, "name")}
                   />
                 </Form.Group>
+                <SearchSelect
+                  name="Specialization"
+                  array={this.state.data.specialty}
+                  onChange={(event) =>
+                    this.onSearchChangeAdv(event, "specialty")
+                  }
+                  value={this.state.specialty || null}
+                />
                 <Form.Group controlId="Advanced-zip" className="advanced-input">
                   <Form.Label>Island, City or Zip Code</Form.Label>
                   <Form.Control
@@ -198,48 +206,24 @@ class SearchBar extends Component {
                   />
                 </Form.Group>
                 <SearchSelect
-                  name="Languages Spoken"
-                  array={this.state.data.languages}
-                  onChange={(event) =>
-                    this.onSearchChangeAdv(event, "languages")
-                  }
-                  value={this.state.languages || null}
-                />
-                <SearchSelect
-                  name="Specialization"
-                  array={this.state.data.specialty}
-                  onChange={(event) =>
-                    this.onSearchChangeAdv(event, "specialty")
-                  }
-                  value={this.state.specialty || null}
-                />
-                <SearchSelect
-                  name="Supervision Status"
-                  array={this.state.data.supervision_status}
-                  onChange={(event) =>
-                    this.onSearchChangeAdv(event, "supervision_status")
-                  }
-                  value={this.state.supervision_status || null}
-                />
-                <SearchSelect
-                  name="Insurance Taken"
-                  array={this.state.data.insurance}
-                  onChange={(event) =>
-                    this.onSearchChangeAdv(event, "insurance")
-                  }
-                  value={this.state.insurance || null}
-                />
-                <SearchSelect
-                  name="Treatment Approaches/Preferences"
+                  name="Treatment Approach"
                   array={this.state.data.treatment_preferences}
                   onChange={(event) =>
                     this.onSearchChangeAdv(event, "treatment_preferences")
                   }
                   value={this.state.treatment_preferences || null}
                 />
+                <SearchSelect
+                  name="Insurance Accepted"
+                  array={this.state.data.insurance}
+                  onChange={(event) =>
+                    this.onSearchChangeAdv(event, "insurance")
+                  }
+                  value={this.state.insurance || null}
+                />
                 <div className="flex-between advanced-input">
                   <SearchSelect
-                    name="Ages Worked With"
+                    name="Age Group Focus"
                     array={this.state.data.ages_served}
                     onChange={(event) =>
                       this.onSearchChangeAdv(event, "ages_served")
@@ -262,6 +246,22 @@ class SearchBar extends Component {
                     this.onSearchChangeAdv(event, "session_format")
                   }
                   value={this.state.session_format || null}
+                />
+                <SearchSelect
+                  name="Language Spoken"
+                  array={this.state.data.languages}
+                  onChange={(event) =>
+                    this.onSearchChangeAdv(event, "languages")
+                  }
+                  value={this.state.languages || null}
+                />
+                <SearchSelect
+                  name="Supervision Status"
+                  array={this.state.data.supervision_status}
+                  onChange={(event) =>
+                    this.onSearchChangeAdv(event, "supervision_status")
+                  }
+                  value={this.state.supervision_status || null}
                 />
                 <Form.Check
                   type="switch"
@@ -286,7 +286,7 @@ class SearchBar extends Component {
               controlId="simple-search"
               onSubmit={this.onSearchClicked}
             >
-              <Form.Label>Find a Therapist</Form.Label>
+              <Form.Label><h3>Find a Therapist</h3></Form.Label>
               <InputGroup className="mb-3">
                 <Form.Control
                   placeholder="Island, City or Zip Code"

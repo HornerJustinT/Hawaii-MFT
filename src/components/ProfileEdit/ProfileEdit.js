@@ -314,7 +314,7 @@ class ProfileEdit extends Component {
                 </Form>
                 <Form>
                   <Form.Group>
-                    <Form.Label className="label">About You</Form.Label>
+                    <Form.Label className="label">Personal Statement</Form.Label>
                     <Form.Control
                       as="textarea"
                       rows="5"
@@ -384,7 +384,7 @@ class ProfileEdit extends Component {
                     </Form>
                     <Form className="last">
                       <Form.Group>
-                        <Form.Label className="label">About You</Form.Label>
+                        <Form.Label className="label">Personal Statement</Form.Label>
                         <Form.Control
                           as="textarea"
                           rows="5"
