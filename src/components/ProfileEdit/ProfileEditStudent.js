@@ -294,8 +294,8 @@ class ProfileEditStudent extends Component {
               </Button>
             </div>
             <div className="border">
-              <Form className="flex-between row-wrap row">
-                <Form.Group className="columnThirds">
+              <Form className="flex-container row-wrap">
+                <Form.Group>
                   <Form.Label variant="flat" className="label">
                     Prefix
                   </Form.Label>
@@ -304,7 +304,7 @@ class ProfileEditStudent extends Component {
                     onChange={(event) => this.handleChange(event, "prefix")}
                   />
                 </Form.Group>
-                <Form.Group className="columnThirds">
+                <Form.Group >
                   <Form.Label className="label">First Name</Form.Label>
                   <Form.Control
                     defaultValue={this.state.firstName}
@@ -312,7 +312,7 @@ class ProfileEditStudent extends Component {
                   />
                 </Form.Group>
 
-                <Form.Group className="columnThirds">
+                <Form.Group>
                   <Form.Label className="label">Last Name</Form.Label>
                   <Form.Control
                     defaultValue={this.state.lastName}
@@ -337,7 +337,7 @@ class ProfileEditStudent extends Component {
               </Form>
               <Form>
                 <Form.Group>
-                  <Form.Label className="label">About You</Form.Label>
+                  <Form.Label className="label">Personal Statement</Form.Label>
                   <Form.Control
                     as="textarea"
                     rows="5"
@@ -362,8 +362,8 @@ class ProfileEditStudent extends Component {
             {this.props.profile && (
               <>
                 <div className="border">
-                  <Form className="flex-between row-wrap row">
-                    <Form.Group className="columnThirds">
+                  <Form className="flex-container row-wrap">
+                    <Form.Group >
                       <Form.Label className="label">Prefix</Form.Label>
                       <Form.Control
                         disabled={true}
@@ -371,7 +371,7 @@ class ProfileEditStudent extends Component {
                         defaultValue={this.state.prefix}
                       />
                     </Form.Group>
-                    <Form.Group className="columnThirds">
+                    <Form.Group >
                       <Form.Label className="label">First Name</Form.Label>
                       <Form.Control
                         disabled={true}
@@ -379,7 +379,7 @@ class ProfileEditStudent extends Component {
                         defaultValue={this.state.firstName}
                       />
                     </Form.Group>
-                    <Form.Group className="columnThirds">
+                    <Form.Group >
                       <Form.Label className="label">Last Name</Form.Label>
                       <Form.Control
                         disabled={true}
@@ -405,7 +405,7 @@ class ProfileEditStudent extends Component {
                   </Form>
                   <Form className="last">
                     <Form.Group>
-                      <Form.Label className="label">About You</Form.Label>
+                      <Form.Label className="label">Personal Statement</Form.Label>
                       <Form.Control
                         as="textarea"
                         rows="5"

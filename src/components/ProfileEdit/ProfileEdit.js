@@ -13,7 +13,6 @@ import Form from "react-bootstrap/Form";
 
 //CSS file imports
 import "./ProfileEdit.css";
-import "../App/App.css";
 
 var storage = firebase.storage().ref();
 
@@ -269,8 +268,8 @@ class ProfileEdit extends Component {
                 </Button>
               </div>
               <div className="border">
-                <Form className="flex-between row-wrap row">
-                  <Form.Group className="columnThirds">
+                <Form className="flex-container row-wrap">
+                  <Form.Group >
                     <Form.Label variant="flat" className="label">
                       Prefix
                     </Form.Label>
@@ -279,7 +278,7 @@ class ProfileEdit extends Component {
                       onChange={(event) => this.handleChange(event, "prefix")}
                     />
                   </Form.Group>
-                  <Form.Group className="columnThirds">
+                  <Form.Group>
                     <Form.Label className="label">First Name</Form.Label>
                     <Form.Control
                       defaultValue={this.state.firstName}
@@ -288,8 +287,7 @@ class ProfileEdit extends Component {
                       }
                     />
                   </Form.Group>
-
-                  <Form.Group className="columnThirds">
+                  <Form.Group>
                     <Form.Label className="label">Last Name</Form.Label>
                     <Form.Control
                       defaultValue={this.state.lastName}
@@ -341,8 +339,8 @@ class ProfileEdit extends Component {
               {this.props.profile && (
                 <>
                   <div className="border">
-                    <Form className="flex-between row-wrap row">
-                      <Form.Group className="columnThirds">
+                    <Form className="flex-container row-wrap">
+                      <Form.Group >
                         <Form.Label className="label">Prefix</Form.Label>
                         <Form.Control
                           disabled={true}
@@ -350,7 +348,7 @@ class ProfileEdit extends Component {
                           defaultValue={this.state.prefix}
                         />
                       </Form.Group>
-                      <Form.Group className="columnThirds">
+                      <Form.Group >
                         <Form.Label className="label">First Name</Form.Label>
                         <Form.Control
                           disabled={true}
@@ -358,7 +356,7 @@ class ProfileEdit extends Component {
                           defaultValue={this.state.firstName}
                         />
                       </Form.Group>
-                      <Form.Group className="columnThirds">
+                      <Form.Group >
                         <Form.Label className="label">Last Name</Form.Label>
                         <Form.Control
                           disabled={true}
