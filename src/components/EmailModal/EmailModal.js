@@ -25,12 +25,12 @@ class EmailModal extends Component {
   };
 
   handleShow = () => {
-    console.log(this.props)
+    console.log('in handleShow EMAILMODAL', this.state);
     this.setState({
       show: true,
-      message: `Hello, 
-      ${this.props.profile.first_name} ${this.props.profile.last_name} is a colleague of mine I think they would be a great fit for you! Below is their contact info.
-      Best wishes!\n\nContact Info:\nWebsite: ${this.props.profile.website}\nPhone Number: ${this.props.profile.phone}\nBusiness Address: ${this.props.profile.address}`,
+      message: 
+      `Hello,\n${this.props.profile.first_name} ${this.props.profile.last_name} is a colleague of mine and I think they would be a great fit for you. Below is their contact information.\nBest wishes!
+      \n----------------------\n${this.props.profile.first_name} ${this.props.profile.last_name}, ${this.props.profile.credentials}\n${this.props.profile.email}\n${this.props.profile.phone}\n${this.props.profile.address}\n${this.props.profile.island}\n\n${this.props.profile.website}`,
         
     });
   };
@@ -85,7 +85,7 @@ class EmailModal extends Component {
                 <Form.Control
                   type="input"
                   as="textarea"
-                  rows="10"
+                  rows="15"
                   value={this.state.message}
                   onChange={this.modalChange}
                 />
@@ -101,8 +101,9 @@ class EmailModal extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, reduxStore) => ({
   profile: state.profile,
+  user: reduxStore.userReducer,
 });
 
 export default connect(mapStateToProps)(EmailModal);
