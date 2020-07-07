@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     const connection = await pool.connect();
     try {
-        let query = `SELECT m.*, license_type.title AS license_title,
+        let query = `SELECT m.*,"user".username as username, license_type.title AS license_title,
 			array_agg(DISTINCT languages.title) AS languages,
 			array_agg(DISTINCT age_groups_served.title) AS ages_served,
 			array_agg(DISTINCT client_focus.title) AS client_focus,
@@ -20,9 +20,10 @@ router.get('/', async (req, res) => {
 			ARRAY(SELECT DISTINCT phone_table.number FROM phone_table WHERE phone_table.business = true AND phone_table.member_id = m.id) AS phone,
 			ARRAY(SELECT DISTINCT address_table.address FROM address_table WHERE address_table.business = true AND address_table.member_id = m.id) AS address,
 			ARRAY(SELECT DISTINCT email_table.email FROM email_table WHERE email_table.business = true AND email_table.member_id = m.id) AS email
+			
 
 			FROM members m
-			
+			JOIN "user" on "user".id = m.id
 			JOIN languages_pivot ON languages_pivot.member_id = m.id
 			JOIN languages ON languages.language_id = languages_pivot.language_id
 			
@@ -51,7 +52,7 @@ router.get('/', async (req, res) => {
 		
 			WHERE m.enabled = true
 
-			GROUP BY m.id, license_type.title, m.zip_code, m.zip_code_personal, m.first_name, m.last_name, m.prefix, m.age, m.license_state,
+			GROUP BY m.id, "user".username,license_type.title, m.zip_code, m.zip_code_personal, m.first_name, m.last_name, m.prefix, m.age, m.license_state,
 			m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials,
 			m.telehealth, m.statement, m.website, m.title, m.city, m.city_personal, m.license_number, m.license_type, m.enabled, m.student;`;
 
@@ -69,7 +70,7 @@ router.get('/', async (req, res) => {
 router.get("/:zip", async (req, res) => {
   const connection = await pool.connect();
   try {
-    let query = `SELECT m.*, 
+    let query = `SELECT m.*, "user".username as username,
 	array_agg(DISTINCT languages.title) AS languages,
 	array_agg(DISTINCT age_groups_served.title) AS ages_served,
 	array_agg(DISTINCT client_focus.title) AS client_focus,
@@ -83,7 +84,7 @@ router.get("/:zip", async (req, res) => {
 	ARRAY(SELECT DISTINCT email_table.email FROM email_table WHERE email_table.business = true AND email_table.member_id = m.id) AS email
 
 	FROM members m
-	
+	JOIN "user" on "user".id = m.id
 	JOIN languages_pivot ON languages_pivot.member_id = m.id
 	JOIN languages ON languages.language_id = languages_pivot.language_id
 	
@@ -111,7 +112,7 @@ router.get("/:zip", async (req, res) => {
 
 	WHERE CAST(m.zip_code AS VARCHAR) LIKE $1 OR LOWER(m.city) LIKE $1 OR LOWER(island.title) LIKE $1
 
-	GROUP BY m.id, m.zip_code, m.first_name, m.last_name, m.prefix, m.age, m.license_state,
+	GROUP BY m.id, "user".username,m.zip_code, m.first_name, m.last_name, m.prefix, m.age, m.license_state,
 	m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials,
 	m.telehealth, m.statement, m.website, m.title, m.city, m.license_number, m.license_type, m.enabled, m.zip_code_personal, m.city_personal,  m.student;`;
 
