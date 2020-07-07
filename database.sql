@@ -31,7 +31,7 @@ CREATE TABLE "members" (
     "city" TEXT,
     "city_personal" TEXT,
     "license_number" TEXT,
-    "license_type" INTEGER,
+    "license_type" VARCHAR(255),
     "enabled" boolean DEFAULT true,
     "student" boolean DEFAULT false,
 	FOREIGN KEY ("id") REFERENCES "user"("id")
