@@ -207,7 +207,7 @@ studentContactInfo = (e) =>{
                  website: this.state.website
                }});
                this.setState({shouldBlockNavigation:false},()=>{
-                    this.props.history.push("/student");
+                    this.props.history.push("/student-practice");
                   });
        return true;
      }
