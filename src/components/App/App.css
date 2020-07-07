@@ -36,6 +36,7 @@ body {
 .log-in:hover, .log-out:hover, .register:hover {
   background-color: #008183;
 }
+ 
 
 /* This line makes the "Register" and "Login" buttons look like links */
 .link-button {
@@ -74,6 +75,18 @@ body {
 
 .row-wrap-reverse {
     flex-flow: row wrap-reverse;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.align-auto {
+    align-items: auto;
+}
+
+.align-baseline {
+    align-items: baseline;
 }
 
 .save,.next,.back{

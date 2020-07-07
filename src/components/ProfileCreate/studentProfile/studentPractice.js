@@ -10,7 +10,7 @@ import Button from "react-bootstrap/Button";
 
 
 
-class studentProfile extends Component{
+class studentPractice extends Component{
      //create local state
 
      state = {
@@ -96,7 +96,7 @@ handleInputChangeFor = propertyName => (event) =>{
          }
         });
 //this will reset the inputs on the parcticeinfo page
-this.props.history.push(`/edit-profile/${this.props.user.id}`)
+this.props.history.push("/uploadimage");
      this.handleReset();
     }
 
@@ -126,20 +126,15 @@ this.props.history.push(`/edit-profile/${this.props.user.id}`)
         return(
             <>
             <div className='container'>
-        <header><h1>Student Info</h1></header>
+             
+        <header><h1 className="text-center">Student Info</h1></header>
         <br/>
         <ProgressBar now={75} />
         <br/>
         <Form onSubmit={this.addMembersInfo}>
         <br/>
-        <br/>
-        <Form.Label>Title </Form.Label><br/><input type="text"
-                  name="title"
-                  value={this.state.title}
-                  onChange={this.handleInputChangeFor("title")}/>
-        <br/>
-        <br/>
-        <Form.Label>Specialization</Form.Label><br/><select onChange={this.handleInputChangeFor("specialty_id")}>
+        <Form.Group>
+        <Form.Label>Specialization</Form.Label><br/><Form.Control   as="select" onChange={this.handleInputChangeFor("specialty_id")}>
                 {this.props.specialtys &&
                    
                    <>
@@ -153,11 +148,13 @@ this.props.history.push(`/edit-profile/${this.props.user.id}`)
                    </>
                    } 
             
-            </select>
+            </Form.Control>
+            </Form.Group>
         <br/>
         <br/>
         <br/>
-        <Form.Label>Treatment Approaches/Preferences</Form.Label><br/><select onChange={this.handleInputChangeFor("treatment_preferences_id")}>
+        <Form.Group>
+        <Form.Label>Treatment Approaches/Preferences</Form.Label><br/><Form.Control   as="select" onChange={this.handleInputChangeFor("treatment_preferences_id")}>
         {this.props.treatmentPreferences &&    
                    <>
                 <option value='' defaultValue='Select an Approach'>Select an Approach</option>
@@ -168,10 +165,12 @@ this.props.history.push(`/edit-profile/${this.props.user.id}`)
                     )}
                    </>
                    } 
-          </select>
+          </Form.Control>
+          </Form.Group>
         <br/>
         <br/>
-        <Form.Label>Client Focus</Form.Label><br/><select onChange={this.handleInputChangeFor("client_focus_id")}>
+        <Form.Group>
+        <Form.Label>Client Focus</Form.Label><br/><Form.Control  as="select" onChange={this.handleInputChangeFor("client_focus_id")}>
         {this.props.demographics &&    
                    <>
                
@@ -183,8 +182,10 @@ this.props.history.push(`/edit-profile/${this.props.user.id}`)
                     )}
                    </>
                    } 
-            </select>
-        <select onChange={this.handleInputChangeFor("age_groups_served_id")}>
+            </Form.Control>
+            </Form.Group>
+            <Form.Group>
+        <Form.Control   as="select" onChange={this.handleInputChangeFor("age_groups_served_id")}>
         {this.props.ageGroups &&    
                    <>
                 <option value='NULL' defaultValue='Select an Age Group'>Select an Age Group</option>
@@ -195,13 +196,11 @@ this.props.history.push(`/edit-profile/${this.props.user.id}`)
                     )}
                    </>
                    } 
-           </select>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <Button className='save' type="submit">Save</Button>
+           </Form.Control>
+           </Form.Group>
+           <Button type="submit">Next</Button>
         </Form>
+       
             </div>
            
             </>
@@ -223,4 +222,4 @@ const mapStateToProps = reduxstate => ({
     contactAddress: reduxstate.contactAddress,
     user: reduxstate.user
   });
-export default connect(mapStateToProps)(studentProfile);
+export default connect(mapStateToProps)(studentPractice);

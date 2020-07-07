@@ -29,10 +29,16 @@ import HomePage from "../HomePage/HomePage";
 import LoginPage from '../LoginPage/LoginPage';
 import PracticeInfo from "../ProfileCreate/PracticeInfo/PracticeInfo";
 import ProfileCreate from "../ProfileCreate/ProfileCreate";
-import studentProfile from "../ProfileCreate/studentProfile/studentProfile";
+import uploadImage from '../ProfileCreate/uploadImage/uploadImage'
+import studentPractice from "../ProfileCreate/studentProfile/studentPractice";
+import studentCreate from "../ProfileCreate/studentProfile/studentCreate";
+import studentContact from "../ProfileCreate/studentProfile/studentContact";
 import ProfileEdit from '../ProfileEdit/ProfileEdit';
 import ProfileView from "../ProfileView/ProfileView";
 import RegisterPage from '../RegisterPage/RegisterPage';
+import ProfileEditStudent from '../ProfileEdit/ProfileEditStudent';
+import ForgotPassword from "../ForgotPassword/ForgotPassword";
+import NewPassword from "../NewPassword/NewPassword";
 
 
 // CSS
@@ -70,18 +76,25 @@ class App extends Component {
             <Route exact path="/register/:id" component={RegisterPage} />
             {/*This is a route anyone can see, no login necessary */}
             <Route exact path="/login" component={LoginPage} />
+            <Route exact path="/forgotpassword" component={ForgotPassword} />
+            <Route exact path="/newpassword" component={NewPassword} />
             {/*This is a route anyone can see, no login necessary */}
-            <Route exact path="/create-profile" component={ProfileCreate} />
+            <ProtectedRoute exact path="/create-profile" component={ProfileCreate} />
+            <ProtectedRoute exact path="/student-create" component={studentCreate} />
 
             {/*User only sees these routes if logged in*/}
-            <ProtectedRoute exact path="/edit-profile/:id" component={ProfileEdit} />
+            <ProtectedRoute exact path="/edit-profile" component={ProfileEdit} />
+            <ProtectedRoute exact path="/edit-student" component={ProfileEditStudent} />
 
             <ProtectedRoute exact path="/contact-info" component={ContactInfo} />
+            <ProtectedRoute exact path="/student-contact" component={studentContact} />
             <ProtectedRoute exact path="/practice" component={PracticeInfo} />
-            <ProtectedRoute exact path="/student" component={studentProfile} />
+            <ProtectedRoute exact path="/student-practice" component={studentPractice} />
+            <ProtectedRoute exact path="/uploadimage" component={uploadImage} />
+           
 
             {/* Admin View */}
-            <AdminRoute exact path="/edit-profile" component={ProfileEdit} />
+            <AdminRoute exact path="/admin-edit-profile/:id" component={ProfileEdit} />
             <Route exact path="/profile/:id" component={ProfileView} />
        
 

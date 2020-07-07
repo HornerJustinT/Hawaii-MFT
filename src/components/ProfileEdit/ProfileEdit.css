@@ -1,7 +1,10 @@
 .header {
     margin: 2em;
 }
-
+.photo {
+    height: 250px;
+    width: 250px;
+}
 .body {
     border-style: solid;
     border: .5em black;
@@ -10,6 +13,17 @@
     margin-right: 4em;
     padding-top: 0px;
     padding-bottom: 0px;
+}
+
+@media screen and (max-width: 1200px){
+    .body {
+        border-style: solid;
+        border: .5em black;
+        margin-top: 1em;
+        width: 90%;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
 }
 
 .label {
@@ -29,4 +43,18 @@
     padding: 2em;
     margin: 1em;
     border-radius: 10px;
+}
+
+.row {
+    display: flex;
+}
+
+.column {
+    flex: 50%;
+    padding: 1em;
+}
+
+.columnThirds {
+    flex: 33.33%;
+    padding: 1em;
 }

@@ -164,8 +164,13 @@ class SearchBar extends Component {
   }
 
   switchChange = (event) => {
+    console.log(this.state.advanced);
     this.setState({
       advanced: event.target.checked,
+    },()=>{
+      if(this.state.advanced === false){// If the advanced search is turned off it resets the search.
+        this.props.dispatch({type:"FETCH_MEMBERS"})
+      }
     });
   };
 
@@ -188,12 +193,12 @@ class SearchBar extends Component {
                   <Form.Label>Island, City or Zip Code</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="City or Zip Code"
+                    placeholder="Island, City or Zip Code"
                     onChange={(event) => this.onSearchChangeAdv(event, "zip")}
                   />
                 </Form.Group>
                 <SearchSelect
-                  name="Languages"
+                  name="Languages Spoken"
                   array={this.state.data.languages}
                   onChange={(event) =>
                     this.onSearchChangeAdv(event, "languages")
@@ -234,7 +239,7 @@ class SearchBar extends Component {
                 />
                 <div className="flex-between advanced-input">
                   <SearchSelect
-                    name="Age Focus"
+                    name="Ages Worked With"
                     array={this.state.data.ages_served}
                     onChange={(event) =>
                       this.onSearchChangeAdv(event, "ages_served")
@@ -251,7 +256,7 @@ class SearchBar extends Component {
                   />
                 </div>
                 <SearchSelect
-                  name="Session Format(s)"
+                  name="Session Format"
                   array={this.state.data.session_format}
                   onChange={(event) =>
                     this.onSearchChangeAdv(event, "session_format")

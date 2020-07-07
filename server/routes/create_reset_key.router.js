@@ -3,8 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 router.post('/:id', (req, res) => {  
-    console.log(req.params.id)
-    const queryText =  `INSERT INTO "registration" ("registration_key", "used") VALUES ($1, false);`
+    const queryText = `INSERT INTO "password_reset" ("key") VALUES ($1);`;
     pool.query(queryText, [req.params.id])
       .then(() => res.sendStatus(201))
       .catch((err) => {

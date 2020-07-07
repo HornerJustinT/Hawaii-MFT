@@ -25,17 +25,65 @@ class ProfileEditContact extends Component {
     componentDidMount() {
         this.props.dispatch({ type: "FETCH_ISLANDS" });
         this.props.dispatch({
-            type: "FETCH_PROFILE",
-            payload: { id: this.props.match.params.id || this.props.user.id },
+          type: "FETCH_PROFILE",
+          payload: { id: this.props.match.params.id || this.props.user.id },
         });
+        if(this.props.profile.languages){
+          const updatedIsland = this.syncDataEditIsland("islands", "island");
+          const islandEdit = updatedIsland[0];
+          this.setState({
+            id: this.props.profile.id,
+            enabled: this.props.profile.enabled,
+            prefix: this.props.profile.prefix,
+            firstName: this.props.profile.first_name,
+            lastName: this.props.profile.last_name,
+            title: this.props.profile.title,
+            age: this.props.profile.age,
+            phone: this.props.profile.phone[0],
+            phonePersonal: this.props.profile.phone_personal[0],
+            address: this.props.profile.address[0],
+            addressPersonal: this.props.profile.address_personal[0],
+            city: this.props.profile.city,
+            cityPersonal: this.props.profile.city_personal,
+            island: this.props.profile.island,
+            islandEdit: islandEdit[0].island_id,
+            email: this.props.profile.email[0],
+            emailPersonal: this.props.profile.email_personal[0],
+            zipCode: this.props.profile.zip_code,
+            zipCodePersonal: this.props.profile.zip_code_personal,
+            website: this.props.profile.website,
+            credentials: this.props.profile.credentials,
+            licenseState: this.props.profile.license_state,
+            licenseExpiration: this.props.profile.license_expiration,
+            licenseNumber: this.props.profile.license_number,
+            licenseType: this.props.profile.license_type,
+            hiamftMemberInfo: this.props.profile.hiamft_member_account_info,
+            supervisionStatus: this.props.profile.supervision_status,
+            fees: this.props.profile.fees,
+            telehealth: this.props.profile.telehealth,
+            statement: this.props.profile.statement,
+            languages: this.props.profile.languages,
+            // languagesEdit: updatedLanguages,
+            treatmentApproaches: this.props.treatmentPreferences,
+            // treatmentAproachesEdit: updatedTreatments,
+            agesServed: this.props.profile.ages_served,
+            clientFocus: this.props.profile.client_focus,
+            insurance: this.props.profile.insurance,
+            sessionFormat: this.props.profile.session_format,
+            specialty: this.props.profile.speciaty,
+            treatmentPreferences: this.props.profile.treatment_preferences,
+            student: this.props.profile.student,
+        });
+          
+
+        }
     } //end componentDidMount
 
     //updating component to ensure all the data makes it to props for render
     componentDidUpdate(previousProps) {
         if (
             this.state.id !== this.props.user.id &&
-            previousProps.profile.id !== this.props.profile.id &&
-            this.props.profile.phone
+            previousProps.profile.id !== this.props.profile.id 
         ) {
             //declaring new variables for state with return from syncDataEditLanguage & syncDataEditIsland
             //these functions retrieve an id based on the title of each item (ex. island title & island id)
@@ -58,12 +106,17 @@ class ProfileEditContact extends Component {
                 title: this.props.profile.title,
                 age: this.props.profile.age,
                 phone: this.props.profile.phone[0],
-                address: this.props.profile.address,
+                phonePersonal: this.props.profile.phone_personal[0],
+                address: this.props.profile.address[0],
+                addressPersonal: this.props.profile.address_personal[0],
                 city: this.props.profile.city,
+                cityPersonal: this.props.profile.city_personal,
                 island: this.props.profile.island,
                 islandEdit: islandEdit[0].island_id,
-                email: this.props.profile.email,
+                email: this.props.profile.email[0],
+                emailPersonal: this.props.profile.email_personal[0],
                 zipCode: this.props.profile.zip_code,
+                zipCodePersonal: this.props.profile.zip_code_personal,
                 website: this.props.profile.website,
                 credentials: this.props.profile.credentials,
                 licenseState: this.props.profile.license_state,
@@ -85,6 +138,7 @@ class ProfileEditContact extends Component {
                 sessionFormat: this.props.profile.session_format,
                 specialty: this.props.profile.speciaty,
                 treatmentPreferences: this.props.profile.treatment_preferences,
+                student: this.props.profile.student,
             });
         }
     } //end componentDidUpdate
@@ -164,41 +218,49 @@ class ProfileEditContact extends Component {
     displayIslands = () => {
         if (this.state.clickContact) {
             return (
-                <Form.Group>
-                    <Form.Label variant="flat" className="label">
-                        Island
-          </Form.Label>
-                    <Form.Control
-                        as="select"
-                        value={this.state.islandEdit}
-                        onChange={(event) =>
-                            this.handleIslandChange(event, "islandEdit", "island")
-                        }
-                    >
-                        {this.props.islands.map((island) => {
-                            return (
-                                <>
-                                    <option key={island.island_id} value={island.island_id}>
-                                        {island.title}
-                                    </option>
-                                </>
-                            );
-                        })}
-                    </Form.Control>
-                </Form.Group>
+              <Form.Group>
+                <Form.Label variant="flat" className="label">
+                  Island
+                </Form.Label>
+                <Form.Control
+                  as="select"
+                  value={this.state.islandEdit}
+                  onChange={(event) =>
+                    this.handleIslandChange(event, "islandEdit", "island")
+                  }
+                >
+                  {this.props.islands.map((island) => {
+                    return (
+                      <>
+                        <option key={island.island_id} value={island.island_id}>
+                          {island.title}
+                        </option>
+                      </>
+                    );
+                  })}
+                </Form.Control>
+                <Form.Text className="text-muted">
+                  Listed
+                </Form.Text>
+              </Form.Group>
             );
         } else {
             return (
                 <Form.Group>
                     <Form.Label variant="flat" className="label">
                         Island
-          </Form.Label>
+                    </Form.Label>
                     {this.state.island && (
+                        <>
                         <Form.Control
-                            disabled="true"
+                            disabled={true}
                             readOnly
                             defaultValue={this.state.island}
                         />
+                        <Form.Text className="text-muted">
+                                Listed
+                              </Form.Text>
+                        </>
                     )}
                 </Form.Group>
             );
@@ -206,188 +268,368 @@ class ProfileEditContact extends Component {
     };
 
     render() {
+      console.log(this.props);
         if (this.props.profile && this.state.languages) {
             return (
-                <>
-                    {this.state.clickContact && this.props.profile ? (
-                        <div className="body">
-                            <div className="flex-between row-wrap first">
-                                <h4>Contact Info</h4>
-                                <Button
-                                    className="flex-between row-wrap"
-                                    onClick={() => this.handleSaveContact()}
-                                >
-                                    Save Changes
-                                </Button>
-                            </div>
-                            <div className="border">
-                                <Form>
-                                    <Form.Group>
-                                        <Form.Label className="label">Phone Number</Form.Label>
-                                        <Form.Control
-                                            defaultValue={this.state.phone}
-                                            onChange={(event) => this.handleChange(event, "phone")}
-                                        />
-                                        <Form.Text className="text-muted">
-                                            Business - Listed
-                                        </Form.Text>
-                                    </Form.Group>
+              <>
+                {this.state.clickContact && this.props.profile ? (
+                  <div className="body">
+                    <div className="flex-between row-wrap first">
+                      <h4>Contact Info</h4>
+                      <Button
+                        className="flex-between row-wrap"
+                        onClick={() => this.handleSaveContact()}
+                      >
+                        Save Changes
+                      </Button>
+                    </div>
+                    <div className="border">
+                      <Form className="flex-between row-wrap row">
+                        <Form.Group className="column">
+                          <Form.Label className="label">
+                            Email Address - Business
+                          </Form.Label>
+                          <Form.Control
+                            defaultValue={this.state.email}
+                            onChange={(event) =>
+                              this.handleChange(event, "email")
+                            }
+                          />
+                          <Form.Text className="text-muted">Listed</Form.Text>
+                        </Form.Group>
 
-                                    <Form.Group>
-                                        <Form.Label className="label">Phone Number</Form.Label>
-                                        <Form.Control
-                                            defaultValue={this.state.phone}
-                                            onChange={(event) => this.handleChange(event, "phone")}
-                                        />
-                                        <Form.Text className="text-muted">
-                                            Personal - Not Listed  (HIAMFT-Use Only)
-                                        </Form.Text>
-                                    </Form.Group>
+                        <Form.Group className="column">
+                          <Form.Label className="label">
+                            Email Address - Personal
+                          </Form.Label>
+                          <Form.Control
+                            defaultValue={this.state.emailPersonal}
+                            onChange={(event) =>
+                              this.handleChange(event, "emailPersonal")
+                            }
+                          />
+                          <Form.Text className="text-muted">
+                            Not Listed (for HIAMFT-use only)
+                          </Form.Text>
+                        </Form.Group>
+                      </Form>
 
-                                    <Form.Group>
-                                        <Form.Label className="label">Email Address</Form.Label>
-                                        <Form.Control
-                                            defaultValue={this.props.profile.email}
-                                            onChange={(event) => this.handleChange(event, "email")}
-                                        />
-                                        <Form.Text className="text-muted">
-                                            Business - Listed
-                                        </Form.Text>
-                                    </Form.Group>
+                      <Form>
+                        <Form.Group>
+                          <Form.Label className="label">Website</Form.Label>
+                          <Form.Control
+                            defaultValue={this.state.website}
+                            onChange={(event) =>
+                              this.handleChange(event, "website")
+                            }
+                          />
+                        </Form.Group>
+                      </Form>
 
-                                    <Form.Group>
-                                        <Form.Label className="label">Website</Form.Label>
-                                        <Form.Control
-                                            defaultValue={this.props.profile.website}
-                                            onChange={(event) => this.handleChange(event, "website")}
-                                        />
-                                    </Form.Group>
-                                </Form>
-                                <Form>
-                                    {this.displayIslands()}
-                                    <Form.Group>
-                                        <Form.Label variant="flat" className="label">
-                                            City
-                                        </Form.Label>
-                                        <Form.Control
-                                            defaultValue={this.props.profile.city}
-                                            onChange={(event) => this.handleChange(event, "city")}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group>
-                                        <Form.Label variant="flat" className="label">
-                                            Zip Code
-                                        </Form.Label>
-                                        <Form.Control
-                                            defaultValue={this.props.profile.zip_code}
-                                            onChange={(event) => this.handleChange(event, "zipCode")}
-                                        />
-                                    </Form.Group>
+                      <Form className="flex-between row-wrap row">
+                        <Form.Group className="column">
+                          <Form.Label className="label">
+                            Phone Number - Business
+                          </Form.Label>
+                          <Form.Control
+                            defaultValue={this.state.phone}
+                            onChange={(event) =>
+                              this.handleChange(event, "phone")
+                            }
+                          />
+                          <Form.Text className="text-muted">
+                            Listed. Please enter in this format: (xxx) xxx-xxxx.
+                          </Form.Text>
+                        </Form.Group>
 
-                                    <Form.Group>
-                                        <Form.Label className="label">Address</Form.Label>
-                                        <Form.Control
-                                            defaultValue={this.props.profile.address}
-                                            onChange={(event) => this.handleChange(event, "address")}
-                                        />
-                                        <Form.Text className="text-muted">
-                                            Business - Listed
-                                        </Form.Text>
-                                    </Form.Group>
-                                </Form>
-                            </div>
+                        <Form.Group className="column">
+                          <Form.Label className="label">
+                            Phone Number - Personal
+                          </Form.Label>
+                          <Form.Control
+                            defaultValue={this.state.phonePersonal}
+                            onChange={(event) =>
+                              this.handleChange(event, "phonePersonal")
+                            }
+                          />
+                          <Form.Text className="text-muted">
+                            Not Listed (for HIAMFT-use only). Please enter in
+                            this format: (xxx) xxx-xxxx.
+                          </Form.Text>
+                        </Form.Group>
+                      </Form>
+                      <Form>{this.displayIslands()}</Form>
+
+                      <Form className="flex-between row-wrap row">
+                        <Form.Group className="columnThirds">
+                          <Form.Label className="label">
+                            Address - Business
+                          </Form.Label>
+                          <Form.Control
+                            defaultValue={this.state.address}
+                            onChange={(event) =>
+                              this.handleChange(event, "address")
+                            }
+                          />
+                          <Form.Text className="text-muted">Listed</Form.Text>
+                        </Form.Group>
+
+                        <Form.Group className="columnThirds">
+                          <Form.Label variant="flat" className="label">
+                            City
+                          </Form.Label>
+                          <Form.Control
+                            defaultValue={this.state.city}
+                            onChange={(event) =>
+                              this.handleChange(event, "city")
+                            }
+                          />
+                          <Form.Text className="text-muted">Listed</Form.Text>
+                        </Form.Group>
+
+                        <Form.Group className="columnThirds">
+                          <Form.Label variant="flat" className="label">
+                            Zip Code
+                          </Form.Label>
+                          <Form.Control
+                            type="number"
+                            defaultValue={this.state.zipCode}
+                            onChange={(event) =>
+                              this.handleChange(event, "zipCode")
+                            }
+                          />
+                          <Form.Text className="text-muted">Listed</Form.Text>
+                        </Form.Group>
+                      </Form>
+
+                      <Form className="flex-between row-wrap row">
+                        <Form.Group className="columnThirds">
+                          <Form.Label className="label">
+                            Address - Personal
+                          </Form.Label>
+                          <Form.Control
+                            defaultValue={this.state.addressPersonal}
+                            onChange={(event) =>
+                              this.handleChange(event, "addressPersonal")
+                            }
+                          />
+                          <Form.Text className="text-muted">
+                            Not Listed (for HIAMFT-use only)
+                          </Form.Text>
+                        </Form.Group>
+
+                        <Form.Group className="columnThirds">
+                          <Form.Label variant="flat" className="label">
+                            City
+                          </Form.Label>
+                          <Form.Control
+                            defaultValue={this.state.cityPersonal}
+                            onChange={(event) =>
+                              this.handleChange(event, "cityPersonal")
+                            }
+                          />
+                          <Form.Text className="text-muted">
+                            Not Listed (for HIAMFT-use only)
+                          </Form.Text>
+                        </Form.Group>
+                        <Form.Group className="columnThirds">
+                          <Form.Label variant="flat" className="label">
+                            Zip Code
+                          </Form.Label>
+                          <Form.Control
+                            type="number"
+                            defaultValue={this.state.zipCodePersonal}
+                            onChange={(event) =>
+                              this.handleChange(event, "zipCodePersonal")
+                            }
+                          />
+                          <Form.Text className="text-muted">
+                            Not Listed (for HIAMFT-use only)
+                          </Form.Text>
+                        </Form.Group>
+                      </Form>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="body">
+                    <div className="flex-between row-wrap first">
+                      <h4>Contact Info</h4>
+                      <Button
+                        className="flex-between row-wrap first"
+                        onClick={() => this.handleEditContact()}
+                      >
+                        Edit Contact Info
+                      </Button>
+                    </div>
+                    {this.props.profile && (
+                      <>
+                        <div className="border">
+                          <Form className="flex-between row-wrap row">
+                            <Form.Group className="columnThirds">
+                              <Form.Label className="label">
+                                Email Address - Business
+                              </Form.Label>
+                              <Form.Control
+                                disabled={true}
+                                readOnly
+                                defaultValue={this.state.email}
+                              />
+                              <Form.Text className="text-muted">
+                                Listed
+                              </Form.Text>
+                            </Form.Group>
+
+                            <Form.Group className="columnThirds">
+                              <Form.Label className="label">
+                                Email Address - Personal
+                              </Form.Label>
+                              <Form.Control
+                                disabled={true}
+                                readOnly
+                                defaultValue={this.state.emailPersonal}
+                              />
+                              <Form.Text className="text-muted">
+                                Not Listed (for HIAMFT-use only)
+                              </Form.Text>
+                            </Form.Group>
+                          </Form>
+
+                          <Form className="flex-between row-wrap row">
+                            <Form.Group className="columnThirds">
+                              <Form.Label className="label">Website</Form.Label>
+                              <Form.Control
+                                disabled={true}
+                                readOnly
+                                defaultValue={this.state.website}
+                              />
+                            </Form.Group>
+                          </Form>
+                          <Form className="flex-between row-wrap row">
+                            <Form.Group className="column">
+                              <Form.Label className="label">
+                                Phone Number - Business
+                              </Form.Label>
+                              <Form.Control
+                                disabled={true}
+                                readOnly
+                                defaultValue={this.state.phone}
+                              />
+                              <Form.Text className="text-muted">
+                                Listed.
+                              </Form.Text>
+                            </Form.Group>
+
+                            <Form.Group className="column">
+                              <Form.Label className="label">
+                                Phone Number - Personal
+                              </Form.Label>
+                              <Form.Control
+                                disabled={true}
+                                readOnly
+                                defaultValue={this.state.phonePersonal}
+                              />
+                              <Form.Text className="text-muted">
+                                Not Listed (for HIAMFT-use only).
+                              </Form.Text>
+                            </Form.Group>
+                          </Form>
+
+                          <Form>{this.displayIslands()}</Form>
+
+                          <Form className="flex-between row-wrap row">
+                            <Form.Group className="columnThirds">
+                              <Form.Label className="label">
+                                Street Address - Business
+                              </Form.Label>
+                              <Form.Control
+                                disabled={true}
+                                readOnly
+                                defaultValue={this.state.address}
+                              />
+                              <Form.Text className="text-muted">
+                                Listed
+                              </Form.Text>
+                            </Form.Group>
+
+                            <Form.Group className="columnThirds">
+                              <Form.Label variant="flat" className="label">
+                                City
+                              </Form.Label>
+                              <Form.Control
+                                disabled={true}
+                                readOnly
+                                defaultValue={this.state.city}
+                              />
+                              <Form.Text className="text-muted">
+                                Listed
+                              </Form.Text>
+                            </Form.Group>
+
+                            <Form.Group className="columnThirds">
+                              <Form.Label variant="flat" className="label">
+                                Zip Code
+                              </Form.Label>
+                              <Form.Control
+                                disabled={true}
+                                readOnly
+                                defaultValue={this.state.zipCode}
+                              />
+                              <Form.Text className="text-muted">
+                                Listed
+                              </Form.Text>
+                            </Form.Group>
+                          </Form>
+
+                          <Form className="flex-between row-wrap row">
+                            <Form.Group className="columnThirds">
+                              <Form.Label className="label">
+                                Street Address - Personal
+                              </Form.Label>
+                              <Form.Control
+                                disabled={true}
+                                readOnly
+                                defaultValue={this.state.addressPersonal}
+                              />
+                              <Form.Text className="text-muted">
+                                Not Listed (for HIAMFT-use only)
+                              </Form.Text>
+                            </Form.Group>
+                            <Form.Group className="columnThirds">
+                              <Form.Label variant="flat" className="label">
+                                City
+                              </Form.Label>
+                              <Form.Control
+                                disabled={true}
+                                readOnly
+                                defaultValue={this.state.cityPersonal}
+                              />
+                              <Form.Text className="text-muted">
+                                Not Listed (for HIAMFT-use only)
+                              </Form.Text>
+                            </Form.Group>
+                            <Form.Group className="columnThirds">
+                              <Form.Label variant="flat" className="label">
+                                Zip Code
+                              </Form.Label>
+                              <Form.Control
+                                disabled={true}
+                                readOnly
+                                defaultValue={this.state.zipCodePersonal}
+                              />
+                              <Form.Text className="text-muted">
+                                Not Listed (for HIAMFT-use only)
+                              </Form.Text>
+                            </Form.Group>
+                          </Form>
                         </div>
-                    ) : (
-                            <div className="body">
-                                <div className="flex-between row-wrap first">
-                                    <h4>Contact Info</h4>
-                                    <Button
-                                        className="flex-between row-wrap first"
-                                        onClick={() => this.handleEditContact()}
-                                    >
-                                        Edit Contact Info
-                                    </Button>
-                                </div>
-                                {this.props.profile && (
-                                    <>
-                                        <div className="border">
-                                            <Form>
-                                                <Form.Group>
-                                                    <Form.Label className="label">Phone Number</Form.Label>
-                                                    <Form.Control
-                                                        disabled="true"
-                                                        readOnly
-                                                        defaultValue={this.state.phone}
-                                                    />
-                                                    <Form.Text className="text-muted">
-                                                        Business - Listed
-                                                    </Form.Text>
-                                                </Form.Group>
-
-                                                <Form.Group>
-                                                    <Form.Label className="label">Email Address</Form.Label>
-                                                    <Form.Control
-                                                        disabled="true"
-                                                        readOnly
-                                                        defaultValue={this.state.email}
-                                                    />
-                                                    <Form.Text className="text-muted">
-                                                        Business - Listed
-                                                    </Form.Text>
-                                                </Form.Group>
-
-                                                <Form.Group>
-                                                    <Form.Label className="label">Website</Form.Label>
-                                                    <Form.Control
-                                                        disabled="true"
-                                                        readOnly
-                                                        defaultValue={this.state.website}
-                                                    />
-                                                </Form.Group>
-                                            </Form>
-                                            <Form>
-                                                {this.displayIslands()}
-                                                <Form.Group>
-                                                    <Form.Label className="label">Address</Form.Label>
-                                                    <Form.Control
-                                                        disabled="true"
-                                                        readOnly
-                                                        defaultValue={this.state.address}
-                                                    />
-                                                    <Form.Text className="text-muted">
-                                                        Business - Listed
-                                                    </Form.Text>
-                                                </Form.Group>
-                                                <Form.Group>
-                                                    <Form.Label variant="flat" className="label">
-                                                        City
-                                                    </Form.Label>
-                                                    <Form.Control
-                                                        disabled="true"
-                                                        readOnly
-                                                        defaultValue={this.state.city}
-                                                    />
-                                                </Form.Group>
-                                                <Form.Group>
-                                                    <Form.Label variant="flat" className="label">
-                                                        Zip Code
-                                                    </Form.Label>
-                                                    <Form.Control
-                                                        disabled="true"
-                                                        readOnly
-                                                        defaultValue={this.state.zipCode}
-                                                    />
-                                                </Form.Group>
-                                            </Form>
-                                        </div>
-                                    </>
-                                )}
-                            </div>
-                        )}
-                </>
+                      </>
+                    )}
+                  </div>
+                )}
+              </>
             );
         } else {
-            return <p> user not found </p>;
+            return <p>Contact Info not found. Please refresh your browser.</p>;
         }
     }
 }

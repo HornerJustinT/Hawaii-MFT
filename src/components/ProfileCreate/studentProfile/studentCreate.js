@@ -1,8 +1,8 @@
 import React, { Component} from 'react';
-import firebase from "../../Firebase";
+import firebase from "../../../Firebase/index";
 //used to connect the component to the reducer
 import { connect } from 'react-redux';
-import "./profileCreate.css"
+// import "./profileCreate.css"
 
 import { Prompt } from 'react-router'
 
@@ -13,10 +13,10 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-import UploadModal from "../UploadModal/UploadModal";
+import UploadModal from "../../UploadModal/UploadModal";
 var storage = firebase.storage().ref();
 
-class ProfileCreate extends Component {
+class studentCreate extends Component {
     //create a state 
     state = {
         prefix:'',
@@ -171,7 +171,7 @@ componentDidUpdate = () => {
               }
         });
         this.setState({shouldBlockNavigation:false},()=>{
-          this.props.history.push("/contact-info");
+          this.props.history.push("/student-contact");
         });
 
         // this.props.history.push("/contact-info");
@@ -336,4 +336,4 @@ const mapStateToProps = reduxstate => ({
     user: reduxstate.user
   });
 
-export default connect(mapStateToProps)(ProfileCreate);
+export default connect(mapStateToProps)(studentCreate);
