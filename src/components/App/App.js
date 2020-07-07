@@ -30,7 +30,9 @@ import LoginPage from '../LoginPage/LoginPage';
 import PracticeInfo from "../ProfileCreate/PracticeInfo/PracticeInfo";
 import ProfileCreate from "../ProfileCreate/ProfileCreate";
 import uploadImage from '../ProfileCreate/uploadImage/uploadImage'
-import studentProfile from "../ProfileCreate/studentProfile/studentProfile";
+import studentPractice from "../ProfileCreate/studentProfile/studentPractice";
+import studentCreate from "../ProfileCreate/studentProfile/studentCreate";
+import studentContact from "../ProfileCreate/studentProfile/studentContact";
 import ProfileEdit from '../ProfileEdit/ProfileEdit';
 import ProfileView from "../ProfileView/ProfileView";
 import RegisterPage from '../RegisterPage/RegisterPage';
@@ -87,8 +89,9 @@ class App extends Component {
             <ProtectedRoute exact path="/contact-info" component={ContactInfo} />
             <ProtectedRoute exact path="/student-contact" component={studentContact} />
             <ProtectedRoute exact path="/practice" component={PracticeInfo} />
-            <ProtectedRoute exact path="/uploadimage" component={uploadImage} />
             <ProtectedRoute exact path="/student-practice" component={studentPractice} />
+            <ProtectedRoute exact path="/uploadimage" component={uploadImage} />
+           
 
             {/* Admin View */}
             <AdminRoute exact path="/admin-edit-profile/:id" component={ProfileEdit} />

@@ -9,7 +9,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 //CSS import
-import "../profileCreate.css";
+// import "../profileCreate.css";
 
 
 
@@ -215,31 +215,24 @@ studentContactInfo = (e) =>{
  
 }
 
-   
+     
    
     render (){
-      
+        return(
+            <>
+              <div>
                           <Prompt
         when={this.state.shouldBlockNavigation}
         message='You have unsaved changes, are you sure you want to leave?'
       />
 
-       
-        return(
-            <>
+        </div>
             <div className='container'>
             <header><h1 className="text-center">Contact Info</h1></header>
             <ProgressBar now={50} />
             <Form onSubmit={this.studentContactInfo}>
              <br/>
-             <Form.Check
-              type="switch"
-              id="custom-switch"
-              label="Are you a Student?"
-              className="switch"
-              onChange={this.handleStudent}
-            />
-                <br/>
+        
              <Form.Label>Island</Form.Label>
              <br/>
              <Form.Control
