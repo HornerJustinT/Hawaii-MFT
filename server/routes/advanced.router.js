@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
 
 		// This is the start of the query before the 'WHERE' part would happen
 		// Its basically just a lot of things to select and JOIN
-		const startQuery = `SELECT m.*, license_type.title AS license_title,
+		const startQuery = `SELECT m.*,"user".username as username ,license_type.title AS license_title,
 			array_agg(DISTINCT languages.title) AS languages,
 			array_agg(DISTINCT age_groups_served.title) AS ages_served,
 			array_agg(DISTINCT client_focus.title) AS client_focus,
@@ -47,7 +47,7 @@ router.get('/', async (req, res) => {
 			ARRAY(SELECT DISTINCT email_table.email FROM email_table WHERE email_table.business = true AND email_table.member_id = m.id) AS email
 
 			FROM members m
-			
+			JOIN "user" on "user".id = m.id
 			JOIN languages_pivot ON languages_pivot.member_id = m.id
 			JOIN languages ON languages.language_id = languages_pivot.language_id
 			
@@ -78,7 +78,7 @@ router.get('/', async (req, res) => {
 		// portion of a query.
 		const endQuery = `\nGROUP BY m.id, license_type.title, m.zip_code, m.zip_code_personal, m.first_name, m.last_name, m.prefix, m.age, m.license_state,
 			m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials,
-			m.telehealth, m.statement, m.website, m.title, m.city, m.city_personal, m.license_number, m.license_type, m.enabled, m.student;`;
+			m.telehealth, m.statement, m.website, m.title, m.city, m.city_personal, m.license_number, m.license_type, m.enabled,"user".username, m.student;`;
 
 		// This is the 'WHERE' part of the query. It's the only one
 		// that uses let instead of const because it's very likely to
@@ -248,7 +248,7 @@ router.get('/', async (req, res) => {
 		// Returns the search results to the page
 		res.send(members.rows);
 	} catch (error) {
-		console.log(`Error Selecting members`, error)
+		console.log(`Error Selecting members advanced router`, error)
 		res.sendStatus(500);
 	} finally {
 		connection.release();
