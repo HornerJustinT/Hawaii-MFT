@@ -233,9 +233,9 @@ handleInputChangeFor = propertyName => (event) =>{
 
 
       const isValid = this.validate();
-      if(!isValid){
-         return false
-         }else{
+      // if(!isValid){
+        //  return false
+        //  }else{
           this.props.dispatch({type:'ADD_MEMBER',
           payload:{
             prefix:this.props.createProfile.prefix,
@@ -278,7 +278,7 @@ handleInputChangeFor = propertyName => (event) =>{
           });
           //this will reset the inputs on the parcticeinfo page
            return true;
-         }
+        //  }
     }
 
    

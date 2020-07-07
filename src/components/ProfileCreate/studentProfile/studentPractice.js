@@ -29,6 +29,12 @@ class studentPractice extends Component{
          specialty_id:'',
          treatment_preferences_id:'',
          age_groups_served_id:'',
+         //write the errors for all the practiceInfo inputs
+         clientFocusIdError:'',
+         specialtyIdError:'',
+         treatmentPreferencesIdError:'',
+         ageGroupsError:'',
+         shouldBlockNavigation : true,
 
      }
    
@@ -55,83 +61,16 @@ handleInputChangeFor = propertyName => (event) =>{
   } 
 
   validate = () => {
-    let licenseStateError = '';
-    let licenseNumberError = '';
-    let licenseTypeError = '';
-    let supervisionStatusError = '';
-    let feesError = '';
-    let licenseExpirationError = '';
-    let  credentialsError = '';
-    let telehealthError = '';
-    let statementError = '';
-    let titleError= '';
-    let sessionFormatIdError = '';
+      
+     
     let  clientFocusIdError = '';
     let specialtyIdError = '';
     let treatmentPreferencesIdError = '';
     let  ageGroupsError = '';
-    let insuranceTypeIdError = '';
-
+    
     let formIsValid = true;
 
-    if(this.state.license_state === ''){
-      formIsValid=false;
-      licenseStateError = 'State Name is required'
-    }else if(!this.state.license_state.match(/^[a-zA-Z_]+$/) ){
-        formIsValid=false;
-        licenseStateError = "State Name is invalid" 
-    }
-    if(this.state.title === ''){
-      formIsValid=false;
-      titleError = 'Title is required'
-    }else if(!this.state.title.match(/^[a-zA-Z_]+$/) ){
-        formIsValid=false;
-        titleError = "Title is invalid" 
-    }
-    if(this.state.statement === ''){
-      formIsValid=false;
-      statementError = 'Statement is required'
-    }else if(!this.state.statement.match(/^[a-zA-Z_]+$/) ){
-        formIsValid=false;
-        statementError  = "Statement is invalid" 
-    }
-
-    if(this.state.license_number === ''){
-      formIsValid=false;
-      licenseNumberError = 'License Number is required'
-    }else if(!isNaN(this.state.license_number) === false ){
-        formIsValid=false;
-        licenseNumberError = "License Number is invalid" 
-    }
-    if(this.state.fees === ''){
-      formIsValid=false;
-      feesError = 'Fees is required'
-    }else if(!isNaN(this.state.fees) === false ){
-        formIsValid=false;
-        feesError = "Fees is invalid" 
-    }
-    if(this.state.license_type === ''){
-      formIsValid=false;
-      licenseTypeError = 'License Type is required'
- }
-
-    if(this.state.supervision_status === ''){
-         formIsValid=false;
-         supervisionStatusError = 'Supervision status is required'
-    }
-
-    if(this.state.license_expiration === ''){
-         formIsValid=false;
-         licenseExpirationError = 'License experation is required'
-    }
-    if(this.state.telehealth === ''){
-         formIsValid=false;
-         telehealthError = 'Telehealth choice is required'
-    }
-    if(this.state.session_format_id === ''){
-      formIsValid=false;
-      sessionFormatIdError = 'Session Format is required'
-      }
+   
       if(this.state.client_focus_id === ''){
       formIsValid=false;
       clientFocusIdError = 'Client Focus group is required'
@@ -148,22 +87,10 @@ handleInputChangeFor = propertyName => (event) =>{
       formIsValid=false;
       ageGroupsError = 'Age Group is required'
      }
-     if(this.state.credentials === ''){
-       formIsValid=false;
-      credentialsError = 'Credentials is required'
-      }
-      if(this.state.insurance_type_id === ''){
-        formIsValid=false;
-       insuranceTypeIdError = 'Insurance Taken is required'
-       }
+    
 
-    if( licenseStateError || licenseNumberError || licenseTypeError ||   supervisionStatusError
-         || feesError ||  licenseExpirationError ||   credentialsError 
-         ||  telehealthError||  statementError || titleError || sessionFormatIdError || clientFocusIdError
-         ||  specialtyIdError || treatmentPreferencesIdError|| ageGroupsError||  insuranceTypeIdError){
-      this.setState({licenseStateError, licenseNumberError, licenseTypeError, supervisionStatusError,
-         feesError, licenseExpirationError, credentialsError,telehealthError, statementError, titleError, sessionFormatIdError, clientFocusIdError,
-        specialtyIdError, treatmentPreferencesIdError, ageGroupsError, insuranceTypeIdError});
+    if(  clientFocusIdError||  specialtyIdError || treatmentPreferencesIdError|| ageGroupsError){
+      this.setState({ clientFocusIdError, specialtyIdError, treatmentPreferencesIdError, ageGroupsError});
     
     }else{
       return true;
@@ -253,6 +180,7 @@ if(!isValid){
                    } 
             
             </Form.Control>
+            <h4 className="error">{this.state.specialtyIdError}</h4>
             </Form.Group>
         <br/>
         <br/>
@@ -270,6 +198,7 @@ if(!isValid){
                    </>
                    } 
           </Form.Control>
+          <h4 className="error">{this.state.treatmentPreferencesIdError}</h4>
           </Form.Group>
         <br/>
         <br/>
@@ -287,6 +216,7 @@ if(!isValid){
                    </>
                    } 
             </Form.Control>
+            <h4 className="error">{this.state.clientFocusIdError}</h4>
             </Form.Group>
             <Form.Group>
         <Form.Control   as="select" onChange={this.handleInputChangeFor("age_groups_served_id")}>
@@ -301,6 +231,7 @@ if(!isValid){
                    </>
                    } 
            </Form.Control>
+           <h4 className="error">{this.state.ageGroupsError}</h4>
            </Form.Group>
            <Button type="submit">Next</Button>
         </Form>
