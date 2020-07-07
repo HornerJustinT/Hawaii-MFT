@@ -62,7 +62,7 @@ class SearchResults extends Component {
                         <div className="name">
                           {therapist.first_name} {therapist.last_name}
                         </div>
-                        <div className="island">f
+                        <div className="island">
                           {therapist.city},{' '}
                           {therapist.island[0]}
                         </div>
