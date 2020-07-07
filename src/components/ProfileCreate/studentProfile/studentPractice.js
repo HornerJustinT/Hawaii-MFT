@@ -183,8 +183,6 @@ if(!isValid){
             <h4 className="error">{this.state.specialtyIdError}</h4>
             </Form.Group>
         <br/>
-        <br/>
-        <br/>
         <Form.Group>
         <Form.Label>Treatment Approaches/Preferences</Form.Label><br/><Form.Control   as="select" onChange={this.handleInputChangeFor("treatment_preferences_id")}>
         {this.props.treatmentPreferences &&    
@@ -200,7 +198,6 @@ if(!isValid){
           </Form.Control>
           <h4 className="error">{this.state.treatmentPreferencesIdError}</h4>
           </Form.Group>
-        <br/>
         <br/>
         <Form.Group>
         <Form.Label>Client Focus</Form.Label><br/><Form.Control  as="select" onChange={this.handleInputChangeFor("client_focus_id")}>
@@ -233,7 +230,9 @@ if(!isValid){
            </Form.Control>
            <h4 className="error">{this.state.ageGroupsError}</h4>
            </Form.Group>
-           <Button type="submit">Next</Button>
+           <div  className="next-button">
+                  <Button type="submit">Next</Button>
+                  </div>
         </Form>
        
             </div>
