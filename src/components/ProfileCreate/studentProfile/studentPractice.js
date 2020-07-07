@@ -10,7 +10,7 @@ import Button from "react-bootstrap/Button";
 
 
 
-class studentProfile extends Component{
+class studentPractice extends Component{
      //create local state
 
      state = {
@@ -222,4 +222,4 @@ const mapStateToProps = reduxstate => ({
     contactAddress: reduxstate.contactAddress,
     user: reduxstate.user
   });
-export default connect(mapStateToProps)(studentProfile);
+export default connect(mapStateToProps)(studentPractice);
