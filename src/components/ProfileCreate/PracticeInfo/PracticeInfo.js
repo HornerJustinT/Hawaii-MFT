@@ -233,9 +233,9 @@ handleInputChangeFor = propertyName => (event) =>{
 
 
       const isValid = this.validate();
-      // if(!isValid){
-        //  return false
-        //  }else{
+      if(!isValid){
+         return false
+         }else{
           this.props.dispatch({type:'ADD_MEMBER',
           payload:{
             prefix:this.props.createProfile.prefix,
@@ -273,12 +273,12 @@ handleInputChangeFor = propertyName => (event) =>{
             language_id:this.props.createProfile.language_id,
            }
           });
-          // this.setState({shouldBlockNavigation:false},()=>{
-          //   this.props.history.push("/uploadimage");
-          // });
+          this.setState({shouldBlockNavigation:false},()=>{
+            this.props.history.push("/uploadimage");
+          });
           //this will reset the inputs on the parcticeinfo page
-          //  return true;
-        //  }
+           return true;
+         }
     }
 
    

@@ -54,9 +54,130 @@ handleInputChangeFor = propertyName => (event) =>{
     });
   } 
 
+  validate = () => {
+    let licenseStateError = '';
+    let licenseNumberError = '';
+    let licenseTypeError = '';
+    let supervisionStatusError = '';
+    let feesError = '';
+    let licenseExpirationError = '';
+    let  credentialsError = '';
+    let telehealthError = '';
+    let statementError = '';
+    let titleError= '';
+    let sessionFormatIdError = '';
+    let  clientFocusIdError = '';
+    let specialtyIdError = '';
+    let treatmentPreferencesIdError = '';
+    let  ageGroupsError = '';
+    let insuranceTypeIdError = '';
+
+    let formIsValid = true;
+
+    if(this.state.license_state === ''){
+      formIsValid=false;
+      licenseStateError = 'State Name is required'
+    }else if(!this.state.license_state.match(/^[a-zA-Z_]+$/) ){
+        formIsValid=false;
+        licenseStateError = "State Name is invalid" 
+    }
+    if(this.state.title === ''){
+      formIsValid=false;
+      titleError = 'Title is required'
+    }else if(!this.state.title.match(/^[a-zA-Z_]+$/) ){
+        formIsValid=false;
+        titleError = "Title is invalid" 
+    }
+    if(this.state.statement === ''){
+      formIsValid=false;
+      statementError = 'Statement is required'
+    }else if(!this.state.statement.match(/^[a-zA-Z_]+$/) ){
+        formIsValid=false;
+        statementError  = "Statement is invalid" 
+    }
+
+    if(this.state.license_number === ''){
+      formIsValid=false;
+      licenseNumberError = 'License Number is required'
+    }else if(!isNaN(this.state.license_number) === false ){
+        formIsValid=false;
+        licenseNumberError = "License Number is invalid" 
+    }
+    if(this.state.fees === ''){
+      formIsValid=false;
+      feesError = 'Fees is required'
+    }else if(!isNaN(this.state.fees) === false ){
+        formIsValid=false;
+        feesError = "Fees is invalid" 
+    }
+    if(this.state.license_type === ''){
+      formIsValid=false;
+      licenseTypeError = 'License Type is required'
+ }
+
+    if(this.state.supervision_status === ''){
+         formIsValid=false;
+         supervisionStatusError = 'Supervision status is required'
+    }
+
+    if(this.state.license_expiration === ''){
+         formIsValid=false;
+         licenseExpirationError = 'License experation is required'
+    }
+    if(this.state.telehealth === ''){
+         formIsValid=false;
+         telehealthError = 'Telehealth choice is required'
+    }
+    if(this.state.session_format_id === ''){
+      formIsValid=false;
+      sessionFormatIdError = 'Session Format is required'
+      }
+      if(this.state.client_focus_id === ''){
+      formIsValid=false;
+      clientFocusIdError = 'Client Focus group is required'
+      }
+      if(this.state.specialty_id === ''){
+      formIsValid=false;
+     specialtyIdError = 'Specialty choice is required'
+      }
+      if(this.state.treatment_preferences_id === ''){
+      formIsValid=false;
+      treatmentPreferencesIdError = 'Treatment Preference is required'
+      }
+      if(this.state.age_groups_served_id === ''){
+      formIsValid=false;
+      ageGroupsError = 'Age Group is required'
+     }
+     if(this.state.credentials === ''){
+       formIsValid=false;
+      credentialsError = 'Credentials is required'
+      }
+      if(this.state.insurance_type_id === ''){
+        formIsValid=false;
+       insuranceTypeIdError = 'Insurance Taken is required'
+       }
+
+    if( licenseStateError || licenseNumberError || licenseTypeError ||   supervisionStatusError
+         || feesError ||  licenseExpirationError ||   credentialsError 
+         ||  telehealthError||  statementError || titleError || sessionFormatIdError || clientFocusIdError
+         ||  specialtyIdError || treatmentPreferencesIdError|| ageGroupsError||  insuranceTypeIdError){
+      this.setState({licenseStateError, licenseNumberError, licenseTypeError, supervisionStatusError,
+         feesError, licenseExpirationError, credentialsError,telehealthError, statementError, titleError, sessionFormatIdError, clientFocusIdError,
+        specialtyIdError, treatmentPreferencesIdError, ageGroupsError, insuranceTypeIdError});
+    
+    }else{
+      return true;
+    }
+
+  }
+
     addMembersInfo = (event) =>{
 //this action will dispatch all the info collegeted from all three pages
 //and those are createprofile, contactinfo and practicinfo pages
+const isValid = this.validate();
+if(!isValid){
+   return false
+   }else{
       event.preventDefault();
       this.props.dispatch({type:'ADD_MEMBER',
         payload:{
@@ -95,33 +216,16 @@ handleInputChangeFor = propertyName => (event) =>{
           language_id:this.props.createProfile.language_id
          }
         });
-//this will reset the inputs on the parcticeinfo page
-this.props.history.push("/uploadimage");
-     this.handleReset();
+        this.setState({shouldBlockNavigation:false},()=>{
+            this.props.history.push("/uploadimage");
+          });
+          //this will reset the inputs on the parcticeinfo page
+           return true;
+         }
+
     }
 
-    handleReset = ()=>{
-      this.setState({
-        license_state:'',
-        license_number:'',
-        license_type:'',
-        supervision_status:'',
-        fees:'',
-        license_expiration:'',
-        specialty:'',
-        credentials:'',
-        telehealth:'',
-        statement:'',
-        title:'',
-        session_format_id:'',
-        client_focus_id:'',
-        specialty_id:'',
-        treatment_preferences_id:'',
-        age_groups_served_id:'',
-        insurance_type_id:'',
-
-      })
-    }
+  
     render (){
         return(
             <>
