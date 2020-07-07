@@ -57,6 +57,7 @@ class ProfileEdit extends Component {
     this.props.dispatch({ type: "FETCH_SESSION_FORMAT" });
     this.props.dispatch({ type: "FETCH_SPECIALTY" });
     this.props.dispatch({ type: "FETCH_TREATMENT_APPROACHES" });
+    this.props.dispatch({ type: "FETCH_LICENSE_TYPE" });
     this.props.dispatch({
       type: "FETCH_PROFILE",
       payload: { id: this.props.match.params.id || this.props.user.id },
@@ -238,6 +239,7 @@ class ProfileEdit extends Component {
       return (
         <>
           {/**Here is Practice Info render */}
+
           {this.state.clickPractice ? (
             <div className="body">
               <div className="flex-between row-wrap first">
@@ -343,15 +345,19 @@ class ProfileEdit extends Component {
                         onChange={(event) =>
                           this.handleChange(event, "licenseType")
                         }
-                      >
-                        <option value="LMFT">LMFT</option>
+                      >{this.props.license.map(license => {
+                        return(
+                          <option value={license.title}>{license.title}</option>
+                        )
+                      })}
+                        {/* <option value="LMFT">LMFT</option>
                         <option value="LMHC">LMHC</option>
                         <option value="LP">LP</option>
                         <option value="LCSW">LCSW</option>
                         <option value="LSW">LSW</option>
                         <option value="LP">LP</option>
                         <option value="LPCC">LPCC</option>
-                        <option value="Pre-Licensed (no longer a student)">Pre-Licensed (no longer a student)</option>
+                        <option value="Pre-Licensed (no longer a student)">Pre-Licensed (no longer a student)</option> */}
                       </Form.Control>
                     </Form.Group>
                   </Form.Row>
