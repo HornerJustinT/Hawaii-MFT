@@ -88,7 +88,6 @@ class ProfileEdit extends Component {
         licenseExpiration: this.props.profile.license_expiration,
         licenseNumber: this.props.profile.license_number,
         licenseType: this.props.profile.license_type,
-        licenseTypeEdit: this.props.profile.license_type_id,
         hiamftMemberInfo: this.props.profile.hiamft_member_account_info,
         supervisionStatus: this.props.profile.supervision_status,
         fees: this.props.profile.fees,
@@ -230,7 +229,6 @@ class ProfileEdit extends Component {
   };
 
   render() {
-    console.log('KRISTEN, here is state', this.state);
     if (
       this.props.profile &&
       this.state.specialty &&
@@ -343,22 +341,17 @@ class ProfileEdit extends Component {
                         as="select"
                         value={this.state.licenseType}
                         onChange={(event) =>
-                          this.handleChange(event, "licenseTypeEdit")
+                          this.handleChange(event, "licenseType")
                         }
                       >
-                        {this.props.profile &&
-                          this.props.license.map((license) => {
-                            return (
-                              <>
-                                <option
-                                  key={license.license_type_id}
-                                  value={license.license_type_id}
-                                >
-                                  {license.title}
-                                </option>
-                              </>
-                            );
-                          })}
+                        <option value="LMFT">LMFT</option>
+                        <option value="LMHC">LMHC</option>
+                        <option value="LP">LP</option>
+                        <option value="LCSW">LCSW</option>
+                        <option value="LSW">LSW</option>
+                        <option value="LP">LP</option>
+                        <option value="LPCC">LPCC</option>
+                        <option value="Pre-Licensed (no longer a student)">Pre-Licensed (no longer a student)</option>
                       </Form.Control>
                     </Form.Group>
                   </Form.Row>

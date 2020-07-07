@@ -104,3 +104,13 @@
   clear: both;
 }
 
+.button {
+    margin-left: 2em;
+}
+
+.flex-bucket {
+  margin: 10px;
+  min-width: 25em;
+  flex: 32%;
+  align-items: left;
+}

@@ -245,15 +245,6 @@ class ProfileEdit extends Component {
           <div className="header">
             <h3>My Profile</h3>
           </div>
-          <div className="body">
-            <img className="photo" src={this.state.profilePhoto}></img>
-          </div>
-          <div className="body">
-            <UploadModal
-              refresh={this.getImage}
-              name={this.props.user}
-            ></UploadModal>
-          </div>
 
           {/**Here is Basic Info render */}
           {this.state.clickBasic ? (
@@ -400,6 +391,22 @@ class ProfileEdit extends Component {
 
           <ProfileEditContact />
           <ProfileEditPractice />
+
+          <div className="body">
+            <h4>
+              Profile Picture
+            </h4>
+            <div className="border">
+              <img className="photo" src={this.state.profilePhoto}></img>
+            
+            <div className="button">
+              <UploadModal
+                refresh={this.getImage}
+                name={this.props.user}
+              ></UploadModal>
+            </div>
+            </div>
+          </div>
 
           <div className="body">
             {this.state.enabled ? (
