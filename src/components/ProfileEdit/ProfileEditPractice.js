@@ -35,6 +35,8 @@ class ProfileEdit extends Component {
     agesServedEdit: this.props.profile.ages_served_id,
     clientFocus: this.props.profile.client_focus,
     clientFocusEdit: this.props.profile.client_focus_id,
+    clientAges: this.props.profile.ages_served,
+    clientAgesEdit: this.props.profile.ages_served_id,
     insurance: this.props.profile.insurance,
     insuranceEdit: this.props.profile.insurance_id,
     sessionFormat: this.props.profile.session_format,
@@ -50,13 +52,14 @@ class ProfileEdit extends Component {
   //languages, islands & treatments reducers (props).
 
   componentDidMount() {
-    console.log(this.props)
+    console.log(this.props);
     this.props.dispatch({ type: "FETCH_AGE_GROUPS" });
     this.props.dispatch({ type: "FETCH_DEMOGRPHICS" });
     this.props.dispatch({ type: "FETCH_INSURANCE_TAKEN" });
     this.props.dispatch({ type: "FETCH_SESSION_FORMAT" });
     this.props.dispatch({ type: "FETCH_SPECIALTY" });
     this.props.dispatch({ type: "FETCH_TREATMENT_APPROACHES" });
+    this.props.dispatch({ type: "FETCH_LICENSE_TYPE" });
     this.props.dispatch({
       type: "FETCH_PROFILE",
       payload: { id: this.props.match.params.id || this.props.user.id },
@@ -96,6 +99,8 @@ class ProfileEdit extends Component {
         agesServedEdit: this.props.profile.ages_served_id,
         clientFocus: this.props.profile.client_focus,
         clientFocusEdit: this.props.profile.client_focus_id,
+        clientAges: this.props.profile.ages_served,
+        clientAgesEdit: this.props.profile.ages_served_id,
         insurance: this.props.profile.insurance,
         insuranceEdit: this.props.profile.insurance_id,
         sessionFormat: this.props.profile.session_format,
@@ -129,14 +134,14 @@ class ProfileEdit extends Component {
       payload: this.state,
     });
 
-    // window.location.reload(false);
+    window.location.reload(false);
 
-    // this.props.dispatch({ type: "PROFILE_RESET" });
+    this.props.dispatch({ type: "PROFILE_RESET" });
 
-    // this.props.dispatch({
-    //   type: "FETCH_PROFILE",
-    //   payload: { id: this.props.match.params.id || this.props.user.id },
-    // });
+    this.props.dispatch({
+      type: "FETCH_PROFILE",
+      payload: { id: this.props.match.params.id || this.props.user.id },
+    });
   }; //end handleSavePractice
 
   //handleChange resets state according to new data entered into form inputs
@@ -185,7 +190,7 @@ class ProfileEdit extends Component {
   displayInsurance = () => {
     if (this.state.clickPractice) {
       return (
-        <Form.Group >
+        <Form.Group>
           <Form.Label className="label">Insurances Accepted</Form.Label>
           <Form.Control
             as="select"
@@ -210,34 +215,45 @@ class ProfileEdit extends Component {
       );
     } else {
       return (
-        <Form.Group >
+        <Form.Group>
           <Form.Label variant="flat" className="label">
             Insurances Accepted
           </Form.Label>
           <div>
             {this.props.profile.insurance.map((insurance) => {
-                return (
-                  <>
-                    <Form.Control disabled={true} readOnly defaultValue={insurance} />
-                  </>
-                );
-              })}
+              return (
+                <>
+                  <Form.Control
+                    disabled={true}
+                    readOnly
+                    defaultValue={insurance}
+                  />
+                </>
+              );
+            })}
           </div>
         </Form.Group>
       );
     }
   };
 
+  // componentWillUnmount(){
+  //   clearInterval(this.interval);
+  // }
+
   render() {
     if (
       this.props.profile &&
       this.state.specialty &&
       this.state.clientFocus &&
-      this.state.insurance
+      this.state.insurance &&
+      this.state.clientAges
     ) {
       return (
         <>
           {/**Here is Practice Info render */}
+          {JSON.stringify(this.state.clientAges)}
+          {JSON.stringify(this.props.profile.ages_served)}
           {this.state.clickPractice ? (
             <div className="body">
               <div className="flex-between row-wrap first">
@@ -326,7 +342,7 @@ class ProfileEdit extends Component {
                     <Form.Group as={Col}>
                       <Form.Label className="label">
                         License Expiration
-                    </Form.Label>
+                      </Form.Label>
                       <Form.Control
                         type="date"
                         value={this.state.licenseExpiration}
@@ -344,14 +360,21 @@ class ProfileEdit extends Component {
                           this.handleChange(event, "licenseType")
                         }
                       >
-                        <option value="LMFT">LMFT</option>
+                        {this.props.license.map((license) => {
+                          return (
+                            <option value={license.title}>
+                              {license.title}
+                            </option>
+                          );
+                        })}
+                        {/* <option value="LMFT">LMFT</option>
                         <option value="LMHC">LMHC</option>
                         <option value="LP">LP</option>
                         <option value="LCSW">LCSW</option>
                         <option value="LSW">LSW</option>
                         <option value="LP">LP</option>
                         <option value="LPCC">LPCC</option>
-                        <option value="Pre-Licensed (no longer a student)">Pre-Licensed (no longer a student)</option>
+                        <option value="Pre-Licensed (no longer a student)">Pre-Licensed (no longer a student)</option> */}
                       </Form.Control>
                     </Form.Group>
                   </Form.Row>
@@ -360,7 +383,7 @@ class ProfileEdit extends Component {
                 <Form className="flex-container row-wrap">
                   {this.displayInsurance()}
 
-                  <Form.Group >
+                  <Form.Group>
                     <Form.Label className="label">Fees</Form.Label>
                     <InputGroup.Prepend>
                       <InputGroup.Text>$</InputGroup.Text>
@@ -370,7 +393,7 @@ class ProfileEdit extends Component {
                       />
                     </InputGroup.Prepend>
                   </Form.Group>
-                  <Form.Group >
+                  <Form.Group>
                     <Form.Label className="label">Session Format</Form.Label>
                     <Form.Control
                       as="select"
@@ -396,9 +419,9 @@ class ProfileEdit extends Component {
                   </Form.Group>
                 </Form>
 
-                <Form className="flex-container row-wrap">
-                  <Form.Group>
-                    <Form.Label className="label">Client Focus</Form.Label>
+                <Form className="flex-between row-wrap row">
+                  <Form.Group className="column">
+                    <Form.Label className="label">Demographic Focus</Form.Label>
                     <Form.Control
                       as="select"
                       multiple={true}
@@ -421,33 +444,26 @@ class ProfileEdit extends Component {
                       })}
                     </Form.Control>
                   </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="label">
-                      Treatment & Approaches
-                    </Form.Label>
+                  <Form.Group className="column">
+                    <Form.Label className="label">Age Group Focus</Form.Label>
                     <Form.Control
                       as="select"
                       multiple={true}
-                      value={this.state.treatmentEdit}
+                      value={this.state.clientAgesEdit}
                       onChange={(event) =>
-                        this.handleMultiChange(event, "treatmentEdit")
+                        this.handleMultiChange(event, "clientAgesEdit")
                       }
                     >
-                      {this.props.treatments.map((treatment) => {
-                        return (
-                          <>
-                            <option
-                              key={treatment.treatment_preferences_id}
-                              value={treatment.treatment_preferences_id}
-                            >
-                              {treatment.title}
-                            </option>
-                          </>
-                        );
-                      })}
+                      <option value="1">Any</option>
+                      <option value="2">Children</option>
+                      <option value="3">Adolescents</option>
+                      <option value="4">Adults</option>
+                      <option value="5">Elders</option>
                     </Form.Control>
                   </Form.Group>
-                  <Form.Group>
+                </Form>
+                <Form className="flex-container row-wrap row">
+                  <Form.Group className="column">
                     <Form.Label className="label">Specialties</Form.Label>
                     <Form.Control
                       as="select"
@@ -465,6 +481,32 @@ class ProfileEdit extends Component {
                               value={specialty.specialty_id}
                             >
                               {specialty.title}
+                            </option>
+                          </>
+                        );
+                      })}
+                    </Form.Control>
+                  </Form.Group>
+                  <Form.Group className="column">
+                    <Form.Label className="label">
+                      Treatment & Approach
+                    </Form.Label>
+                    <Form.Control
+                      as="select"
+                      multiple={true}
+                      value={this.state.treatmentEdit}
+                      onChange={(event) =>
+                        this.handleMultiChange(event, "treatmentEdit")
+                      }
+                    >
+                      {this.props.treatments.map((treatment) => {
+                        return (
+                          <>
+                            <option
+                              key={treatment.treatment_preferences_id}
+                              value={treatment.treatment_preferences_id}
+                            >
+                              {treatment.title}
                             </option>
                           </>
                         );
@@ -527,38 +569,38 @@ class ProfileEdit extends Component {
 
                 <Form className="flex-container row-wrap">
                   <Form.Row>
-                  <Form.Group as={Col}>
-                    <Form.Label className="label">License Number</Form.Label>
-                    <Form.Control
-                      disabled={true}
-                      readOnly
-                      value={this.state.licenseNumber}
-                    />
-                  </Form.Group>
-                      <Form.Group as={Col}>
-                    <Form.Label className="label">
-                      License Expiration
-                    </Form.Label>
-                    <Form.Control
-                      type="date"
-                      disabled={true}
-                      readOnly
-                      value={this.state.licenseExpiration}
-                    />
-                  </Form.Group>
-                      <Form.Group as={Col}>
-                    <Form.Label className="label">License Type</Form.Label>
-                    <Form.Control
-                      disabled={true}
-                      readOnly
-                      value={this.state.licenseType}
-                    />
-                  </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">License Number</Form.Label>
+                      <Form.Control
+                        disabled={true}
+                        readOnly
+                        value={this.state.licenseNumber}
+                      />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">
+                        License Expiration
+                      </Form.Label>
+                      <Form.Control
+                        type="date"
+                        disabled={true}
+                        readOnly
+                        value={this.state.licenseExpiration}
+                      />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">License Type</Form.Label>
+                      <Form.Control
+                        disabled={true}
+                        readOnly
+                        value={this.state.licenseType}
+                      />
+                    </Form.Group>
                   </Form.Row>
                 </Form>
                 <Form className="flex-container row-wrap">
                   {this.displayInsurance()}
-                  <Form.Group >
+                  <Form.Group>
                     <Form.Label className="label">Fees</Form.Label>
                     <InputGroup.Prepend>
                       <InputGroup.Text>$</InputGroup.Text>
@@ -588,44 +630,46 @@ class ProfileEdit extends Component {
                   </Form.Group>
                 </Form>
 
-                <Form className="flex-container row-wrap">
-                  <Form.Group>
-                    <Form.Label className="label">Client Focus</Form.Label>
+                <Form className="flex-between row-wrap row">
+                  <Form.Group className="column">
+                    <Form.Label className="label">Demographic Focus</Form.Label>
                     <div>
-                      {this.state.clientFocus &&
-                        this.state.clientFocus.map((focus) => {
-                          return (
-                            <>
-                              <Form.Control
-                                disabled={true}
-                                readOnly
-                                value={focus}
-                              />
-                            </>
-                          );
-                        })}
+                      {this.state.clientFocus
+                        ? this.state.clientFocus.map((focus) => {
+                            return (
+                              <>
+                                <Form.Control
+                                  disabled={true}
+                                  readOnly
+                                  value={focus}
+                                />
+                              </>
+                            );
+                          })
+                        : ""}
                     </div>
                   </Form.Group>
-                  <Form.Group>
-                    <Form.Label variant="flat" className="label">
-                      Treatment & Approaches
-                    </Form.Label>
+                  <Form.Group className="column">
+                    <Form.Label className="label">Age Group Focus</Form.Label>
                     <div>
-                      {this.state.treatmentPreferences &&
-                        this.state.treatmentPreferences.map((treatment) => {
-                          return (
-                            <>
-                              <Form.Control
-                                disabled={true}
-                                readOnly
-                                value={treatment}
-                              />
-                            </>
-                          );
-                        })}
+                      {this.state.clientAges
+                        ? this.state.clientAges.map((focus) => {
+                            return (
+                              <>
+                                <Form.Control
+                                  disabled={true}
+                                  readOnly
+                                  value={focus}
+                                />
+                              </>
+                            );
+                          })
+                        : ""}
                     </div>
                   </Form.Group>
-                  <Form.Group>
+                </Form>
+                <Form className="flex-between row-wrap row">
+                  <Form.Group className="column">
                     <Form.Label variant="flat" className="label">
                       Specialties
                     </Form.Label>
@@ -644,6 +688,25 @@ class ProfileEdit extends Component {
                         })}
                     </div>
                   </Form.Group>
+                  <Form.Group className="column">
+                    <Form.Label variant="flat" className="label">
+                      Treatment & Approach
+                    </Form.Label>
+                    <div>
+                      {this.state.treatmentPreferences &&
+                        this.state.treatmentPreferences.map((treatment) => {
+                          return (
+                            <>
+                              <Form.Control
+                                disabled={true}
+                                readOnly
+                                value={treatment}
+                              />
+                            </>
+                          );
+                        })}
+                    </div>
+                  </Form.Group>
                 </Form>
               </div>
             </div>
@@ -652,9 +715,9 @@ class ProfileEdit extends Component {
       );
     } else {
       return (
-      <>
-      <p> user not found </p>
-      </>
+        <>
+          <p> user not found </p>
+        </>
       );
     }
   }

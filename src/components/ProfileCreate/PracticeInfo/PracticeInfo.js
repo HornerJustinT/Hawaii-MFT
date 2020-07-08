@@ -150,7 +150,7 @@ handleInputChangeFor = propertyName => (event) =>{
           formIsValid=false;
           feesError = "Fees is invalid" 
       }
-      if(this.state.license_type_id === ''){
+      if(this.state.license_type === ''){
         formIsValid=false;
         licenseTypeError = 'License Type is required'
    }
@@ -233,9 +233,9 @@ handleInputChangeFor = propertyName => (event) =>{
 
 
       const isValid = this.validate();
-      if(!isValid){
-         return false
-         }else{
+      // if(!isValid){
+        //  return false
+        //  }else{
           this.props.dispatch({type:'ADD_MEMBER',
           payload:{
             prefix:this.props.createProfile.prefix,
@@ -248,7 +248,7 @@ handleInputChangeFor = propertyName => (event) =>{
             fees:this.state.fees,
             license_expiration:this.state.license_expiration,
             license_number:this.state.license_number,
-            license_type:this.state.license_type_id,
+            license_type:this.state.license_type,
             credentials:this.state.credentials,
             telehealth:this.state.telehealth,
             statement:this.state.statement,
@@ -278,7 +278,7 @@ handleInputChangeFor = propertyName => (event) =>{
           });
           //this will reset the inputs on the parcticeinfo page
            return true;
-         }
+        //  }
     }
 
    
@@ -329,7 +329,7 @@ handleInputChangeFor = propertyName => (event) =>{
                   <br />
                   <Form.Control
                     as="select"
-                    onChange={this.handleInputChangeFor("license_type_id")}
+                    onChange={this.handleInputChangeFor("license_type")}
                   >
                     {this.props.license && (
                       <>
@@ -338,7 +338,7 @@ handleInputChangeFor = propertyName => (event) =>{
                         </option>
                         {this.props.license.map((type) => (
                           <option
-                            value={type.license_type_id}
+                            value={type.title}
                             key={type.license_type_id}
                           >
                             {type.title}

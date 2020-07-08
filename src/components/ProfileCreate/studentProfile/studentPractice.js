@@ -10,7 +10,7 @@ import Button from "react-bootstrap/Button";
 
 
 
-class studentProfile extends Component{
+class studentPractice extends Component{
      //create local state
 
      state = {
@@ -29,6 +29,12 @@ class studentProfile extends Component{
          specialty_id:'',
          treatment_preferences_id:'',
          age_groups_served_id:'',
+         //write the errors for all the practiceInfo inputs
+         clientFocusIdError:'',
+         specialtyIdError:'',
+         treatmentPreferencesIdError:'',
+         ageGroupsError:'',
+         shouldBlockNavigation : true,
 
      }
    
@@ -54,9 +60,51 @@ handleInputChangeFor = propertyName => (event) =>{
     });
   } 
 
+  validate = () => {
+      
+     
+    let  clientFocusIdError = '';
+    let specialtyIdError = '';
+    let treatmentPreferencesIdError = '';
+    let  ageGroupsError = '';
+    
+    let formIsValid = true;
+
+   
+      if(this.state.client_focus_id === ''){
+      formIsValid=false;
+      clientFocusIdError = 'Client Focus group is required'
+      }
+      if(this.state.specialty_id === ''){
+      formIsValid=false;
+     specialtyIdError = 'Specialty choice is required'
+      }
+      if(this.state.treatment_preferences_id === ''){
+      formIsValid=false;
+      treatmentPreferencesIdError = 'Treatment Preference is required'
+      }
+      if(this.state.age_groups_served_id === ''){
+      formIsValid=false;
+      ageGroupsError = 'Age Group is required'
+     }
+    
+
+    if(  clientFocusIdError||  specialtyIdError || treatmentPreferencesIdError|| ageGroupsError){
+      this.setState({ clientFocusIdError, specialtyIdError, treatmentPreferencesIdError, ageGroupsError});
+    
+    }else{
+      return true;
+    }
+
+  }
+
     addMembersInfo = (event) =>{
 //this action will dispatch all the info collegeted from all three pages
 //and those are createprofile, contactinfo and practicinfo pages
+const isValid = this.validate();
+if(!isValid){
+   return false
+   }else{
       event.preventDefault();
       this.props.dispatch({type:'ADD_MEMBER',
         payload:{
@@ -95,33 +143,16 @@ handleInputChangeFor = propertyName => (event) =>{
           language_id:this.props.createProfile.language_id
          }
         });
-//this will reset the inputs on the parcticeinfo page
-this.props.history.push("/uploadimage");
-     this.handleReset();
+        this.setState({shouldBlockNavigation:false},()=>{
+            this.props.history.push("/uploadimage");
+          });
+          //this will reset the inputs on the parcticeinfo page
+           return true;
+         }
+
     }
 
-    handleReset = ()=>{
-      this.setState({
-        license_state:'',
-        license_number:'',
-        license_type:'',
-        supervision_status:'',
-        fees:'',
-        license_expiration:'',
-        specialty:'',
-        credentials:'',
-        telehealth:'',
-        statement:'',
-        title:'',
-        session_format_id:'',
-        client_focus_id:'',
-        specialty_id:'',
-        treatment_preferences_id:'',
-        age_groups_served_id:'',
-        insurance_type_id:'',
-
-      })
-    }
+  
     render (){
         return(
             <>
@@ -149,9 +180,8 @@ this.props.history.push("/uploadimage");
                    } 
             
             </Form.Control>
+            <h4 className="error">{this.state.specialtyIdError}</h4>
             </Form.Group>
-        <br/>
-        <br/>
         <br/>
         <Form.Group>
         <Form.Label>Treatment Approaches/Preferences</Form.Label><br/><Form.Control   as="select" onChange={this.handleInputChangeFor("treatment_preferences_id")}>
@@ -166,8 +196,8 @@ this.props.history.push("/uploadimage");
                    </>
                    } 
           </Form.Control>
+          <h4 className="error">{this.state.treatmentPreferencesIdError}</h4>
           </Form.Group>
-        <br/>
         <br/>
         <Form.Group>
         <Form.Label>Client Focus</Form.Label><br/><Form.Control  as="select" onChange={this.handleInputChangeFor("client_focus_id")}>
@@ -183,6 +213,7 @@ this.props.history.push("/uploadimage");
                    </>
                    } 
             </Form.Control>
+            <h4 className="error">{this.state.clientFocusIdError}</h4>
             </Form.Group>
             <Form.Group>
         <Form.Control   as="select" onChange={this.handleInputChangeFor("age_groups_served_id")}>
@@ -197,8 +228,11 @@ this.props.history.push("/uploadimage");
                    </>
                    } 
            </Form.Control>
+           <h4 className="error">{this.state.ageGroupsError}</h4>
            </Form.Group>
-           <Button type="submit">Next</Button>
+           <div  className="next-button">
+                  <Button type="submit">Next</Button>
+                  </div>
         </Form>
        
             </div>
@@ -222,4 +256,4 @@ const mapStateToProps = reduxstate => ({
     contactAddress: reduxstate.contactAddress,
     user: reduxstate.user
   });
-export default connect(mapStateToProps)(studentProfile);
+export default connect(mapStateToProps)(studentPractice);

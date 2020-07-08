@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     const connection = await pool.connect();
     try {
-        let query = `SELECT m.*,"user".username as username, license_type.title AS license_title,
+        let query = `SELECT m.*,"user".username as username,
 			array_agg(DISTINCT languages.title) AS languages,
 			array_agg(DISTINCT age_groups_served.title) AS ages_served,
 			array_agg(DISTINCT client_focus.title) AS client_focus,
@@ -39,8 +39,6 @@ router.get('/', async (req, res) => {
 			JOIN island_pivot ON island_pivot.member_id = m.id
 			JOIN island ON island.island_id = island_pivot.island_id
 			
-			JOIN license_type ON license_type.license_type_id = m.license_type
-			
 			JOIN session_format_pivot ON session_format_pivot.member_id = m.id
 			JOIN session_format ON session_format.session_format_id = session_format_pivot.session_format_id
 			
@@ -52,8 +50,8 @@ router.get('/', async (req, res) => {
 		
 			WHERE m.enabled = true
 
-			GROUP BY m.id, "user".username,license_type.title, m.zip_code, m.zip_code_personal, m.first_name, m.last_name, m.prefix, m.age, m.license_state,
-			m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials,
+			GROUP BY m.id, "user".username, m.zip_code, m.zip_code_personal, m.first_name, m.last_name, m.prefix, m.age, m.license_state,
+			m.license_expiration, m.hiamft_member_account_info, m.supervision_status, m.fees, m.credentials,
 			m.telehealth, m.statement, m.website, m.title, m.city, m.city_personal, m.license_number, m.license_type, m.enabled, m.student;`;
 
         const members = await connection.query(query);
@@ -113,7 +111,7 @@ router.get("/:zip", async (req, res) => {
 	WHERE CAST(m.zip_code AS VARCHAR) LIKE $1 OR LOWER(m.city) LIKE $1 OR LOWER(island.title) LIKE $1
 
 	GROUP BY m.id, "user".username,m.zip_code, m.first_name, m.last_name, m.prefix, m.age, m.license_state,
-	m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials,
+	m.license_expiration, m.hiamft_member_account_info, m.supervision_status, m.fees, m.credentials,
 	m.telehealth, m.statement, m.website, m.title, m.city, m.license_number, m.license_type, m.enabled, m.zip_code_personal, m.city_personal,  m.student;`;
 
     const members = await connection.query(query, ["%" + req.params.zip.toLowerCase() + "%"]);

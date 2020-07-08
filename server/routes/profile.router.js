@@ -337,6 +337,13 @@ router.put("/practice", rejectUnauthenticated, async (req, res) => {
     );
     await repeatingInserts(
       connection,
+      "age_groups_served_pivot",
+      "age_groups_served_id",
+      req.body.id,
+      req.body.clientAgesEdit
+    );
+    await repeatingInserts(
+      connection,
       "insurance_pivot",
       "insurance_type_id",
       req.body.id,
