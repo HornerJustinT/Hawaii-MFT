@@ -35,6 +35,8 @@ class ProfileEdit extends Component {
     agesServedEdit: this.props.profile.ages_served_id,
     clientFocus: this.props.profile.client_focus,
     clientFocusEdit: this.props.profile.client_focus_id,
+    clientAges: this.props.profile.ages_served,
+    clientAgesEdit: this.props.profile.ages_served_id,
     insurance: this.props.profile.insurance,
     insuranceEdit: this.props.profile.insurance_id,
     sessionFormat: this.props.profile.session_format,
@@ -134,12 +136,12 @@ class ProfileEdit extends Component {
 
     window.location.reload(false);
 
-    // this.props.dispatch({ type: "PROFILE_RESET" });
+    this.props.dispatch({ type: "PROFILE_RESET" });
 
-    // this.props.dispatch({
-    //   type: "FETCH_PROFILE",
-    //   payload: { id: this.props.match.params.id || this.props.user.id },
-    // });
+    this.props.dispatch({
+      type: "FETCH_PROFILE",
+      payload: { id: this.props.match.params.id || this.props.user.id },
+    });
   }; //end handleSavePractice
 
   //handleChange resets state according to new data entered into form inputs
@@ -235,12 +237,17 @@ class ProfileEdit extends Component {
     }
   };
 
+  // componentWillUnmount(){
+  //   clearInterval(this.interval);
+  // }
+
   render() {
     if (
       this.props.profile &&
       this.state.specialty &&
       this.state.clientFocus &&
-      this.state.insurance
+      this.state.insurance &&
+      this.state.clientAges
     ) {
       return (
         <>
@@ -447,18 +454,11 @@ class ProfileEdit extends Component {
                         this.handleMultiChange(event, "clientAgesEdit")
                       }
                     >
-                      {this.props.ageGroups.map((age) => {
-                        return (
-                          <>
-                            <option
-                              key={age.ages_served_id}
-                              value={age.ages_served_id}
-                            >
-                              {age.title}
-                            </option>
-                          </>
-                        );
-                      })}
+                      <option value="1">Any</option>
+                      <option value="2">Children</option>
+                      <option value="3">Adolescents</option>
+                      <option value="4">Adults</option>
+                      <option value="5">Elders</option>
                     </Form.Control>
                   </Form.Group>
                 </Form>
@@ -634,35 +634,37 @@ class ProfileEdit extends Component {
                   <Form.Group className="column">
                     <Form.Label className="label">Demographic Focus</Form.Label>
                     <div>
-                      {this.state.clientFocus &&
-                        this.state.clientFocus.map((focus) => {
-                          return (
-                            <>
-                              <Form.Control
-                                disabled={true}
-                                readOnly
-                                value={focus}
-                              />
-                            </>
-                          );
-                        })}
+                      {this.state.clientFocus
+                        ? this.state.clientFocus.map((focus) => {
+                            return (
+                              <>
+                                <Form.Control
+                                  disabled={true}
+                                  readOnly
+                                  value={focus}
+                                />
+                              </>
+                            );
+                          })
+                        : ""}
                     </div>
                   </Form.Group>
                   <Form.Group className="column">
                     <Form.Label className="label">Age Group Focus</Form.Label>
                     <div>
-                      {this.state.clientAges &&
-                        this.state.clientAges.map((age) => {
-                          return (
-                            <>
-                              <Form.Control
-                                disabled={true}
-                                readOnly
-                                value={age}
-                              >{age}</Form.Control>
-                            </>
-                          );
-                        })}
+                      {this.state.clientAges
+                        ? this.state.clientAges.map((focus) => {
+                            return (
+                              <>
+                                <Form.Control
+                                  disabled={true}
+                                  readOnly
+                                  value={focus}
+                                />
+                              </>
+                            );
+                          })
+                        : ""}
                     </div>
                   </Form.Group>
                 </Form>
