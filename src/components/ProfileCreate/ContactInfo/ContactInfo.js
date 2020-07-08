@@ -83,6 +83,7 @@ componentDidUpdate = () => {
             let addressHomeError = '';
             let cityError = '';
             let businessCityError ='';
+            let websiteError = '';
           let formIsValid = true;
   
           if(this.state.city === ''){
@@ -103,6 +104,10 @@ componentDidUpdate = () => {
           if(this.state.address_home=== ''){
                formIsValid=false;
                addressHomeError = 'Home Address is required'
+          }
+          if(this.state.website === ''){
+            formIsValid=false;
+            websiteError = 'Website address is required'
           }
 
           if(this.state.address_office === ''){
@@ -157,10 +162,10 @@ componentDidUpdate = () => {
   
           if(cityError || businessCityError || addressHomeError || addressOfficeError 
               || personalEmailError || emailError ||  personalNumberError 
-               || businessNumberError|| zipCodeError || islandError || business_zipCodeError){
+               || businessNumberError|| zipCodeError || islandError || business_zipCodeError || websiteError){
             this.setState({cityError, addressHomeError, addressOfficeError, 
                 personalEmailError,  emailError,  personalNumberError, 
-               businessNumberError, zipCodeError,  islandError, businessCityError, business_zipCodeError});
+               businessNumberError, zipCodeError,  islandError, businessCityError, business_zipCodeError, websiteError});
           
           }else{
             return true;

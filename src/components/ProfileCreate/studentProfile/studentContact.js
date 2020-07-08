@@ -125,6 +125,10 @@ componentDidUpdate = () => {
                formIsValid=false;
                personalNumberError = 'Personal Number is required'
              }
+             if(this.state.website === ''){
+              formIsValid=false;
+              websiteError = 'Website address is required'
+            }
           if(this.state.zip_code === ''){
             formIsValid=false;
             zipCodeError = 'Personal Zip Code is required! '
@@ -139,10 +143,10 @@ componentDidUpdate = () => {
   
           if(cityError  || addressHomeError 
               || personalEmailError || emailError ||  personalNumberError 
-              || zipCodeError || islandError){
+              || zipCodeError || islandError || websiteError){
             this.setState({cityError, addressHomeError,  
                 personalEmailError,  emailError,  personalNumberError, 
-                zipCodeError,  islandError, businessCityError});
+                zipCodeError,  islandError, businessCityError, websiteError});
           
           }else{
             return true;
@@ -153,7 +157,7 @@ componentDidUpdate = () => {
 studentContactInfo = (e) =>{
   e.preventDefault();
 
-  const isValid = this.validateStudent();
+  const isValid = this.validate();
   if(!isValid){
      return false
      }else{
