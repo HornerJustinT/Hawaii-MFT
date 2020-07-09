@@ -1,6 +1,7 @@
 import React,{ Component } from 'react';
 //this connects the component to th redux store
 import { connect } from 'react-redux';
+import "../profileCreate.css"
 
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
@@ -127,7 +128,10 @@ this.props.history.push("/uploadimage");
             <>
             <div className='container'>
              
-        <header><h1 className="text-center">Student Info</h1></header>
+            <header>
+              {" "}
+              <h1 className="text-center">Practice info</h1>
+            </header>
         <br/>
         <ProgressBar now={75} />
         <br/>

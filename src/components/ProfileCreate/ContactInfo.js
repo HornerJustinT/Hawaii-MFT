@@ -3,13 +3,14 @@ import { Prompt } from 'react-router'
 //this connects the the component to the redux store
 import { connect } from 'react-redux';
 
+
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 //CSS import
-import "../profileCreate.css";
+import "./profileCreate.css"
 
 
 
@@ -500,8 +501,11 @@ studentContactInfo = (e) =>{
         return(
             <>
             <div className='container'>
-            <header><h1 className="text-center">Contact Info</h1></header>
-            <ProgressBar now={50} />
+            <header>
+              {" "}
+              <h1 className="text-center">Contact Info</h1>
+            </header>
+            <div className='progressbar'> <ProgressBar now={50} /></div>
               {itemToRender}
             </div>
            

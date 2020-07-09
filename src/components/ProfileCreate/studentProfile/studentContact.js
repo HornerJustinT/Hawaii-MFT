@@ -2,6 +2,7 @@ import React,{ Component } from 'react';
 import { Prompt } from 'react-router'
 //this connects the the component to the redux store
 import { connect } from 'react-redux';
+import "../profileCreate.css"
 
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
@@ -228,7 +229,10 @@ studentContactInfo = (e) =>{
 
         </div>
             <div className='container'>
-            <header><h1 className="text-center">Contact Info</h1></header>
+            <header>
+              {" "}
+              <h1 className="text-center">Contact Info</h1>
+            </header>
             <ProgressBar now={50} />
             <Form onSubmit={this.studentContactInfo}>
              <br/>

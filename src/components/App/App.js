@@ -23,11 +23,11 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 // Pages
 import AdminPage from "../AdminPage/AdminPage";
-import ContactInfo from "../ProfileCreate/ContactInfo/ContactInfo";
 import ContactPage from '../ContactPage/ContactPage';
 import HomePage from "../HomePage/HomePage";
 import LoginPage from '../LoginPage/LoginPage';
-import PracticeInfo from "../ProfileCreate/PracticeInfo/PracticeInfo";
+import PracticeInfo from "../ProfileCreate/PracticeInfo";
+import ContactInfo from "../ProfileCreate/ContactInfo";
 import ProfileCreate from "../ProfileCreate/ProfileCreate";
 import uploadImage from '../ProfileCreate/uploadImage/uploadImage'
 import studentPractice from "../ProfileCreate/studentProfile/studentPractice";

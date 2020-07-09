@@ -2,7 +2,8 @@ import React,{ Component } from 'react';
 import { Prompt } from 'react-router'
 //this connects the component to th redux store
 import { connect } from 'react-redux';
-import "./PracticeInfo.css"
+import "./profileCreate.css"
+
 
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
@@ -294,10 +295,11 @@ handleInputChangeFor = propertyName => (event) =>{
 
         </div>
             <div className="container">
-              <header>
-                <h1 className="text-center">Practice Info</h1>
-              </header>
-              <ProgressBar now={75} />
+            <header>
+              {" "}
+              <h1 className="text-center">Practice Info</h1>
+            </header>
+            <div className='progressbar'> <ProgressBar now={75} /></div>
 
               <Form onSubmit={this.addMembersInfo}>
                 <Form.Group>
