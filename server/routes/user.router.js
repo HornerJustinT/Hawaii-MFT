@@ -12,6 +12,23 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
+router.get('/new', async (req, res) => {
+  const connection = await pool.connect();
+  try {
+      let query = `SELECT *
+    FROM "user"
+    `
+      const members = await connection.query(query);
+      console.log('in new ',members.rows)
+      res.send(members.rows)
+
+    } catch (error) {
+      console.log(`Error Selecting members`, error)
+      res.sendStatus(500);
+    } finally {
+      connection.release();
+    }
+});
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
@@ -25,6 +42,32 @@ router.post('/register', (req, res, next) => {
   pool.query(queryText, [username, password])
     .then(() => res.sendStatus(201))
     .catch(() => res.sendStatus(500));
+});
+
+router.post("/passwordreset", (req, res) => {
+  console.log(req.body);
+  const username = req.body.username;
+  const password = encryptLib.encryptPassword(req.body.password);
+
+  const queryText = `UPDATE "user" SET "password" = $1 WHERE "username" = $2`;
+  pool
+    .query(queryText, [password, username])
+    .then(() => {
+      let queryText = 'DELETE FROM "password_reset" WHERE key = $1';
+      pool
+        .query(queryText, [req.body.key])
+        .then((result) => {
+          res.sendStatus(200);
+        })
+        .catch((error) => {
+          console.log('error deleting from "password_reset', error);
+          res.sendStatus(500);
+        });
+    })
+    .catch((error) => {
+      console.log(error)
+      res.sendStatus(500)
+    });
 });
 
 // Handles login form authenticate/login POST

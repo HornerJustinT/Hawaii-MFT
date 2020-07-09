@@ -164,8 +164,13 @@ class SearchBar extends Component {
   }
 
   switchChange = (event) => {
+    console.log(this.state.advanced);
     this.setState({
       advanced: event.target.checked,
+    },()=>{
+      if(this.state.advanced === false){// If the advanced search is turned off it resets the search.
+        this.props.dispatch({type:"FETCH_MEMBERS"})
+      }
     });
   };
 
@@ -184,22 +189,6 @@ class SearchBar extends Component {
                     onChange={(event) => this.onSearchChangeAdv(event, "name")}
                   />
                 </Form.Group>
-                <Form.Group controlId="Advanced-zip" className="advanced-input">
-                  <Form.Label>Island, City or Zip Code</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="City or Zip Code"
-                    onChange={(event) => this.onSearchChangeAdv(event, "zip")}
-                  />
-                </Form.Group>
-                <SearchSelect
-                  name="Languages"
-                  array={this.state.data.languages}
-                  onChange={(event) =>
-                    this.onSearchChangeAdv(event, "languages")
-                  }
-                  value={this.state.languages || null}
-                />
                 <SearchSelect
                   name="Specialization"
                   array={this.state.data.specialty}
@@ -208,33 +197,33 @@ class SearchBar extends Component {
                   }
                   value={this.state.specialty || null}
                 />
+                <Form.Group controlId="Advanced-zip" className="advanced-input">
+                  <Form.Label>Island, City or Zip Code</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Island, City or Zip Code"
+                    onChange={(event) => this.onSearchChangeAdv(event, "zip")}
+                  />
+                </Form.Group>
                 <SearchSelect
-                  name="Supervision Status"
-                  array={this.state.data.supervision_status}
-                  onChange={(event) =>
-                    this.onSearchChangeAdv(event, "supervision_status")
-                  }
-                  value={this.state.supervision_status || null}
-                />
-                <SearchSelect
-                  name="Insurance Taken"
-                  array={this.state.data.insurance}
-                  onChange={(event) =>
-                    this.onSearchChangeAdv(event, "insurance")
-                  }
-                  value={this.state.insurance || null}
-                />
-                <SearchSelect
-                  name="Treatment Approaches/Preferences"
+                  name="Treatment Approach"
                   array={this.state.data.treatment_preferences}
                   onChange={(event) =>
                     this.onSearchChangeAdv(event, "treatment_preferences")
                   }
                   value={this.state.treatment_preferences || null}
                 />
+                <SearchSelect
+                  name="Insurance Accepted"
+                  array={this.state.data.insurance}
+                  onChange={(event) =>
+                    this.onSearchChangeAdv(event, "insurance")
+                  }
+                  value={this.state.insurance || null}
+                />
                 <div className="flex-between advanced-input">
                   <SearchSelect
-                    name="Age Focus"
+                    name="Age Group Focus"
                     array={this.state.data.ages_served}
                     onChange={(event) =>
                       this.onSearchChangeAdv(event, "ages_served")
@@ -251,12 +240,28 @@ class SearchBar extends Component {
                   />
                 </div>
                 <SearchSelect
-                  name="Session Format(s)"
+                  name="Session Format"
                   array={this.state.data.session_format}
                   onChange={(event) =>
                     this.onSearchChangeAdv(event, "session_format")
                   }
                   value={this.state.session_format || null}
+                />
+                <SearchSelect
+                  name="Language Spoken"
+                  array={this.state.data.languages}
+                  onChange={(event) =>
+                    this.onSearchChangeAdv(event, "languages")
+                  }
+                  value={this.state.languages || null}
+                />
+                <SearchSelect
+                  name="Supervision Status"
+                  array={this.state.data.supervision_status}
+                  onChange={(event) =>
+                    this.onSearchChangeAdv(event, "supervision_status")
+                  }
+                  value={this.state.supervision_status || null}
                 />
                 <Form.Check
                   type="switch"
@@ -281,7 +286,7 @@ class SearchBar extends Component {
               controlId="simple-search"
               onSubmit={this.onSearchClicked}
             >
-              <Form.Label>Find a Therapist</Form.Label>
+              <Form.Label><h3>Find a Therapist</h3></Form.Label>
               <InputGroup className="mb-3">
                 <Form.Control
                   placeholder="Island, City or Zip Code"

@@ -2,9 +2,11 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
+import ReactTooltip from "react-tooltip";
 
 // Components
 import RegistrationModal from '../RegistrationModal/RegistrationModal';
+import StudentRegistrationModal from '../StudentRegistrationModal/StudentRegistrationModal';
 
 // Libraries
 import FileSaver from "file-saver";
@@ -48,7 +50,7 @@ class AdminPage extends Component {
   };
   resetProfile = (id) =>{
     this.props.dispatch({type:"PROFILE_RESET"}) 
-    this.props.history.push(`/edit-profile/${id}`)
+    this.props.history.push(`/admin-edit-profile/${id}`)
   }
   // When the page loads
   componentDidMount() {
@@ -129,7 +131,7 @@ class AdminPage extends Component {
         ...this.state.criteria,
         [Mainkey]: null,
       },
-    });
+    },()=>{this.searchTherapists()})
   };
 
   // Shows another bar on the page
@@ -153,6 +155,7 @@ class AdminPage extends Component {
         }
       }
     }
+    this.searchTherapists();
   };
 
 
@@ -185,6 +188,8 @@ class AdminPage extends Component {
   switchChange = (event) => {
     this.setState({
       showDisabled: event.target.checked
+    },()=>{this.searchTherapists()
+
     })
   }
 
@@ -205,9 +210,7 @@ class AdminPage extends Component {
   render() {
     return (
       <>
-        <div className="reg-button">
-          <RegistrationModal />
-        </div>
+      <ReactTooltip />
         <div className="container search-bar">
           {Object.keys(this.state.criteria).map((Mainkey) => (
             <>
@@ -256,7 +259,7 @@ class AdminPage extends Component {
               )}
             </>
           ))}
-          <div className="flex-between">
+          <div className="flex-between align-center">
             <Form.Check
               type="switch"
               id="custom-switch"
@@ -267,17 +270,19 @@ class AdminPage extends Component {
 
             <div>
               <Button
-                variant="primary"
+                variant="success"
                 onClick={this.addFilter}
                 className="btnFilter"
+                data-tip="This button adds filters to filter the members listed below. To search with these filters click the search button"
               >
                 Add Filter
               </Button>
-
+              
               <Button
                 variant="primary"
                 onClick={this.searchTherapists}
                 className="btnFilter"
+                data-tip = "This button searchs the members table with the filters currently present"
               >
                 Search
               </Button>
@@ -285,7 +290,7 @@ class AdminPage extends Component {
           </div>
         </div>
         <div className="container">
-          <Table striped bordered hover variant="dark">
+          <Table striped bordered hover variant="">
             <thead>
               <tr>
                 <th>ID</th>
@@ -298,7 +303,9 @@ class AdminPage extends Component {
             <tbody>
               {this.props.members[0] &&
                 this.props.members.map((therapist) => (
+                  
                   <tr>
+
                     <td>{therapist.id}</td>
                     <td>
                       {therapist.first_name} {therapist.last_name}
@@ -307,22 +314,32 @@ class AdminPage extends Component {
                     <td>{therapist.license_title}</td>
                     <td style={{ textAlign: "right" }}>
                       <Button
-                        variant="danger"
+                        variant="primary"
                         onClick={() => this.resetProfile(therapist.id)}
+                        data-tip = "This button will direct you to the edit profile page for this member"
                       >
+                        
                         View
                       </Button>
                     </td>
+                    <ReactTooltip/>
                   </tr>
                 ))}
             </tbody>
           </Table>
-          <div className="download">
+          <div className="download flex-between">
+          <ReactTooltip/>
             {this.state.csv && (
-              <Button onClick={this.downloadClick} download>
+              
+              
+              <Button variant="success" data-tip = "This buton will download all of the member info of the members on this page into an csv file."onClick={this.downloadClick} download>
                 Click to download
+                <ReactTooltip/>
               </Button>
             )}
+            
+            <RegistrationModal />
+            <StudentRegistrationModal/>
           </div>
         </div>
       </>
