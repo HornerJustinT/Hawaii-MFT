@@ -29,13 +29,12 @@ label{
 
 .container{
     margin-bottom: 0;
-    margin-top: 2em;
-    border: solid .00005em #cccccc;
+    margin-top: 3em;
+    border:solid 0.00000005em #cccccc;
     padding: 2em;
-    margin: 1em;
     border-radius: 10px;
     width:90%;
-  
+    position: relative;
 }
 
 
@@ -120,6 +119,7 @@ label{
 .next-button{
     margin-top: 3em;
     text-align: center;
+    padding-bottom: 2em;
     
 }
 
@@ -128,13 +128,13 @@ label{
     padding-top: 1.5em;
 }
 
-@media screen and (max-width: 1200px){
+@media screen and (max-width: 900px){
     .container {
-        border-style: solid;
+         border-style: solid;
         border: .5em black;
-        margin-top: 2em;
+        margin-top: 1em;
         width: 90%;
-        padding-top: 5px;
+        padding-top: 0px;
         padding-bottom: 0px;
     }
 }
