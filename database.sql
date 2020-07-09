@@ -441,7 +441,6 @@ VALUES
     (4,'Hawaii Island'),
     (5,'Lanai'),
     (6,'Molokai');
-    (7, 'N/A');
 INSERT INTO "license_type"
 	("license_type_id", "title")
 VALUES
