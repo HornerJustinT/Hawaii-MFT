@@ -179,7 +179,7 @@ class ProfileView extends Component {
                     </ul>
                   </div>
                   <div className="column">
-                    <h5>Specialities</h5>
+                    <h5>Specialization</h5>
                     <ul>
                       {this.props.profile.specialty.map((
                         specialty,

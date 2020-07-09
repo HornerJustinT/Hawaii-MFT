@@ -287,8 +287,8 @@ class ProfileEdit extends Component {
                       <Form.Text className="text-muted">
                         Please indicate the credentials you would like to have
                         listed in your HIAMFT Directory listing. Type them in as
-                        they would appear following your name. Example: PhD,
-                        LMFT, LP
+                        they would appear following your name. Example: 'PhD,
+                        LMFT, LP'
                       </Form.Text>
                     </Form.Group>
                   </Form.Row>
@@ -308,9 +308,9 @@ class ProfileEdit extends Component {
                       >
                         <option value="None">None</option>
                         <option value="Hawai'i qualified">
-                          Hawai'i qualified
+                          Hawai'i-Qualified
                         </option>
-                        <option value="MFT supervisor">MFT supervisor</option>
+                        <option value="MFT supervisor">MFT Supervisor</option>
                         <option value="AAMFT approved">AAMFT-approved</option>
                         <option value="Supervisor">Supervisor</option>
                       </Form.Control>
@@ -387,7 +387,7 @@ class ProfileEdit extends Component {
                       </Form.Control>
                       <Form.Text className="text-muted">
                         Not Listed (for HIAMFT-use only) - Please list licenses
-                        you'd like to appear after your name in Credentials
+                        that you'd like to appear after your name in Credentials
                       </Form.Text>
                     </Form.Group>
                     <Form.Group as={Col}>
@@ -513,7 +513,7 @@ class ProfileEdit extends Component {
                 <Form className="flex-container row-wrap row">
                   <Form.Row>
                     <Form.Group as={Col}>
-                      <Form.Label className="label">Specialties</Form.Label>
+                      <Form.Label className="label">Specialization</Form.Label>
                       <Form.Control
                         as="select"
                         multiple={true}
@@ -595,6 +595,9 @@ class ProfileEdit extends Component {
                         readOnly
                         value={this.state.title}
                       />
+                        <Form.Text className="text-muted">
+                          Not Listed (for HIAMFT-use only)
+                      </Form.Text>
                     </Form.Group>
                     <Form.Group as={Col}>
                       <Form.Label className="label">Credentials</Form.Label>

@@ -74,19 +74,19 @@ handleInputChangeFor = propertyName => (event) =>{
    
       if(this.state.client_focus_id === ''){
       formIsValid=false;
-      clientFocusIdError = 'Client Focus group is required'
+      clientFocusIdError = 'Demographic Focus is required.'
       }
       if(this.state.specialty_id === ''){
       formIsValid=false;
-     specialtyIdError = 'Specialty choice is required'
+     specialtyIdError = 'Specialization is required.'
       }
       if(this.state.treatment_preferences_id === ''){
       formIsValid=false;
-      treatmentPreferencesIdError = 'Treatment Preference is required'
+      treatmentPreferencesIdError = 'Treatment & Approach is required.'
       }
       if(this.state.age_groups_served_id === ''){
       formIsValid=false;
-      ageGroupsError = 'Age Group is required'
+      ageGroupsError = 'Age Group Focus is required.'
      }
     
 
@@ -161,87 +161,150 @@ if(!isValid){
              
             <header>
               {" "}
-              <h1 className="text-center">Practice info</h1>
+              <h1 className="text-center">Practice Interests & Focus Areas</h1>
             </header>
         <br/>
         <div className='progressbar'> <ProgressBar now={75} /></div>
         <br/>
         <Form onSubmit={this.addMembersInfo}>
-        <br/>
-        <Form.Group>
-        <Form.Label>Specialization</Form.Label><br/><Form.Control   as="select" onChange={this.handleInputChangeFor("specialty_id")}>
-                {this.props.specialtys &&
-                   
-                   <>
-                  
-            <option value='' defaultValue='Select a Speciality'>Select a Speciality</option>
-                   {this.props.specialtys.map(specialty =>
-                    <option value={specialty.specialty_id}
-        
-                  key={specialty.specialty_id}>{specialty.title}</option>
+
+                <Form.Group>
+                  <Form.Label>Supervision Status*</Form.Label>
+                  <Form.Control
+                    as="select"
+                    defaultValue="Student"
+                    onChange={this.handleInputChangeFor("supervision_status")}
+                  >
+                    <option value="None">Student</option>
+                  </Form.Control>
+                  <Form.Text className="text-muted">Listed</Form.Text>
+                  <h4 className="error">{this.state.supervisionStatusError}</h4>
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Specialization(s)* - you may select multiple</Form.Label>
+                  <Form.Control
+                    as="select"
+                    placeholder='Please fill in your specialization.'
+                    multiple={true}
+                    onChange={(event) =>
+                      this.handleMultiChange(event, "specialty_id")
+                    }
+                  >
+                    {this.props.specialtys && (
+                      <>
+                        {this.props.specialtys.map((specialty) => (
+                          <option
+                            value={specialty.specialty_id}
+                            key={specialty.specialty_id}
+                          >
+                            {specialty.title}
+                          </option>
+                        ))}
+                      </>
                     )}
-                   </>
-                   } 
-            
-            </Form.Control>
-            <h4 className="error">{this.state.specialtyIdError}</h4>
-            </Form.Group>
-        <br/>
-        <Form.Group>
-        <Form.Label>Treatment Approaches/Preferences</Form.Label><br/><Form.Control   as="select" onChange={this.handleInputChangeFor("treatment_preferences_id")}>
-        {this.props.treatmentPreferences &&    
-                   <>
-                <option value='' defaultValue='Select an Approach'>Select an Approach</option>
-                   {this.props.treatmentPreferences.map(treatment =>
-                    <option value={treatment.treatment_preferences_id}
-        
-                  key={treatment.treatment_preferences_id}>{treatment.title}</option>
+                  </Form.Control>
+                  <Form.Text className="text-muted">
+                    Listed - To select multiple on Mac: press & hold Command
+                    key. To select multiple on PC, press & hold CTRL.
+                      </Form.Text>
+                  <h4 className="error">{this.state.specialtyIdError}</h4>
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Treatment & Approach* - you may select multiple</Form.Label>
+                  <Form.Control
+                    as="select"
+                    multiple={true}
+                    onChange={(event) =>
+                      this.handleMultiChange(event, "treatment_preferences_id")
+                    }
+                  >
+                    {this.props.treatmentPreferences && (
+                      <>
+                        {this.props.treatmentPreferences.map((treatment) => (
+                          <option
+                            value={treatment.treatment_preferences_id}
+                            key={treatment.treatment_preferences_id}
+                          >
+                            {treatment.title}
+                          </option>
+                        ))}
+                      </>
                     )}
-                   </>
-                   } 
-          </Form.Control>
-          <h4 className="error">{this.state.treatmentPreferencesIdError}</h4>
-          </Form.Group>
-        <br/>
-        <Form.Group>
-        <Form.Label>Client Focus</Form.Label><br/><Form.Control  as="select" onChange={this.handleInputChangeFor("client_focus_id")}>
-        {this.props.demographics &&    
-                   <>
-               
-                <option value='' defaultValue='Select a Demographic'>Select a Demographic</option>
-                   {this.props.demographics.map(group =>
-                    <option value={group.client_focus_id}
-        
-                  key={group.client_focus_id}>{group.title}</option>
+                  </Form.Control>
+                  <Form.Text className="text-muted">
+                    Listed - To select multiple on Mac: press & hold Command
+                    key. To select multiple on PC, press & hold CTRL.
+                      </Form.Text>
+                  <h4 className="error">{this.state.treatmentPreferencesIdError}</h4>
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Demographic Focus* - you may select multiple</Form.Label>
+                  <Form.Control
+                    as="select"
+                    multiple={true}
+                    onChange={(event) =>
+                      this.handleMultiChange(event, "client_focus_id")
+                    }
+                  >
+                    {this.props.demographics && (
+                      <>
+                        {this.props.demographics.map((group) => (
+                          <option
+                            value={group.client_focus_id}
+                            key={group.client_focus_id}
+                          >
+                            {group.title}
+                          </option>
+                        ))}
+                      </>
                     )}
-                   </>
-                   } 
-            </Form.Control>
-            <h4 className="error">{this.state.clientFocusIdError}</h4>
-            </Form.Group>
-            <Form.Group>
-        <Form.Control   as="select" onChange={this.handleInputChangeFor("age_groups_served_id")}>
-        {this.props.ageGroups &&    
-                   <>
-                <option value='NULL' defaultValue='Select an Age Group'>Select an Age Group</option>
-                   {this.props.ageGroups.map(agegroup=>
-                    <option value={agegroup.age_groups_served_id}
-        
-                  key={agegroup.age_groups_served_id}>{agegroup.title}</option>
+                  </Form.Control>
+                  <Form.Text className="text-muted">
+                    Listed - To select multiple on Mac: press & hold Command
+                    key. To select multiple on PC, press & hold CTRL.
+                      </Form.Text>
+                  <h4 className="error">{this.state.clientFocusIdError}</h4>
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Age Group Focus* - you may select multiple</Form.Label>
+                  <Form.Control
+                    as="select"
+                    multiple={true}
+                    onChange={(event) =>
+                      this.handleMultiChange(event, "age_groups_served_id")
+                    }
+                  >
+                    {this.props.ageGroups && (
+                      <>
+                        {this.props.ageGroups.map((agegroup) => (
+                          <option
+                            value={agegroup.age_groups_served_id}
+                            key={agegroup.age_groups_served_id}
+                          >
+                            {agegroup.title}
+                          </option>
+                        ))}
+                      </>
                     )}
-                   </>
-                   } 
-           </Form.Control>
-           <h4 className="error">{this.state.ageGroupsError}</h4>
-           </Form.Group>
-           <div  className="next-button">
-                  <Button type="submit">Next</Button>
+                  </Form.Control>
+                  <Form.Text className="text-muted">
+                    Listed - To select multiple on Mac: press & hold Command
+                    key. To select multiple on PC, press & hold CTRL.
+                      </Form.Text>
+                  <h4 className="error">{this.state.ageGroupsError}</h4>
+                </Form.Group>
+                <Form.Group>
+                  <div className="next-button">
+                    <Button type="submit">Next</Button>
                   </div>
-        </Form>
-       
+                </Form.Group>
+              </Form>
             </div>
-           
-            </>
+          </>
         )
     }
 

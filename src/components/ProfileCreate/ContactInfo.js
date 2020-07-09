@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import Col from 'react-bootstrap/Col';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -91,12 +92,19 @@ componentDidUpdate = () => {
 
           if(this.state.city === ''){
             formIsValid=false;
-            cityError = 'City - Home is required'
+            cityError = 'City is required.'
           }else if(!this.state.city.match(/^[a-zA-Z_]+$/) ){
               formIsValid=false;
-              cityError = "City - Home is invalid" 
+              cityError = "City input is invalid." 
           }
 
+          if(this.state.city_business === ''){
+               formIsValid=false;
+               businessCityError = 'City is required.'
+             }else if(!this.state.cityOfBussiness.match(/^[a-zA-Z_]+$/) ){
+                 formIsValid=false;
+                 businessCityError = "City input is invalid." 
+             }
 
           if(this.state.cityOfBussiness === ''){
             formIsValid=false;
@@ -108,61 +116,63 @@ componentDidUpdate = () => {
         
           if(this.state.address_home=== ''){
                formIsValid=false;
-               addressHomeError = 'Home Address is required'
+               addressHomeError = 'Street Address - Personal is required.'
           }
           if(this.state.website === ''){
             formIsValid=false;
-            websiteError = 'Website address is required'
+            websiteError = 'Website is required. Please fill in "N/A" if not applicable.'
           }
 
           if(this.state.address_office === ''){
                formIsValid=false;
-               addressOfficeError = 'Office Address is required'
+               addressOfficeError = 'Street Address - Business is required.'
           }
         
           if(this.state.personal_email === ''){
             formIsValid=false;
-            personalEmailError = 'Personal Email is required'
+            personalEmailError = 'Email - Personal is required.'
           }else if(!this.state.personal_email.match(/^[^@]+@[^@]+\.[^@]+$/)){
+
               formIsValid=false;
-              personalEmailError = "Personal Email is not valid"
+              personalEmailError = "Email - Personal input is not valid."
           }
           if(this.state.email === ''){
                formIsValid=false;
-               emailError = 'Business Email is required'
+               emailError = 'Email - Business is required.'
           }else if(!this.state.email.match(/^[^@]+@[^@]+\.[^@]+$/) ){
+
                  formIsValid=false;
-                 emailError = "Business Email is not valid"
+                 emailError = "Email - Business input is not valid."
              }
           if(this.state.personal_number === ''){
                formIsValid=false;
-               personalNumberError = 'Personal Number is required'
+               personalNumberError = 'Phone Number - Personal is required.'
              }
 
           if(this.state.business_number === ''){
                formIsValid=false;
-               businessNumberError = 'Business Number is required'
+               businessNumberError = 'Phone Number - Business is required.'
              }
         
           if(this.state.zip_code === ''){
             formIsValid=false;
-            zipCodeError = 'Personal Zip Code is required! '
+            zipCodeError = 'Zip Code is required.'
           }else if(!isNaN(this.state.zip_code)===false ){
               formIsValid = false;
-              zipCodeError = "Personal Zip code is invalid"
+              zipCodeError = "Zip Code input is invalid."
           }
 
           if(this.state.business_zip_code === ''){
                formIsValid=false;
-               business_zipCodeError = 'Business Zip Code is required! '
+               business_zipCodeError = 'Zip Code is required.'
              }else if(!isNaN(this.state.zip_code)===false ){
                  formIsValid = false;
-                 business_zipCodeError = "Business Zip code is invalid"
+                 business_zipCodeError = "Zip Code input is invalid."
              }
 
           if(this.state.island_id === ''){
                formIsValid=false;
-              islandError = 'Island Name is required! '
+              islandError = 'Island is required.'
           }
   
           if(cityError || businessCityError || addressHomeError || addressOfficeError 
@@ -250,142 +260,164 @@ studentContactInfo = (e) =>{
             <div className='container'>
             <header><h1 className="text-center">Contact Info</h1></header>
             <ProgressBar now={50} />
-              
-
- 
             <div>
-                          <Prompt
-        when={this.state.shouldBlockNavigation}
-        message='You have unsaved changes, are you sure you want to leave?'
-      />
-
-        </div>
-                   <Form onSubmit={this.addContactInfo}>
-                <br/>
-             <label>Island*</label>
-             <br/>
-             <Form.Control
-                 as="select" onChange={this.handleInputChangeFor("island_id")}>
-             {this.props.islands &&
-                   
-                   <>
-                   <option defaultValue='Select your Island'>Select your Island</option>
-                   {this.props.islands.map(island =>
-                    <option value={island.island_id}
-        
-                  key={island.island_id}>{island.title}</option>
-                    )}
-                   </>
-                   } 
-             </Form.Control>
-             <h4 className="error">{this.state.islandError}</h4>
-             <br/>
-             <br/>
-             <Form.Label>Zip Code - Personal*</Form.Label>
-             <br/>
-             <Form.Control type="number"
-                  name="zip_code"
-                  placeholder='Please fill in your Zip code'
-                  value={this.state.zip_code}
-                  onChange={this.handleInputChangeFor("zip_code")}/>
-                   <h4 className="error">{this.state.zipCodeError}</h4>
-                <br/>
-                <Form.Label>Zip Code - Business*</Form.Label>
-             <br/>
-             <Form.Control type="number"
-                  name="zip_code"
-                  placeholder='Please fill in your Zip code'
-                  value={this.state.business_zip_code}
-                  onChange={this.handleInputChangeFor("business_zip_code")}/>
-                   <h4 className="error">{this.state.business_zipCodeError}</h4>
-             <Form.Label>Phone Number - Business*</Form.Label>
-             <br/>
-             <Form.Control type="number"
-                  name="business_number"
-                  placeholder='Please fill in your business phone number'
-                  value={this.state.business_number}
-                  onChange={this.handleInputChangeFor("business_number")}/>
-                   <h4 className="error">{this.state.businessNumberError}</h4>
-             <br/>
-             <br/>
-             <Form.Label>Phone Number - Personal*</Form.Label>
-             <br/>
-             <Form.Control type="number"
-                  name="personal_number"
-                  placeholder='Please fill in your personal phone number'
-                  value={this.state.personal_number}
-                  onChange={this.handleInputChangeFor("personal_number")}/>
-                   <h4 className="error">{this.state.personalNumberError}</h4>
-                <br/>
-             <Form.Label>Email Address - Business*</Form.Label>
-             <br/>
-             <Form.Control type="text"
-                  name="email"
-                  placeholder='Please fill in your business email address'
-                  value={this.state.email}
-                  onChange={this.handleInputChangeFor("email")}/>
-                   <h4 className="error">{this.state.emailError}</h4>
-             <br/>
-             <Form.Label>Email Address - Personal*</Form.Label>
-             <br/>
-             <Form.Control type="text"
-                  name="personal_email"
-                  placeholder='Please fill in your personal email address'
-                  value={this.state.personal_email}
-                  onChange={this.handleInputChangeFor("personal_email")}/>
-                   <h4 className="error">{this.state.personalEmailError}</h4>
-             <br/>
-             <Form.Label>Website*</Form.Label>
-             <br/>
-             <Form.Control type="text"
-                  name="website"
-                  placeholder='Please fill in your website'
-                  value={this.state.website}
-                  onChange={this.handleInputChangeFor("website")}/>
-                   <h4 className="error">{this.state.websiteError}</h4>
-             <br/>
-             <Form.Label>Address - Office*</Form.Label>
-             <br/>
-             <Form.Control type="text"
-                  name="address_office"
-                  placeholder='Please fill in your office address'
-                  value={this.state.address_office}
-                  onChange={this.handleInputChangeFor("address_office")}/>
-                   <h4 className="error">{this.state.addressOfficeError}</h4>
-             <br/>
-             <Form.Label>Address - Home*</Form.Label>
-             <br/>
-             <Form.Control type="text"
-                  name="address_home"
-                  placeholder='Please fill in your home address'
-                  value={this.state.address_home}
-                  onChange={this.handleInputChangeFor("address_home")}/>
-                   <h4 className="error">{this.state.addressHomeError}</h4>
-             <br/>
-             <Form.Label>City - Personal*</Form.Label>
-             <br/>
-             <Form.Control type="text"
-                  name="city"
-                  placeholder='Please fill in your city'
-                  value={this.state.city}
-                  onChange={this.handleInputChangeFor("city")}/>
-                   <h4 className="error">{this.state.cityError}</h4>
-             <br/>
-             <Form.Label>City - Business*</Form.Label>
-             <br/>
-             <Form.Control type="text"
-                  name="city"
-                  placeholder='Please fill in your city'
-                  value={this.state.cityOfBussiness}
-                  onChange={this.handleInputChangeFor("cityOfBussiness")}/>
-                  <h4 className="error">{this.state.businessCityError}</h4>
-             <br/>
+              <Prompt
+                when={this.state.shouldBlockNavigation}
+                message='You have unsaved changes. Are you sure you want to leave?'
+              />
+            </div>
             
+           <Form onSubmit={this.addContactInfo}>
+             <Form.Group as={Col}>
+               <Form.Label>Island*</Form.Label>
+               <Form.Control
+                 as="select" onChange={this.handleInputChangeFor("island_id")}>
+                 {this.props.islands &&
 
-             <div  className="next-button">
-                  <Button type="submit">Next</Button>
-                  </div>
+                   <>
+                     <option defaultValue='Select your Island'>Select your Island</option>
+                     {this.props.islands.map(island =>
+                       <option value={island.island_id}
 
+                         key={island.island_id}>{island.title}</option>
+                     )}
+                   </>
+                 }
+               </Form.Control>
+               <Form.Text className="text-muted">Listed</Form.Text>
+               <h4 className="error">{this.state.islandError}</h4>
+             </Form.Group>
+             <Form.Group as={Col}>
+               <Form.Label>Phone Number - Business*</Form.Label>
+               <Form.Control
+                 name="business_number"
+                 placeholder='Please fill in your Business Phone Number.'
+                 value={this.state.business_number}
+                 onChange={this.handleInputChangeFor("business_number")} />
+               <Form.Text className="text-muted">Listed - Please enter in this format: (xxx) xxx-xxxx</Form.Text>
+               <h4 className="error">{this.state.businessNumberError}</h4>
+             </Form.Group>
+             <Form.Group as={Col}>
+               <Form.Label>Phone Number - Personal*</Form.Label>
+               <Form.Control 
+                 name="personal_number"
+                 placeholder='Please fill in your Personal Phone Number.'
+                 value={this.state.personal_number}
+                 onChange={this.handleInputChangeFor("personal_number")} />
+               <Form.Text className="text-muted">
+                 Not Listed (for HIAMFT-use only) - Please enter in
+                            this format: (xxx) xxx-xxxx
+               </Form.Text>
+               <h4 className="error">{this.state.personalNumberError}</h4>
+             </Form.Group>
+             <Form.Group as={Col}>
+               <Form.Label>Email Address - Business*</Form.Label>
+               <Form.Control type="text"
+                 name="email"
+                 placeholder='Please fill in your Business Email Address.'
+                 value={this.state.email}
+                 onChange={this.handleInputChangeFor("email")} />
+               <Form.Text className="text-muted">Listed</Form.Text>
+               <h4 className="error">{this.state.emailError}</h4>
+             </Form.Group>
+             <Form.Group as={Col}>
+               <Form.Label>Email Address - Personal*</Form.Label>
+               <br />
+               <Form.Control type="text"
+                 name="personal_email"
+                 placeholder='Please fill in your Personal Email Address'
+                 value={this.state.personal_email}
+                 onChange={this.handleInputChangeFor("personal_email")} />
+               <Form.Text className="text-muted">
+                 Not Listed (for HIAMFT-use only)
+               </Form.Text>
+               <h4 className="error">{this.state.personalEmailError}</h4>
+             </Form.Group>
+             <Form.Group as={Col}>
+               <Form.Label>Website*</Form.Label>
+               <Form.Control type="text"
+                 name="website"
+                 placeholder='Please fill in your Website.'
+                 value={this.state.website}
+                 onChange={this.handleInputChangeFor("website")} />
+               <Form.Text className="text-muted">Listed</Form.Text>
+               <h4 className="error">{this.state.websiteError}</h4>
+             </Form.Group>
+ 
+             <Form className="flex-container row-wrap row">
+                 <Form.Group as={Col}>
+                   <Form.Label>Street Address - Business*</Form.Label>
+                   <Form.Control type="text"
+                     name="address_office"
+                     placeholder='ex. 321 Grove St.'
+                     value={this.state.address_office}
+                     onChange={this.handleInputChangeFor("address_office")} />
+                   <Form.Text className="text-muted">Listed</Form.Text>
+                   <h4 className="error">{this.state.addressOfficeError}</h4>
+                 </Form.Group>
+                 <Form.Group as={Col}>
+                   <Form.Label>City*</Form.Label>
+                   <Form.Control type="text"
+                     name="city"
+                     placeholder='Please fill in your City'
+                     value={this.state.cityOfBussiness}
+                     onChange={this.handleInputChangeFor("cityOfBussiness")} />
+                   <Form.Text className="text-muted">Listed</Form.Text>
+                   <h4 className="error">{this.state.businessCityError}</h4>
+                 </Form.Group>
+                 <Form.Group as={Col}>
+                   <Form.Label>Zip Code*</Form.Label>
+                   <Form.Control type="number"
+                     name="zip_code"
+                     placeholder='Please fill in your Zip Code.'
+                     value={this.state.business_zip_code}
+                     onChange={this.handleInputChangeFor("business_zip_code")} />
+                   <Form.Text className="text-muted">Listed</Form.Text>
+                   <h4 className="error">{this.state.business_zipCodeError}</h4>
+                 </Form.Group>
+             </Form>
+            <Form className="flex-container row-wrap row">
+                 <Form.Group as={Col}>
+                   <Form.Label>Street Address - Personal*</Form.Label>
+                   <Form.Control type="text"
+                     name="address_home"
+                     placeholder='ex. 321 Grove St.'
+                     value={this.state.address_home}
+                     onChange={this.handleInputChangeFor("address_home")} />
+                   <Form.Text className="text-muted">
+                     Not Listed (for HIAMFT-use only)
+                  </Form.Text>
+                   <h4 className="error">{this.state.addressHomeError}</h4>
+                 </Form.Group>
+                <Form.Group as={Col}>
+                   <Form.Label>City*</Form.Label>
+                   <Form.Control type="text"
+                     name="city"
+                     placeholder='Please fill in your City'
+                     value={this.state.city}
+                     onChange={this.handleInputChangeFor("city")} />
+                   <Form.Text className="text-muted">
+                     Not Listed (for HIAMFT-use only)
+                  </Form.Text>
+                   <h4 className="error">{this.state.cityError}</h4>
+                 </Form.Group>
+                <Form.Group as={Col}>
+                   <Form.Label>Zip Code*</Form.Label>
+                   <Form.Control type="number"
+                     name="zip_code"
+                     placeholder='Please fill in your Zip Code.'
+                     value={this.state.zip_code}
+                     onChange={this.handleInputChangeFor("zip_code")} />
+                   <Form.Text className="text-muted">
+                     Not Listed (for HIAMFT-use only)
+                  </Form.Text>
+                   <h4 className="error">{this.state.zipCodeError}</h4>
+                 </Form.Group>
+            </Form>
+             
+             <div className="next-button">
+                <Button type="submit">Next</Button>
+              </div>
             </Form>
             </div>
            
