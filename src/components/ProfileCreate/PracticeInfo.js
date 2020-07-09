@@ -648,6 +648,7 @@ class PracticeInfo extends Component {
             </Form.Group>
           </Form>
         </div>
+        
       </>
     );
   }
