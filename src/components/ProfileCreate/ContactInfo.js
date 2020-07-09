@@ -3,13 +3,14 @@ import { Prompt } from 'react-router'
 //this connects the the component to the redux store
 import { connect } from 'react-redux';
 
+
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 //CSS import
-import "../profileCreate.css";
+import  "./profileCreate.css"
 
 
 
@@ -203,49 +204,16 @@ componentDidUpdate = () => {
                }
  }
 
-studentContactInfo = (e) =>{
-  e.preventDefault();
-
-  const isValid = this.validateStudent();
-  if(!isValid){
-     return false
-     }else{
-          this.props.dispatch({
-               type: 'ADD_ADDRESS',
-               payload:{
-                 island_id: this.state.island_id, 
-                 email: this.state.email,
-                 personal_email:this.state.personal_email,
-                 personal_number:this.state.personal_number,
-                 address_home:this.state.address_home,
-                 address_mailing:this.state.address_mailing,
-                 zip_code: this.state.zip_code,
-                 city: this.state.city,
-                 website: this.state.website
-               }});
-               this.setState({shouldBlockNavigation:false},()=>{
-                    this.props.history.push("/student");
-                  });
-       return true;
-     }
- 
- 
-}
-
-     handleStudent =(e)=>{
-       this.setState({
-         showStudentProfile: !this.state.showStudentProfile
-       })
-     }
    
     render (){
-
-        return(
+     return(
             <>
             <div className='container'>
-            <header><h1 className="text-center">Contact Info</h1></header>
-            <ProgressBar now={50} />
-              
+            <header>
+              {" "}
+              <h1 className="text-center">Contact Info</h1>
+            </header>
+            <div className='progressbar'> <ProgressBar now={50} /></div>
             <div>
                           <Prompt
         when={this.state.shouldBlockNavigation}
@@ -374,9 +342,9 @@ studentContactInfo = (e) =>{
                   <h4 className="error">{this.state.businessCityError}</h4>
              <br/>
             
-             <div  className="next-button">
-                  <Button type="submit">Next</Button>
-                  </div>
+             <div className="next-button">
+                <Button type="submit">Next</Button>
+              </div>
             </Form>
             </div>
            
