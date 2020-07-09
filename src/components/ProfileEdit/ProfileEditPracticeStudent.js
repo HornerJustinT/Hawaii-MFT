@@ -219,7 +219,7 @@ class ProfileEditStudent extends Component {
                     </Form.Control>
                   </Form.Group>
                 </Form>
-                <Form className="flex-container row-wrap">
+                <Form className="flex-container row-wrap row">
                   <Form.Group >
                     <Form.Label className="label">Client Focus</Form.Label>
                     <Form.Control
@@ -319,7 +319,7 @@ class ProfileEditStudent extends Component {
                     />
                   </Form.Group>
                 </Form>
-                <Form className="flex-container row-wrap">
+                <Form className="flex-container row-wrap row">
                   <Form.Group >
                     <Form.Label className="label">Client Focus</Form.Label>
                     <div>

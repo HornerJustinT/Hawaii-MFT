@@ -323,6 +323,7 @@ class ProfileEditContact extends Component {
                             }
                           />
                         </Form.Group>
+                        <Form.Text className="text-muted">Listed</Form.Text>
                       </Form>
 
                       <Form className="flex-between row-wrap row">
@@ -337,7 +338,7 @@ class ProfileEditContact extends Component {
                             }
                           />
                           <Form.Text className="text-muted">
-                            Listed. Please enter in this format: (xxx) xxx-xxxx.
+                            Listed - Please enter in this format: (xxx) xxx-xxxx
                           </Form.Text>
                         </Form.Group>
 
@@ -352,15 +353,15 @@ class ProfileEditContact extends Component {
                             }
                           />
                           <Form.Text className="text-muted">
-                            Not Listed (for HIAMFT-use only). Please enter in
-                            this format: (xxx) xxx-xxxx.
+                            Not Listed (for HIAMFT-use only) - Please enter in
+                            this format: (xxx) xxx-xxxx
                           </Form.Text>
                         </Form.Group>
                       </Form>
                       <Form>{this.displayIslands()}</Form>
 
-                      <Form className="flex-container row-wrap">
-                        <Form.Group >
+                      <Form className="flex-container row-wrap row">
+                        <Form.Group>
                           <Form.Label className="label">
                             Address - Business
                           </Form.Label>
@@ -370,10 +371,10 @@ class ProfileEditContact extends Component {
                               this.handleChange(event, "address")
                             }
                           />
-                          <Form.Text className="text-muted">Listed.</Form.Text>
+                          <Form.Text className="text-muted">Street address - Listed</Form.Text>
                         </Form.Group>
 
-                        <Form.Group >
+                        <Form.Group>
                           <Form.Label variant="flat" className="label">
                             City
                           </Form.Label>
@@ -386,7 +387,7 @@ class ProfileEditContact extends Component {
                           <Form.Text className="text-muted">Listed</Form.Text>
                         </Form.Group>
 
-                        <Form.Group >
+                        <Form.Group>
                           <Form.Label variant="flat" className="label">
                             Zip Code
                           </Form.Label>
@@ -401,8 +402,8 @@ class ProfileEditContact extends Component {
                         </Form.Group>
                       </Form>
 
-                      <Form className="flex-container row-wrap">
-                        <Form.Group >
+                      <Form className="flex-container row-wrap row">
+                        <Form.Group>
                           <Form.Label className="label">
                             Address - Personal
                           </Form.Label>
@@ -413,11 +414,11 @@ class ProfileEditContact extends Component {
                             }
                           />
                           <Form.Text className="text-muted">
-                            Not Listed (for HIAMFT-use only)
+                            Street address - Not Listed
                           </Form.Text>
                         </Form.Group>
 
-                        <Form.Group >
+                        <Form.Group>
                           <Form.Label variant="flat" className="label">
                             City
                           </Form.Label>
@@ -431,7 +432,7 @@ class ProfileEditContact extends Component {
                             Not Listed (for HIAMFT-use only)
                           </Form.Text>
                         </Form.Group>
-                        <Form.Group >
+                        <Form.Group>
                           <Form.Label variant="flat" className="label">
                             Zip Code
                           </Form.Label>
@@ -502,6 +503,7 @@ class ProfileEditContact extends Component {
                                 defaultValue={this.state.website}
                               />
                             </Form.Group>
+                            <Form.Text className="text-muted">Listed</Form.Text>
                           </Form>
                           <Form className="flex-between row-wrap row">
                             <Form.Group className="column">
@@ -514,7 +516,7 @@ class ProfileEditContact extends Component {
                                 defaultValue={this.state.phone}
                               />
                               <Form.Text className="text-muted">
-                                Listed.
+                                Listed
                               </Form.Text>
                             </Form.Group>
 
@@ -528,14 +530,14 @@ class ProfileEditContact extends Component {
                                 defaultValue={this.state.phonePersonal}
                               />
                               <Form.Text className="text-muted">
-                                Not Listed (for HIAMFT-use only).
+                                Not Listed (for HIAMFT-use only)
                               </Form.Text>
                             </Form.Group>
                           </Form>
 
                           <Form>{this.displayIslands()}</Form>
 
-                          <Form className="flex-container row-wrap">
+                          <Form className="flex-container row-wrap row">
                             <Form.Group>
                               <Form.Label className="label">
                                 Address - Business
@@ -579,7 +581,7 @@ class ProfileEditContact extends Component {
                             </Form.Group>
                           </Form>
 
-                          <Form className="flex-container row-wrap">
+                          <Form className="flex-container row-wrap row">
                             <Form.Group>
                               <Form.Label className="label">
                                 Address - Personal

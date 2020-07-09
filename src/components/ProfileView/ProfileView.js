@@ -12,7 +12,8 @@ import {
 } from "google-maps-react";
 
 //CSS import
-import "../App/App.css";
+// import "../App/App.css";
+import "./ProfileView.css";
 
 var storage = firebase.storage().ref();
 const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY;
@@ -139,131 +140,147 @@ class ProfileView extends Component {
           </Button>
           <div className="border">
             <div className="flex-between row-wrap row">
-                
-                <div className="columnSide">
-                  <div className="row">
-                    <img className="profile" width='200' height='200' src={this.state.profilePhoto} />
-                  </div>
-                  <div className="row">
+              <div className="columnSide">
+                <div className="row">
+                  <img
+                    className="profile"
+                    width="200"
+                    height="200"
+                    src={this.state.profilePhoto}
+                  />
+                </div>
+                <div className="row">
+                  {!this.props.profile.student && (
                     <div className="emailModal">
                       <EmailModal />
                     </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="bio-title columnThirds">
+                <h1>
+                  {this.props.profile.first_name} {this.props.profile.last_name}
+                </h1>
+                {this.props.profile.student && (
+                  <h4 className="student">Student Member</h4>
+                )}
+                <h6 className="credentials">
+                  {this.props.profile.credentials}
+                </h6>
+                <p>{this.props.profile.statement}</p>
+                <div className="row border-top">
+                  <div className="column ">
+                    <h5>Treatments & Approaches</h5>
+                    <ul>
+                      {this.props.profile.treatment_preferences.map(
+                        (treatment_preferences, key) => (
+                          <li key={key}>{treatment_preferences}</li>
+                        )
+                      )}
+                    </ul>
+                  </div>
+                  <div className="column">
+                    <h5>Specialities</h5>
+                    <ul>
+                      {this.props.profile.specialty.map((
+                        specialty,
+                        key // maps through specialities of therapist
+                      ) => (
+                        <li key={key}>{specialty}</li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
 
-                <div className="bio-title columnThirds">
-                    <h1>
-                      {this.props.profile.first_name}{" "}
-                      {this.props.profile.last_name}
-                    </h1>
-                    <h6 className="credentials">{this.props.profile.credentials}</h6>
-                    <p>{this.props.profile.statement}</p>
-                    <div className="row border-top">
-                      <div className="column ">
-                        <h5>Treatments & Approaches</h5>
-                        <ul>
-                          {this.props.profile.treatment_preferences.map(
-                            (treatment_preferences, key) => (
-                              <li key={key}>{treatment_preferences}</li>
-                            )
-                          )}
-                        </ul>
-                      </div>
-                      <div className="column">
-                        <h5>Specialities</h5>
-                        <ul>
-                          {this.props.profile.specialty.map((
-                            specialty,
-                            key // maps through specialities of therapist
-                          ) => (
-                              <li key={key}>{specialty}</li>
-                            ))}
-                        </ul>
-                      </div>
-                    </div>  
-
-                    <div className="border-top row">
-                      <h5 className="clientFocus">Client Focus</h5>
-                    </div>
-                    <div className="row">
-                      <div className="column">
-                        <h5>Age Group</h5>
-                        <ul>
-                          {this.props.profile.ages_served.map((
-                            age,
-                            key // maps through the ages served by the therapist
-                          ) => (
-                              <li key={key}>{age}</li>
-                            ))}
-                        </ul>
-                      
-                      </div>
-                      <div className="column">
-                        <h5>Demographic Group</h5>
-                        <ul>
-                          {this.props.profile.client_focus.map((
-                            age,
-                            key // maps through the client focuses of the therapist
-                          ) => (
-                              <li key={key}>{age}</li>
-                            ))}
-                        </ul>
-                      </div>
+                <div className="border-top row">
+                  <h5 className="clientFocus">Client Focus</h5>
+                </div>
+                <div className="row">
+                  <div className="column">
+                    <h5>Age Group</h5>
+                    <ul>
+                      {this.props.profile.ages_served.map((
+                        age,
+                        key // maps through the ages served by the therapist
+                      ) => (
+                        <li key={key}>{age}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="column">
+                    <h5>Demographic Group</h5>
+                    <ul>
+                      {this.props.profile.client_focus.map((
+                        age,
+                        key // maps through the client focuses of the therapist
+                      ) => (
+                        <li key={key}>{age}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+                {!this.props.profile.student && (
+                  <div className="row border-top">
+                    <div className="column">
+                      <h5>Insurance Accepted</h5>
+                      <ul>
+                        {this.props.profile.insurance.map((
+                          age,
+                          key // maps through ages served
+                        ) => (
+                          <li key={key}>{age}</li>
+                        ))}
+                      </ul>
                     </div>
 
-                    <div className="row border-top">
-                      <div className="column">
-                        <h5>Insurance Accepted</h5>
-                        <ul>
-                          {this.props.profile.insurance.map((
-                            age,
-                            key // maps through ages served
-                          ) => (
-                              <li key={key}>{age}</li>
-                            ))}
-                        </ul>
-                      </div>
-                      <div className="column">
-                        <h5>Session Formats</h5>
-                        <ul>
-                          {this.props.profile.session_format.map(
-                            // maps through the session_formats available
-                            (session_format, key) => (
-                              <li key={key}>{session_format}</li>
-                            )
-                          )}
-                        </ul>
-                      </div>
+                    <div className="column">
+                      <h5>Session Formats</h5>
+                      <ul>
+                        {this.props.profile.session_format.map(
+                          // maps through the session_formats available
+                          (session_format, key) => (
+                            <li key={key}>{session_format}</li>
+                          )
+                        )}
+                      </ul>
                     </div>
-
-                    <div className="row border-top">
-                      <div className="column">
-                        <h5>Telehealth</h5>
-                        <ul className="flex-between row-wrap">
-                          <li>{this.telehealth()}</li>
-                          {/* Checkes whether the Telehealth is true or not and then returns statement saying Telehealth is offered or not depending on profile.telehealth */}
-                        </ul>
-                      </div>
-                      <div className="column">
-                        <h5>Languages Spoken</h5>
-                        <ul>
-                          {this.props.profile.languages.map((
-                            language,
-                            key // maps through the languages spoken
-                          ) => (
-                              <li key={key}>{language}</li>
-                            ))}
-                        </ul>
-                      </div>
+                  </div>
+                )}
+                {!this.props.profile.student && (
+                  <div className="row border-top">
+                    <div className="column">
+                      <h5>Telehealth</h5>
+                      <ul className="flex-between row-wrap">
+                        <li>{this.telehealth()}</li>
+                        {/* Checkes whether the Telehealth is true or not and then returns statement saying Telehealth is offered or not depending on profile.telehealth */}
+                      </ul>
                     </div>
-
-                    <div className="row border-top">
-                      <div className="column">
-                        <h5>Supervision Status</h5>
-                        <p>{this.props.profile.supervision_status}</p>
-                      </div>
+                    <div className="column">
+                      <h5>Fees</h5>
+                      <h6>${this.props.profile.fees}</h6>
                     </div>
-
+                  </div>
+                )}
+                <div className="row border-top">
+                  <div className="column">
+                    <h5>Supervision Status</h5>
+                    <p>{this.props.profile.supervision_status}</p>
+                  </div>
+                  <div className="column">
+                    <h5>Languages Spoken</h5>
+                    <ul>
+                      {this.props.profile.languages.map((
+                        language,
+                        key // maps through the languages spoken
+                      ) => (
+                        <>
+                          <li key={key}>{language}</li>
+                        </>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
 
               <div className="columnSide">
@@ -278,9 +295,8 @@ class ProfileView extends Component {
                     {/* Same with email */}
                     <p>{this.website(this.props.profile.website)}</p>
                     {/* chceks to see if website is there adds if there is */}
-                    <li>
-                      {this.props.profile.address} {this.props.profile.zip_code}
-                    </li>
+                    <li>{this.props.profile.address}</li>
+                    <li>{this.props.profile.city}, {this.props.profile.zip_code}</li>
                   </ul>
                 </div>
 
@@ -303,13 +319,9 @@ class ProfileView extends Component {
                     </InfoWindow>
                   </Map>
                 </div>
-
-                
-
               </div>
-
+            </div>
           </div>
-        </div>
         </>
       );
     } else {
