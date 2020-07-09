@@ -8,9 +8,13 @@ class RegisterPage extends Component {
   state = {
     username: "",
     password: "",
+    newId: ""
   };
   componentDidMount() {
     console.log(this.props.match.params.id);
+    this.props.dispatch({
+      type:"NEW_ID"
+    });
 
     //checks that the registration key exists
     this.props.dispatch({
@@ -18,6 +22,20 @@ class RegisterPage extends Component {
       payload: this.props.match.params.id,
     });
     console.log(this.props.reduxstate.registrationKeyValidation);
+
+  }
+  componentDidUpdate(){
+    console.log(this.props.reduxstate.getUsersReducer.length)
+    console.log(this.props.reduxstate.getUsersReducer)
+    if(this.props.reduxstate.getUsersReducer){
+      let o = this.props.reduxstate.getUsersReducer;
+      const max = o.reduce(function(prev, current) {
+        return (prev.id > current.id) ? prev : current
+    })
+    if(this.state.newId==="")
+    this.setState({newId:(max.id +1)})
+    }
+
   }
 
   registerUser = (event) => {
@@ -29,6 +47,7 @@ class RegisterPage extends Component {
         payload: {
           username: this.state.username,
           password: this.state.password,
+          id:this.state.newId
         },
       });
     } else {

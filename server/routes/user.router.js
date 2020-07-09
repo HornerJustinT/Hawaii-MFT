@@ -12,6 +12,23 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
+router.get('/new', async (req, res) => {
+  const connection = await pool.connect();
+  try {
+      let query = `SELECT *
+    FROM "user"
+    `
+      const members = await connection.query(query);
+      console.log('in new ',members.rows)
+      res.send(members.rows)
+
+    } catch (error) {
+      console.log(`Error Selecting members`, error)
+      res.sendStatus(500);
+    } finally {
+      connection.release();
+    }
+});
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
