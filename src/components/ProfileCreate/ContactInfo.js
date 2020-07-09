@@ -41,7 +41,7 @@ class ContactInfo extends Component{
             websiteError:'',
             addressOfficeError:'',
             addressHomeError:'',
-            addressMailingError:'',
+            businessCityError:'',
             cityError:'',
             shouldBlockNavigation : true,
            }
@@ -73,7 +73,7 @@ componentDidUpdate = () => {
      
 
       validate = () => {
-          let islandError = '';
+          let islandError = '';                       
            let zipCodeError = '';
            let business_zipCodeError='';
            let  businessNumberError = '';
@@ -86,6 +86,7 @@ componentDidUpdate = () => {
             let businessCityError ='';
             let websiteError = '';
           let formIsValid = true;
+
   
 
           if(this.state.city === ''){
@@ -95,15 +96,16 @@ componentDidUpdate = () => {
               formIsValid=false;
               cityError = "City - Home is invalid" 
           }
-          if(this.state.city_business === ''){
-               formIsValid=false;
-               businessCityError = 'City - Business is required'
-             }else if(!this.state.cityOfBussiness.match(/^[a-zA-Z_]+$/) ){
-                 formIsValid=false;
-                 businessCityError = "City - Business is invalid" 
-             }
 
 
+          if(this.state.cityOfBussiness === ''){
+            formIsValid=false;
+            businessCityError = 'City - Business is required'
+          }else if(!this.state.cityOfBussiness.match(/^[a-zA-Z_]+$/)){
+              formIsValid=false;
+              businessCityError = "City - Business is invalid" 
+          }
+        
           if(this.state.address_home=== ''){
                formIsValid=false;
                addressHomeError = 'Home Address is required'
@@ -121,14 +123,14 @@ componentDidUpdate = () => {
           if(this.state.personal_email === ''){
             formIsValid=false;
             personalEmailError = 'Personal Email is required'
-          }else if(!this.state.personal_email.includes('@') ){
+          }else if(!this.state.personal_email.match(/^[^@]+@[^@]+\.[^@]+$/)){
               formIsValid=false;
               personalEmailError = "Personal Email is not valid"
           }
           if(this.state.email === ''){
                formIsValid=false;
                emailError = 'Business Email is required'
-          }else if(!this.state.email.includes('@') ){
+          }else if(!this.state.email.match(/^[^@]+@[^@]+\.[^@]+$/) ){
                  formIsValid=false;
                  emailError = "Business Email is not valid"
              }
