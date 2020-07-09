@@ -120,14 +120,14 @@ componentDidUpdate = () => {
           if(this.state.personal_email === ''){
             formIsValid=false;
             personalEmailError = 'Personal Email is required'
-          }else if(!this.state.personal_email.includes('@') ){
+          }else if(!this.state.personal_email.match(/^[^@]+@[^@]+\.[^@]+$/)){
               formIsValid=false;
               personalEmailError = "Personal Email is not valid"
           }
           if(this.state.email === ''){
                formIsValid=false;
                emailError = 'Business Email is required'
-          }else if(!this.state.email.includes('@') ){
+          }else if(!this.state.email.match(/^[^@]+@[^@]+\.[^@]+$/) ){
                  formIsValid=false;
                  emailError = "Business Email is not valid"
              }
