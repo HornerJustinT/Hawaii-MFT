@@ -233,7 +233,7 @@ studentContactInfo = (e) =>{
               {" "}
               <h1 className="text-center">Contact Info</h1>
             </header>
-            <ProgressBar now={50} />
+            <div className='progressbar'> <ProgressBar now={50} /></div>
             <Form onSubmit={this.studentContactInfo}>
              <br/>
         
@@ -312,7 +312,9 @@ studentContactInfo = (e) =>{
              <br/>
              <br/>
             
-           <Button type="submit">Next</Button>
+             <div  className="next-button">
+                  <Button type="submit">Next</Button>
+                  </div>
             </Form>
             </div>
            

@@ -133,7 +133,7 @@ this.props.history.push("/uploadimage");
               <h1 className="text-center">Practice info</h1>
             </header>
         <br/>
-        <ProgressBar now={75} />
+        <div className='progressbar'> <ProgressBar now={75} /></div>
         <br/>
         <Form onSubmit={this.addMembersInfo}>
         <br/>
@@ -202,7 +202,9 @@ this.props.history.push("/uploadimage");
                    } 
            </Form.Control>
            </Form.Group>
-           <Button type="submit">Next</Button>
+           <div  className="next-button">
+                  <Button type="submit">Next</Button>
+                  </div>
         </Form>
        
             </div>
