@@ -136,16 +136,17 @@ class ProfileEdit extends Component {
 
     window.location.reload(false);
 
-    this.props.dispatch({ type: "PROFILE_RESET" });
+    // this.props.dispatch({ type: "PROFILE_RESET" });
 
-    this.props.dispatch({
-      type: "FETCH_PROFILE",
-      payload: { id: this.props.match.params.id || this.props.user.id },
-    });
+    // this.props.dispatch({
+    //   type: "FETCH_PROFILE",
+    //   payload: { id: this.props.match.params.id || this.props.user.id },
+    // });
   }; //end handleSavePractice
 
   //handleChange resets state according to new data entered into form inputs
   handleChange = (event, propertyName) => {
+    console.log ('here is state @@@', this.state.licenseState)
     this.setState({
       [propertyName]: event.target.value,
     });
@@ -190,8 +191,8 @@ class ProfileEdit extends Component {
   displayInsurance = () => {
     if (this.state.clickPractice) {
       return (
-        <Form.Group>
-          <Form.Label className="label">Insurances Accepted</Form.Label>
+        <Form.Group as={Col}>
+          <Form.Label className="label">Insurance Accepted</Form.Label>
           <Form.Control
             as="select"
             multiple={true}
@@ -211,13 +212,17 @@ class ProfileEdit extends Component {
               );
             })}
           </Form.Control>
+          <Form.Text className="text-muted">
+            Listed - To select multiple on Mac: press & hold Command key. To
+            select multiple on PC, press & hold CTRL.
+          </Form.Text>
         </Form.Group>
       );
     } else {
       return (
-        <Form.Group>
+        <Form.Group as={Col}>
           <Form.Label variant="flat" className="label">
-            Insurances Accepted
+            Insurance Accepted
           </Form.Label>
           <div>
             {this.props.profile.insurance.map((insurance) => {
@@ -232,14 +237,12 @@ class ProfileEdit extends Component {
               );
             })}
           </div>
+          <Form.Text className="text-muted">Listed</Form.Text>
         </Form.Group>
       );
     }
   };
 
-  // componentWillUnmount(){
-  //   clearInterval(this.interval);
-  // }
 
   render() {
     if (
@@ -252,8 +255,6 @@ class ProfileEdit extends Component {
       return (
         <>
           {/**Here is Practice Info render */}
-          {JSON.stringify(this.state.clientAges)}
-          {JSON.stringify(this.props.profile.ages_served)}
           {this.state.clickPractice ? (
             <div className="body">
               <div className="flex-between row-wrap first">
@@ -266,69 +267,75 @@ class ProfileEdit extends Component {
                 </Button>
               </div>
               <div className="border">
-                <Form className="flex-between row-wrap row">
-                  <Form.Group className="column">
-                    <Form.Label className="label">Title</Form.Label>
-                    <Form.Control
-                      value={this.state.title}
-                      onChange={(event) => this.handleChange(event, "title")}
-                    />
-                  </Form.Group>
-                  <Form.Group className="column">
-                    <Form.Label className="label">Credentials</Form.Label>
-                    <Form.Control
-                      value={this.state.credentials}
-                      onChange={(event) =>
-                        this.handleChange(event, "credentials")
-                      }
-                    />
-                    <Form.Text className="text-muted">
-                      Please indicate the credentials you would like to have
-                      listed in your HIAMFT Directory listing. Type them in as
-                      they would appear following your name. Example: PhD, LMFT,
-                      LP
-                    </Form.Text>
-                  </Form.Group>
+                <Form className="flex-container row-wrap row">
+                  <Form.Row>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">Title</Form.Label>
+                      <Form.Control
+                        value={this.state.title}
+                        onChange={(event) => this.handleChange(event, "title")}
+                      />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">Credentials</Form.Label>
+                      <Form.Control
+                        value={this.state.credentials}
+                        onChange={(event) =>
+                          this.handleChange(event, "credentials")
+                        }
+                      />
+                      <Form.Text className="text-muted">
+                        Please indicate the credentials you would like to have
+                        listed in your HIAMFT Directory listing. Type them in as
+                        they would appear following your name. Example: PhD,
+                        LMFT, LP
+                      </Form.Text>
+                    </Form.Group>
+                  </Form.Row>
                 </Form>
-                <Form className="row">
-                  <Form.Group className="column">
-                    <Form.Label className="label">
-                      Supervision Status
-                    </Form.Label>
-                    <Form.Control
-                      as="select"
-                      value={this.state.supervisionStatus}
-                      onChange={(event) =>
-                        this.handleChange(event, "supervisionStatus")
-                      }
-                    >
-                      <option value="None">None</option>
-                      <option value="Hawai'i qualified">
-                        Hawai'i qualified
-                      </option>
-                      <option value="MFT supervisor">MFT supervisor</option>
-                      <option value="AAMFT approved">AAMFT-approved</option>
-                      <option value="Supervisor">Supervisor</option>
-                    </Form.Control>
-                  </Form.Group>
-                  <Form.Group className="column">
-                    <Form.Label className="label">Telehealth</Form.Label>
-                    <Form.Control
-                      as="select"
-                      value={this.state.telehealth}
-                      onChange={(event) =>
-                        this.handleChangeBoolean(event, "telehealth")
-                      }
-                      width={"193px"}
-                    >
-                      <option value={true}>Yes, I offer telehealth.</option>
-                      <option value={false}>
-                        No, I do not offer telehealth.
-                      </option>
-                    </Form.Control>
-                  </Form.Group>
+                <Form className="flex-container row-wrap row">
+                  <Form.Row>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">
+                        Supervision Status
+                      </Form.Label>
+                      <Form.Control
+                        as="select"
+                        value={this.state.supervisionStatus}
+                        onChange={(event) =>
+                          this.handleChange(event, "supervisionStatus")
+                        }
+                      >
+                        <option value="None">None</option>
+                        <option value="Hawai'i qualified">
+                          Hawai'i qualified
+                        </option>
+                        <option value="MFT supervisor">MFT supervisor</option>
+                        <option value="AAMFT approved">AAMFT-approved</option>
+                        <option value="Supervisor">Supervisor</option>
+                      </Form.Control>
+                      <Form.Text className="text-muted">Listed</Form.Text>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">Telehealth</Form.Label>
+                      <Form.Control
+                        as="select"
+                        value={this.state.telehealth}
+                        onChange={(event) =>
+                          this.handleChangeBoolean(event, "telehealth")
+                        }
+                        width={"193px"}
+                      >
+                        <option value={true}>Yes, I offer telehealth.</option>
+                        <option value={false}>
+                          No, I do not offer telehealth.
+                        </option>
+                      </Form.Control>
+                      <Form.Text className="text-muted">Listed</Form.Text>
+                    </Form.Group>
+                  </Form.Row>
                 </Form>
-                <Form className="flex-container row-wrap">
+                <Form className="flex-container row-wrap row">
                   <Form.Row>
                     <Form.Group as={Col}>
                       <Form.Label className="label">License Number</Form.Label>
@@ -338,6 +345,9 @@ class ProfileEdit extends Component {
                           this.handleChange(event, "licenseNumber")
                         }
                       />
+                      <Form.Text className="text-muted">
+                        Not Listed (for HIAMFT-use only)
+                      </Form.Text>
                     </Form.Group>
                     <Form.Group as={Col}>
                       <Form.Label className="label">
@@ -350,7 +360,14 @@ class ProfileEdit extends Component {
                           this.handleChange(event, "licenseExpiration")
                         }
                       />
+                      <Form.Text className="text-muted">
+                        Not Listed (for HIAMFT-use only)
+                      </Form.Text>
                     </Form.Group>
+                  </Form.Row>
+                </Form>
+                <Form className="flex-container row-wrap row">
+                  <Form.Row>
                     <Form.Group as={Col}>
                       <Form.Label className="label">License Type</Form.Label>
                       <Form.Control
@@ -367,152 +384,193 @@ class ProfileEdit extends Component {
                             </option>
                           );
                         })}
-                        {/* <option value="LMFT">LMFT</option>
-                        <option value="LMHC">LMHC</option>
-                        <option value="LP">LP</option>
-                        <option value="LCSW">LCSW</option>
-                        <option value="LSW">LSW</option>
-                        <option value="LP">LP</option>
-                        <option value="LPCC">LPCC</option>
-                        <option value="Pre-Licensed (no longer a student)">Pre-Licensed (no longer a student)</option> */}
                       </Form.Control>
+                      <Form.Text className="text-muted">
+                        Not Listed (for HIAMFT-use only) - Please list licenses
+                        you'd like to appear after your name in Credentials
+                      </Form.Text>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">
+                        State of Issuance
+                      </Form.Label>
+                      <Form.Control
+                        defaultValue={this.state.licenseState}
+                        onChange={(event) =>
+                          this.handleChange(event, "licenseState")
+                        }
+                      />
+                      <Form.Text className="text-muted">
+                        Not Listed (for HIAMFT-use only)
+                      </Form.Text>
                     </Form.Group>
                   </Form.Row>
                 </Form>
 
-                <Form className="flex-container row-wrap">
-                  {this.displayInsurance()}
+                <Form className="flex-container row-wrap row">
+                  <Form.Row>
+                    {this.displayInsurance()}
 
-                  <Form.Group>
-                    <Form.Label className="label">Fees</Form.Label>
-                    <InputGroup.Prepend>
-                      <InputGroup.Text>$</InputGroup.Text>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">Fees</Form.Label>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>$</InputGroup.Text>
+                        <Form.Control
+                          value={this.state.fees}
+                          onChange={(event) => this.handleChange(event, "fees")}
+                        />
+                      </InputGroup.Prepend>
+                      <Form.Text className="text-muted">
+                        Listed - Please indicate a standard rate or range
+                      </Form.Text>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">Session Format</Form.Label>
                       <Form.Control
-                        value={this.state.fees}
-                        onChange={(event) => this.handleChange(event, "fees")}
-                      />
-                    </InputGroup.Prepend>
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="label">Session Format</Form.Label>
-                    <Form.Control
-                      as="select"
-                      multiple={true}
-                      value={this.state.sessionFormatEdit}
-                      onChange={(event) =>
-                        this.handleMultiChange(event, "sessionFormatEdit")
-                      }
-                    >
-                      {this.props.sessionFormats.map((session) => {
-                        return (
-                          <>
-                            <option
-                              key={session.session_format_id}
-                              value={session.session_format_id}
-                            >
-                              {session.title}
-                            </option>
-                          </>
-                        );
-                      })}
-                    </Form.Control>
-                  </Form.Group>
+                        as="select"
+                        multiple={true}
+                        value={this.state.sessionFormatEdit}
+                        onChange={(event) =>
+                          this.handleMultiChange(event, "sessionFormatEdit")
+                        }
+                      >
+                        {this.props.sessionFormats.map((session) => {
+                          return (
+                            <>
+                              <option
+                                key={session.session_format_id}
+                                value={session.session_format_id}
+                              >
+                                {session.title}
+                              </option>
+                            </>
+                          );
+                        })}
+                      </Form.Control>
+                      <Form.Text className="text-muted">
+                        Listed - To select multiple on Mac: press & hold Command
+                        key. To select multiple on PC, press & hold CTRL.
+                      </Form.Text>
+                    </Form.Group>
+                  </Form.Row>
                 </Form>
 
-                <Form className="flex-between row-wrap row">
-                  <Form.Group className="column">
-                    <Form.Label className="label">Demographic Focus</Form.Label>
-                    <Form.Control
-                      as="select"
-                      multiple={true}
-                      value={this.state.clientFocusEdit}
-                      onChange={(event) =>
-                        this.handleMultiChange(event, "clientFocusEdit")
-                      }
-                    >
-                      {this.props.demographics.map((demographic) => {
-                        return (
-                          <>
-                            <option
-                              key={demographic.client_focus_id}
-                              value={demographic.client_focus_id}
-                            >
-                              {demographic.title}
-                            </option>
-                          </>
-                        );
-                      })}
-                    </Form.Control>
-                  </Form.Group>
-                  <Form.Group className="column">
-                    <Form.Label className="label">Age Group Focus</Form.Label>
-                    <Form.Control
-                      as="select"
-                      multiple={true}
-                      value={this.state.clientAgesEdit}
-                      onChange={(event) =>
-                        this.handleMultiChange(event, "clientAgesEdit")
-                      }
-                    >
-                      <option value="1">Any</option>
-                      <option value="2">Children</option>
-                      <option value="3">Adolescents</option>
-                      <option value="4">Adults</option>
-                      <option value="5">Elders</option>
-                    </Form.Control>
-                  </Form.Group>
+                <Form className="flex-container row-wrap row">
+                  <Form.Row>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">
+                        Demographic Focus
+                      </Form.Label>
+                      <Form.Control
+                        as="select"
+                        multiple={true}
+                        value={this.state.clientFocusEdit}
+                        onChange={(event) =>
+                          this.handleMultiChange(event, "clientFocusEdit")
+                        }
+                      >
+                        {this.props.demographics.map((demographic) => {
+                          return (
+                            <>
+                              <option
+                                key={demographic.client_focus_id}
+                                value={demographic.client_focus_id}
+                              >
+                                {demographic.title}
+                              </option>
+                            </>
+                          );
+                        })}
+                      </Form.Control>
+                      <Form.Text className="text-muted">
+                        Listed - To select multiple on Mac: press & hold Command
+                        key. To select multiple on PC, press & hold CTRL.
+                      </Form.Text>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">Age Group Focus</Form.Label>
+                      <Form.Control
+                        as="select"
+                        multiple={true}
+                        value={this.state.clientAgesEdit}
+                        onChange={(event) =>
+                          this.handleMultiChange(event, "clientAgesEdit")
+                        }
+                      >
+                        <option value="1">Any</option>
+                        <option value="2">Children</option>
+                        <option value="3">Adolescents</option>
+                        <option value="4">Adults</option>
+                        <option value="5">Elders</option>
+                      </Form.Control>
+                      <Form.Text className="text-muted">
+                        Listed - To select multiple on Mac: press & hold Command
+                        key. To select multiple on PC, press & hold CTRL.
+                      </Form.Text>
+                    </Form.Group>
+                  </Form.Row>
                 </Form>
                 <Form className="flex-container row-wrap row">
-                  <Form.Group className="column">
-                    <Form.Label className="label">Specialties</Form.Label>
-                    <Form.Control
-                      as="select"
-                      multiple={true}
-                      value={this.state.specialtyEdit}
-                      onChange={(event) =>
-                        this.handleMultiChange(event, "specialtyEdit")
-                      }
-                    >
-                      {this.props.specialty.map((specialty) => {
-                        return (
-                          <>
-                            <option
-                              key={specialty.specialty_id}
-                              value={specialty.specialty_id}
-                            >
-                              {specialty.title}
-                            </option>
-                          </>
-                        );
-                      })}
-                    </Form.Control>
-                  </Form.Group>
-                  <Form.Group className="column">
-                    <Form.Label className="label">
-                      Treatment & Approach
-                    </Form.Label>
-                    <Form.Control
-                      as="select"
-                      multiple={true}
-                      value={this.state.treatmentEdit}
-                      onChange={(event) =>
-                        this.handleMultiChange(event, "treatmentEdit")
-                      }
-                    >
-                      {this.props.treatments.map((treatment) => {
-                        return (
-                          <>
-                            <option
-                              key={treatment.treatment_preferences_id}
-                              value={treatment.treatment_preferences_id}
-                            >
-                              {treatment.title}
-                            </option>
-                          </>
-                        );
-                      })}
-                    </Form.Control>
-                  </Form.Group>
+                  <Form.Row>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">Specialties</Form.Label>
+                      <Form.Control
+                        as="select"
+                        multiple={true}
+                        value={this.state.specialtyEdit}
+                        onChange={(event) =>
+                          this.handleMultiChange(event, "specialtyEdit")
+                        }
+                      >
+                        {this.props.specialty.map((specialty) => {
+                          return (
+                            <>
+                              <option
+                                key={specialty.specialty_id}
+                                value={specialty.specialty_id}
+                              >
+                                {specialty.title}
+                              </option>
+                            </>
+                          );
+                        })}
+                      </Form.Control>
+                      <Form.Text className="text-muted">
+                        Listed - To select multiple on Mac: press & hold Command
+                        key. To select multiple on PC, press & hold CTRL.
+                      </Form.Text>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">
+                        Treatment & Approach
+                      </Form.Label>
+                      <Form.Control
+                        as="select"
+                        multiple={true}
+                        value={this.state.treatmentEdit}
+                        onChange={(event) =>
+                          this.handleMultiChange(event, "treatmentEdit")
+                        }
+                      >
+                        {this.props.treatments.map((treatment) => {
+                          return (
+                            <>
+                              <option
+                                key={treatment.treatment_preferences_id}
+                                value={treatment.treatment_preferences_id}
+                              >
+                                {treatment.title}
+                              </option>
+                            </>
+                          );
+                        })}
+                      </Form.Control>
+                      <Form.Text className="text-muted">
+                        Listed - To select multiple on Mac: press & hold Command
+                        key. To select multiple on PC, press & hold CTRL.
+                      </Form.Text>
+                    </Form.Group>
+                  </Form.Row>
                 </Form>
               </div>
             </div>
@@ -528,46 +586,53 @@ class ProfileEdit extends Component {
                 </Button>
               </div>
               <div className="border">
-                <Form className="flex-between row-wrap row">
-                  <Form.Group className="column">
-                    <Form.Label className="label">Title</Form.Label>
-                    <Form.Control
-                      disabled={true}
-                      readOnly
-                      value={this.state.title}
-                    />
-                  </Form.Group>
-                  <Form.Group className="column">
-                    <Form.Label className="label">Credentials</Form.Label>
-                    <Form.Control
-                      disabled={true}
-                      readOnly
-                      value={this.state.credentials}
-                    />
-                  </Form.Group>
+                <Form className="flex-container row-wrap row">
+                  <Form.Row>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">Title</Form.Label>
+                      <Form.Control
+                        disabled={true}
+                        readOnly
+                        value={this.state.title}
+                      />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">Credentials</Form.Label>
+                      <Form.Control
+                        disabled={true}
+                        readOnly
+                        value={this.state.credentials}
+                      />
+                      <Form.Text className="text-muted">Listed</Form.Text>
+                    </Form.Group>
+                  </Form.Row>
                 </Form>
-                <Form className="flex-between row-wrap row">
-                  <Form.Group className="column">
-                    <Form.Label className="label">
-                      Supervision Status
-                    </Form.Label>
-                    <Form.Control
-                      disabled={true}
-                      readOnly
-                      value={this.state.supervisionStatus}
-                    />
-                  </Form.Group>
-                  <Form.Group className="column">
-                    <Form.Label className="label">Telehealth</Form.Label>
-                    <Form.Control
-                      disabled={true}
-                      readOnly
-                      value={this.renderTelehealth()}
-                    />
-                  </Form.Group>
+                <Form className="flex-container row-wrap row">
+                  <Form.Row>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">
+                        Supervision Status
+                      </Form.Label>
+                      <Form.Control
+                        disabled={true}
+                        readOnly
+                        value={this.state.supervisionStatus}
+                      />
+                      <Form.Text className="text-muted">Listed</Form.Text>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">Telehealth</Form.Label>
+                      <Form.Control
+                        disabled={true}
+                        readOnly
+                        value={this.renderTelehealth()}
+                      />
+                      <Form.Text className="text-muted">Listed</Form.Text>
+                    </Form.Group>
+                  </Form.Row>
                 </Form>
 
-                <Form className="flex-container row-wrap">
+                <Form className="flex-container row-wrap row">
                   <Form.Row>
                     <Form.Group as={Col}>
                       <Form.Label className="label">License Number</Form.Label>
@@ -576,6 +641,9 @@ class ProfileEdit extends Component {
                         readOnly
                         value={this.state.licenseNumber}
                       />
+                      <Form.Text className="text-muted">
+                        Not Listed (for HIAMFT-use only)
+                      </Form.Text>
                     </Form.Group>
                     <Form.Group as={Col}>
                       <Form.Label className="label">
@@ -587,7 +655,14 @@ class ProfileEdit extends Component {
                         readOnly
                         value={this.state.licenseExpiration}
                       />
+                      <Form.Text className="text-muted">
+                        Not Listed (for HIAMFT-use only)
+                      </Form.Text>
                     </Form.Group>
+                  </Form.Row>
+                </Form>
+                <Form className="flex-container row-wrap row">
+                  <Form.Row>
                     <Form.Group as={Col}>
                       <Form.Label className="label">License Type</Form.Label>
                       <Form.Control
@@ -595,118 +670,149 @@ class ProfileEdit extends Component {
                         readOnly
                         value={this.state.licenseType}
                       />
+                      <Form.Text className="text-muted">
+                        Not Listed (for HIAMFT-use only) - Please list licenses
+                        you'd like to appear after your name in Credentials
+                      </Form.Text>
                     </Form.Group>
-                  </Form.Row>
-                </Form>
-                <Form className="flex-container row-wrap">
-                  {this.displayInsurance()}
-                  <Form.Group>
-                    <Form.Label className="label">Fees</Form.Label>
-                    <InputGroup.Prepend>
-                      <InputGroup.Text>$</InputGroup.Text>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">
+                        State of Issuance
+                      </Form.Label>
                       <Form.Control
                         disabled={true}
                         readOnly
-                        value={this.state.fees}
+                        value={this.state.licenseState}
                       />
-                    </InputGroup.Prepend>
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="label">Session Format</Form.Label>
-                    <div>
-                      {this.state.sessionFormat &&
-                        this.state.sessionFormat.map((sessionFormat) => {
-                          return (
-                            <>
-                              <Form.Control
-                                disabled={true}
-                                readOnly
-                                value={sessionFormat}
-                              />
-                            </>
-                          );
-                        })}
-                    </div>
-                  </Form.Group>
+                      <Form.Text className="text-muted">
+                        Not Listed (for HIAMFT-use only)
+                      </Form.Text>
+                    </Form.Group>
+                  </Form.Row>
+                </Form>
+                <Form className="flex-container row-wrap row">
+                  <Form.Row>
+                    {this.displayInsurance()}
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">Fees</Form.Label>
+                      <InputGroup.Prepend>
+                        <InputGroup.Text>$</InputGroup.Text>
+                        <Form.Control
+                          disabled={true}
+                          readOnly
+                          value={this.state.fees}
+                        />
+                      </InputGroup.Prepend>
+                      <Form.Text className="text-muted">Listed</Form.Text>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">Session Format</Form.Label>
+                      <div>
+                        {this.state.sessionFormat &&
+                          this.state.sessionFormat.map((sessionFormat) => {
+                            return (
+                              <>
+                                <Form.Control
+                                  disabled={true}
+                                  readOnly
+                                  value={sessionFormat}
+                                />
+                              </>
+                            );
+                          })}
+                        <Form.Text className="text-muted">Listed</Form.Text>
+                      </div>
+                    </Form.Group>
+                  </Form.Row>
                 </Form>
 
-                <Form className="flex-between row-wrap row">
-                  <Form.Group className="column">
-                    <Form.Label className="label">Demographic Focus</Form.Label>
-                    <div>
-                      {this.state.clientFocus
-                        ? this.state.clientFocus.map((focus) => {
-                            return (
-                              <>
-                                <Form.Control
-                                  disabled={true}
-                                  readOnly
-                                  value={focus}
-                                />
-                              </>
-                            );
-                          })
-                        : ""}
-                    </div>
-                  </Form.Group>
-                  <Form.Group className="column">
-                    <Form.Label className="label">Age Group Focus</Form.Label>
-                    <div>
-                      {this.state.clientAges
-                        ? this.state.clientAges.map((focus) => {
-                            return (
-                              <>
-                                <Form.Control
-                                  disabled={true}
-                                  readOnly
-                                  value={focus}
-                                />
-                              </>
-                            );
-                          })
-                        : ""}
-                    </div>
-                  </Form.Group>
+                <Form className="flex-container row-wrap row">
+                  <Form.Row>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">
+                        Demographic Focus
+                      </Form.Label>
+                      <div>
+                        {this.state.clientFocus
+                          ? this.state.clientFocus.map((focus) => {
+                              return (
+                                <>
+                                  <Form.Control
+                                    disabled={true}
+                                    readOnly
+                                    value={focus}
+                                  />
+                                </>
+                              );
+                            })
+                          : ""}
+                        <Form.Text className="text-muted">Listed</Form.Text>
+                      </div>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Label className="label">Age Group Focus</Form.Label>
+                      <div>
+                        {this.state.clientAges
+                          ? this.state.clientAges.map((focus) => {
+                              return (
+                                <>
+                                  <Form.Control
+                                    disabled={true}
+                                    readOnly
+                                    value={focus}
+                                  />
+                                </>
+                              );
+                            })
+                          : ""}
+                      </div>
+                      <Form.Text className="text-muted">Listed</Form.Text>
+                    </Form.Group>
+                  </Form.Row>
                 </Form>
-                <Form className="flex-between row-wrap row">
-                  <Form.Group className="column">
-                    <Form.Label variant="flat" className="label">
-                      Specialties
-                    </Form.Label>
-                    <div>
-                      {this.state.specialty &&
-                        this.state.specialty.map((specialty) => {
-                          return (
-                            <>
-                              <Form.Control
-                                disabled={true}
-                                readOnly
-                                value={specialty}
-                              />
-                            </>
-                          );
-                        })}
-                    </div>
-                  </Form.Group>
-                  <Form.Group className="column">
-                    <Form.Label variant="flat" className="label">
-                      Treatment & Approach
-                    </Form.Label>
-                    <div>
-                      {this.state.treatmentPreferences &&
-                        this.state.treatmentPreferences.map((treatment) => {
-                          return (
-                            <>
-                              <Form.Control
-                                disabled={true}
-                                readOnly
-                                value={treatment}
-                              />
-                            </>
-                          );
-                        })}
-                    </div>
-                  </Form.Group>
+                <Form className="flex-container row-wrap row">
+                  <Form.Row>
+                    <Form.Group as={Col}>
+                      <Form.Label variant="flat" className="label">
+                        Specialties
+                      </Form.Label>
+                      <div>
+                        {this.state.specialty &&
+                          this.state.specialty.map((specialty) => {
+                            return (
+                              <>
+                                <Form.Control
+                                  disabled={true}
+                                  readOnly
+                                  value={specialty}
+                                />
+                              </>
+                            );
+                          })}
+                      </div>
+                      <Form.Text className="text-muted">Listed</Form.Text>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                      <Form.Label variant="flat" className="label">
+                        Treatment & Approach
+                      </Form.Label>
+                      <div>
+                        {this.state.treatmentPreferences &&
+                          this.state.treatmentPreferences.map((treatment) => {
+                            return (
+                              <>
+                                <Form.Control
+                                  disabled={true}
+                                  readOnly
+                                  value={treatment}
+                                />
+                              </>
+                            );
+                          })}
+                      </div>
+                      <Form.Text className="text-muted">Listed</Form.Text>
+                    </Form.Group>
+                  </Form.Row>
                 </Form>
               </div>
             </div>
