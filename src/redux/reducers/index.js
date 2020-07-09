@@ -18,7 +18,8 @@ import createProfile from './profileCreateReducer';
 import contactAddress from './contactAddressReducer';
 import student from "./studentReducer";
 import passwordReset from "./passwordResetReducer";
-
+import saveUserReducer from "./saveUserReducer"
+import getUsersReducer from "./getUsersReducer"
 
 
 // rootReducer is the primary reducer for our entire project
@@ -47,6 +48,8 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   student, //will hold whether the user is a student or not
   passwordReset,
+  saveUserReducer,
+  getUsersReducer
 });
 
 export default rootReducer;

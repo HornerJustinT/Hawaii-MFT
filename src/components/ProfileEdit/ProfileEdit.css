@@ -134,6 +134,9 @@
   align-items: left;
 }
 
+header{
+}
+    
 .disable {
     float: right;
     margin-bottom: 1em;

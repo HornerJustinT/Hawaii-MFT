@@ -42,7 +42,7 @@ class ContactInfo extends Component{
             websiteError:'',
             addressOfficeError:'',
             addressHomeError:'',
-            addressMailingError:'',
+            businessCityError:'',
             cityError:'',
             shouldBlockNavigation : true,
            }
@@ -74,7 +74,7 @@ componentDidUpdate = () => {
      
 
       validate = () => {
-          let islandError = '';
+          let islandError = '';                       
            let zipCodeError = '';
            let business_zipCodeError='';
            let  businessNumberError = '';
@@ -87,7 +87,9 @@ componentDidUpdate = () => {
             let businessCityError ='';
             let websiteError = '';
           let formIsValid = true;
+
   
+
           if(this.state.city === ''){
             formIsValid=false;
             cityError = 'City is required.'
@@ -95,6 +97,7 @@ componentDidUpdate = () => {
               formIsValid=false;
               cityError = "City input is invalid." 
           }
+
           if(this.state.city_business === ''){
                formIsValid=false;
                businessCityError = 'City is required.'
@@ -103,6 +106,14 @@ componentDidUpdate = () => {
                  businessCityError = "City input is invalid." 
              }
 
+          if(this.state.cityOfBussiness === ''){
+            formIsValid=false;
+            businessCityError = 'City - Business is required'
+          }else if(!this.state.cityOfBussiness.match(/^[a-zA-Z_]+$/)){
+              formIsValid=false;
+              businessCityError = "City - Business is invalid" 
+          }
+        
           if(this.state.address_home=== ''){
                formIsValid=false;
                addressHomeError = 'Street Address - Personal is required.'
@@ -120,14 +131,16 @@ componentDidUpdate = () => {
           if(this.state.personal_email === ''){
             formIsValid=false;
             personalEmailError = 'Email - Personal is required.'
-          }else if(!this.state.personal_email.includes('@') ){
+          }else if(!this.state.personal_email.match(/^[^@]+@[^@]+\.[^@]+$/)){
+
               formIsValid=false;
               personalEmailError = "Email - Personal input is not valid."
           }
           if(this.state.email === ''){
                formIsValid=false;
                emailError = 'Email - Business is required.'
-          }else if(!this.state.email.includes('@') ){
+          }else if(!this.state.email.match(/^[^@]+@[^@]+\.[^@]+$/) ){
+
                  formIsValid=false;
                  emailError = "Email - Business input is not valid."
              }
@@ -205,15 +218,48 @@ componentDidUpdate = () => {
                }
  }
 
+studentContactInfo = (e) =>{
+  e.preventDefault();
+
+  // const isValid = this.validateStudent();
+  // if(!isValid){
+    //  return false
+    //  }else{
+          this.props.dispatch({
+               type: 'ADD_ADDRESS',
+               payload:{
+                 island_id: this.state.island_id, 
+                 email: this.state.email,
+                 personal_email:this.state.personal_email,
+                 personal_number:this.state.personal_number,
+                 address_home:this.state.address_home,
+                 address_mailing:this.state.address_mailing,
+                 zip_code: this.state.zip_code,
+                 city: this.state.city,
+                 website: this.state.website
+               }});
+               this.setState({shouldBlockNavigation:false},()=>{
+                    this.props.history.push("/student");
+                  });
+      //  return true;
+    //  }
+ 
+ 
+}
+
+     handleStudent =(e)=>{
+       this.setState({
+         showStudentProfile: !this.state.showStudentProfile
+       })
+     }
    
     render (){
-     return(
+
+        return(
             <>
             <div className='container'>
-            <header>
-              <h1 className="text-center">Contact Info</h1>
-            </header>
-            <div className='progressbar'> <ProgressBar now={50} /></div>
+            <header><h1 className="text-center">Contact Info</h1></header>
+            <ProgressBar now={50} />
             <div>
               <Prompt
                 when={this.state.shouldBlockNavigation}

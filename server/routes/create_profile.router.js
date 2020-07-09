@@ -137,6 +137,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     
         await member.query('BEGIN')
       const insertMember = await  member.query(`INSERT INTO "members" 
+
         ("id","zip_code", "zip_code_personal", "first_name", "last_name", "prefix", "age","license_state", "license_expiration", "supervision_status","fees", 
         "credentials", "telehealth", "statement", "website", "title", "city", "city_personal", "license_number", "license_type")
     VALUES($1,$2, $3, $4, $5, $6, $7, $8, $9, $10, $11,$12,$13,$14,$15,$16,$17,$18, $19, $20);`, [req.user.id,req.body.business_zip_code, req.body.zip_code, req.body.first_name,  req.body.last_name, req.body.prefix, req.body.age, req.body.license_state, req.body.license_expiration, 
