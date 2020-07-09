@@ -286,6 +286,7 @@ class PracticeInfo extends Component {
     //  }
   }
 
+  //render
 
   render() {
 
@@ -648,10 +649,6 @@ class PracticeInfo extends Component {
             </Form.Group>
           </Form>
         </div>
-
-
-
-        
       </>
     );
   }
