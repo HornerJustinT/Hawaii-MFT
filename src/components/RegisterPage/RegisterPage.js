@@ -33,7 +33,7 @@ class RegisterPage extends Component {
         return (prev.id > current.id) ? prev : current
     })
     if(this.state.newId==="")
-    this.setState({newId:(max.id +1)})
+    this.setState({newId:(max.id +1)},()=>{console.log(this.state)})
     }
 
   }

@@ -63,6 +63,7 @@ class PracticeInfo extends Component {
     this.props.dispatch({ type: 'FETCH_DEMOGRPHICS' });
     this.props.dispatch({ type: 'FETCH_AGE_GROUPS' });
     this.props.dispatch({ type: 'FETCH_SESSION_FORMAT' });
+    console.log(this.props.saveUserReducer)
   }
   componentDidUpdate = () => {
     if (this.state.shouldBlockNavigation) {
