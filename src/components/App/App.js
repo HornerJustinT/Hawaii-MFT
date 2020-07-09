@@ -80,19 +80,20 @@ class App extends Component {
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/forgotpassword" component={ForgotPassword} />
             <Route exact path="/passwordreset/:key" component={NewPassword} />
-            {/*This is a route anyone can see, no login necessary */}
-            <ProtectedRoute exact path="/create-profile" component={ProfileCreate} />
-            <ProtectedRoute exact path="/student-create" component={studentCreate} />
+
+            {/*This is a route that is already protected by the registration key*/}
+            <Route exact path="/create-profile" component={ProfileCreate} />
+            <Route exact path="/student-create" component={studentCreate} />
 
             {/*User only sees these routes if logged in*/}
             <ProtectedRoute exact path="/edit-profile" component={ProfileEdit} />
             <ProtectedRoute exact path="/edit-student" component={ProfileEditStudent} />
 
-            <ProtectedRoute exact path="/contact-info" component={ContactInfo} />
-            <ProtectedRoute exact path="/student-contact" component={studentContact} />
-            <ProtectedRoute exact path="/practice" component={PracticeInfo} />
-            <ProtectedRoute exact path="/student-practice" component={studentPractice} />
-            <ProtectedRoute exact path="/uploadimage" component={uploadImage} />
+            <Route exact path="/contact-info" component={ContactInfo} />
+            <Route exact path="/student-contact" component={studentContact} />
+            <Route exact path="/practice" component={PracticeInfo} />
+            <Route exact path="/student-practice" component={studentPractice} />
+            <Route exact path="/uploadimage" component={uploadImage} />
            
 
             {/* Admin View */}

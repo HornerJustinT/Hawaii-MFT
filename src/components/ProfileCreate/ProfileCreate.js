@@ -38,6 +38,7 @@ class ProfileCreate extends Component {
 //from which users can choose the languages they speak
 componentDidMount(){
  this.getLanguages()
+ console.log("user that will be added", this.props.saveUserReducer);
 
 }
 componentDidUpdate = () => {
@@ -156,9 +157,9 @@ componentDidUpdate = () => {
      event.preventDefault();
      const isValid = this.validate();
 
-    if(!isValid){
-      return false
-      }else{
+    // if(!isValid){
+      // return false
+      // }else{
         this.props.dispatch({
               type:'ADD_CREATE_PROFILE',
               payload:{
@@ -175,8 +176,8 @@ componentDidUpdate = () => {
         });
 
         // this.props.history.push("/contact-info");
-        return true;
-      }
+        // return true;
+      // }
     }
 
    
@@ -193,6 +194,7 @@ componentDidUpdate = () => {
     }
     
     render (){
+      console.log("user that will be added", this.props.saveUserReducer);
       return (
 
         <><div>
@@ -333,7 +335,8 @@ componentDidUpdate = () => {
 const mapStateToProps = reduxstate => ({
     reduxstate,
     languages: reduxstate.languages,
-    user: reduxstate.user
+    user: reduxstate.user,
+    saveUserReducer: reduxstate.saveUserReducer
   });
 
 export default connect(mapStateToProps)(ProfileCreate);
