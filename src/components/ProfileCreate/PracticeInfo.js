@@ -7,6 +7,7 @@ import "./profileCreate.css"
 
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import Col from 'react-bootstrap/Col';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -117,17 +118,17 @@ handleInputChangeFor = propertyName => (event) =>{
 
       if(this.state.license_state === ''){
         formIsValid=false;
-        licenseStateError = 'State Name is required'
+        licenseStateError = 'State of Issuance is required.'
       }else if(!this.state.license_state.match(/^[a-zA-Z_]+$/) ){
           formIsValid=false;
-          licenseStateError = "State Name is invalid" 
+          licenseStateError = "State of Issuance input is invalid." 
       }
       if(this.state.title === ''){
         formIsValid=false;
-        titleError = 'Title is required'
+        titleError = 'Title is required.'
       }else if(!this.state.title.match(/^[a-zA-Z_]+$/) ){
           formIsValid=false;
-          titleError = "Title is invalid" 
+          titleError = "Title input is invalid." 
       }
       if(this.state.statement === ''){
         formIsValid=false;
@@ -139,63 +140,63 @@ handleInputChangeFor = propertyName => (event) =>{
 
       if(this.state.license_number === ''){
         formIsValid=false;
-        licenseNumberError = 'License Number is required'
+        licenseNumberError = 'License Number is required.'
       }else if(!isNaN(this.state.license_number) === false ){
           formIsValid=false;
-          licenseNumberError = "License Number is invalid" 
+          licenseNumberError = "License Number input is invalid." 
       }
       if(this.state.fees === ''){
         formIsValid=false;
-        feesError = 'Fees is required'
+        feesError = 'Fees is required.'
       }else if(!isNaN(this.state.fees) === false ){
           formIsValid=false;
-          feesError = "Fees is invalid" 
+          feesError = "Fees input is invalid." 
       }
       if(this.state.license_type === ''){
         formIsValid=false;
-        licenseTypeError = 'License Type is required'
+        licenseTypeError = 'License Type is required.'
    }
 
       if(this.state.supervision_status === ''){
            formIsValid=false;
-           supervisionStatusError = 'Supervision status is required'
+           supervisionStatusError = 'Supervision Status is required.'
       }
 
       if(this.state.license_expiration === ''){
            formIsValid=false;
-           licenseExpirationError = 'License experation is required'
+           licenseExpirationError = 'License Expiration is required.'
       }
       if(this.state.telehealth === ''){
            formIsValid=false;
-           telehealthError = 'Telehealth choice is required'
+           telehealthError = 'Telehealth is required.'
       }
       if(this.state.session_format_id === ''){
         formIsValid=false;
-        sessionFormatIdError = 'Session Format is required'
+        sessionFormatIdError = 'Session Format is required.'
         }
         if(this.state.client_focus_id === ''){
         formIsValid=false;
-        clientFocusIdError = 'Client Focus group is required'
+        clientFocusIdError = 'Demographic Focus is required.'
         }
         if(this.state.specialty_id === ''){
         formIsValid=false;
-       specialtyIdError = 'Specialty choice is required'
+       specialtyIdError = 'Specialization is required.'
         }
         if(this.state.treatment_preferences_id === ''){
         formIsValid=false;
-        treatmentPreferencesIdError = 'Treatment Preference is required'
+        treatmentPreferencesIdError = 'Treatment & Approach is required.'
         }
         if(this.state.age_groups_served_id === ''){
         formIsValid=false;
-        ageGroupsError = 'Age Group is required'
+        ageGroupsError = 'Age Focus Group is required.'
        }
        if(this.state.credentials === ''){
          formIsValid=false;
-        credentialsError = 'Credentials is required'
+        credentialsError = 'Credentials is required.'
         }
         if(this.state.insurance_type_id === ''){
           formIsValid=false;
-         insuranceTypeIdError = 'Insurance Taken is required'
+         insuranceTypeIdError = 'Insurance Accepted is required.'
          }
 
       if( licenseStateError || licenseNumberError || licenseTypeError ||   supervisionStatusError
@@ -287,30 +288,32 @@ handleInputChangeFor = propertyName => (event) =>{
      
         return (
           <>
-<div>
-                          <Prompt
-        when={this.state.shouldBlockNavigation}
-        message='You have unsaved changes, are you sure you want to leave?'
-      />
+            <div>
+              <Prompt
+                when={this.state.shouldBlockNavigation}
+                message='You have unsaved changes. Are you sure you want to leave?'
+              />
 
-        </div>
-            <div className="container">
-            <header>
-              {" "}
-              <h1 className="text-center">Practice Info</h1>
-            </header>
-            <div className='progressbar'> <ProgressBar now={75} /></div>
+            </div>
+                <div className="container">
+                <header>
+                  <h1 className="text-center">Practice Info</h1>
+                </header>
+                <div className='progressbar'> <ProgressBar now={75} /></div>
 
               <Form onSubmit={this.addMembersInfo}>
                 <Form.Group>
                   <Form.Label>Title*</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder='Please fill in your title'
+                    placeholder='Please fill in your Title.'
                     name="title"
                     value={this.state.title}
                     onChange={this.handleInputChangeFor("title")}
                   />
+                  <Form.Text className="text-muted">
+                    Not Listed (for HIAMFT-use only)
+                  </Form.Text>
                    <h4 className="error">{this.state.titleError}</h4>
                 </Form.Group>
 
@@ -318,11 +321,17 @@ handleInputChangeFor = propertyName => (event) =>{
                   <Form.Label>Credentials*</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder='Please fill in your credentials'
+                    placeholder='Please fill in your Credentials.'
                     name="title"
                     value={this.state.credentials}
                     onChange={this.handleInputChangeFor("credentials")}
                   />
+                  <Form.Text className="text-muted">
+                    Please indicate the credentials you would like to have
+                    listed in your HIAMFT Directory listing. Type them in as
+                    they would appear following your name. Example: 'PhD,
+                    LMFT, LP'
+                  </Form.Text>
                    <h4 className="error">{this.state.credentialsError}</h4>
                 </Form.Group>
 
@@ -350,18 +359,25 @@ handleInputChangeFor = propertyName => (event) =>{
                       </>
                     )}
                   </Form.Control>
+                  <Form.Text className="text-muted">
+                    Not Listed (for HIAMFT-use only) - Please list licenses
+                    that you'd like to appear after your name in Credentials section
+                      </Form.Text>
                         <h4 className="error">{this.state.licenseTypeError}</h4>
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>License State of Issue*</Form.Label>
+                  <Form.Label>License State of Issuance*</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder='Please fill in your license state of issue'
+                    placeholder='Please fill in your License State of Issuance.'
                     name="license_state"
                     value={this.state.license_state}
                     onChange={this.handleInputChangeFor("license_state")}
                   />
+                  <Form.Text className="text-muted">
+                    Not Listed (for HIAMFT-use only)
+                      </Form.Text>
                    <h4 className="error">{this.state.licenseStateError}</h4>
                 </Form.Group>
 
@@ -369,11 +385,14 @@ handleInputChangeFor = propertyName => (event) =>{
                   <Form.Label>License Number*</Form.Label>
                   <Form.Control
                     type="number"
-                    placeholder='Please fill in your license number'
+                    placeholder='Please fill in your License Number.'
                     name="license_number"
                     value={this.state.license_number}
                     onChange={this.handleInputChangeFor("license_number")}
                   />
+                  <Form.Text className="text-muted">
+                    Not Listed (for HIAMFT-use only)
+                      </Form.Text>
                    <h4 className="error">{this.state.licenseNumberError}</h4>
                 </Form.Group>
 
@@ -381,65 +400,15 @@ handleInputChangeFor = propertyName => (event) =>{
                   <Form.Label>License Expiration Date*</Form.Label>
                   <Form.Control
                     type="date"
-                    placeholder='Please fill in your license expiration date'
+                    placeholder='Please fill in your License Expiration Date.'
                     name="license_expiration"
                     value={this.state.license_expiration}
                     onChange={this.handleInputChangeFor("license_expiration")}
                   />
+                  <Form.Text className="text-muted">
+                    Not Listed (for HIAMFT-use only)
+                      </Form.Text>
                    <h4 className="error">{this.state.licenseExpirationError}</h4>
-                </Form.Group>
-
-                <Form.Group>
-                  <Form.Label>Statement*</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder='Please fill in your statement'
-                    name="statement"
-                    value={this.state.statement}
-                    onChange={this.handleInputChangeFor("statement")}
-                  />
-                   <h4 className="error">{this.state.statementError}</h4>
-                </Form.Group>
-
-                <Form.Group>
-                  <Form.Label>Fees*</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder='Please fill in fees'
-                    name="fees"
-                    value={this.state.fees}
-                    onChange={this.handleInputChangeFor("fees")}
-                  />
-                   <h4 className="error">{this.state.feesError}</h4>
-                </Form.Group>
-
-                <Form.Group>
-                  <Form.Label>Specialization*</Form.Label>
-                  <Form.Control
-                    as="select"
-                    placeholder='Please fill in your specialization'
-                    multiple={true}
-                    onChange={(event) =>
-                      this.handleMultiChange(event,"specialty_id")
-                    }
-                  >
-                    {this.props.specialtys && (
-                      <>
-                        <option value="" defaultValue="Select a Speciality">
-                          Select a Speciality
-                        </option>
-                        {this.props.specialtys.map((specialty) => (
-                          <option
-                            value={specialty.specialty_id}
-                            key={specialty.specialty_id}
-                          >
-                            {specialty.title}
-                          </option>
-                        ))}
-                      </>
-                    )}
-                  </Form.Control>
-                  <h4 className="error">{this.state.specialtyIdError}</h4>
                 </Form.Group>
 
                 <Form.Group>
@@ -449,16 +418,16 @@ handleInputChangeFor = propertyName => (event) =>{
                     onChange={this.handleInputChangeFor("supervision_status")}
                   >
                     <option value="None">None</option>
-                    <option value="Hawai'i qualified">Hawai'i qualified</option>
-                    <option value="MFT supervisor">MFT supervisor</option>
-                    <option value="AAMFT approved">AAMFT approved</option>
+                    <option value="Hawai'i qualified">Hawai'i-Qualified</option>
+                    <option value="MFT supervisor">MFT Supervisor</option>
+                    <option value="AAMFT approved">AAMFT-approved</option>
                     <option value="Supervisor">Supervisor</option>
                   </Form.Control>
+                  <Form.Text className="text-muted">Listed</Form.Text>
                   <h4 className="error">{this.state.supervisionStatusError}</h4>
                 </Form.Group>
-
                 <Form.Group>
-                  <Form.Label>Insurance Taken*</Form.Label>
+                  <Form.Label>Insurance Accepted* - you may select multiple</Form.Label>
                   <Form.Control
                     as="select"
                     multiple={true}
@@ -468,9 +437,6 @@ handleInputChangeFor = propertyName => (event) =>{
                   >
                     {this.props.insuranceTaken && (
                       <>
-                        <option value="" defaultValue="Select Insurance Type">
-                          Select Insurance Type
-                        </option>
                         {this.props.insuranceTaken.map((insurance) => (
                           <option
                             value={insurance.insurance_type_id}
@@ -482,27 +448,67 @@ handleInputChangeFor = propertyName => (event) =>{
                       </>
                     )}
                   </Form.Control>
+                  <Form.Text className="text-muted">
+                    Listed - To select multiple on Mac: press & hold Command key. To
+                    select multiple on PC, press & hold CTRL.
+                  </Form.Text>
                   <h4 className="error">{this.state.insuranceTypeIdError}</h4>
                 </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Fees*</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder='Please fill in your Fees.'
+                    name="fees"
+                    value={this.state.fees}
+                    onChange={this.handleInputChangeFor("fees")}
+                  />
+                  <Form.Text className="text-muted">
+                    Listed - Please indicate a standard rate or range
+                      </Form.Text>
+                   <h4 className="error">{this.state.feesError}</h4>
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Specialization(s)* - you may select multiple</Form.Label>
+                  <Form.Control
+                    as="select"
+                    placeholder='Please fill in your specialization.'
+                    multiple={true}
+                    onChange={(event) =>
+                      this.handleMultiChange(event,"specialty_id")
+                    }
+                  >
+                    {this.props.specialtys && (
+                      <>
+                        {this.props.specialtys.map((specialty) => (
+                          <option
+                            value={specialty.specialty_id}
+                            key={specialty.specialty_id}
+                          >
+                            {specialty.title}
+                          </option>
+                        ))}
+                      </>
+                    )}
+                  </Form.Control>
+                  <Form.Text className="text-muted">
+                    Listed - To select multiple on Mac: press & hold Command
+                    key. To select multiple on PC, press & hold CTRL.
+                      </Form.Text>
+                  <h4 className="error">{this.state.specialtyIdError}</h4>
+                </Form.Group>
+
+                
+
+                
+                
+
                 
 
                 <Form.Group>
-                  <Form.Label>Are you providing telehealth?*</Form.Label>
-                  <Form.Control
-                    as="select"
-                    placeholder='Please choose if you are providing telehealth'
-                    name="telehealth"
-                    value={this.state.telehealth}
-                    onChange={this.handleInputChangeFor("telehealth")}
-                  >
-                    <option>Yes</option>
-                    <option>No</option>
-                  </Form.Control>
-                  <h4 className="error">{this.state.telehealthError}</h4>
-                </Form.Group>
-
-                <Form.Group>
-                  <Form.Label>Treatment Approaches/Preferences*</Form.Label>
+                  <Form.Label>Treatment & Approach* - you may select multiple</Form.Label>
                   <Form.Control
                     as="select"
                     multiple={true}
@@ -512,9 +518,6 @@ handleInputChangeFor = propertyName => (event) =>{
                   >
                     {this.props.treatmentPreferences && (
                       <>
-                        <option value="" defaultValue="Select an Approach">
-                          Select an Approach
-                        </option>
                         {this.props.treatmentPreferences.map((treatment) => (
                           <option
                             value={treatment.treatment_preferences_id}
@@ -526,11 +529,15 @@ handleInputChangeFor = propertyName => (event) =>{
                       </>
                     )}
                   </Form.Control>
+                  <Form.Text className="text-muted">
+                    Listed - To select multiple on Mac: press & hold Command
+                    key. To select multiple on PC, press & hold CTRL.
+                      </Form.Text>
                   <h4 className="error">{this.state.treatmentPreferencesIdError}</h4>
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>Client Focus*</Form.Label>
+                  <Form.Label>Demographic Focus* - you may select multiple</Form.Label>
                   <Form.Control
                     as="select"
                     multiple={true}
@@ -540,9 +547,6 @@ handleInputChangeFor = propertyName => (event) =>{
                   >
                     {this.props.demographics && (
                       <>
-                        <option value="" defaultValue="Select a Demographic">
-                          Select a Demographic
-                        </option>
                         {this.props.demographics.map((group) => (
                           <option
                             value={group.client_focus_id}
@@ -554,10 +558,15 @@ handleInputChangeFor = propertyName => (event) =>{
                       </>
                     )}
                   </Form.Control>
+                  <Form.Text className="text-muted">
+                    Listed - To select multiple on Mac: press & hold Command
+                    key. To select multiple on PC, press & hold CTRL.
+                      </Form.Text>
                   <h4 className="error">{this.state.clientFocusIdError}</h4>
                 </Form.Group>
 
                 <Form.Group>
+                  <Form.Label>Age Group Focus* - you may select multiple</Form.Label>
                   <Form.Control
                     as="select"
                     multiple={true}
@@ -567,9 +576,6 @@ handleInputChangeFor = propertyName => (event) =>{
                   >
                     {this.props.ageGroups && (
                       <>
-                        <option value="" defaultValue="Select an Age Group">
-                          Select an Age Group
-                        </option>
                         {this.props.ageGroups.map((agegroup) => (
                           <option
                             value={agegroup.age_groups_served_id}
@@ -581,11 +587,15 @@ handleInputChangeFor = propertyName => (event) =>{
                       </>
                     )}
                   </Form.Control>
+                  <Form.Text className="text-muted">
+                    Listed - To select multiple on Mac: press & hold Command
+                    key. To select multiple on PC, press & hold CTRL.
+                      </Form.Text>
                   <h4 className="error">{this.state.ageGroupsError}</h4>
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>Session Format(s)*</Form.Label>
+                  <Form.Label>Session Format(s)* - you may select multiple</Form.Label>
                   <Form.Control
                     as="select"
                     multiple={true}
@@ -595,9 +605,6 @@ handleInputChangeFor = propertyName => (event) =>{
                   >
                     {this.props.sessionFormats && (
                       <>
-                        <option value="" defaultValue="Select a Session Format">
-                          Select a Session Format
-                        </option>
                         {this.props.sessionFormats.map((session) => (
                           <option
                             value={session.session_format_id}
@@ -609,7 +616,26 @@ handleInputChangeFor = propertyName => (event) =>{
                       </>
                     )}
                   </Form.Control>
+                  <Form.Text className="text-muted">
+                    Listed - To select multiple on Mac: press & hold Command
+                    key. To select multiple on PC, press & hold CTRL.
+                      </Form.Text>
                   <h4 className="error">{this.state.sessionFormatIdError}</h4>
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Are you providing telehealth?*</Form.Label>
+                    <Form.Control
+                      as="select"
+                      placeholder='Please choose if you are providing telehealth.'
+                      name="telehealth"
+                      value={this.state.telehealth}
+                      onChange={this.handleInputChangeFor("telehealth")}
+                    >
+                      <option>No, I do not offer telehealth.</option>
+                      <option>Yes, I offer telehealth.</option>
+                    </Form.Control>
+                  <Form.Text className="text-muted">Listed</Form.Text>
+                  <h4 className="error">{this.state.telehealthError}</h4>
                 </Form.Group>
 
                 <Form.Group>
