@@ -198,12 +198,12 @@ componentDidUpdate = () => {
       console.log("user that will be added", this.props.saveUserReducer);
       return (
 
-        <><div>
-                          <Prompt
-        when={this.state.shouldBlockNavigation}
-        message='You have unsaved changes. Are you sure you want to leave?'
-      />
-
+        <>
+        <div>
+          <Prompt
+            when={this.state.shouldBlockNavigation}
+            message='You have unsaved changes. Are you sure you want to leave?'
+          />
         </div>
 
           <div className="container">
