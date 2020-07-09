@@ -64,11 +64,11 @@ handleNext = (e) =>{
         return(
 
           <>
-          
+      <div className='container'>     
      <div className="text-center">
-       <div className='container'>
-         <h1><header className='uploadImage'>Upload Your Profile Image</header></h1>
-         <ProgressBar now={100} />
+      
+         <h1 className='header'><header className='uploadImage'>Upload Your Profile Image</header></h1>
+         <div className='progressbar'> <ProgressBar now={100} /></div>
          <br/>
          <br/>
               <img className="photo" src={this.state.profilePhoto}></img>
@@ -80,8 +80,9 @@ handleNext = (e) =>{
                 ></UploadModal>
               </div>
               <div className='toEditView'><Button onClick={this.handleNext}>Next</Button></div>
-              </div>  
+            
       </div>
+      </div>  
       
           </>
         )

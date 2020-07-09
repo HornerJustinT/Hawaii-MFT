@@ -2,7 +2,7 @@ import React, { Component} from 'react';
 import firebase from "../../../Firebase/index";
 //used to connect the component to the reducer
 import { connect } from 'react-redux';
-// import "./profileCreate.css"
+import "../profileCreate.css"
 
 import { Prompt } from 'react-router'
 
@@ -211,7 +211,7 @@ componentDidUpdate = () => {
 
             <br />
 
-            <ProgressBar now={25} />
+            <div className='progressbar'> <ProgressBar now={25} /></div>
             <div className="text-center">
               <h3 className="subtitle">Basic Info</h3>
             </div>

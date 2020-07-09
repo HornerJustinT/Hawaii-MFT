@@ -1,8 +1,9 @@
 .uploadImage{
-   padding-bottom: 1em;
+   padding-bottom: 0;
 }
 
 .toEditView{
    padding-top: 1.5em; 
+   padding-bottom: 1.5em;
 }
 
