@@ -25,22 +25,17 @@ class studentContact extends Component{
             email:'',
             personal_email:'',
             website:'',
-            address_office:'',
             address_home:'',
             city:'',
-            cityOfBussiness:'',
             showStudentProfile: false,
             islandError:'',
             zipCodeError:'',
-            business_zipCodeError:'',
-            businessNumberError:'',
             personalNumberError:'',
             emailError:'',
             personalEmailError:'',
             websiteError:'',
             addressOfficeError:'',
             addressHomeError:'',
-            addressMailingError:'',
             cityError:'',
             shouldBlockNavigation : true,
            }
@@ -92,15 +87,13 @@ componentDidUpdate = () => {
       validate = () => {
           let islandError = '';
            let zipCodeError = '';
-           let business_zipCodeError='';
-           let  businessNumberError = '';
             let personalNumberError = '';
             let emailError = '';
             let personalEmailError ='';
-           let addressOfficeError ='';
             let addressHomeError = '';
             let cityError = '';
             let businessCityError ='';
+            let websiteError ='';
           let formIsValid = true;
   
           if(this.state.city === ''){
@@ -110,24 +103,10 @@ componentDidUpdate = () => {
               formIsValid=false;
               cityError = "City - Home is invalid" 
           }
-          if(this.state.city_business === ''){
-               formIsValid=false;
-               businessCityError = 'City - Business is required'
-             }else if(!this.state.cityOfBussiness.match(/^[a-zA-Z_]+$/) ){
-                 formIsValid=false;
-                 businessCityError = "City - Business is invalid" 
-             }
-
           if(this.state.address_home=== ''){
                formIsValid=false;
                addressHomeError = 'Home Address is required'
           }
-
-          if(this.state.address_office === ''){
-               formIsValid=false;
-               addressOfficeError = 'Office Address is required'
-          }
-        
           if(this.state.personal_email === ''){
             formIsValid=false;
             personalEmailError = 'Personal Email is required'
@@ -146,12 +125,10 @@ componentDidUpdate = () => {
                formIsValid=false;
                personalNumberError = 'Personal Number is required'
              }
-
-          if(this.state.business_number === ''){
-               formIsValid=false;
-               businessNumberError = 'Business Number is required'
-             }
-        
+             if(this.state.website === ''){
+              formIsValid=false;
+              websiteError = 'Website address is required'
+            }
           if(this.state.zip_code === ''){
             formIsValid=false;
             zipCodeError = 'Personal Zip Code is required! '
@@ -159,26 +136,17 @@ componentDidUpdate = () => {
               formIsValid = false;
               zipCodeError = "Personal Zip code is invalid"
           }
-
-          if(this.state.business_zip_code === ''){
-               formIsValid=false;
-               business_zipCodeError = 'Business Zip Code is required! '
-             }else if(!isNaN(this.state.zip_code)===false ){
-                 formIsValid = false;
-                 business_zipCodeError = "Business Zip code is invalid"
-             }
-
           if(this.state.island_id === ''){
                formIsValid=false;
               islandError = 'Island Name is required! '
           }
   
-          if(cityError || businessCityError || addressHomeError || addressOfficeError 
+          if(cityError  || addressHomeError 
               || personalEmailError || emailError ||  personalNumberError 
-               || businessNumberError|| zipCodeError || islandError || business_zipCodeError){
-            this.setState({cityError, addressHomeError, addressOfficeError, 
+              || zipCodeError || islandError || websiteError){
+            this.setState({cityError, addressHomeError,  
                 personalEmailError,  emailError,  personalNumberError, 
-               businessNumberError, zipCodeError,  islandError, businessCityError, business_zipCodeError});
+                zipCodeError,  islandError, businessCityError, websiteError});
           
           }else{
             return true;
@@ -189,7 +157,7 @@ componentDidUpdate = () => {
 studentContactInfo = (e) =>{
   e.preventDefault();
 
-  const isValid = this.validateStudent();
+  const isValid = this.validate();
   if(!isValid){
      return false
      }else{
@@ -308,7 +276,9 @@ studentContactInfo = (e) =>{
              <br/>
              <br/>
             
-           <Button type="submit">Next</Button>
+             <div  className="next-button">
+                  <Button type="submit">Next</Button>
+                  </div>
             </Form>
             </div>
            

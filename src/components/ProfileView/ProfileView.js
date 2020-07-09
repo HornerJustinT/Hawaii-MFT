@@ -144,8 +144,6 @@ class ProfileView extends Component {
                 <div className="row">
                   <img
                     className="profile"
-                    width="200"
-                    height="200"
                     src={this.state.profilePhoto}
                   />
                 </div>

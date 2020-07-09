@@ -44,6 +44,7 @@ import NewPassword from "../NewPassword/NewPassword";
 // CSS
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import StudentRegisterPage from '../StudentRegisterPage/StudentRegisterPage';
 
 
 class App extends Component {
@@ -75,6 +76,7 @@ class App extends Component {
             {/*This is a route anyone can see, no login necessary */}
             <Route exact path="/register/:id" component={RegisterPage} />
             {/*This is a route anyone can see, no login necessary */}
+            <Route exact path ="/student-register/:id" component= {StudentRegisterPage}/>
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/forgotpassword" component={ForgotPassword} />
             <Route exact path="/passwordreset/:key" component={NewPassword} />
