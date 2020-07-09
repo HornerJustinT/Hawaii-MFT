@@ -87,6 +87,7 @@ componentDidUpdate = () => {
             let websiteError = '';
           let formIsValid = true;
   
+
           if(this.state.city === ''){
             formIsValid=false;
             cityError = 'City - Home is required'
@@ -101,6 +102,7 @@ componentDidUpdate = () => {
                  formIsValid=false;
                  businessCityError = "City - Business is invalid" 
              }
+
 
           if(this.state.address_home=== ''){
                formIsValid=false;
@@ -204,16 +206,51 @@ componentDidUpdate = () => {
                }
  }
 
+studentContactInfo = (e) =>{
+  e.preventDefault();
+
+  // const isValid = this.validateStudent();
+  // if(!isValid){
+    //  return false
+    //  }else{
+          this.props.dispatch({
+               type: 'ADD_ADDRESS',
+               payload:{
+                 island_id: this.state.island_id, 
+                 email: this.state.email,
+                 personal_email:this.state.personal_email,
+                 personal_number:this.state.personal_number,
+                 address_home:this.state.address_home,
+                 address_mailing:this.state.address_mailing,
+                 zip_code: this.state.zip_code,
+                 city: this.state.city,
+                 website: this.state.website
+               }});
+               this.setState({shouldBlockNavigation:false},()=>{
+                    this.props.history.push("/student");
+                  });
+      //  return true;
+    //  }
+ 
+ 
+}
+
+     handleStudent =(e)=>{
+       this.setState({
+         showStudentProfile: !this.state.showStudentProfile
+       })
+     }
    
     render (){
-     return(
+
+        return(
             <>
             <div className='container'>
-            <header>
-              {" "}
-              <h1 className="text-center">Contact Info</h1>
-            </header>
-            <div className='progressbar'> <ProgressBar now={50} /></div>
+            <header><h1 className="text-center">Contact Info</h1></header>
+            <ProgressBar now={50} />
+              
+
+ 
             <div>
                           <Prompt
         when={this.state.shouldBlockNavigation}
@@ -342,9 +379,11 @@ componentDidUpdate = () => {
                   <h4 className="error">{this.state.businessCityError}</h4>
              <br/>
             
-             <div className="next-button">
-                <Button type="submit">Next</Button>
-              </div>
+
+             <div  className="next-button">
+                  <Button type="submit">Next</Button>
+                  </div>
+
             </Form>
             </div>
            
