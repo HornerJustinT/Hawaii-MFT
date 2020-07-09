@@ -236,6 +236,13 @@ handleInputChangeFor = propertyName => (event) =>{
       // if(!isValid){
         //  return false
         //  }else{
+            this.props.dispatch({
+              type: "REGISTER",
+              payload: {
+                username: this.props.saveUserReducer.username,
+                password: this.props.saveUserReducer.password
+              },
+            });
           this.props.dispatch({type:'ADD_MEMBER',
           payload:{
             prefix:this.props.createProfile.prefix,
@@ -277,7 +284,7 @@ handleInputChangeFor = propertyName => (event) =>{
             this.props.history.push("/uploadimage");
           });
           //this will reset the inputs on the parcticeinfo page
-           return true;
+          //  return true;
         //  }
     }
 
@@ -634,6 +641,7 @@ const mapStateToProps = reduxstate => ({
     sessionFormats:reduxstate.sessionFormats,
     createProfile: reduxstate.createProfile,
     contactAddress: reduxstate.contactAddress,
-    user: reduxstate.user
+    user: reduxstate.user,
+    saveUserReducer: reduxstate.saveUserReducer
   });
 export default connect(mapStateToProps)(PracticeInfo);

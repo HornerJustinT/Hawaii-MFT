@@ -25,7 +25,7 @@ class StudentRegisterPage extends Component {
 
     if (this.state.username && this.state.password) {
       this.props.dispatch({
-        type: "REGISTER",
+        type: "SAVE_REGISTER",
         payload: {
           username: this.state.username,
           password: this.state.password,

@@ -22,9 +22,13 @@ function* registerUser(action) {
       yield put({type: 'REGISTRATION_FAILED'});
   }
 }
+function* saveRegister(action){
+  yield put({type: 'SAVE_USER', payload:action.payload})
+}
 
 function* registrationSaga() {
   yield takeLatest('REGISTER', registerUser);
+  yield takeLatest('SAVE_REGISTER', saveRegister);
 }
 
 export default registrationSaga;

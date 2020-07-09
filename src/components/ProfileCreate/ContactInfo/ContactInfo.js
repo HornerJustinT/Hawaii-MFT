@@ -86,20 +86,20 @@ componentDidUpdate = () => {
             let websiteError = '';
           let formIsValid = true;
   
-          if(this.state.city === ''){
-            formIsValid=false;
-            cityError = 'City - Home is required'
-          }else if(!this.state.city.match(/^[a-zA-Z_]+$/) ){
-              formIsValid=false;
-              cityError = "City - Home is invalid" 
-          }
-          if(this.state.city_business === ''){
-               formIsValid=false;
-               businessCityError = 'City - Business is required'
-             }else if(!this.state.cityOfBussiness.match(/^[a-zA-Z_]+$/) ){
-                 formIsValid=false;
-                 businessCityError = "City - Business is invalid" 
-             }
+          // if(this.state.city === ''){
+          //   formIsValid=false;
+          //   cityError = 'City - Home is required'
+          // }else if(!this.state.city.match(/^[a-zA-Z_]+$/) ){
+          //     formIsValid=false;
+          //     cityError = "City - Home is invalid" 
+          // }
+          // if(this.state.city_business === ''){
+          //      formIsValid=false;
+          //      businessCityError = 'City - Business is required'
+          //    }else if(!this.state.cityOfBussiness.match(/^[a-zA-Z_]+$/) ){
+          //        formIsValid=false;
+          //        businessCityError = "City - Business is invalid" 
+          //    }
 
           if(this.state.address_home=== ''){
                formIsValid=false;
@@ -206,10 +206,10 @@ componentDidUpdate = () => {
 studentContactInfo = (e) =>{
   e.preventDefault();
 
-  const isValid = this.validateStudent();
-  if(!isValid){
-     return false
-     }else{
+  // const isValid = this.validateStudent();
+  // if(!isValid){
+    //  return false
+    //  }else{
           this.props.dispatch({
                type: 'ADD_ADDRESS',
                payload:{
@@ -226,8 +226,8 @@ studentContactInfo = (e) =>{
                this.setState({shouldBlockNavigation:false},()=>{
                     this.props.history.push("/student");
                   });
-       return true;
-     }
+      //  return true;
+    //  }
  
  
 }
