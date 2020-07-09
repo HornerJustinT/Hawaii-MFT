@@ -7,9 +7,11 @@ import ProfileEditContact from "./ProfileEditContact";
 import ProfileEditPractice from "./ProfileEditPractice";
 import UploadModal from "../UploadModal/UploadModal";
 
-//React Botstrap imports
+//React Bootstrap imports
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
+
 
 //CSS file imports
 import "./ProfileEdit.css";
@@ -217,6 +219,10 @@ class ProfileEdit extends Component {
               );
             })}
           </Form.Control>
+          <Form.Text className="text-muted">
+            Listed - To select multiple on Mac: press & hold Command key. To
+            select multiple on PC, press & hold CTRL.
+          </Form.Text>
         </Form.Group>
       );
     } else {
@@ -232,6 +238,9 @@ class ProfileEdit extends Component {
               );
             })}
           </div>
+          <Form.Text className="text-muted">
+            Listed
+          </Form.Text>
         </Form.Group>
       );
     }
@@ -259,8 +268,8 @@ class ProfileEdit extends Component {
                 </Button>
               </div>
               <div className="border">
-                <Form className="flex-container row-wrap">
-                  <Form.Group >
+                <Form className="flex-container row-wrap row">
+                  <Form.Group as={Col}>
                     <Form.Label variant="flat" className="label">
                       Prefix
                     </Form.Label>
@@ -269,7 +278,7 @@ class ProfileEdit extends Component {
                       onChange={(event) => this.handleChange(event, "prefix")}
                     />
                   </Form.Group>
-                  <Form.Group>
+                  <Form.Group as={Col}>
                     <Form.Label className="label">First Name</Form.Label>
                     <Form.Control
                       defaultValue={this.state.firstName}
@@ -278,7 +287,7 @@ class ProfileEdit extends Component {
                       }
                     />
                   </Form.Group>
-                  <Form.Group>
+                  <Form.Group as={Col}>
                     <Form.Label className="label">Last Name</Form.Label>
                     <Form.Control
                       defaultValue={this.state.lastName}
@@ -303,7 +312,9 @@ class ProfileEdit extends Component {
                 </Form>
                 <Form>
                   <Form.Group>
-                    <Form.Label className="label">Personal Statement</Form.Label>
+                    <Form.Label className="label">
+                      Personal Statement
+                    </Form.Label>
                     <Form.Control
                       as="textarea"
                       rows="5"
@@ -330,8 +341,8 @@ class ProfileEdit extends Component {
               {this.props.profile && (
                 <>
                   <div className="border">
-                    <Form className="flex-container row-wrap">
-                      <Form.Group >
+                    <Form className="flex-container row-wrap row">
+                      <Form.Group as={Col}>
                         <Form.Label className="label">Prefix</Form.Label>
                         <Form.Control
                           disabled={true}
@@ -339,7 +350,7 @@ class ProfileEdit extends Component {
                           defaultValue={this.state.prefix}
                         />
                       </Form.Group>
-                      <Form.Group >
+                      <Form.Group as={Col}>
                         <Form.Label className="label">First Name</Form.Label>
                         <Form.Control
                           disabled={true}
@@ -347,7 +358,7 @@ class ProfileEdit extends Component {
                           defaultValue={this.state.firstName}
                         />
                       </Form.Group>
-                      <Form.Group >
+                      <Form.Group as={Col}>
                         <Form.Label className="label">Last Name</Form.Label>
                         <Form.Control
                           disabled={true}
@@ -365,15 +376,17 @@ class ProfileEdit extends Component {
                           readOnly
                           defaultValue={this.state.age}
                         />
-                          <Form.Text className="text-muted">
-                            Not Listed (for HIAMFT-use only)
-                          </Form.Text>
+                        <Form.Text className="text-muted">
+                          Not Listed (for HIAMFT-use only)
+                        </Form.Text>
                       </Form.Group>
                       {this.displayLanguages()}
                     </Form>
                     <Form className="last">
                       <Form.Group>
-                        <Form.Label className="label">Personal Statement</Form.Label>
+                        <Form.Label className="label">
+                          Personal Statement
+                        </Form.Label>
                         <Form.Control
                           as="textarea"
                           rows="5"
@@ -392,19 +405,17 @@ class ProfileEdit extends Component {
           <ProfileEditContact />
           <ProfileEditPractice />
 
-          <div className="body">
-            <h4>
-              Profile Picture
-            </h4>
-            <div className="border">
+          <div className="bodyPhoto">
+            <h4>Profile Picture</h4>
+            <div >
               <img className="photo" src={this.state.profilePhoto}></img>
-            
-            <div className="button">
-              <UploadModal
-                refresh={this.getImage}
-                name={this.props.user}
-              ></UploadModal>
-            </div>
+
+              <div className="button">
+                <UploadModal
+                  refresh={this.getImage}
+                  name={this.props.user}
+                ></UploadModal>
+              </div>
             </div>
           </div>
 
@@ -412,6 +423,7 @@ class ProfileEdit extends Component {
             {this.state.enabled ? (
               <Button
                 variant="danger"
+                className="disable"
                 onClick={() => {
                   if (
                     window.confirm(
@@ -424,7 +436,9 @@ class ProfileEdit extends Component {
                 Disable Account
               </Button>
             ) : (
-              <Button onClick={this.enablePress}>Enable Account</Button>
+              <Button className="disable" onClick={this.enablePress}>
+                Enable Account
+              </Button>
             )}
           </div>
         </>

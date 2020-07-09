@@ -286,7 +286,7 @@ class ProfileEditStudent extends Component {
               </Button>
             </div>
             <div className="border">
-              <Form className="flex-container row-wrap">
+              <Form className="flex-container row-wrap row">
                 <Form.Group>
                   <Form.Label variant="flat" className="label">
                     Prefix
@@ -358,7 +358,7 @@ class ProfileEditStudent extends Component {
                   <div className="border">
                     <div>
 
-                    <Form className="flex-container row-wrap">
+                    <Form className="flex-container row-wrap row">
                       <Form.Group >
                         <Form.Label className="label">Prefix</Form.Label>
                         <Form.Control

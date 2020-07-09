@@ -263,7 +263,7 @@ class ProfileEditContactStudent extends Component {
                 </Button>
               </div>
               <div className="border">
-                <Form className="flex-container row-wrap">
+                <Form className="flex-container row-wrap row">
                   <Form.Group >
                     <Form.Label className="label">
                       Email Address
@@ -299,7 +299,7 @@ class ProfileEditContactStudent extends Component {
 
                 <Form>{this.displayIslands()}</Form>
 
-                <Form className="flex-container row-wrap">
+                <Form className="flex-container row-wrap row">
                   <Form.Group>
                     <Form.Label className="label">
                       Street Address
@@ -356,7 +356,7 @@ class ProfileEditContactStudent extends Component {
               {this.props.profile && (
                 <>
                   <div className="border">
-                    <Form className="flex-container row-wrap">
+                    <Form className="flex-container row-wrap row">
                       <Form.Group>
                         <Form.Label className="label">
                           Email Address
@@ -392,7 +392,7 @@ class ProfileEditContactStudent extends Component {
 
                     <Form>{this.displayIslands()}</Form>
 
-                    <Form className="flex-container row-wrap">
+                    <Form className="flex-container row-wrap row">
                       <Form.Group >
                         <Form.Label className="label">
                           Street Address
