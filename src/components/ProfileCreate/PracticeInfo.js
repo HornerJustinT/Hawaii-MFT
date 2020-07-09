@@ -1,4 +1,6 @@
+
 import React, { Component } from 'react';
+
 import { Prompt } from 'react-router'
 //this connects the component to th redux store
 import { connect } from 'react-redux';
@@ -9,7 +11,6 @@ import "./profileCreate.css"
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-
 
 
 
@@ -219,6 +220,7 @@ class PracticeInfo extends Component {
     }
 
   }
+
   //every multiselect needs its own handle[Property]Change function
   //this functions take the new id of an item selected in the multiselect
   //and converts it to a title (name).
@@ -642,6 +644,8 @@ class PracticeInfo extends Component {
     );
   }
 
+    
+
 }
 
 const mapStateToProps = reduxstate => ({
@@ -658,4 +662,5 @@ const mapStateToProps = reduxstate => ({
   user: reduxstate.user,
   saveUserReducer: reduxstate.saveUserReducer
 });
+
 export default connect(mapStateToProps)(PracticeInfo);

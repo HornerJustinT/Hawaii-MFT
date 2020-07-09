@@ -87,20 +87,22 @@ componentDidUpdate = () => {
             let websiteError = '';
           let formIsValid = true;
   
-          // if(this.state.city === ''){
-          //   formIsValid=false;
-          //   cityError = 'City - Home is required'
-          // }else if(!this.state.city.match(/^[a-zA-Z_]+$/) ){
-          //     formIsValid=false;
-          //     cityError = "City - Home is invalid" 
-          // }
-          // if(this.state.city_business === ''){
-          //      formIsValid=false;
-          //      businessCityError = 'City - Business is required'
-          //    }else if(!this.state.cityOfBussiness.match(/^[a-zA-Z_]+$/) ){
-          //        formIsValid=false;
-          //        businessCityError = "City - Business is invalid" 
-          //    }
+
+          if(this.state.city === ''){
+            formIsValid=false;
+            cityError = 'City - Home is required'
+          }else if(!this.state.city.match(/^[a-zA-Z_]+$/) ){
+              formIsValid=false;
+              cityError = "City - Home is invalid" 
+          }
+          if(this.state.city_business === ''){
+               formIsValid=false;
+               businessCityError = 'City - Business is required'
+             }else if(!this.state.cityOfBussiness.match(/^[a-zA-Z_]+$/) ){
+                 formIsValid=false;
+                 businessCityError = "City - Business is invalid" 
+             }
+
 
           if(this.state.address_home=== ''){
                formIsValid=false;
@@ -247,6 +249,8 @@ studentContactInfo = (e) =>{
             <header><h1 className="text-center">Contact Info</h1></header>
             <ProgressBar now={50} />
               
+
+ 
             <div>
                           <Prompt
         when={this.state.shouldBlockNavigation}
@@ -375,15 +379,11 @@ studentContactInfo = (e) =>{
                   <h4 className="error">{this.state.businessCityError}</h4>
              <br/>
             
-<<<<<<< HEAD:src/components/ProfileCreate/ContactInfo/ContactInfo.js
+
              <div  className="next-button">
                   <Button type="submit">Next</Button>
                   </div>
-=======
-             <div className="next-button">
-                <Button type="submit">Next</Button>
-              </div>
->>>>>>> 72cc8967612045de9136cb241bf19f50b46d53a8:src/components/ProfileCreate/ContactInfo.js
+
             </Form>
             </div>
            
