@@ -33,7 +33,7 @@ class RegisterPage extends Component {
         return (prev.id > current.id) ? prev : current
     })
     if(this.state.newId==="")
-    this.setState({newId:(max.id +1)},()=>{console.log(this.state)})
+    this.setState({newId:(max.id)},()=>{console.log(this.state)})
     }
 
   }
@@ -47,7 +47,7 @@ class RegisterPage extends Component {
         payload: {
           username: this.state.username,
           password: this.state.password,
-          id:this.state.newId
+          id:(this.state.newId+1)
         },
       });
     } else {
