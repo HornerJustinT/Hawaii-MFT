@@ -212,8 +212,8 @@ componentDidUpdate = () => {
             </header>
 
             <br />
-
-            <ProgressBar now={25} />
+             <div className='progressbar'> <ProgressBar now={25} /></div>
+           
             <div className="text-center">
               <h3 className="subtitle">Basic Info</h3>
             </div>

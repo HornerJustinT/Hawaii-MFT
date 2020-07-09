@@ -3,13 +3,14 @@ import { Prompt } from 'react-router'
 //this connects the the component to the redux store
 import { connect } from 'react-redux';
 
+
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 //CSS import
-import "../profileCreate.css";
+import  "./profileCreate.css"
 
 
 
@@ -374,9 +375,15 @@ studentContactInfo = (e) =>{
                   <h4 className="error">{this.state.businessCityError}</h4>
              <br/>
             
+<<<<<<< HEAD:src/components/ProfileCreate/ContactInfo/ContactInfo.js
              <div  className="next-button">
                   <Button type="submit">Next</Button>
                   </div>
+=======
+             <div className="next-button">
+                <Button type="submit">Next</Button>
+              </div>
+>>>>>>> 72cc8967612045de9136cb241bf19f50b46d53a8:src/components/ProfileCreate/ContactInfo.js
             </Form>
             </div>
            
