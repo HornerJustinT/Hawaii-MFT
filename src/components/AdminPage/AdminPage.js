@@ -6,6 +6,7 @@ import ReactTooltip from "react-tooltip";
 
 // Components
 import RegistrationModal from '../RegistrationModal/RegistrationModal';
+import StudentRegistrationModal from '../StudentRegistrationModal/StudentRegistrationModal';
 
 // Libraries
 import FileSaver from "file-saver";
@@ -338,6 +339,7 @@ class AdminPage extends Component {
             )}
             
             <RegistrationModal />
+            <StudentRegistrationModal/>
           </div>
         </div>
       </>
