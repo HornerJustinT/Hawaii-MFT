@@ -140,6 +140,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
       //it makes a post request for each table with the set data aftet each has terminated
     
         await member.query('BEGIN')
+
       const insertMember = await  member.query(
           
         `INSERT INTO "members" 
@@ -187,9 +188,14 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
             ("business", "member_id","number") VALUES ($1,$2,$3)`, [true,req.body.user,'N/A']);
         }
 
+        if (req.body.business_number) {
+            await member.query(`INSERT INTO "phone_table"
+            ("business", "member_id","number") VALUES ($1,$2,$3)`, [true,req.user.id,req.body.business_number]);
+        }
+
         if (req.body.personal_number) {
             await member.query(`INSERT INTO "phone_table"
-            ("business", "member_id","number") VALUES ($1,$2,$3)`, [true,req.body.user,req.body.personal_number]);
+            ("business", "member_id","number") VALUES ($1,$2,$3)`, [false, req.user.id, req.body.personal_number]);
         }
 
         if (req.body.address_office) {

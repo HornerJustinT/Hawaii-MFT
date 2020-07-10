@@ -14,16 +14,17 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import UploadModal from "../UploadModal/UploadModal";
+import Col from 'react-bootstrap/Col';
 var storage = firebase.storage().ref();
 
 class ProfileCreate extends Component {
     //create a state 
     state = {
-        prefix:'',
+      prefix:'',
       first_name:'',
       last_name:'',
-        age:'',
-        hiamft_member_account_info:'',
+      age:'',
+      statement:'',
       language_id:'',
       prefixError:'',
       firstNameError:'',
@@ -80,7 +81,7 @@ componentDidUpdate = () => {
             first_name:'',
             last_name:'',
             age:'',
-            hiamft_member_account_info:'',
+            statement:'',
             language_id:'',
           })
       }
@@ -97,46 +98,46 @@ componentDidUpdate = () => {
 
         if(this.state.prefix === ''){
           formIsValid=false;
-          prefixError = 'Prefix is required'
+          prefixError = 'Prefix is required.'
         }else if(!this.state.prefix.match(/^[\.a-zA-Z_]+$/) ){
             formIsValid=false;
-          prefixError = "Prefix is invalid" 
+          prefixError = "Prefix input is invalid." 
         }
 
         if(this.state.first_name === ''){
           formIsValid=false;
-          firstNameError = 'First Name is required'
+          firstNameError = 'First Name is required.'
         }else if(!this.state.first_name.match(/^[a-zA-Z_]+$/) ){
             formIsValid=false;
-            firstNameError = "First Name is invalid"
+            firstNameError = "First Name input is invalid."
         }
 
         if(this.state.last_name === ''){
           formIsValid=false;
-          lastNameError = 'Last Name is required'
+          lastNameError = 'Last Name is required.'
         }else if(!this.state.last_name.match(/^[a-zA-Z_]+$/) ){
             formIsValid=false;
-            lastNameError = "Last Name is invalid"
+            lastNameError = "Last Name input is invalid."
         }
 
 
         if(this.state.language_id === ''){
           formIsValid=false;
-          languageError  = 'Language is required, choose at least one language! '
+          languageError  = 'Language is required, choose at least one language.'
         }
       
         if(this.state.age === ''){
           formIsValid=false;
-          ageError= 'Age is required! '
+          ageError= 'Age is required.'
         }else if(!isNaN(this.state.age)===false ){
             formIsValid=false;
-            ageError= "Age input is invalid"
+            ageError= "Age input is invalid."
         }
 
  
-        if(this.state.hiamft_member_account_info === ''){
+        if(this.state.statement === ''){
           formIsValid=false;
-          memberError = 'About me section is required!'   
+          memberError = 'Personal Statement is required.'   
         }
         
         if(prefixError || firstNameError || lastNameError || languageError || ageError || memberError){
@@ -167,7 +168,7 @@ componentDidUpdate = () => {
                   first_name:this.state.first_name,
                   last_name:this.state.last_name,
                   age:this.state.age,
-                  hiamft_member_account_info:this.state.hiamft_member_account_info,
+                  statement:this.state.statement,
                   language_id:this.state.language_id
               }
         });
@@ -197,136 +198,132 @@ componentDidUpdate = () => {
       console.log("user that will be added", this.props.saveUserReducer);
       return (
 
-        <><div>
-                          <Prompt
-        when={this.state.shouldBlockNavigation}
-        message='You have unsaved changes, are you sure you want to leave?'
-      />
-
+        <>
+        <div>
+          <Prompt
+            when={this.state.shouldBlockNavigation}
+            message='You have unsaved changes. Are you sure you want to leave?'
+          />
         </div>
 
           <div className="container">
             <header>
-              {" "}
               <h1 className="text-center">Create New Profile</h1>
             </header>
-
-            <br />
-             <div className='progressbar'> <ProgressBar now={25} /></div>
+            <div className='progressbar'> <ProgressBar now={25} /></div>
            
             <div className="text-center">
               <h3 className="subtitle">Basic Info</h3>
             </div>
-           
             <Form onSubmit={this.addMembers}>
-              <div className="name-group">
-                <div className="flex-between row-nowrap">
-                  <h6 className="label">Prefix</h6>
-                  <h6 className="label">First Name</h6>
-                  <h6 className="label">Last Name</h6>
-                </div>
-                <InputGroup>
-                  <FormControl
-                    type="text"
-                    name="prefix"
-                    value={this.state.prefix}
-                    onChange={this.handleInputChangeFor("prefix")}
-                    className="prefix"
-                  />
-
-                  <FormControl
-                    type="text"
-                    name="first_name"
-                    value={this.state.first_name}
-                    onChange={this.handleInputChangeFor("first_name")}
-                  />
-
-                  <FormControl
-                    type="text"
-                    name="last_name"
-                    value={this.state.last_name}
-                    onChange={this.handleInputChangeFor("last_name")}
-                  />
-                </InputGroup>
-                <div className="flex-between row-nowrap">
-                  <h4 className="label error">{this.state.prefixError}</h4>
-                  <h4 className="label error">{this.state.firstNameError}</h4>
-                  <h4 className="label error">{this.state.lastNameError}</h4>
-                </div>
-              </div>
-              <div className="inputs align-center">
-                <div className="box-1">
-                  <div className="container-box">
-                    <div className="label-container">
-                      <Form.Label>Age</Form.Label>
-                    </div>
-                    <div className="container-input">
-                      <Form.Control
-                        type="text"
-                        name="age"
-                        value={this.state.age}
-                        onChange={this.handleInputChangeFor("age")}
-                      />
-                      <h4 className="error">{this.state.ageError}</h4>
-                    </div>
-                  </div>
-                  <div className="container-box">
-                    <div className="label-container">
-                      <Form.Label>About You</Form.Label>
-                    </div>
-                    <div className="container-input">
+              <Form className="flex-container row-wrap row">
+                <Form.Row>
+                    <Form.Group as={Col}>
+                      <Form.Label>Prefix</Form.Label>
+                        <FormControl
+                          type="text"
+                          name="prefix"
+                          value={this.state.prefix}
+                          onChange={this.handleInputChangeFor("prefix")}
+                          className=
+                          "prefix"
+                        />
+                      <h4 className="error">{this.state.prefixError}</h4>
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                        <Form.Label>First Name</Form.Label>
+                        <FormControl
+                          type="text"
+                          name="first_name"
+                          value={this.state.first_name}
+                          onChange={this.handleInputChangeFor("first_name")}
+                        />
+                        <h4 className="error">{this.state.firstNameError}</h4>
+                    </Form.Group> 
+                      <Form.Group as={Col}>
+                        <Form.Label>Last Name</Form.Label>
+                        <FormControl
+                          type="text"
+                          name="last_name"
+                          value={this.state.last_name}
+                          onChange={this.handleInputChangeFor("last_name")}
+                        />
+                      <h4 className="error">{this.state.lastNameError}</h4>
+                      </Form.Group> 
+                </Form.Row>
+              </Form>
+              <Form className="flex-container row-wrap row">
+                <Form.Row>
+                  <Form.Group as={Col}>
+                    <Form.Label>Age</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="age"
+                      value={this.state.age}
+                      onChange={this.handleInputChangeFor("age")}
+                    />
+                    <Form.Text className="text-muted">
+                      Not Listed (for HIAMFT-use only)
+                        </Form.Text>
+                    <h4 className="error">{this.state.ageError}</h4>
+                  </Form.Group>
+                  <Form.Group as={Col}>
+                    <Form.Label>Language</Form.Label>
+                    <Form.Control
+                      as="select"
+                      multiple={true}
+                      onChange={(event) =>
+                        this.handleMultiLanguages(event, "language_id")
+                      }
+                    >
+                      {this.props.languages && (
+                        <>
+                          <option defaultValue="Select a language">
+                            Select a language
+                              </option>
+                          {this.props.languages.map((language) => (
+                            <option
+                              value={language.language_id}
+                              key={language.language_id}
+                            >
+                              {language.title}
+                            </option>
+                          ))}
+                        </>
+                      )}
+                      </Form.Control>
+                      <Form.Text className="text-muted">
+                        To select multiple on Mac: press & hold Command key. To
+                        select multiple on PC, press & hold CTRL.
+                    </Form.Text>
+                    <h4 className="error">{this.state.languageError}</h4>
+                  </Form.Group>
+                </Form.Row>
+              </Form>
+              <Form className="flex-container row-wrap row">
+                <Form.Row>
+                    <Form.Group as={Col}>
+                      <Form.Label>Personal Statement</Form.Label>
                       <Form.Control
                         as="textarea"
                         type="text"
-                        name="hiamft_member_account_info"
-                        value={this.state.hiamft_member_account_info}
+                        name="statement"
+                        value={this.state.statement}
                         onChange={this.handleInputChangeFor(
-                          "hiamft_member_account_info"
+                          "statement"
                         )}
                       />
-                      <h4 className="error">{this.state.memberError}</h4>
-                    </div>
-                  </div>
+                    <Form.Text className="text-muted">
+                      Please tell us a bit about yourself and your practice. You will be able to edit this section later. This will be publicly visible in the directory.
+                    </Form.Text>
+                      <h4 className="error">{this.state.memberError}</h4>  
+                      </Form.Group>
+                </Form.Row>
+              </Form>
+                <div className="next-button">
+                  <Button type="submit">Next</Button>
                 </div>
-                <div className="box-2">
-                  <div className="container-box">
-                    <div className="label-container">
-                      <Form.Label>Language</Form.Label>
-                    </div>
-                    <div className="container-input">
-                      <Form.Control
-                        as="select"
-                        multiple={true}
-                        onChange={(event) =>
-                          this.handleMultiLanguages(event, "language_id")
-                        }
-                      >
-                        {this.props.languages && (
-                          <>
-                            <option defaultValue="Select a language">
-                              Select a language
-                            </option>
-                            {this.props.languages.map((language) => (
-                              <option
-                                value={language.language_id}
-                                key={language.language_id}
-                              >
-                                {language.title}
-                              </option>
-                            ))}
-                          </>
-                        )}
-                      </Form.Control>{" "}
-                      <h4 className="error">{this.state.languageError}</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="next-button">
-                <Button type="submit">Next</Button>
-              </div>
-            </Form>
+          </Form>
           </div>
         </>
       );
