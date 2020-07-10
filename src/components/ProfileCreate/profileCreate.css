@@ -33,7 +33,7 @@ label{
     border:solid 0.00000005em #cccccc;
     padding: 2em;
     border-radius: 10px;
-    width:90%;
+    width:100%;
     position: relative;
 }
 
@@ -48,7 +48,7 @@ label{
 
 .label-container{
     margin: 1em;
-   display: inline-block;
+    display: inline-block;
     text-align: left;
     padding: 14px 10px 0 0;
     margin:0 0 7px 0;
@@ -78,13 +78,13 @@ label{
 .inputs{
     display: flex;
     position: relative;
-   flex-direction: row;
-   padding-right: 15em;
-   padding-left: 0;
-   padding: 2em;
-   margin: 1em;
-   border-radius: 10px;
-   width:90%;
+    flex-direction: row;
+    padding-right: 15em;
+    padding-left: 0;
+    padding: 2em;
+    margin: 1em;
+    border-radius: 10px;
+    width:90%;
    
 }
 
@@ -146,4 +146,18 @@ label{
         padding-top: 0px;
         padding-bottom: 0px;
     }
+}
+
+.flex-container {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    align-items: left;
+}
+
+.flex-container > div {
+  margin: 10px;
+  min-width: 25em;
+  flex: 32%;
+  align-items: left;
 }

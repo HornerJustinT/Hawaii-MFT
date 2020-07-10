@@ -221,7 +221,7 @@ class ProfileEditStudent extends Component {
                 </Form>
                 <Form className="flex-container row-wrap row">
                   <Form.Group >
-                    <Form.Label className="label">Client Focus</Form.Label>
+                    <Form.Label className="label">Demographic Focus</Form.Label>
                     <Form.Control
                       as="select"
                       multiple={true}
@@ -245,7 +245,7 @@ class ProfileEditStudent extends Component {
                     </Form.Control>
                   </Form.Group>
                   <Form.Group >
-                    <Form.Label className="label">Treatments/Approaches</Form.Label>
+                    <Form.Label className="label">Treatment & Approach</Form.Label>
                     <Form.Control
                       as="select"
                       multiple={true}
@@ -269,7 +269,7 @@ class ProfileEditStudent extends Component {
                     </Form.Control>
                   </Form.Group>
                   <Form.Group >
-                    <Form.Label className="label">Specialties</Form.Label>
+                    <Form.Label className="label">Specialization(s)</Form.Label>
                     <Form.Control
                       as="select"
                       multiple={true}

@@ -6,6 +6,7 @@ import "../profileCreate.css"
 
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import Col from 'react-bootstrap/Col';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -71,10 +72,10 @@ componentDidUpdate = () => {
 
         if(this.state.personal_email === ''){
           formIsValid=false;
-          personalEmailError = 'Personal Email is required'
+          personalEmailError = 'Email is required.'
         }else if(!this.state.personal_email.includes('@') ){
             formIsValid=false;
-            personalEmailError = "Personal Email is not valid"
+            personalEmailError = "Email input is invalid."
         }
 
         if(personalEmailError){
@@ -99,21 +100,23 @@ componentDidUpdate = () => {
   
           if(this.state.city === ''){
             formIsValid=false;
-            cityError = 'City - Home is required'
+            cityError = 'City is required.'
           }else if(!this.state.city.match(/^[a-zA-Z_]+$/) ){
               formIsValid=false;
-              cityError = "City - Home is invalid" 
+              cityError = "City input is invalid." 
           }
           if(this.state.address_home=== ''){
                formIsValid=false;
-               addressHomeError = 'Home Address is required'
+               addressHomeError = 'Address is required.'
           }
           if(this.state.personal_email === ''){
             formIsValid=false;
-            personalEmailError = 'Personal Email is required'
+
+            personalEmailError = 'Email is required.'
           }else if(!this.state.personal_email.match(/^[^@]+@[^@]+\.[^@]+$/)){
+
               formIsValid=false;
-              personalEmailError = "Personal Email is not valid"
+              personalEmailError = "Email is invalid."
           }
           if(this.state.email === ''){
                formIsValid=false;
@@ -124,22 +127,22 @@ componentDidUpdate = () => {
              }
           if(this.state.personal_number === ''){
                formIsValid=false;
-               personalNumberError = 'Personal Number is required'
+               personalNumberError = 'Phone Number is required.'
              }
              if(this.state.website === ''){
               formIsValid=false;
-              websiteError = 'Website address is required'
+              websiteError = 'Website is required. Please fill in "N/A" if not applicable.'
             }
           if(this.state.zip_code === ''){
             formIsValid=false;
-            zipCodeError = 'Personal Zip Code is required! '
+            zipCodeError = 'Zip Code is required.'
           }else if(!isNaN(this.state.zip_code)===false ){
               formIsValid = false;
-              zipCodeError = "Personal Zip code is invalid"
+              zipCodeError = "Zip Code input is invalid."
           }
           if(this.state.island_id === ''){
                formIsValid=false;
-              islandError = 'Island Name is required! '
+              islandError = 'Island is required.'
           }
   
           if(cityError  || addressHomeError 
@@ -170,7 +173,6 @@ studentContactInfo = (e) =>{
                  personal_email:this.state.personal_email,
                  personal_number:this.state.personal_number,
                  address_home:this.state.address_home,
-                 address_mailing:this.state.address_mailing,
                  zip_code: this.state.zip_code,
                  city: this.state.city,
                  website: this.state.website
@@ -192,7 +194,7 @@ studentContactInfo = (e) =>{
               <div>
                           <Prompt
         when={this.state.shouldBlockNavigation}
-        message='You have unsaved changes, are you sure you want to leave?'
+        message='You have unsaved changes. Are you sure you want to leave?'
       />
 
         </div>
@@ -203,91 +205,113 @@ studentContactInfo = (e) =>{
             </header>
             <div className='progressbar'> <ProgressBar now={50} /></div>
             <Form onSubmit={this.studentContactInfo}>
-             <br/>
-        
-             <Form.Label>Island</Form.Label>
-             <br/>
-             <Form.Control
-                 as="select" onChange={this.handleInputChangeFor("island_id")}>
-             {this.props.islands &&
-                   
-                   <>
-                   <option defaultValue='Select your Island'>Select your Island</option>
-                   {this.props.islands.map(island =>
-                    <option value={island.island_id}
-        
-                  key={island.island_id}>{island.title}</option>
-                    )}
-                   </>
-                   } 
-             </Form.Control>
-             <h4 className="error">{this.state.islandError}</h4>
-             <br/>
-             <br/>
-             <Form.Label>Zip Code</Form.Label>
-             <br/>
-             <Form.Control type="number"
-                  name="zip_code"
-                  placeholder='Please fill your zip code'
-                  value={this.state.zip_code}
-                  onChange={this.handleInputChangeFor("zip_code")}/>
-                  <h4 className="error">{this.state.zipCodeError}</h4>
-             <br/>
-             <Form.Label>Phone Number - Personal</Form.Label>
-             <br/>
-             <Form.Control type="text"
-                  name="personal_number"
-                  placeholder='Please fill in your personal phone number'
-                  value={this.state.personal_number}
-                  onChange={this.handleInputChangeFor("personal_number")}/>
-                  <h4 className="error">{this.state.personalNumberError}</h4>
-             <br/>
-             <Form.Label>Email Address - Personal*</Form.Label>
-             <br/>
-             <Form.Control type="text"
-                  name="personal_email"
-                  placeholder='Please fill in your personal email address'
-                  value={this.state.personal_email}
-                  onChange={this.handleInputChangeFor("personal_email")}/>
-                  <h4 className="error">{this.state.personalEmailError}</h4>
-             <br/>
-             <Form.Label>Website</Form.Label>
-             <br/>
-             <Form.Control type="text"
-                  name="website"
-                  placeholder='Please fill in your website'
-                  value={this.state.website}
-                  onChange={this.handleInputChangeFor("website")}/>
-                  <h4 className="error">{this.state.websiteError}</h4>
-             <br/>
-             <Form.Label>Address - Home</Form.Label>
-             <br/>
-             <Form.Control type="text"
-                  name="address_home"
-                  placeholder='Please fill in your home address'
-                  value={this.state.address_home}
-                  onChange={this.handleInputChangeFor("address_home")}/>
-                  <h4 className="error">{this.state.addressHomeError}</h4>
-             <br/>
-             <Form.Label>City</Form.Label>
-             <br/>
-             <Form.Control type="text"
-                  name="city"
-                  placeholder='Please fill in your city name'
-                  value={this.state.city}
-                  onChange={this.handleInputChangeFor("city")}/>
-                  <h4 className="error">{this.state.cityError}</h4>
-             <br/>
-             <br/>
-            
-             <div  className="next-button">
-                  <Button type="submit">Next</Button>
-                  </div>
-            </Form>
-            </div>
-           
 
-            </>
+                <Form.Group as={Col}>
+                  <Form.Label>Island*</Form.Label>
+                  <Form.Control
+                    as="select" onChange={this.handleInputChangeFor("island_id")}>
+                    {this.props.islands &&
+
+                      <>
+                        <option defaultValue='Select your Island'>Select your Island</option>
+                        {this.props.islands.map(island =>
+                          <option value={island.island_id}
+
+                            key={island.island_id}>{island.title}</option>
+                        )}
+                      </>
+                    }
+                  </Form.Control>
+                  <Form.Text className="text-muted">Listed</Form.Text>
+                  <h4 className="error">{this.state.islandError}</h4>
+                </Form.Group>
+              
+                <Form.Group as={Col}>
+                  <Form.Label>Phone Number*</Form.Label>
+                  <Form.Control 
+                    name="personal_number"
+                    placeholder='Please fill in your Phone Number'
+                    value={this.state.personal_number}
+                    onChange={this.handleInputChangeFor("personal_number")} />
+                  <Form.Text className="text-muted">
+                    Not Listed (for HIAMFT-use only) - Please enter in
+                               this format: (xxx) xxx-xxxx
+               </Form.Text>
+                  <h4 className="error">{this.state.personalNumberError}</h4>
+                </Form.Group>
+              
+                <Form.Group as={Col}>
+                  <Form.Label>Email Address*</Form.Label>
+                  <br />
+                  <Form.Control type="text"
+                    name="personal_email"
+                    placeholder='Please fill in your Email Address'
+                    value={this.state.personal_email}
+                    onChange={this.handleInputChangeFor("personal_email")} />
+                  <Form.Text className="text-muted">
+                    Not Listed (for HIAMFT-use only)
+               </Form.Text>
+                  <h4 className="error">{this.state.personalEmailError}</h4>
+                </Form.Group>
+                <Form.Group as={Col}>
+                  <Form.Label>Website*</Form.Label>
+                  <Form.Control type="text"
+                    name="website"
+                    placeholder='Please fill in your Website'
+                    value={this.state.website}
+                    onChange={this.handleInputChangeFor("website")} />
+                  <Form.Text className="text-muted">Listed</Form.Text>
+                  <h4 className="error">{this.state.websiteError}</h4>
+                </Form.Group>
+
+              
+                <Form className="flex-container row-wrap row">
+                  <Form.Group as={Col}>
+                    <Form.Label>Street Address*</Form.Label>
+                    <Form.Control type="text"
+                      name="address_home"
+                      placeholder='ex. 321 Grove St.'
+                      value={this.state.address_home}
+                      onChange={this.handleInputChangeFor("address_home")} />
+                    <Form.Text className="text-muted">
+                      Not Listed (for HIAMFT-use only)
+                  </Form.Text>
+                    <h4 className="error">{this.state.addressHomeError}</h4>
+                  </Form.Group>
+                  <Form.Group as={Col}>
+                    <Form.Label>City*</Form.Label>
+                    <Form.Control type="text"
+                      name="city"
+                      placeholder='Please fill in your City'
+                      value={this.state.city}
+                      onChange={this.handleInputChangeFor("city")} />
+                    <Form.Text className="text-muted">
+                      Not Listed (for HIAMFT-use only)
+                  </Form.Text>
+                    <h4 className="error">{this.state.cityError}</h4>
+                  </Form.Group>
+                  <Form.Group as={Col}>
+                    <Form.Label>Zip Code*</Form.Label>
+                    <Form.Control type="number"
+                      name="zip_code"
+                      placeholder='Please fill in your Zip Code'
+                      value={this.state.zip_code}
+                      onChange={this.handleInputChangeFor("zip_code")} />
+                    <Form.Text className="text-muted">
+                      Not Listed (for HIAMFT-use only)
+                  </Form.Text>
+                    <h4 className="error">{this.state.zipCodeError}</h4>
+                  </Form.Group>
+                </Form>
+
+                <div className="next-button">
+                  <Button type="submit">Next</Button>
+                </div>
+              </Form>
+            </div>
+
+
+          </>
         )
     }
 
