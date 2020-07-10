@@ -221,10 +221,10 @@ componentDidUpdate = () => {
 studentContactInfo = (e) =>{
   e.preventDefault();
 
-  // const isValid = this.validateStudent();
-  // if(!isValid){
-    //  return false
-    //  }else{
+  const isValid = this.validateStudent();
+  if(!isValid){
+     return false
+     }else{
           this.props.dispatch({
                type: 'ADD_ADDRESS',
                payload:{
@@ -241,8 +241,8 @@ studentContactInfo = (e) =>{
                this.setState({shouldBlockNavigation:false},()=>{
                     this.props.history.push("/student");
                   });
-      //  return true;
-    //  }
+       return true;
+     }
  
  
 }
@@ -261,6 +261,7 @@ studentContactInfo = (e) =>{
             <header><h1 className="text-center">Contact Info</h1></header>
             <ProgressBar now={50} />
             <div>
+
               <Prompt
                 when={this.state.shouldBlockNavigation}
                 message='You have unsaved changes. Are you sure you want to leave?'
@@ -271,6 +272,7 @@ studentContactInfo = (e) =>{
              <Form.Group as={Col}>
                <Form.Label>Island*</Form.Label>
                <Form.Control
+
                  as="select" onChange={this.handleInputChangeFor("island_id")}>
                  {this.props.islands &&
 
@@ -282,6 +284,7 @@ studentContactInfo = (e) =>{
                          key={island.island_id}>{island.title}</option>
                      )}
                    </>
+
                  }
                </Form.Control>
                <Form.Text className="text-muted">Listed</Form.Text>
@@ -418,6 +421,7 @@ studentContactInfo = (e) =>{
              <div className="next-button">
                 <Button type="submit">Next</Button>
               </div>
+
             </Form>
             </div>
            

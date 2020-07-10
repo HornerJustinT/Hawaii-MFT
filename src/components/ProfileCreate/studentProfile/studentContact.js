@@ -205,6 +205,7 @@ studentContactInfo = (e) =>{
             </header>
             <div className='progressbar'> <ProgressBar now={50} /></div>
             <Form onSubmit={this.studentContactInfo}>
+
                 <Form.Group as={Col}>
                   <Form.Label>Island*</Form.Label>
                   <Form.Control

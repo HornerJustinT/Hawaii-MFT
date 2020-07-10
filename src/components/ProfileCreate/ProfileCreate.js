@@ -158,9 +158,9 @@ componentDidUpdate = () => {
      event.preventDefault();
      const isValid = this.validate();
 
-    // if(!isValid){
-      // return false
-      // }else{
+    if(!isValid){
+      return false
+      }else{
         this.props.dispatch({
               type:'ADD_CREATE_PROFILE',
               payload:{
@@ -176,9 +176,9 @@ componentDidUpdate = () => {
           this.props.history.push("/contact-info");
         });
 
-        // this.props.history.push("/contact-info");
-        // return true;
-      // }
+        this.props.history.push("/contact-info");
+        return true;
+      }
     }
 
    
