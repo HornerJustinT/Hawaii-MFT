@@ -235,7 +235,7 @@ studentContactInfo = (e) =>{
              <br/>
              <Form.Label>Phone Number - Personal</Form.Label>
              <br/>
-             <Form.Control type="number"
+             <Form.Control type="text"
                   name="personal_number"
                   placeholder='Please fill in your personal phone number'
                   value={this.state.personal_number}

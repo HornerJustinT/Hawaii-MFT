@@ -58,8 +58,17 @@ label{
 .container-input{
     display: inline-block;
     vertical-align: middle;
-    margin:0 0 7px 0;
+    margin: 0 0 7px 0;
     width:90%;
+    padding-left: 5em;
+}
+
+.container-input-pc{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 auto;
+    width:90%;
+   
 }
 
 .label {

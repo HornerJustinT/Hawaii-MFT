@@ -211,10 +211,10 @@ componentDidUpdate = () => {
 studentContactInfo = (e) =>{
   e.preventDefault();
 
-  // const isValid = this.validateStudent();
-  // if(!isValid){
-    //  return false
-    //  }else{
+  const isValid = this.validateStudent();
+  if(!isValid){
+     return false
+     }else{
           this.props.dispatch({
                type: 'ADD_ADDRESS',
                payload:{
@@ -231,8 +231,8 @@ studentContactInfo = (e) =>{
                this.setState({shouldBlockNavigation:false},()=>{
                     this.props.history.push("/student");
                   });
-      //  return true;
-    //  }
+       return true;
+     }
  
  
 }
@@ -262,8 +262,8 @@ studentContactInfo = (e) =>{
         </div>
                    <Form onSubmit={this.addContactInfo}>
                 <br/>
-             <label>Island*</label>
-             <br/>
+                <div className="container-input">
+             <Form.Label>Island*</Form.Label>
              <Form.Control
                  as="select" onChange={this.handleInputChangeFor("island_id")}>
              {this.props.islands &&
@@ -279,8 +279,10 @@ studentContactInfo = (e) =>{
                    } 
              </Form.Control>
              <h4 className="error">{this.state.islandError}</h4>
+             </div>
              <br/>
              <br/>
+             <div className="container-input">
              <Form.Label>Zip Code - Personal*</Form.Label>
              <br/>
              <Form.Control type="number"
@@ -289,7 +291,9 @@ studentContactInfo = (e) =>{
                   value={this.state.zip_code}
                   onChange={this.handleInputChangeFor("zip_code")}/>
                    <h4 className="error">{this.state.zipCodeError}</h4>
+                   </div>
                 <br/>
+                <div className="container-input">
                 <Form.Label>Zip Code - Business*</Form.Label>
              <br/>
              <Form.Control type="number"
@@ -298,25 +302,31 @@ studentContactInfo = (e) =>{
                   value={this.state.business_zip_code}
                   onChange={this.handleInputChangeFor("business_zip_code")}/>
                    <h4 className="error">{this.state.business_zipCodeError}</h4>
+                   </div>
+                   <div className="container-input">
              <Form.Label>Phone Number - Business*</Form.Label>
              <br/>
-             <Form.Control type="number"
+             <Form.Control  type="text"
                   name="business_number"
                   placeholder='Please fill in your business phone number'
                   value={this.state.business_number}
                   onChange={this.handleInputChangeFor("business_number")}/>
                    <h4 className="error">{this.state.businessNumberError}</h4>
+                   </div>
              <br/>
              <br/>
+             <div className="container-input">
              <Form.Label>Phone Number - Personal*</Form.Label>
              <br/>
-             <Form.Control type="number"
+             <Form.Control type="text"
                   name="personal_number"
                   placeholder='Please fill in your personal phone number'
                   value={this.state.personal_number}
                   onChange={this.handleInputChangeFor("personal_number")}/>
                    <h4 className="error">{this.state.personalNumberError}</h4>
+                   </div>
                 <br/>
+                <div className="container-input">
              <Form.Label>Email Address - Business*</Form.Label>
              <br/>
              <Form.Control type="text"
@@ -325,7 +335,9 @@ studentContactInfo = (e) =>{
                   value={this.state.email}
                   onChange={this.handleInputChangeFor("email")}/>
                    <h4 className="error">{this.state.emailError}</h4>
+                   </div>
              <br/>
+             <div className="container-input">
              <Form.Label>Email Address - Personal*</Form.Label>
              <br/>
              <Form.Control type="text"
@@ -334,7 +346,9 @@ studentContactInfo = (e) =>{
                   value={this.state.personal_email}
                   onChange={this.handleInputChangeFor("personal_email")}/>
                    <h4 className="error">{this.state.personalEmailError}</h4>
+                   </div>
              <br/>
+             <div className="container-input">
              <Form.Label>Website*</Form.Label>
              <br/>
              <Form.Control type="text"
@@ -343,7 +357,9 @@ studentContactInfo = (e) =>{
                   value={this.state.website}
                   onChange={this.handleInputChangeFor("website")}/>
                    <h4 className="error">{this.state.websiteError}</h4>
+                   </div>
              <br/>
+             <div className="container-input">
              <Form.Label>Address - Office*</Form.Label>
              <br/>
              <Form.Control type="text"
@@ -352,7 +368,9 @@ studentContactInfo = (e) =>{
                   value={this.state.address_office}
                   onChange={this.handleInputChangeFor("address_office")}/>
                    <h4 className="error">{this.state.addressOfficeError}</h4>
+                   </div>
              <br/>
+             <div className="container-input">
              <Form.Label>Address - Home*</Form.Label>
              <br/>
              <Form.Control type="text"
@@ -361,7 +379,9 @@ studentContactInfo = (e) =>{
                   value={this.state.address_home}
                   onChange={this.handleInputChangeFor("address_home")}/>
                    <h4 className="error">{this.state.addressHomeError}</h4>
+                   </div>
              <br/>
+             <div className="container-input">
              <Form.Label>City - Personal*</Form.Label>
              <br/>
              <Form.Control type="text"
@@ -370,7 +390,9 @@ studentContactInfo = (e) =>{
                   value={this.state.city}
                   onChange={this.handleInputChangeFor("city")}/>
                    <h4 className="error">{this.state.cityError}</h4>
+                   </div>
              <br/>
+             <div className="container-input">
              <Form.Label>City - Business*</Form.Label>
              <br/>
              <Form.Control type="text"
@@ -379,6 +401,7 @@ studentContactInfo = (e) =>{
                   value={this.state.cityOfBussiness}
                   onChange={this.handleInputChangeFor("cityOfBussiness")}/>
                   <h4 className="error">{this.state.businessCityError}</h4>
+                  </div>
              <br/>
             
 
