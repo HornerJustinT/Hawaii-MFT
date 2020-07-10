@@ -315,6 +315,8 @@ componentDidUpdate = () => {
                       />
                     <Form.Text className="text-muted">
                       Please tell us a bit about yourself and your practice. You will be able to edit this section later. This will be publicly visible in the directory.
+                      Limit 10,000 characters.
+                      
                     </Form.Text>
                       <h4 className="error">{this.state.memberError}</h4>  
                       </Form.Group>

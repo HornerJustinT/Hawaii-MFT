@@ -377,6 +377,96 @@ router.put("/practice", rejectUnauthenticated, async (req, res) => {
 
 });
 
+router.put("/practice", rejectUnauthenticated, async (req, res) => {
+
+  const connection = await pool.connect();
+
+  try {
+    await connection.query("BEGIN;");
+
+    let queryText = `UPDATE "members" SET 
+      ("license_state", "license_expiration", "credentials", 
+      "fees", "license_number", "title", "telehealth", "license_type", "supervision_status")
+        =
+      ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      WHERE "id" = $10;`;
+
+    await connection.query(queryText, [
+      req.body.licenseState,
+      req.body.licenseExpiration,
+      req.body.credentials,
+      req.body.fees,
+      req.body.licenseNumber,
+      req.body.title,
+      req.body.telehealth,
+      req.body.licenseType,
+      req.body.supervisionStatus,
+      req.body.id,
+    ]);
+    
+    await repeatingInserts(
+      connection,
+      "treatment_preferences_pivot",
+      "treatment_preferences_id",
+      req.body.id,
+      req.body.treatmentEdit
+    );
+    await repeatingInserts(
+      connection,
+      "age_groups_served_pivot",
+      "age_groups_served_id",
+      req.body.id,
+      req.body.agesServedEdit
+    );
+    await repeatingInserts(
+      connection,
+      "client_focus_pivot",
+      "client_focus_id",
+      req.body.id,
+      req.body.clientFocusEdit
+    );
+    await repeatingInserts(
+      connection,
+      "age_groups_served_pivot",
+      "age_groups_served_id",
+      req.body.id,
+      req.body.clientAgesEdit
+    );
+    await repeatingInserts(
+      connection,
+      "insurance_pivot",
+      "insurance_type_id",
+      req.body.id,
+      req.body.insuranceEdit
+    );
+    await repeatingInserts(
+      connection,
+      "session_format_pivot",
+      "session_format_id",
+      req.body.id,
+      req.body.sessionFormatEdit
+    );
+    await repeatingInserts(
+      connection,
+      "specialty_pivot",
+      "specialty_id",
+      req.body.id,
+      req.body.specialtyEdit
+    );
+    
+
+    await connection.query("COMMIT;");
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(`Error on transaction`, error);
+    await connection.query("ROLLBACK;");
+    res.sendStatus(500);
+  } finally {
+    connection.release();
+  }
+
+});
+
 // Enabled or disabled the account based on whats given to it
 router.put("/enable", rejectUnauthenticated, async (req, res) => {
   const connection = await pool.connect();

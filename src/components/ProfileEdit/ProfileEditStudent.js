@@ -336,6 +336,9 @@ class ProfileEditStudent extends Component {
                     defaultValue={this.state.statement}
                     onChange={(event) => this.handleChange(event, "statement")}
                   />
+                  <Form.Text className="text-muted">
+                    10,000 character limit
+                  </Form.Text>
                 </Form.Group>
               </Form>
             </div>
@@ -421,30 +424,33 @@ class ProfileEditStudent extends Component {
         <ProfileEditContactStudent />
         <ProfileEditPracticeStudent />
 
-          <div className="flex-bucket">
-            <div className="body">
-              <h4>Profile Picture</h4>
-              
-              <div className="border">
-                
-                <img className="photo" src={this.state.profilePhoto}></img>
-              
-                <div className="button">
-                  <UploadModal
-                    refresh={this.getImage}
-                    name={this.props.user}
-                  ></UploadModal>
-                  </div>
-              
-              </div>
+          <div className="bodyPhoto">
+            <h4>Profile Picture</h4>
+            <div >
+              <img className="photo" src={this.state.profilePhoto}></img>
 
+              <div className="button">
+                <UploadModal
+                  refresh={this.getImage}
+                  name={this.props.user}
+                ></UploadModal>
+              </div>
             </div>
           </div>
 
 
         <div className="body">
           {this.state.enabled ? (
-            <Button variant="danger" onClick={this.enablePress}>
+            <Button variant="danger" 
+                onClick={() => {
+                  if (
+                    window.confirm(
+                      "Are you sure you want to disable this account? A disabled account will no longer appear in the search directory. You may re-enable it at any time."
+                    )
+                  )
+                    this.enablePress();
+                }}
+            >
               Disable Account
             </Button>
           ) : (

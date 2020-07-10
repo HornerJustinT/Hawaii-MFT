@@ -394,6 +394,9 @@ class ProfileEdit extends Component {
                           readOnly
                           defaultValue={this.state.statement}
                         />
+                          <Form.Text className="text-muted">
+                            10,000 character limit
+                          </Form.Text>
                       </Form.Group>
                     </Form>
                   </div>
@@ -427,7 +430,7 @@ class ProfileEdit extends Component {
                 onClick={() => {
                   if (
                     window.confirm(
-                      "Are you sure you wish to disable this account? The account will no longer be present in the search directory. You may re-enable it in the my profile page."
+                      "Are you sure you want to disable this account? A disabled account will no longer appear in the search directory. You may re-enable it at any time."
                     )
                   )
                     this.enablePress();
