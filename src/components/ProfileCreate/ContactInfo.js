@@ -101,17 +101,17 @@ componentDidUpdate = () => {
           if(this.state.city_business === ''){
                formIsValid=false;
                businessCityError = 'City is required.'
-             }else if(!this.state.cityOfBussiness.match(/^[a-zA-Z_]+$/) ){
-                 formIsValid=false;
-                 businessCityError = "City input is invalid." 
+            //  }else if(!this.state.cityOfBussiness.match(/^[a-zA-Z_]+$/) ){
+            //      formIsValid=false;
+            //      businessCityError = "City input is invalid." 
              }
 
           if(this.state.cityOfBussiness === ''){
             formIsValid=false;
             businessCityError = 'City - Business is required'
-          }else if(!this.state.cityOfBussiness.match(/^[a-zA-Z_]+$/)){
-              formIsValid=false;
-              businessCityError = "City - Business is invalid" 
+          // }else if(!this.state.cityOfBussiness.match(/^[a-zA-Z_]+$/)){
+          //     formIsValid=false;
+          //     businessCityError = "City - Business is invalid" 
           }
         
           if(this.state.address_home=== ''){
