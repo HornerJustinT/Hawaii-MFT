@@ -82,20 +82,9 @@ class PracticeInfo extends Component {
       [propertyName]: event.target.value
     });
   }
-  handleBack = (event) => {
-    //will help navigate back to the previous page
-    //that is contact infor page
-    event.preventDefault()
-    this.props.history.push('/contact-info')
-  }
 
 
-  handleNext = (event) => {
-    //this helps to navigate to the next page
-    //that is the profile edit page
-    event.preventDefault()
-
-  }
+ 
   validate = () => {
     let licenseStateError = '';
     let licenseNumberError = '';
@@ -240,55 +229,68 @@ class PracticeInfo extends Component {
     if(!isValid){
      return false
      }else{
-    this.props.dispatch({
-      type: 'ADD_MEMBER',
-      payload: {
-        prefix: this.props.createProfile.prefix,
-        first_name: this.props.createProfile.first_name,
-        last_name: this.props.createProfile.last_name,
-        age: this.props.createProfile.age,
-        hiamft_member_account_info: this.props.createProfile.hiamft_member_account_info,
-        license_state: this.state.license_state,
-        supervision_status: this.state.supervision_status,
-        fees: this.state.fees,
-        license_expiration: this.state.license_expiration,
-        license_number: this.state.license_number,
-        license_type: this.state.license_type,
-        credentials: this.state.credentials,
-        telehealth: this.state.telehealth,
-        statement: this.state.statement,
-        title: this.state.title,
-        website: this.props.contactAddress.website,
-        city: this.props.contactAddress.city,
-        zip_code: this.props.contactAddress.zip_code,
-        island_id: this.props.contactAddress.island_id,
-        email: this.props.contactAddress.email,
-        personal_email: this.props.contactAddress.personal_email,
-        business_number: this.props.contactAddress.business_number,
-        personal_number: this.props.contactAddress.personal_number,
-        address_office: this.props.contactAddress.address_office,
-        address_home: this.props.contactAddress.address_home,
-        address_mailing: this.props.contactAddress.address_mailing,
-        session_format_id: this.state.session_format_id,
-        client_focus_id: this.state.client_focus_id,
-        specialty_id: this.state.specialty_id,
-        treatment_preferences_id: this.state.treatment_preferences_id,
-        age_groups_served_id: this.state.age_groups_served_id,
-        insurance_type_id: this.state.insurance_type_id,
-        language_id: this.props.createProfile.language_id,
-      }
-    });
+   
+      this.props.dispatch({
+        type: 'ADD_MEMBER',
+        payload: {
+          prefix: this.props.createProfile.prefix,
+          first_name: this.props.createProfile.first_name,
+          last_name: this.props.createProfile.last_name,
+          age: this.props.createProfile.age,
+          hiamft_member_account_info: this.props.createProfile.hiamft_member_account_info,
+          license_state: this.state.license_state,
+          supervision_status: this.state.supervision_status,
+          fees: this.state.fees,
+          license_expiration: this.state.license_expiration,
+          license_number: this.state.license_number,
+          license_type: this.state.license_type,
+          credentials: this.state.credentials,
+          telehealth: this.state.telehealth,
+          statement: this.state.statement,
+          title: this.state.title,
+          website: this.props.contactAddress.website,
+          city: this.props.contactAddress.city,
+          zip_code: this.props.contactAddress.zip_code,
+          island_id: this.props.contactAddress.island_id,
+          email: this.props.contactAddress.email,
+          personal_email: this.props.contactAddress.personal_email,
+          business_number: this.props.contactAddress.business_number,
+          personal_number: this.props.contactAddress.personal_number,
+          address_office: this.props.contactAddress.address_office,
+          address_home: this.props.contactAddress.address_home,
+          address_mailing: this.props.contactAddress.address_mailing,
+          session_format_id: this.state.session_format_id,
+          client_focus_id: this.state.client_focus_id,
+          specialty_id: this.state.specialty_id,
+          treatment_preferences_id: this.state.treatment_preferences_id,
+          age_groups_served_id: this.state.age_groups_served_id,
+          insurance_type_id: this.state.insurance_type_id,
+          language_id: this.props.createProfile.language_id,
+        }
+      });
+   
+    //this will reset the inputs on the parcticeinfo page
     this.setState({ shouldBlockNavigation: false }, () => {
       this.props.history.push("/uploadimage");
     });
-    //this will reset the inputs on the parcticeinfo page
-
      return true;
      }
-
-  }
+    }
 
   //render
+
+
+  handleNext = (event) => {
+    //this helps to navigate to the next page
+    //that is the profile edit page
+    event.preventDefault()
+
+   
+
+  
+  }
+
+
 
   render() {
 
@@ -646,7 +648,7 @@ class PracticeInfo extends Component {
 
             <Form.Group>
               <div className="next-button">
-                <Button type="submit">Next</Button>
+              <Button type="submit">Next</Button>
               </div>
             </Form.Group>
           </Form>
