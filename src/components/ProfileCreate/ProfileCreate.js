@@ -172,11 +172,9 @@ componentDidUpdate = () => {
                   language_id:this.state.language_id
               }
         });
-        this.setState({shouldBlockNavigation:false},()=>{
+        this.setState({shouldBlockNavigation:false}, (e)=>{
           this.props.history.push("/contact-info");
         });
-
-        this.props.history.push("/contact-info");
         return true;
       }
     }
@@ -188,10 +186,10 @@ componentDidUpdate = () => {
             type:'FETCH_LANGUAGES'});
            
     }
-     handleNext = (event) => {
-        event.preventDefault ()
-       
-    
+    handleStudent =(e)=>{
+      this.setState({
+        showStudentProfile: !this.state.showStudentProfile
+      })
     }
     
     render (){

@@ -11,7 +11,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 //CSS import
-// import "../profileCreate.css";
+import "../profileCreate.css";
 
 
 
@@ -28,8 +28,7 @@ class studentContact extends Component{
             personal_email:'',
             website:'',
             address_home:'',
-            city:'',
-            showStudentProfile: false,
+           //error message input
             islandError:'',
             zipCodeError:'',
             personalNumberError:'',
@@ -66,26 +65,6 @@ componentDidUpdate = () => {
       } 
       
 
-      validateStudent = () =>{
-        let personalEmailError ='';
-        let formIsValid = true;
-
-        if(this.state.personal_email === ''){
-          formIsValid=false;
-          personalEmailError = 'Email is required.'
-        }else if(!this.state.personal_email.includes('@') ){
-            formIsValid=false;
-            personalEmailError = "Email input is invalid."
-        }
-
-        if(personalEmailError){
-          this.setState({personalEmailError})
-        }else{
-          return true;
-        }
-
-      }
-
       validate = () => {
           let islandError = '';
            let zipCodeError = '';
@@ -94,28 +73,20 @@ componentDidUpdate = () => {
             let personalEmailError ='';
             let addressHomeError = '';
             let cityError = '';
-            let businessCityError ='';
             let websiteError ='';
           let formIsValid = true;
   
-          if(this.state.city === ''){
-            formIsValid=false;
-            cityError = 'City is required.'
-          }else if(!this.state.city.match(/^[a-zA-Z_]+$/) ){
-              formIsValid=false;
-              cityError = "City input is invalid." 
-          }
+          
+          
           if(this.state.address_home=== ''){
                formIsValid=false;
                addressHomeError = 'Address is required.'
           }
           if(this.state.personal_email === ''){
             formIsValid=false;
-
             personalEmailError = 'Email is required.'
           }else if(!this.state.personal_email.match(/^[^@]+@[^@]+\.[^@]+$/)){
-
-              formIsValid=false;
+             formIsValid=false;
               personalEmailError = "Email is invalid."
           }
           if(this.state.email === ''){
@@ -150,7 +121,7 @@ componentDidUpdate = () => {
               || zipCodeError || islandError || websiteError){
             this.setState({cityError, addressHomeError,  
                 personalEmailError,  emailError,  personalNumberError, 
-                zipCodeError,  islandError, businessCityError, websiteError});
+                zipCodeError,  islandError, websiteError});
           
           }else{
             return true;
@@ -290,6 +261,9 @@ studentContactInfo = (e) =>{
                   </Form.Text>
                     <h4 className="error">{this.state.cityError}</h4>
                   </Form.Group>
+
+
+                  
                   <Form.Group as={Col}>
                     <Form.Label>Zip Code*</Form.Label>
                     <Form.Control type="number"
