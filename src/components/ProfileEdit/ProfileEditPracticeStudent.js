@@ -28,7 +28,7 @@ class ProfileEditStudentPractice extends Component {
     licenseType: this.props.profile.license_type,
     licenseTypeEdit: this.props.profile.license_type_id,
     hiamftMemberInfo: this.props.profile.hiamft_member_account_info,
-    supervisionStatus: this.props.profile.supervision_status,
+    supervisionStatus: this.props.profile.supervision_status, 
     fees: this.props.profile.fees,
     telehealth: this.props.profile.telehealth,
     agesServed: this.props.profile.ages_served,

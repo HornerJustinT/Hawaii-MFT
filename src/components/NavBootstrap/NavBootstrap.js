@@ -10,6 +10,7 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 
 // Styling
 import "./NavBootstrap.css";
+// import logo from '../../public/hawaiianmft-logo.png';
 
 // React-Bootstrap
 import Navbar from "react-bootstrap/Navbar";
@@ -30,6 +31,11 @@ class NavBar extends Component{
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
+              <Navbar.Brand>
+                {/* <a href="#">&#9776; React-Bootstrap
+                    <img src={logo} style={{ width: 100, marginTop: -7 }} />
+                </a> */}
+              </Navbar.Brand>
             <NavDropdown title="Menu" id="collasible-nav-dropdown">
 
               {/* Show the link to the SearchBar at /home whether or not user is logged in */}
