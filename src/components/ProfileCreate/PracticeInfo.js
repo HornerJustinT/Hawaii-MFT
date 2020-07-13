@@ -641,8 +641,8 @@ class PracticeInfo extends Component {
                 value={this.state.telehealth}
                 onChange={this.handleInputChangeFor("telehealth")}
               >
-                <option>No, I do not offer telehealth.</option>
-                <option>Yes, I offer telehealth.</option>
+                <option value ='false'>No, I do not offer telehealth.</option>
+                <option value ='true'>Yes, I offer telehealth.</option>
               </Form.Control>
               <Form.Text className="text-muted">Listed</Form.Text>
               <h4 className="error">{this.state.telehealthError}</h4>
