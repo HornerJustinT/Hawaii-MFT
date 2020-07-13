@@ -12,6 +12,8 @@ import Button from "react-bootstrap/Button";
 
 //CSS import
 import "../profileCreate.css";
+import "../../App/App.css";
+
 
 
 

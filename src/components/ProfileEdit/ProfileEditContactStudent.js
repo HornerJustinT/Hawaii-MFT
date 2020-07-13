@@ -303,7 +303,6 @@ class ProfileEditContactStudent extends Component {
   render() {
       return (
         <>
-          {JSON.stringify(this.state.islandEdit, this.state.island)}
           {this.state.clickContact && this.props.profile ? (
             <div className="body">
               <div className="flex-between row-wrap first">

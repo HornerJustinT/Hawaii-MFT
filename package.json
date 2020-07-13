@@ -31,7 +31,8 @@
     "react-tooltip": "^4.2.7",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
-    "redux-saga": "^1.0.2"
+    "redux-saga": "^1.0.2",
+    "sass": "^1.26.10"
   },
   "scripts": {
     "start": "node server/server.js",

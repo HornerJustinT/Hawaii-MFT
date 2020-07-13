@@ -7,6 +7,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./uploadImage.css";
+import "../../App/App.css";
 import UploadModal from "../../UploadModal/UploadModal";
 
 

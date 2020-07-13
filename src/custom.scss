@@ -1,0 +1,13 @@
+
+$theme-colors: (
+  "primary": #01A59C,
+  "danger": #ff4136,
+  "success":#cc9314,
+);
+
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';
+
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@562&display=swap');
+

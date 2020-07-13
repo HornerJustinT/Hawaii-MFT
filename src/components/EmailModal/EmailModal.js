@@ -6,6 +6,9 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { connect } from "react-redux";
 
+import "../App/App.css";
+
+
 class EmailModal extends Component {
   state = {
     show: false,

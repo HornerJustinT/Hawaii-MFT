@@ -6,6 +6,8 @@ import "../profileCreate.css"
 
 import { Prompt } from 'react-router'
 
+import "../../App/App.css";
+
 
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';

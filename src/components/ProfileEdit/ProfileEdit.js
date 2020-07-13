@@ -15,6 +15,8 @@ import Col from "react-bootstrap/Col";
 
 //CSS file imports
 import "./ProfileEdit.css";
+import "../App/App.css";
+
 
 var storage = firebase.storage().ref();
 

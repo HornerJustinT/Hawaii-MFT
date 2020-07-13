@@ -3,6 +3,8 @@ import firebase from "../../Firebase";
 //used to connect the component to the reducer
 import { connect } from 'react-redux';
 import "./profileCreate.css"
+import "../App/App.css";
+
 
 import { Prompt } from 'react-router'
 

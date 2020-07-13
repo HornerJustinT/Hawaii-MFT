@@ -12,7 +12,7 @@ import {
 } from "google-maps-react";
 
 //CSS import
-// import "../App/App.css";
+import "../App/App.css";
 import "./ProfileView.css";
 
 var storage = firebase.storage().ref();
