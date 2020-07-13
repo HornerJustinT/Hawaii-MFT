@@ -4,6 +4,9 @@ import ReactTooltip from "react-tooltip";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { connect } from "react-redux";
+
+import "../App/App.css";
+
 class RegistrationModal extends Component {
     state = { 
         show: false,

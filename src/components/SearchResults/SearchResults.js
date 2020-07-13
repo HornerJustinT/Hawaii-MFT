@@ -6,6 +6,8 @@ import Card from "react-bootstrap/Card";
 
 // Styling
 import './SearchResults.css'
+import "../App/App.css";
+
 
 class SearchResults extends Component {
 

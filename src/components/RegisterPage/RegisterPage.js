@@ -4,6 +4,9 @@ import { connect } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+import "../App/App.css";
+
+
 class RegisterPage extends Component {
   state = {
     username: "",

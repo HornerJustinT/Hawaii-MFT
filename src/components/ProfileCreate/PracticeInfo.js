@@ -3,6 +3,8 @@ import { Prompt } from 'react-router'
 //this connects the component to th redux store
 import { connect } from 'react-redux';
 import "./profileCreate.css"
+import "../App/App.css";
+
 
 
 //React-bootstrap import
@@ -10,6 +12,8 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import Col from 'react-bootstrap/Col';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+
+
 
 
 

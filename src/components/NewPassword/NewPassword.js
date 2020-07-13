@@ -5,6 +5,9 @@ import Button from "react-bootstrap/Button";
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 
+import "../App/App.css";
+
+
 class LoginPage extends Component {
   state = {
     password: '',

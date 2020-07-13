@@ -15,7 +15,8 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 
 // CSS
-import './SearchBar.css'
+import './SearchBar.css';
+import '../App/App.css';
 
 const criteria = [
   "specialty",

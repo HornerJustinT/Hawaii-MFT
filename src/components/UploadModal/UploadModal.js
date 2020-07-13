@@ -12,6 +12,9 @@ import "react-image-crop/dist/ReactCrop.css";
 import { storage } from "../../Firebase";
 import ModalHeader from "react-bootstrap/ModalHeader";
 
+import "../App/App.css";
+
+
 const pixelRatio = 2;
 function getResizedCanvas(canvas, newWidth, newHeight) {
   const tmpCanvas = document.createElement("canvas");
