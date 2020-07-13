@@ -280,7 +280,9 @@ class ProfileView extends Component {
                   </div>
                 </div>
               </div>
-
+                      
+              {this.state.student && 
+              <>
               <div className="columnSide">
                 <h3 className="island">
                   {this.props.profile.city}, {this.props.profile.island}
@@ -297,7 +299,7 @@ class ProfileView extends Component {
                     <li>{this.props.profile.city}, {this.props.profile.zip_code}</li>
                   </ul>
                 </div>
-
+ 
                 <div style={mapStyles}>
                   <Map // creates google map with the center being where google geocoding api locates lat and long from the address
                     style={mapStyles}
@@ -318,6 +320,8 @@ class ProfileView extends Component {
                   </Map>
                 </div>
               </div>
+              </>
+              }
             </div>
           </div>
         </>
