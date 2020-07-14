@@ -55,7 +55,7 @@ class PracticeInfo extends Component {
     ageGroupsError: '',
     insuranceTypeIdError: '',
     shouldBlockNavigation: true,
-
+    newId:''
   }
 
   componentDidMount() {
@@ -69,6 +69,9 @@ class PracticeInfo extends Component {
     this.props.dispatch({ type: 'FETCH_DEMOGRPHICS' });
     this.props.dispatch({ type: 'FETCH_AGE_GROUPS' });
     this.props.dispatch({ type: 'FETCH_SESSION_FORMAT' });
+    this.props.dispatch({
+      type:"NEW_ID"
+    });
   }
   componentDidUpdate = () => {
     if (this.state.shouldBlockNavigation) {
@@ -76,6 +79,17 @@ class PracticeInfo extends Component {
     } else {
       window.onbeforeunload = undefined
     }
+    console.log(this.props.reduxstate.getUsersReducer.length)
+    console.log(this.props.reduxstate.getUsersReducer)
+    if (this.props.reduxstate.getUsersReducer[0]) {
+      const o = this.props.reduxstate.getUsersReducer;
+      const max = o.reduce(function (prev, current) {
+        return (prev.id > current.id) ? prev : current
+      })
+      if (this.state.newId === "")
+        this.setState({ newId: (max.id) }, () => { console.log(this.state) })
+    }
+
   }
 
   //take in the information from the input
@@ -88,23 +102,23 @@ class PracticeInfo extends Component {
   }
 
 
- 
+
   validateT = () => {
     console.log('I am in validate Function and I want to make it work');
-    
-   
+
+
 
     let formIsValid = true;
 
-   
+
 
   }
 
 
-   validate = () =>{
+  validate = () => {
     console.log('I am in validate Function and I want to make it work');
-      
-     
+
+
     let licenseStateError = '';
     let licenseNumberError = '';
     let licenseTypeError = '';
@@ -122,113 +136,115 @@ class PracticeInfo extends Component {
     let ageGroupsError = '';
     let insuranceTypeIdError = '';
 
-  let formIsValid = true;
+    let formIsValid = true;
 
-  if (this.state.license_state === '') {
-    formIsValid = false;
-    licenseStateError = 'State of Issuance is required.'
-  } else if (!this.state.license_state.match(/^[a-zA-Z_]+$/)) {
-    formIsValid = false;
-    licenseStateError = "State of Issuance input is invalid."
-  }
-
-  if (this.state.title === '') {
-    formIsValid = false;
-    titleError = 'Title is required.'
-  } else if (!this.state.title.match(/^[a-zA-Z_]+$/)) {
-    formIsValid = false;
-    titleError = "Title input is invalid."
-  }
-
-  // if (this.state.statement === '') {
-  //   formIsValid = false;
-  //   statementError = 'Statement is required'
-  // } else if (!this.state.statement.match(/^[a-zA-Z_]+$/)) {
-  //   formIsValid = false;
-  //   statementError = "Statement is invalid"
-  // }
-  if (this.state.license_number === '') {
-    formIsValid = false;
-    licenseNumberError = 'License Number is required.'
-  } else if (!isNaN(this.state.license_number) === false) {
-    formIsValid = false;
-    licenseNumberError = "License Number input is invalid."
-  }
-
-  if (this.state.fees === '') {
-    formIsValid = false;
-    feesError = 'Fees is required.'
-  } else if (!isNaN(this.state.fees) === false) {
-    formIsValid = false;
-    feesError = "Fees input is invalid."
-  }
-
-  if (this.state.license_type === '') {
-    formIsValid = false;
-    licenseTypeError = 'License Type is required.'
-  }
-
-
-  if (this.state.supervision_status === '') {
-    formIsValid = false;
-    supervisionStatusError = 'Supervision Status is required.'
-  }
-
-  if (this.state.license_expiration === '') {
-    formIsValid = false;
-    licenseExpirationError = 'License Expiration is required.'
-  }
-
-  if (this.state.telehealth === '') {
-    formIsValid = false;
-    telehealthError = 'Telehealth is required.'
-  }
-
-  if (this.state.session_format_id === '') {
-    formIsValid = false;
-    sessionFormatIdError = 'Session Format is required.'
-  }
-    if(this.state.client_focus_id === ''){
-    formIsValid=false;
-    clientFocusIdError = 'Demographic Focus is required.'
+    if (this.state.license_state === '') {
+      formIsValid = false;
+      licenseStateError = 'State of Issuance is required.'
+    } else if (!this.state.license_state.match(/^[a-zA-Z_]+$/)) {
+      formIsValid = false;
+      licenseStateError = "State of Issuance input is invalid."
     }
-    if(this.state.specialty_id === ''){
-    formIsValid=false;
-   specialtyIdError = 'Specialization is required.'
-    }
-    if(this.state.treatment_preferences_id === ''){
-    formIsValid=false;
-    treatmentPreferencesIdError = 'Treatment & Approach is required.'
-    }
-    if(this.state.age_groups_served_id === ''){
-    formIsValid=false;
-    ageGroupsError = 'Age Group Focus is required.'
-   }
-   if (this.state.credentials === '') {
-    formIsValid = false;
-    credentialsError = 'Credentials is required.'
-  }
 
-  if (this.state.insurance_type_id === '') {
-    formIsValid = false;
-    insuranceTypeIdError = 'Insurance Accepted is required.'
-  }
-  
+    if (this.state.title === '') {
+      formIsValid = false;
+      titleError = 'Title is required.'
+    } else if (!this.state.title.match(/^[a-zA-Z_]+$/)) {
+      formIsValid = false;
+      titleError = "Title input is invalid."
+    }
 
-  if(licenseStateError || licenseNumberError || licenseTypeError || supervisionStatusError
-      || feesError || licenseExpirationError || credentialsError|| telehealthError 
+    // if (this.state.statement === '') {
+    //   formIsValid = false;
+    //   statementError = 'Statement is required'
+    // } else if (!this.state.statement.match(/^[a-zA-Z_]+$/)) {
+    //   formIsValid = false;
+    //   statementError = "Statement is invalid"
+    // }
+    if (this.state.license_number === '') {
+      formIsValid = false;
+      licenseNumberError = 'License Number is required.'
+    } else if (!isNaN(this.state.license_number) === false) {
+      formIsValid = false;
+      licenseNumberError = "License Number input is invalid."
+    }
+
+    if (this.state.fees === '') {
+      formIsValid = false;
+      feesError = 'Fees is required.'
+    } else if (!isNaN(this.state.fees) === false) {
+      formIsValid = false;
+      feesError = "Fees input is invalid."
+    }
+
+    if (this.state.license_type === '') {
+      formIsValid = false;
+      licenseTypeError = 'License Type is required.'
+    }
+
+
+    if (this.state.supervision_status === '') {
+      formIsValid = false;
+      supervisionStatusError = 'Supervision Status is required.'
+    }
+
+    if (this.state.license_expiration === '') {
+      formIsValid = false;
+      licenseExpirationError = 'License Expiration is required.'
+    }
+
+    if (this.state.telehealth === '') {
+      formIsValid = false;
+      telehealthError = 'Telehealth is required.'
+    }
+
+    if (this.state.session_format_id === '') {
+      formIsValid = false;
+      sessionFormatIdError = 'Session Format is required.'
+    }
+    if (this.state.client_focus_id === '') {
+      formIsValid = false;
+      clientFocusIdError = 'Demographic Focus is required.'
+    }
+    if (this.state.specialty_id === '') {
+      formIsValid = false;
+      specialtyIdError = 'Specialization is required.'
+    }
+    if (this.state.treatment_preferences_id === '') {
+      formIsValid = false;
+      treatmentPreferencesIdError = 'Treatment & Approach is required.'
+    }
+    if (this.state.age_groups_served_id === '') {
+      formIsValid = false;
+      ageGroupsError = 'Age Group Focus is required.'
+    }
+    if (this.state.credentials === '') {
+      formIsValid = false;
+      credentialsError = 'Credentials is required.'
+    }
+
+    if (this.state.insurance_type_id === '') {
+      formIsValid = false;
+      insuranceTypeIdError = 'Insurance Accepted is required.'
+    }
+
+
+    if (licenseStateError || licenseNumberError || licenseTypeError || supervisionStatusError
+      || feesError || licenseExpirationError || credentialsError || telehealthError
       || statementError || titleError || sessionFormatIdError || clientFocusIdError
-      || specialtyIdError || treatmentPreferencesIdError || ageGroupsError || insuranceTypeIdError){
-    this.setState({ licenseStateError, licenseNumberError, licenseTypeError, supervisionStatusError,
-      feesError, licenseExpirationError, credentialsError, telehealthError, 
-      statementError, titleError, sessionFormatIdError, clientFocusIdError,
-      specialtyIdError, treatmentPreferencesIdError, ageGroupsError, insuranceTypeIdError});
-  
-  }else{
-    return true;
-  }
+      || specialtyIdError || treatmentPreferencesIdError || ageGroupsError || insuranceTypeIdError) {
+      this.setState({
+        licenseStateError, licenseNumberError, licenseTypeError, supervisionStatusError,
+        feesError, licenseExpirationError, credentialsError, telehealthError,
+        statementError, titleError, sessionFormatIdError, clientFocusIdError,
+        specialtyIdError, treatmentPreferencesIdError, ageGroupsError, insuranceTypeIdError
+      });
 
-}
+    } else {
+      return true;
+    }
+
+  }
   //every multiselect needs its own handle[Property]Change function
   //this functions take the new id of an item selected in the multiselect
   //and converts it to a title (name).
@@ -249,23 +265,24 @@ class PracticeInfo extends Component {
     //this action will dispatch all the info collegeted from all three pages
     //and those are createprofile, contactinfo and practicinfo pages
     event.preventDefault();
-   console.log('I am in PracticeINFO')
+    console.log('I am in PracticeINFO')
 
     const isValid = this.validate();
-    if(!isValid){
-     return false
-     }else{
+    if (!isValid) {
+      return false
+    } else {
       this.props.dispatch({
         type: "REGISTER",
         payload: {
-          username: this.props.saveUserReducer.username,
-          password: this.props.saveUserReducer.password
+          username: this.props.reduxstate.saveUserReducer.username,
+          password: this.props.reduxstate.saveUserReducer.password
         },
       });
 
       this.props.dispatch({
         type: 'ADD_MEMBER',
         payload: {
+          user: this.state.newId,
           prefix: this.props.createProfile.prefix,
           first_name: this.props.createProfile.first_name,
           last_name: this.props.createProfile.last_name,
@@ -301,14 +318,14 @@ class PracticeInfo extends Component {
           language_id: this.props.createProfile.language_id,
         }
       });
-   
-    //this will reset the inputs on the parcticeinfo page
-    this.setState({ shouldBlockNavigation: false }, () => {
-      this.props.history.push("/uploadimage");
-    });
-     return true;
-     }
+
+      //this will reset the inputs on the parcticeinfo page
+      this.setState({ shouldBlockNavigation: false }, () => {
+        this.props.history.push("/uploadimage");
+      });
+      return true;
     }
+  }
 
   //render
 
@@ -652,8 +669,8 @@ class PracticeInfo extends Component {
                 value={this.state.telehealth}
                 onChange={this.handleInputChangeFor("telehealth")}
               >
-                <option value ='false'>No, I do not offer telehealth.</option>
-                <option value ='true'>Yes, I offer telehealth.</option>
+                <option value='false'>No, I do not offer telehealth.</option>
+                <option value='true'>Yes, I offer telehealth.</option>
               </Form.Control>
               <Form.Text className="text-muted">Listed</Form.Text>
               <h4 className="error">{this.state.telehealthError}</h4>
@@ -661,7 +678,7 @@ class PracticeInfo extends Component {
 
             <Form.Group>
               <div className="next-button">
-              <Button type="submit">Next</Button>
+                <Button type="submit">Next</Button>
               </div>
             </Form.Group>
           </Form>
@@ -683,6 +700,7 @@ const mapStateToProps = reduxstate => ({
   sessionFormats: reduxstate.sessionFormats,
   createProfile: reduxstate.createProfile,
   contactAddress: reduxstate.contactAddress,
-  user: reduxstate.user
+  user: reduxstate.user,
+  reduxstate
 });
 export default connect(mapStateToProps)(PracticeInfo);
