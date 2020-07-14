@@ -74,7 +74,7 @@ router.get('/:id', async (req, res) => {
 /**
  * PUT route
  */
-router.put('/', rejectUnauthenticated, async (req, res) => {
+router.put('/', async (req, res) => {
   const connection = await pool.connect();
 
   try {
@@ -135,7 +135,7 @@ router.put('/', rejectUnauthenticated, async (req, res) => {
   }
 })
 
-router.put("/contact", rejectUnauthenticated, async (req, res) => {
+router.put("/contact", async (req, res) => {
   const connection = await pool.connect();
 
   try {
@@ -287,7 +287,7 @@ async function repeatingInserts (connection, table, row, member, values) {
   }
 }
 
-router.put("/practice", rejectUnauthenticated, async (req, res) => {
+router.put("/practice", async (req, res) => {
 
   const connection = await pool.connect();
 
@@ -377,7 +377,7 @@ router.put("/practice", rejectUnauthenticated, async (req, res) => {
 
 });
 
-router.put("/practice", rejectUnauthenticated, async (req, res) => {
+router.put("/practice", async (req, res) => {
 
   const connection = await pool.connect();
 
@@ -468,7 +468,7 @@ router.put("/practice", rejectUnauthenticated, async (req, res) => {
 });
 
 // Enabled or disabled the account based on whats given to it
-router.put("/enable", rejectUnauthenticated, async (req, res) => {
+router.put("/enable", async (req, res) => {
   const connection = await pool.connect();
 
   // The query itself is a pretty basic update query
