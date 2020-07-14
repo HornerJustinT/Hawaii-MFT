@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
 
 		// This is the start of the query before the 'WHERE' part would happen
 		// Its basically just a lot of things to select and JOIN
-		const startQuery = `SELECT m.*, license_type.title AS license_title,
+		const startQuery = `SELECT m.*,"user".username as username,
 			array_agg(DISTINCT languages.title) AS languages,
 			array_agg(DISTINCT age_groups_served.title) AS ages_served,
 			array_agg(DISTINCT client_focus.title) AS client_focus,
@@ -44,10 +44,12 @@ router.get('/', async (req, res) => {
 			array_agg(DISTINCT treatment_preferences.title) AS treatment_preferences,
 			ARRAY(SELECT DISTINCT phone_table.number FROM phone_table WHERE phone_table.business = true AND phone_table.member_id = m.id) AS phone,
 			ARRAY(SELECT DISTINCT address_table.address FROM address_table WHERE address_table.business = true AND address_table.member_id = m.id) AS address,
-			ARRAY(SELECT DISTINCT email_table.email FROM email_table WHERE email_table.business = true AND email_table.member_id = m.id) AS email
+			ARRAY(SELECT DISTINCT email_table.email FROM email_table WHERE email_table.business = true AND email_table.member_id = m.id) AS email,
+			ARRAY(SELECT DISTINCT email_table.email FROM email_table WHERE email_table.business = false AND email_table.member_id = m.id) AS emailPersonal
+
 
 			FROM members m
-			
+			JOIN "user" on "user".id = m.id
 			JOIN languages_pivot ON languages_pivot.member_id = m.id
 			JOIN languages ON languages.language_id = languages_pivot.language_id
 			
@@ -63,8 +65,6 @@ router.get('/', async (req, res) => {
 			JOIN island_pivot ON island_pivot.member_id = m.id
 			JOIN island ON island.island_id = island_pivot.island_id
 			
-			JOIN license_type ON license_type.license_type_id = m.license_type
-			
 			JOIN session_format_pivot ON session_format_pivot.member_id = m.id
 			JOIN session_format ON session_format.session_format_id = session_format_pivot.session_format_id
 			
@@ -76,9 +76,9 @@ router.get('/', async (req, res) => {
 
 		// This is the end part of the query for after the 'WHERE'
 		// portion of a query.
-		const endQuery = `\nGROUP BY m.id, license_type.title, m.zip_code, m.first_name, m.last_name, m.prefix, m.age, m.license_state,
-			m.license_expiration, m.hiamft_member_account_info, m.supervision_Status, m.fees, m.credentials,
-			m.telehealth, m.statement, m.website, m.title, m.city, m.license_number, m.license_type, m.enabled;`;
+		const endQuery = `\nGROUP BY m.id, m.zip_code, m.zip_code_personal, m.first_name, m.last_name, m.prefix, m.age, m.license_state,
+			m.license_expiration, m.hiamft_member_account_info, m.supervision_status, m.fees, m.credentials,
+			m.telehealth, m.statement, m.website, m.title, m.city, m.city_personal, m.license_number, m.license_type, m.enabled,"user".username, m.student;`;
 
 		// This is the 'WHERE' part of the query. It's the only one
 		// that uses let instead of const because it's very likely to
@@ -211,6 +211,11 @@ router.get('/', async (req, res) => {
 					// The search is simple enough however there was no reason to give
 					// it its own section above.
 					whereQuery += `LOWER(m.supervision_status) LIKE LOWER($${paramCount})`;
+				} else if (parse === "license_type") {
+					// This one isnt a table name change but is instead on the member table
+					// The search is simple enough however there was no reason to give
+					// it its own section above.
+					whereQuery += `LOWER(m.license_type) LIKE LOWER($${paramCount})`;
 				} else {
 					// If it doesnt need a special table name it automatically sets
 					// the name to be the same as the query name.
@@ -248,7 +253,7 @@ router.get('/', async (req, res) => {
 		// Returns the search results to the page
 		res.send(members.rows);
 	} catch (error) {
-		console.log(`Error Selecting members`, error)
+		console.log(`Error Selecting members advanced router`, error)
 		res.sendStatus(500);
 	} finally {
 		connection.release();

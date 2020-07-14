@@ -5,12 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
 
-    <title>HIAMFT Therapist Directory</title>
+    <title>Hawaiian Islands Association for Marriage & Family Therapy Directory</title>
   </head>
   <body>
+    
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
     <div id="react-root"></div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: process.env.FIREBASE_KEY,
+    authDomain: "splendid-parsec-277719.firebaseapp.com",
+    databaseURL: "https://splendid-parsec-277719.firebaseio.com",
+    projectId: "splendid-parsec-277719",
+    storageBucket: "splendid-parsec-277719.appspot.com",
+    messagingSenderId: "609857750007",
+    appId: "1:609857750007:web:d2766a74ceb954e1d024f2",
+    measurementId: "G-VD8354KV2C"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
   </body>
 </html>

@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@562&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0px;
@@ -36,6 +39,7 @@ body {
 .log-in:hover, .log-out:hover, .register:hover {
   background-color: #008183;
 }
+ 
 
 /* This line makes the "Register" and "Login" buttons look like links */
 .link-button {
@@ -76,6 +80,18 @@ body {
     flex-flow: row wrap-reverse;
 }
 
+.align-center {
+    align-items: center;
+}
+
+.align-auto {
+    align-items: auto;
+}
+
+.align-baseline {
+    align-items: baseline;
+}
+
 .save,.next,.back{
     margin-top:100px;
     padding:10px;
@@ -94,4 +110,37 @@ body {
 
 .back{
 margin-left: 150px;
+}
+
+h1 {
+    font-family: 'Lora', serif;
+}
+
+h2 {
+    font-family: 'Lora', serif;
+}
+
+h3 {
+    font-family: 'Lora', serif;
+}
+
+h4 {
+    font-family: 'Lora', serif;
+}
+
+h5 {
+    font-family: 'Lora', serif;
+}
+
+h6 {
+    font-family: 'Lora', serif;
+}
+p {
+    font-family: 'Nunito', sans-serif;
+}
+ul {
+    font-family: 'Nunito', sans-serif;
+}
+li {
+    font-family: 'Nunito', sans-serif;
 }
