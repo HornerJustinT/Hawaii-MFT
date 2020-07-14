@@ -255,7 +255,14 @@ class PracticeInfo extends Component {
     if(!isValid){
      return false
      }else{
-   
+      this.props.dispatch({
+        type: "REGISTER",
+        payload: {
+          username: this.props.saveUserReducer.username,
+          password: this.props.saveUserReducer.password
+        },
+      });
+
       this.props.dispatch({
         type: 'ADD_MEMBER',
         payload: {
