@@ -280,7 +280,7 @@ class PracticeInfo extends Component {
       this.props.dispatch({
         type: 'ADD_MEMBER',
         payload: {
-          user: this.state.newId,
+          user: (this.state.newId+1),
           prefix: this.props.createProfile.prefix,
           first_name: this.props.createProfile.first_name,
           last_name: this.props.createProfile.last_name,
@@ -294,7 +294,7 @@ class PracticeInfo extends Component {
           license_type: this.state.license_type,
           credentials: this.state.credentials,
           telehealth: this.state.telehealth,
-          statement: this.state.statement,
+          statement: this.props.createProfile.statement,
           title: this.state.title,
           website: this.props.contactAddress.website,
           city: this.props.contactAddress.city,
