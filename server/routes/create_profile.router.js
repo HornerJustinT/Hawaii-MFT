@@ -127,7 +127,7 @@ router.get('/session', (req, res) => {
 // Handles POST request with new member data
  */
 
-router.post('/', rejectUnauthenticated, async (req, res) => {
+router.post('/', async (req, res) => {
     //define the queries
     const member = await pool.connect();
     console.log(req.body)
@@ -190,12 +190,12 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 
         if (req.body.business_number) {
             await member.query(`INSERT INTO "phone_table"
-            ("business", "member_id","number") VALUES ($1,$2,$3)`, [true,req.user.id,req.body.business_number]);
+            ("business", "member_id","number") VALUES ($1,$2,$3)`, [true,req.body.user,req.body.business_number]);
         }
 
         if (req.body.personal_number) {
             await member.query(`INSERT INTO "phone_table"
-            ("business", "member_id","number") VALUES ($1,$2,$3)`, [false, req.user.id, req.body.personal_number]);
+            ("business", "member_id","number") VALUES ($1,$2,$3)`, [false, req.body.user, req.body.personal_number]);
         }
 
         if (req.body.address_office) {

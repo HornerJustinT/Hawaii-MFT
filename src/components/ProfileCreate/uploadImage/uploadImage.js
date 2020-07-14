@@ -56,7 +56,7 @@ class uploadImage extends Component {
 
 handleNext = (e) =>{
   e.preventDefault()
-  this.props.history.push(`/edit-profile/${this.props.user.id}`)
+  this.props.history.push(`/edit-profile`)
 }
 
 
