@@ -197,20 +197,22 @@ componentDidUpdate = () => {
     
     render (){
       return (
-
-        <><div>
-          <Prompt
-            when={this.state.shouldBlockNavigation}
-            message='You have unsaved changes. Are you sure you want to leave?'
-          />
-
-        </div>
+        <>
+          <div>
+            <Prompt
+              when={this.state.shouldBlockNavigation}
+              message="You have unsaved changes. Are you sure you want to leave?"
+            />
+          </div>
 
           <div className="container">
             <header>
               <h1 className="text-center">Create New Profile</h1>
             </header>
-            <div className='progressbar'> <ProgressBar now={25} /></div>
+            <div className="progressbar">
+              {" "}
+              <ProgressBar now={25} />
+            </div>
 
             <div className="text-center">
               <h3 className="subtitle">Basic Info</h3>
@@ -225,9 +227,11 @@ componentDidUpdate = () => {
                       name="prefix"
                       value={this.state.prefix}
                       onChange={this.handleInputChangeFor("prefix")}
-                      className=
-                      "prefix"
+                      className="prefix"
                     />
+                    <Form.Text className="text-muted">
+                      Do not use special characters or punctuation.
+                    </Form.Text>
                     <h4 className="error">{this.state.prefixError}</h4>
                   </Form.Group>
                   <Form.Group as={Col}>
@@ -264,7 +268,7 @@ componentDidUpdate = () => {
                     />
                     <Form.Text className="text-muted">
                       Not Listed (for HIAMFT-use only)
-                        </Form.Text>
+                    </Form.Text>
                     <h4 className="error">{this.state.ageError}</h4>
                   </Form.Group>
                   <Form.Group as={Col}>
@@ -280,7 +284,7 @@ componentDidUpdate = () => {
                         <>
                           <option defaultValue="Select a language">
                             Select a language
-                              </option>
+                          </option>
                           {this.props.languages.map((language) => (
                             <option
                               value={language.language_id}
@@ -291,11 +295,11 @@ componentDidUpdate = () => {
                           ))}
                         </>
                       )}
-                      </Form.Control>
-                      <Form.Text className="text-muted">
-                        To select multiple on Mac: press & hold Command key. To
-                        select multiple on PC, press & hold CTRL.
-                      </Form.Text>
+                    </Form.Control>
+                    <Form.Text className="text-muted">
+                      To select multiple on Mac: press & hold Command key. To
+                      select multiple on PC, press & hold CTRL.
+                    </Form.Text>
                     <h4 className="error">{this.state.languageError}</h4>
                   </Form.Group>
                 </Form.Row>
@@ -309,12 +313,12 @@ componentDidUpdate = () => {
                       type="text"
                       name="statement"
                       value={this.state.statement}
-                      onChange={this.handleInputChangeFor(
-                        "statement"
-                      )}
+                      onChange={this.handleInputChangeFor("statement")}
                     />
                     <Form.Text className="text-muted">
-                      Please tell us a bit about yourself. You will be able to edit this section later. This will be publicly visible in the directory.
+                      Please tell us a bit about yourself. You will be able to
+                      edit this section later. This will be publicly visible in
+                      the directory.
                     </Form.Text>
                     <h4 className="error">{this.state.memberError}</h4>
                   </Form.Group>

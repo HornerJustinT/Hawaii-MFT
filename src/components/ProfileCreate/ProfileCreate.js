@@ -197,59 +197,63 @@ componentDidUpdate = () => {
     render (){
       console.log("user that will be added", this.props.saveUserReducer);
       return (
-
         <>
-        <div>
-          <Prompt
-            when={this.state.shouldBlockNavigation}
-            message='You have unsaved changes. Are you sure you want to leave?'
-          />
-        </div>
+          <div>
+            <Prompt
+              when={this.state.shouldBlockNavigation}
+              message="You have unsaved changes. Are you sure you want to leave?"
+            />
+          </div>
 
           <div className="container">
             <header>
               <h1 className="text-center">Create New Profile</h1>
             </header>
-            <div className='progressbar'> <ProgressBar now={25} /></div>
-           
+            <div className="progressbar">
+              {" "}
+              <ProgressBar now={25} />
+            </div>
+
             <div className="text-center">
               <h3 className="subtitle">Basic Info</h3>
             </div>
             <Form onSubmit={this.addMembers}>
               <Form className="flex-container row-wrap row">
                 <Form.Row>
-                    <Form.Group as={Col}>
-                      <Form.Label>Prefix</Form.Label>
-                        <FormControl
-                          type="text"
-                          name="prefix"
-                          value={this.state.prefix}
-                          onChange={this.handleInputChangeFor("prefix")}
-                          className=
-                          "prefix"
-                        />
-                      <h4 className="error">{this.state.prefixError}</h4>
-                    </Form.Group>
-                    <Form.Group as={Col}>
-                        <Form.Label>First Name</Form.Label>
-                        <FormControl
-                          type="text"
-                          name="first_name"
-                          value={this.state.first_name}
-                          onChange={this.handleInputChangeFor("first_name")}
-                        />
-                        <h4 className="error">{this.state.firstNameError}</h4>
-                    </Form.Group> 
-                      <Form.Group as={Col}>
-                        <Form.Label>Last Name</Form.Label>
-                        <FormControl
-                          type="text"
-                          name="last_name"
-                          value={this.state.last_name}
-                          onChange={this.handleInputChangeFor("last_name")}
-                        />
-                      <h4 className="error">{this.state.lastNameError}</h4>
-                      </Form.Group> 
+                  <Form.Group as={Col}>
+                    <Form.Label>Prefix</Form.Label>
+                    <FormControl
+                      type="text"
+                      name="prefix"
+                      value={this.state.prefix}
+                      onChange={this.handleInputChangeFor("prefix")}
+                      className="prefix"
+                    />
+                    <Form.Text className="text-muted">
+                      Do not use special characters or punctuation.
+                    </Form.Text>
+                    <h4 className="error">{this.state.prefixError}</h4>
+                  </Form.Group>
+                  <Form.Group as={Col}>
+                    <Form.Label>First Name</Form.Label>
+                    <FormControl
+                      type="text"
+                      name="first_name"
+                      value={this.state.first_name}
+                      onChange={this.handleInputChangeFor("first_name")}
+                    />
+                    <h4 className="error">{this.state.firstNameError}</h4>
+                  </Form.Group>
+                  <Form.Group as={Col}>
+                    <Form.Label>Last Name</Form.Label>
+                    <FormControl
+                      type="text"
+                      name="last_name"
+                      value={this.state.last_name}
+                      onChange={this.handleInputChangeFor("last_name")}
+                    />
+                    <h4 className="error">{this.state.lastNameError}</h4>
+                  </Form.Group>
                 </Form.Row>
               </Form>
               <Form className="flex-container row-wrap row">
@@ -264,7 +268,7 @@ componentDidUpdate = () => {
                     />
                     <Form.Text className="text-muted">
                       Not Listed (for HIAMFT-use only)
-                        </Form.Text>
+                    </Form.Text>
                     <h4 className="error">{this.state.ageError}</h4>
                   </Form.Group>
                   <Form.Group as={Col}>
@@ -280,7 +284,7 @@ componentDidUpdate = () => {
                         <>
                           <option defaultValue="Select a language">
                             Select a language
-                              </option>
+                          </option>
                           {this.props.languages.map((language) => (
                             <option
                               value={language.language_id}
@@ -291,10 +295,10 @@ componentDidUpdate = () => {
                           ))}
                         </>
                       )}
-                      </Form.Control>
-                      <Form.Text className="text-muted">
-                        To select multiple on Mac: press & hold Command key. To
-                        select multiple on PC, press & hold CTRL.
+                    </Form.Control>
+                    <Form.Text className="text-muted">
+                      To select multiple on Mac: press & hold Command key. To
+                      select multiple on PC, press & hold CTRL.
                     </Form.Text>
                     <h4 className="error">{this.state.languageError}</h4>
                   </Form.Group>
@@ -302,30 +306,29 @@ componentDidUpdate = () => {
               </Form>
               <Form className="flex-container row-wrap row">
                 <Form.Row>
-                    <Form.Group as={Col}>
-                      <Form.Label>Personal Statement</Form.Label>
-                      <Form.Control
-                        as="textarea"
-                        type="text"
-                        name="statement"
-                        value={this.state.statement}
-                        onChange={this.handleInputChangeFor(
-                          "statement"
-                        )}
-                      />
+                  <Form.Group as={Col}>
+                    <Form.Label>Personal Statement</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      type="text"
+                      name="statement"
+                      value={this.state.statement}
+                      onChange={this.handleInputChangeFor("statement")}
+                    />
                     <Form.Text className="text-muted">
-                      Please tell us a bit about yourself and your practice. You will be able to edit this section later. This will be publicly visible in the directory.
-                      Limit 10,000 characters.
-                      
+                      Please tell us a bit about yourself and your practice. You
+                      will be able to edit this section later. This will be
+                      publicly visible in the directory. Limit 10,000
+                      characters.
                     </Form.Text>
-                      <h4 className="error">{this.state.memberError}</h4>  
-                      </Form.Group>
+                    <h4 className="error">{this.state.memberError}</h4>
+                  </Form.Group>
                 </Form.Row>
               </Form>
-                <div className="next-button">
-                  <Button type="submit">Next</Button>
-                </div>
-          </Form>
+              <div className="next-button">
+                <Button type="submit">Next</Button>
+              </div>
+            </Form>
           </div>
         </>
       );
