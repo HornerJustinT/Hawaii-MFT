@@ -29,10 +29,14 @@ function* newId(){
   const response = yield axios.get('/api/user/new');
   yield put({type:'GET_USERS_REDUCER', payload:response.data});
 }
+function* resetNewId(){
+  yield put({type:'RESET_USERS_REDUCER'})
+}
 function* registrationSaga() {
   yield takeLatest('REGISTER', registerUser);
   yield takeLatest('SAVE_REGISTER', saveRegister);
   yield takeLatest('NEW_ID',newId);
+  yield takeLatest('RESET_NEW_ID',resetNewId);
 }
 
 export default registrationSaga;

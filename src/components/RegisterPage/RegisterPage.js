@@ -29,7 +29,7 @@ class RegisterPage extends Component {
 
   registerUser = (event) => {
     event.preventDefault();
-
+    this.props.dispatch({type:'RESET_NEW_ID'})
     if (this.state.username && this.state.password) {
       this.props.dispatch({
         type: "SAVE_REGISTER",
