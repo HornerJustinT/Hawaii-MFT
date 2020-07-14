@@ -158,9 +158,6 @@ class PracticeInfo extends Component {
   if (this.state.fees === '') {
     formIsValid = false;
     feesError = 'Fees is required.'
-  } else if (!isNaN(this.state.fees) === false) {
-    formIsValid = false;
-    feesError = "Fees input is invalid."
   }
 
   if (this.state.license_type === '') {
@@ -319,29 +316,32 @@ class PracticeInfo extends Component {
         <div>
           <Prompt
             when={this.state.shouldBlockNavigation}
-            message='You have unsaved changes. Are you sure you want to leave?'
+            message="You have unsaved changes. Are you sure you want to leave?"
           />
-
         </div>
         <div className="container">
           <header>
             <h1 className="text-center">Practice Info</h1>
           </header>
-          <div className='progressbar'> <ProgressBar now={75} /></div>
+          <div className="progressbar">
+            {" "}
+            <ProgressBar now={75} />
+          </div>
 
           <Form onSubmit={this.addMembersInfo}>
             <Form.Group>
               <Form.Label>Title*</Form.Label>
               <Form.Control
                 type="text"
-                placeholder='Please fill in your Title.'
+                placeholder="Please fill in your Title."
                 name="title"
                 value={this.state.title}
                 onChange={this.handleInputChangeFor("title")}
               />
               <Form.Text className="text-muted">
-                Not Listed (for HIAMFT-use only)
-                  </Form.Text>
+                Not Listed (for HIAMFT-use only) - Do not use special characters
+                or punctuation.
+              </Form.Text>
               <h4 className="error">{this.state.titleError}</h4>
             </Form.Group>
 
@@ -349,17 +349,17 @@ class PracticeInfo extends Component {
               <Form.Label>Credentials*</Form.Label>
               <Form.Control
                 type="text"
-                placeholder='Please fill in your Credentials.'
+                placeholder="Please fill in your Credentials."
                 name="title"
                 value={this.state.credentials}
                 onChange={this.handleInputChangeFor("credentials")}
               />
               <Form.Text className="text-muted">
-                Please indicate the credentials you would like to have
-                listed in your HIAMFT Directory listing. Type them in as
-                they would appear following your name. Example: 'PhD,
-                LMFT, LP'
-                  </Form.Text>
+                Please indicate the credentials you would like to have listed in
+                your HIAMFT Directory listing. Type them in as they would appear
+                following your name. Example: 'PhD, LMFT, LP'. Do not use
+                special characters or punctuation.
+              </Form.Text>
               <h4 className="error">{this.state.credentialsError}</h4>
             </Form.Group>
 
@@ -372,25 +372,21 @@ class PracticeInfo extends Component {
               >
                 {this.props.license && (
                   <>
-                    <option value='' defaultValue="Select License Type">
+                    <option value="" defaultValue="Select License Type">
                       Select License Type
-                        </option>
+                    </option>
                     {this.props.license.map((type) => (
-                      <option
-                        value={type.title}
-                        key={type.license_type_id}
-                      >
+                      <option value={type.title} key={type.license_type_id}>
                         {type.title}
                       </option>
-
                     ))}
                   </>
                 )}
               </Form.Control>
               <Form.Text className="text-muted">
-                Not Listed (for HIAMFT-use only) - Please list licenses
-                that you'd like to appear after your name in Credentials section
-                      </Form.Text>
+                Not Listed (for HIAMFT-use only) - Please list licenses that
+                you'd like to appear after your name in Credentials section
+              </Form.Text>
               <h4 className="error">{this.state.licenseTypeError}</h4>
             </Form.Group>
 
@@ -398,14 +394,14 @@ class PracticeInfo extends Component {
               <Form.Label>License State of Issuance*</Form.Label>
               <Form.Control
                 type="text"
-                placeholder='Please fill in your License State of Issuance.'
+                placeholder="Please fill in your License State of Issuance."
                 name="license_state"
                 value={this.state.license_state}
                 onChange={this.handleInputChangeFor("license_state")}
               />
               <Form.Text className="text-muted">
                 Not Listed (for HIAMFT-use only)
-                      </Form.Text>
+              </Form.Text>
               <h4 className="error">{this.state.licenseStateError}</h4>
             </Form.Group>
 
@@ -413,14 +409,14 @@ class PracticeInfo extends Component {
               <Form.Label>License Number*</Form.Label>
               <Form.Control
                 type="number"
-                placeholder='Please fill in your License Number.'
+                placeholder="Please fill in your License Number."
                 name="license_number"
                 value={this.state.license_number}
                 onChange={this.handleInputChangeFor("license_number")}
               />
               <Form.Text className="text-muted">
                 Not Listed (for HIAMFT-use only)
-                      </Form.Text>
+              </Form.Text>
               <h4 className="error">{this.state.licenseNumberError}</h4>
             </Form.Group>
 
@@ -428,14 +424,14 @@ class PracticeInfo extends Component {
               <Form.Label>License Expiration Date*</Form.Label>
               <Form.Control
                 type="date"
-                placeholder='Please fill in your License Expiration Date.'
+                placeholder="Please fill in your License Expiration Date."
                 name="license_expiration"
                 value={this.state.license_expiration}
                 onChange={this.handleInputChangeFor("license_expiration")}
               />
               <Form.Text className="text-muted">
                 Not Listed (for HIAMFT-use only)
-                      </Form.Text>
+              </Form.Text>
               <h4 className="error">{this.state.licenseExpirationError}</h4>
             </Form.Group>
 
@@ -455,7 +451,9 @@ class PracticeInfo extends Component {
               <h4 className="error">{this.state.supervisionStatusError}</h4>
             </Form.Group>
             <Form.Group>
-              <Form.Label>Insurance Accepted* - you may select multiple</Form.Label>
+              <Form.Label>
+                Insurance Accepted* - you may select multiple
+              </Form.Label>
               <Form.Control
                 as="select"
                 multiple={true}
@@ -479,30 +477,31 @@ class PracticeInfo extends Component {
               <Form.Text className="text-muted">
                 Listed - To select multiple on Mac: press & hold Command key. To
                 select multiple on PC, press & hold CTRL.
-                  </Form.Text>
+              </Form.Text>
               <h4 className="error">{this.state.insuranceTypeIdError}</h4>
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Fees*</Form.Label>
               <Form.Control
-                type="text"
-                placeholder='Please fill in your Fees.'
+                placeholder="Please fill in your Fees."
                 name="fees"
                 value={this.state.fees}
                 onChange={this.handleInputChangeFor("fees")}
               />
               <Form.Text className="text-muted">
                 Listed - Please indicate a standard rate or range
-                      </Form.Text>
+              </Form.Text>
               <h4 className="error">{this.state.feesError}</h4>
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Specialization(s)* - you may select multiple</Form.Label>
+              <Form.Label>
+                Specialization(s)* - you may select multiple
+              </Form.Label>
               <Form.Control
                 as="select"
-                placeholder='Please fill in your specialization.'
+                placeholder="Please fill in your specialization."
                 multiple={true}
                 onChange={(event) =>
                   this.handleMultiChange(event, "specialty_id")
@@ -522,14 +521,16 @@ class PracticeInfo extends Component {
                 )}
               </Form.Control>
               <Form.Text className="text-muted">
-                Listed - To select multiple on Mac: press & hold Command
-                key. To select multiple on PC, press & hold CTRL.
-                      </Form.Text>
+                Listed - To select multiple on Mac: press & hold Command key. To
+                select multiple on PC, press & hold CTRL.
+              </Form.Text>
               <h4 className="error">{this.state.specialtyIdError}</h4>
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Treatment & Approach* - you may select multiple</Form.Label>
+              <Form.Label>
+                Treatment & Approach* - you may select multiple
+              </Form.Label>
               <Form.Control
                 as="select"
                 multiple={true}
@@ -551,14 +552,18 @@ class PracticeInfo extends Component {
                 )}
               </Form.Control>
               <Form.Text className="text-muted">
-                Listed - To select multiple on Mac: press & hold Command
-                key. To select multiple on PC, press & hold CTRL.
-                      </Form.Text>
-              <h4 className="error">{this.state.treatmentPreferencesIdError}</h4>
+                Listed - To select multiple on Mac: press & hold Command key. To
+                select multiple on PC, press & hold CTRL.
+              </Form.Text>
+              <h4 className="error">
+                {this.state.treatmentPreferencesIdError}
+              </h4>
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Demographic Focus* - you may select multiple</Form.Label>
+              <Form.Label>
+                Demographic Focus* - you may select multiple
+              </Form.Label>
               <Form.Control
                 as="select"
                 multiple={true}
@@ -580,14 +585,16 @@ class PracticeInfo extends Component {
                 )}
               </Form.Control>
               <Form.Text className="text-muted">
-                Listed - To select multiple on Mac: press & hold Command
-                key. To select multiple on PC, press & hold CTRL.
-                      </Form.Text>
+                Listed - To select multiple on Mac: press & hold Command key. To
+                select multiple on PC, press & hold CTRL.
+              </Form.Text>
               <h4 className="error">{this.state.clientFocusIdError}</h4>
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Age Group Focus* - you may select multiple</Form.Label>
+              <Form.Label>
+                Age Group Focus* - you may select multiple
+              </Form.Label>
               <Form.Control
                 as="select"
                 multiple={true}
@@ -609,14 +616,16 @@ class PracticeInfo extends Component {
                 )}
               </Form.Control>
               <Form.Text className="text-muted">
-                Listed - To select multiple on Mac: press & hold Command
-                key. To select multiple on PC, press & hold CTRL.
-                      </Form.Text>
+                Listed - To select multiple on Mac: press & hold Command key. To
+                select multiple on PC, press & hold CTRL.
+              </Form.Text>
               <h4 className="error">{this.state.ageGroupsError}</h4>
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Session Format(s)* - you may select multiple</Form.Label>
+              <Form.Label>
+                Session Format(s)* - you may select multiple
+              </Form.Label>
               <Form.Control
                 as="select"
                 multiple={true}
@@ -638,22 +647,22 @@ class PracticeInfo extends Component {
                 )}
               </Form.Control>
               <Form.Text className="text-muted">
-                Listed - To select multiple on Mac: press & hold Command
-                key. To select multiple on PC, press & hold CTRL.
-                      </Form.Text>
+                Listed - To select multiple on Mac: press & hold Command key. To
+                select multiple on PC, press & hold CTRL.
+              </Form.Text>
               <h4 className="error">{this.state.sessionFormatIdError}</h4>
             </Form.Group>
             <Form.Group>
               <Form.Label>Are you providing telehealth?*</Form.Label>
               <Form.Control
                 as="select"
-                placeholder='Please choose if you are providing telehealth.'
+                placeholder="Please choose if you are providing telehealth."
                 name="telehealth"
                 value={this.state.telehealth}
                 onChange={this.handleInputChangeFor("telehealth")}
               >
-                <option value ='false'>No, I do not offer telehealth.</option>
-                <option value ='true'>Yes, I offer telehealth.</option>
+                <option value="false">No, I do not offer telehealth.</option>
+                <option value="true">Yes, I offer telehealth.</option>
               </Form.Control>
               <Form.Text className="text-muted">Listed</Form.Text>
               <h4 className="error">{this.state.telehealthError}</h4>
@@ -661,7 +670,7 @@ class PracticeInfo extends Component {
 
             <Form.Group>
               <div className="next-button">
-              <Button type="submit">Next</Button>
+                <Button type="submit">Next</Button>
               </div>
             </Form.Group>
           </Form>
