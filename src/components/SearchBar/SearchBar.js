@@ -178,146 +178,162 @@ class SearchBar extends Component {
   render() {
     return (
       <>
-        <Form style={{ width: "80%", margin: "20px auto" }}>
-          {this.state.advanced ? (
-            <div>
-              <div className="flex-between row-wrap">
-                <Form.Group controlId="Advanced-zip" className="advanced-input">
-                  <Form.Label>Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Name"
-                    onChange={(event) => this.onSearchChangeAdv(event, "name")}
-                  />
-                </Form.Group>
-                <SearchSelect
-                  name="Specialization"
-                  array={this.state.data.specialty}
-                  onChange={(event) =>
-                    this.onSearchChangeAdv(event, "specialty")
-                  }
-                  value={this.state.specialty || null}
-                />
-                <Form.Group controlId="Advanced-zip" className="advanced-input">
-                  <Form.Label>Island, City or Zip Code</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Island, City or Zip Code"
-                    onChange={(event) => this.onSearchChangeAdv(event, "zip")}
-                  />
-                </Form.Group>
-                <SearchSelect
-                  name="Treatment Approach"
-                  array={this.state.data.treatment_preferences}
-                  onChange={(event) =>
-                    this.onSearchChangeAdv(event, "treatment_preferences")
-                  }
-                  value={this.state.treatment_preferences || null}
-                />
-                <SearchSelect
-                  name="Insurance Accepted"
-                  array={this.state.data.insurance}
-                  onChange={(event) =>
-                    this.onSearchChangeAdv(event, "insurance")
-                  }
-                  value={this.state.insurance || null}
-                />
-                <div className="flex-between advanced-input">
-                  <SearchSelect
-                    name="Age Group Focus"
-                    array={this.state.data.ages_served}
-                    onChange={(event) =>
-                      this.onSearchChangeAdv(event, "ages_served")
-                    }
-                    value={this.state.ages_served || null}
-                  />
-                  <SearchSelect
-                    name="Demographic Focus"
-                    array={this.state.data.client_focus}
-                    onChange={(event) =>
-                      this.onSearchChangeAdv(event, "client_focus")
-                    }
-                    value={this.state.client_focus || null}
-                  />
-                </div>
-                <SearchSelect
-                  name="Session Format"
-                  array={this.state.data.session_format}
-                  onChange={(event) =>
-                    this.onSearchChangeAdv(event, "session_format")
-                  }
-                  value={this.state.session_format || null}
-                />
-                <SearchSelect
-                  name="Language Spoken"
-                  array={this.state.data.languages}
-                  onChange={(event) =>
-                    this.onSearchChangeAdv(event, "languages")
-                  }
-                  value={this.state.languages || null}
-                />
-                <SearchSelect
-                  name="Supervision Status"
-                  array={this.state.data.supervision_status}
-                  onChange={(event) =>
-                    this.onSearchChangeAdv(event, "supervision_status")
-                  }
-                  value={this.state.supervision_status || null}
-                />
-                <Form.Check
-                  type="switch"
-                  id="telehealth"
-                  label="Provides Telehealth"
-                  className="switch"
-                  onChange={this.onTelehealthChange}
-                  value={this.state.telehealth || false}
-                />
-              </div>
-              <Button
-                variant="primary"
-                type="submit"
-                style={{ float: "right" }}
-                onClick={this.advancedSearchSubmit}
-              >
-                Search
-              </Button>
-            </div>
-          ) : (
-            <Form.Group
-              controlId="simple-search"
-              onSubmit={this.onSearchClicked}
-            >
-              <Form.Label><h3>Find a Therapist</h3></Form.Label>
-              <InputGroup className="mb-3">
-                <Form.Control
-                  placeholder="Island, City or Zip Code"
-                  aria-label="Island, City or Zip Code"
-                  aria-describedby="basic-addon2"
-                  onChange={this.onSearchChange}
-                />
-                <InputGroup.Append>
+        <div className="cover-photo">
+          <div>
+            <Form style={{ width: "100%" }} className="search">
+                <h3>Find a Therapist</h3>
+              {this.state.advanced ? (
+                <div className="content">
+                  <div className="flex-between row-wrap">
+                    <Form.Group
+                      controlId="Advanced-zip"
+                      className="advanced-input"
+                    >
+                      <Form.Label>Name</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Name"
+                        onChange={(event) =>
+                          this.onSearchChangeAdv(event, "name")
+                        }
+                      />
+                    </Form.Group>
+                    <SearchSelect
+                      name="Specialization"
+                      array={this.state.data.specialty}
+                      onChange={(event) =>
+                        this.onSearchChangeAdv(event, "specialty")
+                      }
+                      value={this.state.specialty || null}
+                    />
+                    <Form.Group
+                      controlId="Advanced-zip"
+                      className="advanced-input"
+                    >
+                      <Form.Label>Island, City or Zip Code</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Island, City or Zip Code"
+                        onChange={(event) =>
+                          this.onSearchChangeAdv(event, "zip")
+                        }
+                      />
+                    </Form.Group>
+                    <SearchSelect
+                      name="Treatment Approach"
+                      array={this.state.data.treatment_preferences}
+                      onChange={(event) =>
+                        this.onSearchChangeAdv(event, "treatment_preferences")
+                      }
+                      value={this.state.treatment_preferences || null}
+                    />
+                    <SearchSelect
+                      name="Insurance Accepted"
+                      array={this.state.data.insurance}
+                      onChange={(event) =>
+                        this.onSearchChangeAdv(event, "insurance")
+                      }
+                      value={this.state.insurance || null}
+                    />
+                    <div className=" advanced-input">
+                      <SearchSelect
+                        name="Age Group Focus"
+                        array={this.state.data.ages_served}
+                        onChange={(event) =>
+                          this.onSearchChangeAdv(event, "ages_served")
+                        }
+                        value={this.state.ages_served || null}
+                      />
+                      <SearchSelect
+                        name="Demographic Focus"
+                        array={this.state.data.client_focus}
+                        onChange={(event) =>
+                          this.onSearchChangeAdv(event, "client_focus")
+                        }
+                        value={this.state.client_focus || null}
+                      />
+                    </div>
+                    <SearchSelect
+                      name="Session Format"
+                      array={this.state.data.session_format}
+                      onChange={(event) =>
+                        this.onSearchChangeAdv(event, "session_format")
+                      }
+                      value={this.state.session_format || null}
+                    />
+                    <SearchSelect
+                      name="Language Spoken"
+                      array={this.state.data.languages}
+                      onChange={(event) =>
+                        this.onSearchChangeAdv(event, "languages")
+                      }
+                      value={this.state.languages || null}
+                    />
+                    <SearchSelect
+                      name="Supervision Status"
+                      array={this.state.data.supervision_status}
+                      onChange={(event) =>
+                        this.onSearchChangeAdv(event, "supervision_status")
+                      }
+                      value={this.state.supervision_status || null}
+                    />
+                    <Form.Check
+                      type="switch"
+                      id="telehealth"
+                      label="Provides Telehealth"
+                      className="switch"
+                      onChange={this.onTelehealthChange}
+                      value={this.state.telehealth || false}
+                    />
+                  </div>
                   <Button
                     variant="primary"
                     type="submit"
-                    onClick={this.onSearchClicked}
+                    style={{ float: "right" }}
+                    onClick={this.advancedSearchSubmit}
                   >
                     Search
                   </Button>
-                </InputGroup.Append>
-              </InputGroup>
-            </Form.Group>
-          )}
-          {this.state.data && (
-            <Form.Check
-              type="switch"
-              id="custom-switch"
-              label="Advanced Search"
-              className="switch"
-              onChange={this.switchChange}
-            />
-          )}
-        </Form>
-        <SearchResults therapists={this.state.therapists} />
+                </div>
+              ) : (
+                <Form.Group
+                  controlId="simple-search"
+                  onSubmit={this.onSearchClicked}
+                >
+                  <InputGroup className="mb-3">
+                    <Form.Control
+                      placeholder="Island, City or Zip Code"
+                      aria-label="Island, City or Zip Code"
+                      aria-describedby="basic-addon2"
+                      onChange={this.onSearchChange}
+                    />
+                    <InputGroup.Append>
+                      <Button
+                        variant="primary"
+                        type="submit"
+                        onClick={this.onSearchClicked}
+                      >
+                        Search
+                      </Button>
+                    </InputGroup.Append>
+                  </InputGroup>
+                </Form.Group>
+              )}
+              {this.state.data && (
+                <Form.Check
+                  type="switch"
+                  id="custom-switch"
+                  label="Advanced Search"
+                  className="switch"
+                  onChange={this.switchChange}
+                />
+              )}
+            </Form>
+            <div className="results">
+              <SearchResults therapists={this.state.therapists} />
+            </div>
+          </div>
+        </div>
       </>
     );
   }
