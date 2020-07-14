@@ -10,7 +10,7 @@ router.get('/:id', async (req, res) => {
          let query = `SELECT m.*, 
          array_agg(DISTINCT languages.title) AS languages,
          array_agg(DISTINCT languages.language_id) AS languages_id,
-         array_agg(DISTINCT age_groups_served.title) AS ages_served,
+         array_agg(DISTINCT age_groups_served.title) AS ages_served,   
          array_agg(DISTINCT age_groups_served.age_groups_served_id) AS ages_served_id,
          array_agg(DISTINCT client_focus.title) AS client_focus,
          array_agg(DISTINCT client_focus.client_focus_id) AS client_focus_id,
