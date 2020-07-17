@@ -130,7 +130,7 @@ router.get('/session', (req, res) => {
 router.post('/', async (req, res) => {
     //define the queries
     const member = await pool.connect();
-    console.log(req.body)
+    console.log('KRISTEN city and zip personal', req.body.zip_code_personal, req.body.city_personal);
     if(req.body.telehealth==''){
         req.body.telehealth = true;
     }
@@ -141,13 +141,35 @@ router.post('/', async (req, res) => {
     
         await member.query('BEGIN')
 
-      const insertMember = await  member.query(
-          
+      const insertMember = await member.query(
         `INSERT INTO "members" 
-        ("id","zip_code","first_name", "last_name", "prefix", "age","license_state", "license_expiration", "hiamft_member_account_info", "supervision_status","fees", 
-        "credentials", "telehealth", "statement", "website", "title", "city", "license_number", "license_type")
-    VALUES($1,$2, $3, $4, $5, $6, $7, $8, $9, $10, $11,$12,$13,$14,$15,$16,$17,$18,$19);`, [req.body.user,req.body.zip_code, req.body.first_name,  req.body.last_name, req.body.prefix, req.body.age, req.body.license_state, req.body.license_expiration, 
-            req.body.hiamft_member_account_info, req.body.supervision_status,req.body.fees, req.body.credentials, req.body.telehealth, req.body.statement, req.body.website, req.body.title, req.body.city, req.body.license_number, req.body.license_type]);
+        ("id","zip_code", "zip_code_personal", "first_name", "last_name", "prefix", "age","license_state", "license_expiration", "hiamft_member_account_info", "supervision_status","fees", 
+        "credentials", "telehealth", "statement", "website", "title", "city", "city_personal", "license_number", "license_type")
+    VALUES($1,$2, $3, $4, $5, $6, $7, $8, $9, $10, $11,$12,$13,$14,$15,$16,$17,$18,$19, $20, $21);`,
+        [
+          req.body.user,
+          req.body.zip_code,
+          req.body.zip_code_personal,
+          req.body.first_name,
+          req.body.last_name,
+          req.body.prefix,
+          req.body.age,
+          req.body.license_state,
+          req.body.license_expiration,
+          req.body.hiamft_member_account_info,
+          req.body.supervision_status,
+          req.body.fees,
+          req.body.credentials,
+          req.body.telehealth,
+          req.body.statement,
+          req.body.website,
+          req.body.title,
+          req.body.city,
+          req.body.city_personal,
+          req.body.license_number,
+          req.body.license_type,
+        ]
+      );
         
         if (req.body.language_id[0]) {
             for (let language of req.body.language_id) {

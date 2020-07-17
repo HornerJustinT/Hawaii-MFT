@@ -343,31 +343,33 @@ class ProfileEdit extends Component {
               {this.props.profile && (
                 <>
                   <div className="border">
-                    <Form className="flex-container row-wrap row">
-                      <Form.Group as={Col}>
-                        <Form.Label className="label">Prefix</Form.Label>
-                        <Form.Control
-                          disabled={true}
-                          readOnly
-                          defaultValue={this.state.prefix}
-                        />
-                      </Form.Group>
-                      <Form.Group as={Col}>
-                        <Form.Label className="label">First Name</Form.Label>
-                        <Form.Control
-                          disabled={true}
-                          readOnly
-                          defaultValue={this.state.firstName}
-                        />
-                      </Form.Group>
-                      <Form.Group as={Col}>
-                        <Form.Label className="label">Last Name</Form.Label>
-                        <Form.Control
-                          disabled={true}
-                          readOnly
-                          defaultValue={this.state.lastName}
-                        />
-                      </Form.Group>
+                    <Form className="flex-container row">
+                      <Form.Row>
+                          <Form.Group as={Col}>
+                            <Form.Label className="label">Prefix</Form.Label>
+                            <Form.Control
+                              disabled={true}
+                              readOnly
+                              defaultValue={this.state.prefix}
+                            />
+                          </Form.Group>
+                          <Form.Group as={Col}>
+                            <Form.Label className="label">First Name</Form.Label>
+                            <Form.Control
+                              disabled={true}
+                              readOnly
+                              defaultValue={this.state.firstName}
+                            />
+                          </Form.Group>
+                          <Form.Group as={Col}>
+                            <Form.Label className="label">Last Name</Form.Label>
+                            <Form.Control
+                              disabled={true}
+                              readOnly
+                              defaultValue={this.state.lastName}
+                            />
+                          </Form.Group>
+                      </Form.Row>
                     </Form>
 
                     <Form className="flex-between row-wrap row">
@@ -384,8 +386,8 @@ class ProfileEdit extends Component {
                       </Form.Group>
                       {this.displayLanguages()}
                     </Form>
-                    <Form className="last">
-                      <Form.Group>
+                      <Form className="flex-between row-wrap row last">
+                      <Form.Group className="column">
                         <Form.Label className="label">
                           Personal Statement
                         </Form.Label>
