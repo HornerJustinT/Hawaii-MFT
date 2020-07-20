@@ -167,7 +167,8 @@ if(!isValid){
           treatment_preferences_id:this.state.treatment_preferences_id,
           age_groups_served_id:this.state.age_groups_served_id,
           insurance_type_id:this.state.insurance_type_id,
-          language_id:this.props.createProfile.language_id
+          language_id:this.props.createProfile.language_id,
+          student: true,
          }
         });
         this.setState({shouldBlockNavigation:false},()=>{
@@ -211,7 +212,7 @@ if(!isValid){
                   <Form.Label>Specialization(s)* - you may select multiple</Form.Label>
                   <Form.Control
                     as="select"
-                    placeholder='Please fill in your specialization.'
+                    placeholder='Please fill in your Specialization'
                     multiple={true}
                     onChange={(event) =>
                       this.handleMultiChange(event, "specialty_id")

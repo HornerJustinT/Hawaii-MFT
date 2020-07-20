@@ -310,6 +310,7 @@ componentDidUpdate = () => {
                     <Form.Label>Personal Statement</Form.Label>
                     <Form.Control
                       as="textarea"
+                      rows="5"
                       type="text"
                       name="statement"
                       value={this.state.statement}

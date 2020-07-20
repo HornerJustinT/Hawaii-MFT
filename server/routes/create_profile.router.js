@@ -144,8 +144,8 @@ router.post('/', async (req, res) => {
       const insertMember = await member.query(
         `INSERT INTO "members" 
         ("id","zip_code", "zip_code_personal", "first_name", "last_name", "prefix", "age","license_state", "license_expiration", "hiamft_member_account_info", "supervision_status","fees", 
-        "credentials", "telehealth", "statement", "website", "title", "city", "city_personal", "license_number", "license_type")
-    VALUES($1,$2, $3, $4, $5, $6, $7, $8, $9, $10, $11,$12,$13,$14,$15,$16,$17,$18,$19, $20, $21);`,
+        "credentials", "telehealth", "statement", "website", "title", "city", "city_personal", "license_number", "license_type", "student")
+    VALUES($1,$2, $3, $4, $5, $6, $7, $8, $9, $10, $11,$12,$13,$14,$15,$16,$17,$18,$19, $20, $21, $22);`,
         [
           req.body.user,
           req.body.zip_code,
@@ -168,6 +168,7 @@ router.post('/', async (req, res) => {
           req.body.city_personal,
           req.body.license_number,
           req.body.license_type,
+          req.body.student,
         ]
       );
         

@@ -268,7 +268,7 @@ componentDidUpdate = () => {
                   <Form.Label>Phone Number - Business*</Form.Label>
                   <Form.Control
                     name="business_number"
-                    placeholder="Please fill in your Business Phone Number."
+                    placeholder="Please fill in your Business Phone Number"
                     value={this.state.business_number}
                     onChange={this.handleInputChangeFor("business_number")}
                   />
@@ -281,7 +281,7 @@ componentDidUpdate = () => {
                   <Form.Label>Phone Number - Personal*</Form.Label>
                   <Form.Control
                     name="personal_number"
-                    placeholder="Please fill in your Personal Phone Number."
+                    placeholder="Please fill in your Personal Phone Number"
                     value={this.state.personal_number}
                     onChange={this.handleInputChangeFor("personal_number")}
                   />
@@ -296,7 +296,7 @@ componentDidUpdate = () => {
                   <Form.Control
                     type="text"
                     name="email"
-                    placeholder="Please fill in your Business Email Address."
+                    placeholder="Please fill in your Business Email Address"
                     value={this.state.email}
                     onChange={this.handleInputChangeFor("email")}
                   />
@@ -323,7 +323,7 @@ componentDidUpdate = () => {
                   <Form.Control
                     type="text"
                     name="website"
-                    placeholder="Please fill in your Website."
+                    placeholder="Please fill in your Website"
                     value={this.state.website}
                     onChange={this.handleInputChangeFor("website")}
                   />
@@ -361,7 +361,7 @@ componentDidUpdate = () => {
                     <Form.Control
                       type="number"
                       name="zip_code"
-                      placeholder="Please fill in your Zip Code."
+                      placeholder="Please fill in your Zip Code"
                       value={this.state.zip_code}
                       onChange={this.handleInputChangeFor("zip_code")}
                     />
@@ -405,7 +405,7 @@ componentDidUpdate = () => {
                     <Form.Control
                       type="number"
                       name="zip_code_personal"
-                      placeholder="Please fill in your Zip Code."
+                      placeholder="Please fill in your Zip Code"
                       value={this.state.zip_code_personal}
                       onChange={this.handleInputChangeFor("zip_code_personal")}
                     />
