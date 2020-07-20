@@ -22,14 +22,14 @@ class studentContact extends Component{
 // create the state
            state = {
             island_id:'',
-            zip_code:'',
-            business_zip_code:'',
+            zip_code_personl:'',
             business_number:'',
             personal_number:'',
             email:'',
             personal_email:'',
             website:'',
             address_home:'',
+            city_personal: '',
            //error message input
             islandError:'',
             zipCodeError:'',
@@ -91,13 +91,6 @@ componentDidUpdate = () => {
              formIsValid=false;
               personalEmailError = "Email is invalid."
           }
-          if(this.state.email === ''){
-               formIsValid=false;
-               emailError = 'Business Email is required'
-          }else if(!this.state.email.match(/^[^@]+@[^@]+\.[^@]+$/) ){
-                 formIsValid=false;
-                 emailError = "Business Email is not valid"
-             }
           if(this.state.personal_number === ''){
                formIsValid=false;
                personalNumberError = 'Phone Number is required.'
@@ -106,10 +99,10 @@ componentDidUpdate = () => {
               formIsValid=false;
               websiteError = 'Website is required. Please fill in "N/A" if not applicable.'
             }
-          if(this.state.zip_code === ''){
+          if(this.state.zip_code_personal === ''){
             formIsValid=false;
             zipCodeError = 'Zip Code is required.'
-          }else if(!isNaN(this.state.zip_code)===false ){
+          }else if(!isNaN(this.state.zip_code_personal)===false ){
               formIsValid = false;
               zipCodeError = "Zip Code input is invalid."
           }
@@ -134,7 +127,10 @@ componentDidUpdate = () => {
 studentContactInfo = (e) =>{
   e.preventDefault();
 
+  console.log('Next Button CLCIKED!');
+
   const isValid = this.validate();
+
   if(!isValid){
      return false
      }else{
@@ -146,8 +142,8 @@ studentContactInfo = (e) =>{
                  personal_email:this.state.personal_email,
                  personal_number:this.state.personal_number,
                  address_home:this.state.address_home,
-                 zip_code: this.state.zip_code,
-                 city: this.state.city,
+                 zip_code_personal: this.state.zip_code_personal,
+                 city_personal: this.state.city_personal,
                  website: this.state.website
                }});
                this.setState({shouldBlockNavigation:false},()=>{
@@ -254,10 +250,10 @@ studentContactInfo = (e) =>{
                   <Form.Group as={Col}>
                     <Form.Label>City*</Form.Label>
                     <Form.Control type="text"
-                      name="city"
+                      name="city_personal"
                       placeholder='Please fill in your City'
-                      value={this.state.city}
-                      onChange={this.handleInputChangeFor("city")} />
+                      value={this.state.city_personal}
+                      onChange={this.handleInputChangeFor("city_personal")} />
                     <Form.Text className="text-muted">
                       Not Listed (for HIAMFT-use only)
                   </Form.Text>
@@ -269,10 +265,10 @@ studentContactInfo = (e) =>{
                   <Form.Group as={Col}>
                     <Form.Label>Zip Code*</Form.Label>
                     <Form.Control type="number"
-                      name="zip_code"
+                      name="zip_code_personal"
                       placeholder='Please fill in your Zip Code'
-                      value={this.state.zip_code}
-                      onChange={this.handleInputChangeFor("zip_code")} />
+                      value={this.state.zip_code_personal}
+                      onChange={this.handleInputChangeFor("zip_code_personal")} />
                     <Form.Text className="text-muted">
                       Not Listed (for HIAMFT-use only)
                   </Form.Text>

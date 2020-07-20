@@ -68,6 +68,17 @@ handleInputChangeFor = propertyName => (event) =>{
     });
   } 
 
+  handleMultiChange = (event, editPropertyName) => {
+    const array = [];
+    for (let option of event.target.selectedOptions) {
+      array.push(Number(option.value));
+    }
+    // this.handleLangChange(event, "languagesEdit")
+    this.setState({
+      [editPropertyName]: array,
+    });
+  }; //end handleLangChange
+
   validate = () => {
       
      
@@ -140,8 +151,8 @@ if(!isValid){
           statement:this.state.statement,
           title:this.state.title,
           website:this.props.contactAddress.website,
-          city:this.props.contactAddress.city,
-          zip_code: this.props.contactAddress.zip_code,
+          city_personal:this.props.contactAddress.city_personal,
+          zip_code_personal: this.props.contactAddress.zip_code_personal,
           island_id: this.props.contactAddress.island_id,
           email: this.props.contactAddress.email,
           personal_email:this.props.contactAddress.personal_email,

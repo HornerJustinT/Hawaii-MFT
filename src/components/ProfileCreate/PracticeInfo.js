@@ -9,7 +9,6 @@ import "../App/App.css";
 
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import Col from 'react-bootstrap/Col';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -103,16 +102,16 @@ class PracticeInfo extends Component {
 
 
 
-  validateT = () => {
-    console.log('I am in validate Function and I want to make it work');
+  // validateT = () => {
+  //   console.log('I am in validate Function and I want to make it work');
 
 
 
-    let formIsValid = true;
+  //   let formIsValid = true;
 
 
 
-  }
+  // }
 
 
   validate = () => {
@@ -298,7 +297,9 @@ class PracticeInfo extends Component {
           title: this.state.title,
           website: this.props.contactAddress.website,
           city: this.props.contactAddress.city,
+          city_personal: this.props.contactAddress.city_personal,
           zip_code: this.props.contactAddress.zip_code,
+          zip_code_personal: this.props.contactAddress.zip_code_personal,
           island_id: this.props.contactAddress.island_id,
           email: this.props.contactAddress.email,
           personal_email: this.props.contactAddress.personal_email,
@@ -346,6 +347,7 @@ class PracticeInfo extends Component {
             <ProgressBar now={75} />
           </div>
 
+          {JSON.stringify(this.props.contactAddress)}
           <Form onSubmit={this.addMembersInfo}>
             <Form.Group>
               <Form.Label>Title*</Form.Label>
