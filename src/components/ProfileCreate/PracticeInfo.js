@@ -315,6 +315,7 @@ class PracticeInfo extends Component {
           age_groups_served_id: this.state.age_groups_served_id,
           insurance_type_id: this.state.insurance_type_id,
           language_id: this.props.createProfile.language_id,
+          student: false,
         }
       });
 
@@ -347,13 +348,12 @@ class PracticeInfo extends Component {
             <ProgressBar now={75} />
           </div>
 
-          {JSON.stringify(this.props.contactAddress)}
           <Form onSubmit={this.addMembersInfo}>
             <Form.Group>
               <Form.Label>Title*</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Please fill in your Title."
+                placeholder="Please fill in your Title"
                 name="title"
                 value={this.state.title}
                 onChange={this.handleInputChangeFor("title")}
@@ -369,7 +369,7 @@ class PracticeInfo extends Component {
               <Form.Label>Credentials*</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Please fill in your Credentials."
+                placeholder="Please fill in your Credentials"
                 name="title"
                 value={this.state.credentials}
                 onChange={this.handleInputChangeFor("credentials")}
@@ -414,7 +414,7 @@ class PracticeInfo extends Component {
               <Form.Label>License State of Issuance*</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Please fill in your License State of Issuance."
+                placeholder="Please fill in your License State of Issuance"
                 name="license_state"
                 value={this.state.license_state}
                 onChange={this.handleInputChangeFor("license_state")}
@@ -429,7 +429,7 @@ class PracticeInfo extends Component {
               <Form.Label>License Number*</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Please fill in your License Number."
+                placeholder="Please fill in your License Number"
                 name="license_number"
                 value={this.state.license_number}
                 onChange={this.handleInputChangeFor("license_number")}
@@ -444,7 +444,7 @@ class PracticeInfo extends Component {
               <Form.Label>License Expiration Date*</Form.Label>
               <Form.Control
                 type="date"
-                placeholder="Please fill in your License Expiration Date."
+                placeholder="Please fill in your License Expiration Date"
                 name="license_expiration"
                 value={this.state.license_expiration}
                 onChange={this.handleInputChangeFor("license_expiration")}
@@ -504,7 +504,7 @@ class PracticeInfo extends Component {
             <Form.Group>
               <Form.Label>Fees*</Form.Label>
               <Form.Control
-                placeholder="Please fill in your Fees."
+                placeholder="Please fill in your Fees"
                 name="fees"
                 value={this.state.fees}
                 onChange={this.handleInputChangeFor("fees")}
@@ -521,7 +521,7 @@ class PracticeInfo extends Component {
               </Form.Label>
               <Form.Control
                 as="select"
-                placeholder="Please fill in your specialization."
+                placeholder="Please fill in your Specialization"
                 multiple={true}
                 onChange={(event) =>
                   this.handleMultiChange(event, "specialty_id")
@@ -676,7 +676,7 @@ class PracticeInfo extends Component {
               <Form.Label>Are you providing telehealth?*</Form.Label>
               <Form.Control
                 as="select"
-                placeholder="Please choose if you are providing telehealth."
+                placeholder="Please choose if you are providing Telehealth"
                 name="telehealth"
                 value={this.state.telehealth}
                 onChange={this.handleInputChangeFor("telehealth")}
