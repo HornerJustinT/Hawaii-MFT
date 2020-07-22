@@ -38,6 +38,7 @@ class studentPractice extends Component{
          treatmentPreferencesIdError:'',
          ageGroupsError:'',
          shouldBlockNavigation : true,
+         newId:''
 
      }
    
@@ -52,11 +53,32 @@ componentDidMount (){
     this.props.dispatch({type:'FETCH_DEMOGRPHICS'});
     this.props.dispatch({type:'FETCH_AGE_GROUPS'});
     this.props.dispatch({type:'FETCH_SESSION_FORMAT'});
+    this.props.dispatch({
+      type:"NEW_ID"
+    });
 }
 componentWillReceiveProps(nextProps){
   this.setState({
     user:nextProps.user
   })
+}
+componentDidUpdate = () => {
+  if (this.state.shouldBlockNavigation) {
+    window.onbeforeunload = () => true
+  } else {
+    window.onbeforeunload = undefined
+  }
+  console.log(this.props.reduxstate.getUsersReducer.length)
+  console.log(this.props.reduxstate.getUsersReducer)
+  if (this.props.reduxstate.getUsersReducer[0]) {
+    const o = this.props.reduxstate.getUsersReducer;
+    const max = o.reduce(function (prev, current) {
+      return (prev.id > current.id) ? prev : current
+    })
+    if (this.state.newId === "")
+      this.setState({ newId: (max.id) }, () => { console.log(this.state) })
+  }
+
 }
 
 //take in the information from the input
@@ -134,7 +156,7 @@ if(!isValid){
       });
       this.props.dispatch({type:'ADD_MEMBER',
         payload:{
-          user:this.props.saveUserReducer.id,
+          user: (this.state.newId+1),
           prefix:this.props.createProfile.prefix,
           first_name:this.props.createProfile.first_name,
           last_name:this.props.createProfile.last_name,
@@ -349,6 +371,7 @@ const mapStateToProps = reduxstate => ({
     createProfile: reduxstate.createProfile,
     contactAddress: reduxstate.contactAddress,
     user: reduxstate.user,
-    saveUserReducer: reduxstate.saveUserReducer
+    saveUserReducer: reduxstate.saveUserReducer,
+    reduxstate
   });
 export default connect(mapStateToProps)(studentPractice);
