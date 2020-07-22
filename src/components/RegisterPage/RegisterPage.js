@@ -11,7 +11,6 @@ class RegisterPage extends Component {
   state = {
     username: "",
     password: "",
-    newId: ""
   };
   componentDidMount() {
     console.log(this.props.match.params.id);
