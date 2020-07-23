@@ -16,26 +16,6 @@
   white-space: nowrap;
 }
 
-@media only screen and (max-width: 900px) {
-  /* For Small Screens */
-  .contact-info {
-    text-align: left;
-    width: 100%;
-    padding: 10px 0px;
-  }
-
-  .description {
-    width: 100%;
-  }
-}
-
-@media only screen and (max-width: 500px) {
-  /* For Smaller Screens */
-  .mobile-padding {
-      padding-bottom: 10px;
-  }
-}
-
 .card {
   box-shadow: 2px 2px 5px gray;
 }
@@ -52,4 +32,40 @@
   margin-top: 5em;
   padding-bottom: 5em;
   border-radius: 10px;
+}
+
+@media only screen and (max-width: 900px) {
+  /* For Small Screens */
+  .contact-info {
+    text-align: left;
+    width: 100%;
+    padding: 10px 0px;
+  }
+
+  .description {
+    width: 100%;
+  }
+
+  .results-bin {
+    background-color: whitesmoke;
+    margin: 0.5em;
+    padding-bottom: 5em;
+    border-radius: 10px;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  /* For Smaller Screens */
+  .mobile-padding {
+      padding-bottom: 10px;
+  }
+
+  .results-bin {
+    background-color: whitesmoke;
+    margin: auto;
+    padding-bottom: 5em;
+    border-radius: 10px;
+    width: 100%;
+  }
 }
