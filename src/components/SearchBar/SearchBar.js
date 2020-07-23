@@ -180,8 +180,11 @@ class SearchBar extends Component {
       <>
         <div className="cover-photo">
           <div>
-            <Form style={{ width: "100%" }} className="search">
-                <h3>Find a Therapist</h3>
+            <Form
+              style={{ width: "100%" }}
+              className="search display-flex flex-between row-wrap"
+            >
+              <h3>Find a Therapist</h3>
               {this.state.advanced ? (
                 <div className="content">
                   <div className="flex-between row-wrap">
@@ -235,8 +238,9 @@ class SearchBar extends Component {
                       }
                       value={this.state.insurance || null}
                     />
-                    <div className=" advanced-input">
+                    <div className="display-flex flex-between row-wrap advanced-input">
                       <SearchSelect
+                        className="focus"
                         name="Age Group Focus"
                         array={this.state.data.ages_served}
                         onChange={(event) =>
@@ -246,6 +250,7 @@ class SearchBar extends Component {
                       />
                       <SearchSelect
                         name="Demographic Focus"
+                        className="focus"
                         array={this.state.data.client_focus}
                         onChange={(event) =>
                           this.onSearchChangeAdv(event, "client_focus")
