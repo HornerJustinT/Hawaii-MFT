@@ -7,6 +7,7 @@ import Form from "react-bootstrap/Form";
 import { connect } from "react-redux";
 
 import "../App/App.css";
+import "./EmailModal.css"
 
 
 class EmailModal extends Component {
