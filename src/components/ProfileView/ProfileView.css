@@ -13,6 +13,7 @@
     border-radius: 20px;
     text-align: left;
 }
+
 .map {
   position: static;
   width: 250px;
@@ -34,17 +35,6 @@
     padding-right: 1em;
     margin: 3em;
     width: 65%;
-}
-
-@media screen and (max-width: 1200px){
-    .bio-container {
-        width: 95%;
-        margin: auto;
-    }
-    .rightside{
-        margin: auto;
-        width: 95%;
-    }
 }
 
 .btn-container{
@@ -193,4 +183,26 @@ ul{
 
 .student {
     color: red;
+}
+
+@media screen and (max-width: 1200px){
+    .bio-container {
+        width: 95%;
+        margin: auto;
+    }
+    .rightside{
+        margin: auto;
+        width: 95%;
+    }
+    .border {
+        border: 5px black;
+        padding: 1em;
+        margin: 1em;
+        border-radius: 20px;
+        text-align: left;
+    }
+    .bio-title{
+        margin: auto;
+        width: 100%;
+    }
 }
