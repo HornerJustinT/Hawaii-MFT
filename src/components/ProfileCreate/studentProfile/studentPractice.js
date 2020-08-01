@@ -204,6 +204,7 @@ if(!isValid){
 
   
     render (){
+      console.log('this is the specializations', this.props.specialtys)
         return(
             <>
             <div className='container'>
@@ -217,18 +218,21 @@ if(!isValid){
         <br/>
         <Form onSubmit={this.addMembersInfo}>
 
-                <Form.Group>
-                  <Form.Label>Supervision Status*</Form.Label>
-                  <Form.Control
-                    as="select"
-                    defaultValue="Student"
-                    onChange={this.handleInputChangeFor("supervision_status")}
-                  >
-                    <option value="None">Student</option>
-                  </Form.Control>
-                  <Form.Text className="text-muted">Listed</Form.Text>
-                  <h4 className="error">{this.state.supervisionStatusError}</h4>
-                </Form.Group>
+        <Form.Group>
+              <Form.Label>Supervision Status*</Form.Label>
+              <Form.Control
+                as="select"
+                onChange={this.handleInputChangeFor("supervision_status")}
+              >
+                <option value="None">None</option>
+                <option value="Hawai'i qualified">Hawai'i-Qualified</option>
+                <option value="MFT supervisor">MFT Supervisor</option>
+                <option value="AAMFT approved">AAMFT-approved</option>
+                <option value="Supervisor">Supervisor</option>
+              </Form.Control>
+              <Form.Text className="text-muted">Listed</Form.Text>
+              <h4 className="error">{this.state.supervisionStatusError}</h4>
+            </Form.Group>
 
                 <Form.Group>
                   <Form.Label>Specialization(s)* - you may select multiple</Form.Label>
