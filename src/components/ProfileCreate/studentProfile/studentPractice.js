@@ -38,7 +38,8 @@ class studentPractice extends Component{
          treatmentPreferencesIdError:'',
          ageGroupsError:'',
          shouldBlockNavigation : true,
-         newId:''
+         newId:'',
+         insurance_type_id:''
 
      }
    
@@ -188,7 +189,7 @@ if(!isValid){
           specialty_id:this.state.specialty_id,
           treatment_preferences_id:this.state.treatment_preferences_id,
           age_groups_served_id:this.state.age_groups_served_id,
-          insurance_type_id:this.state.insurance_type_id,
+          insurance_type_id:[ 12 ],
           language_id:this.props.createProfile.language_id,
           student: true,
          }

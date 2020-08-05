@@ -131,6 +131,7 @@ router.post('/', async (req, res) => {
     //define the queries
     const member = await pool.connect();
     console.log('KRISTEN city and zip personal', req.body.zip_code_personal, req.body.city_personal);
+    console.log('user',req.body);
     if(req.body.telehealth==''){
         req.body.telehealth = true;
     }
