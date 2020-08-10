@@ -101,7 +101,7 @@ class SearchResults extends Component {
                             vary wildly. Using this join method I can display
                             them all nicely and without much effort.
                           */}
-                            {therapist.title}, {therapist.credentials}
+                            {therapist.credentials}
                           </div>
                           <div className="number">{therapist.phone[0]}</div>
                         </div>

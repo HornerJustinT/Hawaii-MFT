@@ -27,12 +27,12 @@ h3 {
 }
 
 .cover-photo {
-  width: 100%;
   background-image: url("../../Images/familyphoto.jpg");
+  background-size: cover;
   padding-top: 0em;
   margin: 0;
   background-repeat: no-repeat;
-  background-size: contain;
+  /* background-size: contain; */
   overflow: hidden;
 }
 
