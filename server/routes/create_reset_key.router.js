@@ -35,9 +35,9 @@ If you weren't the person who requested this please ignore this email.`
 
     // send mail with defined transport object
     await transporter.sendMail({
-      from: '"HAIMFT" <HAIMFT@example.com>', // sender address
+      from: '"HIAMFT" <hawaiianislandsmfts@gmail.com>', // sender address
       to: userEmail.rows[0].email, // list of receivers
-      subject: "HAIMFT Password Reset", // Subject line
+      subject: "HIAMFT Password Reset", // Subject line
       text: message, // plain text body
     });
 

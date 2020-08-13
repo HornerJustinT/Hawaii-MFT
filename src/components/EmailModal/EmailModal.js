@@ -44,7 +44,7 @@ class EmailModal extends Component {
       type: "SEND_EMAIL",
       payload: {
         recipients: this.state.recipients,
-        header: "HAIMFT Directory Therapist Recomendation",
+        header: "HIAMFT Directory Therapist Recommendation",
         message: this.state.message,
       },
       closeModal: this.setState({
