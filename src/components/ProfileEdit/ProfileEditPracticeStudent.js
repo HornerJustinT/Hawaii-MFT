@@ -216,7 +216,7 @@ class ProfileEditStudentPractice extends Component {
                           this.handleChange(event, "supervisionStatus")
                         }
                       >
-                        <option value="None">Student</option>
+                        <option value="Student">Student</option>
                       </Form.Control>
                       <Form.Text className="text-muted">Listed</Form.Text>
                     </Form.Group>

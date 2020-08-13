@@ -221,7 +221,11 @@ if(!isValid){
 
         <Form.Group>
               <Form.Label>Supervision Status*</Form.Label>
-                <h6 value="Student">Student</h6>
+                  <Form.Control
+                    disabled={true}
+                    readOnly
+                    value='Student'
+                  />
               <Form.Text className="text-muted">Listed</Form.Text>
               <h4 className="error">{this.state.supervisionStatusError}</h4>
             </Form.Group>
