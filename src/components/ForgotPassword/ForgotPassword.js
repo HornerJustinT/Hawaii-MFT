@@ -42,8 +42,9 @@ class LoginPage extends Component {
     if (this.state.complete){
       return (
         <div className="text-center">
+          <br/>
           <h1>Check your email</h1>
-          <p>An email was sent to the email associated with the username you entered</p>
+          <p>Please check your SPAM folder. An email was sent to the email associated with the username you entered.</p>
         </div>
       );
     } else {
@@ -68,9 +69,6 @@ class LoginPage extends Component {
               />
             </Form.Group>
 
-            <div>
-              <a href="/#/login">Login</a>
-            </div>
 
             <Button
               className="log-in input"

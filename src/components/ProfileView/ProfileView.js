@@ -77,6 +77,8 @@ class ProfileView extends Component {
         .then((data) => data.json())
         .then((data) => {
             console.log(data)
+            console.log(data.results[0].geometry.location);
+            console.log(this.state);
             if (data.results[0]) {
               this.setState({
                 lat: data.results[0].geometry.location.lat,
@@ -281,25 +283,45 @@ class ProfileView extends Component {
                 </div>
               </div>
                       
-              {this.state.student && 
+
               <>
               <div className="columnSide">
+              {!this.props.profile.student ?
                 <h3 className="island">
                   {this.props.profile.city}, {this.props.profile.island}
                 </h3>
+                :
+                <h3 className="island">
+                  {this.props.profile.island}
+                </h3>
+               }
                 <div className="contact">
                   <ul>
-                    {this.props.profile.phone[0]}
+                      {!this.props.profile.student ? 
+                        this.props.profile.phone[0]
+                      :
+                      ''
+                      }
+                    
                     {/* Since there will only be one phone and no non business numbers I think we can simply just call the first one */}
-                    <div>{this.props.profile.email[0]}</div>
+                    {!this.props.profile.student ? 
+                      <div>{this.props.profile.email[0]}</div>
+                      :
+                      ''
+                    }
                     {/* Same with email */}
                     <p>{this.website(this.props.profile.website)}</p>
                     {/* chceks to see if website is there adds if there is */}
+                      {!this.props.profile.student && (
                     <li>{this.props.profile.address}</li>
+                      )}
+                      {!this.props.profile.student && (
                     <li>{this.props.profile.city}, {this.props.profile.zip_code}</li>
+                      )}
                   </ul>
                 </div>
- 
+                
+                {!this.props.profile.student && (
                 <div style={mapStyles}>
                   <Map // creates google map with the center being where google geocoding api locates lat and long from the address
                     style={mapStyles}
@@ -319,9 +341,9 @@ class ProfileView extends Component {
                     </InfoWindow>
                   </Map>
                 </div>
+                )}
               </div>
               </>
-              }
             </div>
           </div>
         </>
