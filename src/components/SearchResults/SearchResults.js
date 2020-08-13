@@ -69,9 +69,15 @@ class SearchResults extends Component {
                           <div className="name">
                             {therapist.first_name} {therapist.last_name}
                           </div>
+                          {!therapist.student ? 
                           <div className="island">
                             {therapist.city}, {therapist.island[0]}
                           </div>
+                          :
+                          <div className="island">
+                          { therapist.island[0] }
+                          </div>
+                          }
                         </div>
                       </Card.Title>
                       {/*
@@ -95,15 +101,36 @@ class SearchResults extends Component {
                     */}
                       <Card.Subtitle className="mb-2 text-muted">
                         <div className="flex-between row-wrap">
+                          {!therapist.student ? 
+                            <div className="titles">
+                              {/* 
+                              The amount of titles a therapist could have can
+                              vary wildly. Using this join method I can display
+                              them all nicely and without much effort.
+                            */}
+                              {therapist.credentials}
+                            </div>
+                          :
                           <div className="titles">
-                            {/* 
-                            The amount of titles a therapist could have can
-                            vary wildly. Using this join method I can display
-                            them all nicely and without much effort.
-                          */}
-                            {therapist.credentials}
+                            Student
                           </div>
+                          }
+                          {!therapist.student ? 
                           <div className="number">{therapist.phone[0]}</div>
+                          :
+                            <div className="contact-info">
+                              <>
+                                <a
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  href={`https://${therapist.website}`}
+                                >
+                                  {therapist.website}
+                                </a>
+                              </>
+                            </div>
+                                
+                          }
                         </div>
                       </Card.Subtitle>
                       <Card.Text>
@@ -112,6 +139,9 @@ class SearchResults extends Component {
                             {this.truncateString(therapist.statement, 250)}
                           </div>
                           {/* Contact is aligned to the right for visual appeal */}
+                          
+                          {!therapist.student ? 
+                          
                           <div className="contact-info">
                             {therapist.email[0]} <br />
                             {/*
@@ -130,7 +160,10 @@ class SearchResults extends Component {
                               {therapist.website}
                             </a>
                           </div>
-                        </div>
+                        :
+                        ''
+                        }
+                      </div>
                       </Card.Text>
                       <Card.Link href={`#/profile/${therapist.id}`}>
                         View Profile

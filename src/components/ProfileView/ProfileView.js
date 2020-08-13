@@ -286,17 +286,29 @@ class ProfileView extends Component {
 
               <>
               <div className="columnSide">
+              {!this.props.profile.student ?
                 <h3 className="island">
                   {this.props.profile.city}, {this.props.profile.island}
                 </h3>
+                :
+                <h3 className="island">
+                  {this.props.profile.island}
+                </h3>
+               }
                 <div className="contact">
                   <ul>
-                      {!this.props.profile.student && (
+                      {!this.props.profile.student ? 
                         this.props.profile.phone[0]
-                      )}
+                      :
+                      ''
+                      }
                     
                     {/* Since there will only be one phone and no non business numbers I think we can simply just call the first one */}
-                    <div>{this.props.profile.email[0]}</div>
+                    {!this.props.profile.student ? 
+                      <div>{this.props.profile.email[0]}</div>
+                      :
+                      ''
+                    }
                     {/* Same with email */}
                     <p>{this.website(this.props.profile.website)}</p>
                     {/* chceks to see if website is there adds if there is */}

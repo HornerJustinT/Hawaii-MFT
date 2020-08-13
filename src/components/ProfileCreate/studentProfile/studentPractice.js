@@ -20,7 +20,7 @@ class studentPractice extends Component{
          license_state:'',
          license_number:'',
          license_type:'',
-         supervision_status:'',
+         supervision_status:'Student',
          fees:'',
          license_expiration:'',
          credentials:'',
@@ -171,7 +171,7 @@ if(!isValid){
           license_type:this.state.license_type_id,
           credentials:this.state.credentials,
           telehealth:this.state.telehealth,
-          statement:this.state.statement,
+          statement:this.props.createProfile.statement,
           title:this.state.title,
           website:this.props.contactAddress.website,
           city_personal:this.props.contactAddress.city_personal,
@@ -205,7 +205,7 @@ if(!isValid){
 
   
     render (){
-      console.log('this is the specializations', this.props.specialtys)
+      console.log('this is props.createProfile.statement', this.props.createProfile.statement)
         return(
             <>
             <div className='container'>
@@ -221,16 +221,7 @@ if(!isValid){
 
         <Form.Group>
               <Form.Label>Supervision Status*</Form.Label>
-              <Form.Control
-                as="select"
-                onChange={this.handleInputChangeFor("supervision_status")}
-              >
-                <option value="None">None</option>
-                <option value="Hawai'i qualified">Hawai'i-Qualified</option>
-                <option value="MFT supervisor">MFT Supervisor</option>
-                <option value="AAMFT approved">AAMFT-approved</option>
-                <option value="Supervisor">Supervisor</option>
-              </Form.Control>
+                <h6 value="Student">Student</h6>
               <Form.Text className="text-muted">Listed</Form.Text>
               <h4 className="error">{this.state.supervisionStatusError}</h4>
             </Form.Group>
