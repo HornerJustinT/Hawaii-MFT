@@ -318,11 +318,15 @@ class AdminPage extends Component {
                     <td>
                       {therapist.first_name} {therapist.last_name}
                     </td>
+                    {!therapist.student ?
                     <td>{therapist.license_number}</td>
-                    {therapist.email ? (
+                    :
+                    <td><i>Student Member</i></td>
+                    }
+                    {!therapist.student ? (
                       <td>{therapist.email}</td>
                     ) : (
-                      <td>{therapist.emailPersonal}</td>
+                      <td>{therapist.emailpersonal}</td>
                     )}
                     <td style={{ textAlign: "right" }}>
                     {therapist.student ? 
