@@ -21,16 +21,19 @@ class SearchResults extends Component {
     render() { 
         return (
           <>
-            {/* 
-                Muted text at the top showing the user the result count.
-                Only shows if there is anything to show.
-            */}
+            <div >
+              <div className="tagline ">
+                <h2>We Know</h2>
+                <h1>Family Matters</h1>
+              </div>
+            </div>
+            
 
             <div className="results-bin">
               {this.props.therapists[0] && (
-                <h5 className="results-number center">
-                  Your search produced {this.props.therapists.length} results.
-                </h5>
+                <h4 className="results-number center">
+                  Hawaiian Islands Association for Marriage & Family Therapist Directory
+                </h4>
               )}
 
               {this.props.therapists.map((therapist) => (

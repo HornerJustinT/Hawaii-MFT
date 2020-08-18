@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora:wght@562&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&display=swap');
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -132,6 +132,9 @@ h5 {
     font-family: 'Lora', serif;
 }
 
+.tag {
+    font-weight: 600;
+}
 /* h6 {
     font-family: 'Nunito', sans-serif;
 } */
