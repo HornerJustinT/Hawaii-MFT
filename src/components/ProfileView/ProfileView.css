@@ -188,7 +188,7 @@ ul{
 @media screen and (max-width: 1200px){
     .bio-container {
         width: 95%;
-        margin: auto;
+        margin-left: 2em;
     }
     .rightside{
         margin: auto;
@@ -202,7 +202,10 @@ ul{
         text-align: left;
     }
     .bio-title{
-        margin: auto;
+        margin-left: 1em;
         width: 100%;
+    }
+    .columnSide{
+        margin-left: 2em;
     }
 }

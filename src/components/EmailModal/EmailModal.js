@@ -33,7 +33,7 @@ class EmailModal extends Component {
     this.setState({
       show: true,
       message: 
-      `Hello,\n${this.props.profile.first_name} ${this.props.profile.last_name} is a colleague of mine and I think they would be a great fit for you. Below is their contact information.\nBest wishes!
+      `Hello,\n${this.props.profile.first_name} ${this.props.profile.last_name} is a colleague of mine and I think they would be a great fit for you. Below is their contact information.\nBest wishes!\n[Sign your name]
       \n----------------------\n${this.props.profile.first_name} ${this.props.profile.last_name}, ${this.props.profile.credentials}\n${this.props.profile.email}\n${this.props.profile.phone}\n${this.props.profile.address}\n${this.props.profile.island}\n\n${this.props.profile.website}`,
         
     });
