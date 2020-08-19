@@ -7,6 +7,14 @@
   width: 60%;
 }
 
+.tagline{
+  color: white;
+  margin-left: 8em;
+  padding-top: 0;
+  /* padding-left: 8em; */
+  /* padding-right: 8em; */
+}
+
 .center {
     text-align: center;
 }
@@ -29,8 +37,9 @@
   background-color: whitesmoke;
   margin-right: 8em;
   margin-left: 8em;
-  margin-top: 5em;
+  margin-top: 10em;
   padding-bottom: 5em;
+  /* padding-top: 5em; */
   border-radius: 10px;
 }
 
@@ -55,6 +64,8 @@
   }
 }
 
+
+
 @media only screen and (max-width: 500px) {
   /* For Smaller Screens */
   .mobile-padding {
@@ -69,3 +80,4 @@
     width: 100%;
   }
 }
+

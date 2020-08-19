@@ -3,7 +3,7 @@
 }
 
 .switch {
-  margin: 37px 0px;
+  margin: 10px 10px;
   color: #3f3f3f;
 }
 
@@ -12,13 +12,15 @@
 }
 
 .results {
-  padding-top: 18em;
+  margin-top: 5em;
 }
 
 .search {
   background-color: #f7b82c;
   padding-left: 2em;
+  padding-bottom: .5em;
   padding-right: 2em;
+  margin-bottom: 0;
   /* float:left; */
 }
 
@@ -28,7 +30,7 @@ h3 {
 
 .cover-photo {
   background-image: url("../../Images/familyphoto.jpg");
-  background-size: cover;
+  /* background-size: cover; */
   padding-top: 0em;
   margin: 0;
   background-repeat: no-repeat;
@@ -67,7 +69,8 @@ h3 {
   }
 
   .results {
-    padding: 1em;
+    padding: .5em;
+    margin: .5em;
   }
   .switch {
     width: 100%;
@@ -75,5 +78,9 @@ h3 {
 
   .form-group {
     width: 100%;
+  }
+
+   .tagline {
+    margin-left: 2em;
   }
 }

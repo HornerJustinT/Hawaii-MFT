@@ -51,7 +51,7 @@ router.get('/', async (req, res) => {
 		
 			WHERE m.enabled = true
 
-			GROUP BY m.id, "user".username, m.zip_code, m.zip_code_personal, m.first_name, m.last_name, m.prefix, m.age, m.license_state,
+			GROUP BY m.last_name, m.id, "user".username, m.zip_code, m.zip_code_personal, m.first_name, m.prefix, m.age, m.license_state,
 			m.license_expiration, m.hiamft_member_account_info, m.supervision_status, m.fees, m.credentials,
 			m.telehealth, m.statement, m.website, m.title, m.city, m.city_personal, m.license_number, m.license_type, m.enabled, m.student;`;
 
