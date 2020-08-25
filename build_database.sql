@@ -468,60 +468,12 @@ VALUES
 INSERT INTO "user"
 	("username", "password")
 VALUES 
-    ('jbarosa','$2a$10$43nSyq9Y.vpLwwmwaJAhzeOj/PbcFvZLcKmEC4DM/8cmNeUpOHE4S');
+    ('admin','$2a$10$43nSyq9Y.vpLwwmwaJAhzeOj/PbcFvZLcKmEC4DM/8cmNeUpOHE4S');
 
 INSERT INTO "public"."members"
-    ("id", "zip_code", "first_name", "last_name", "prefix", "age", "license_state", "license_expiration", "supervision_status", "fees", "credentials", "telehealth", "statement", "website", "hiamft_member_account_info", "title", "city", "license_number", "license_type")
+    ("id", "zip_code", "first_name", "last_name", "license_state",  "statement")
 VALUES
 
-    (1, 96701, 'John', 'Barosa', 'Mr.', 34, 'Hawaii', '2022', 'Supervisor', '65-80', 'MFT, PhD', true, 'I love all types of people and feel the world should be more connected even when we have to distance like we do now.', 'SocialYourDistance.com', 'Prominent user', 'Therapist', 'Honolulu', '8219293', 5);
-
-INSERT INTO "public"."address_table"
-    ("business", "address", "member_id")
-VALUES
-    (TRUE, '920 Kaheka St Honolulu, Hawaii', 1);
-
-INSERT INTO "public"."age_groups_served_pivot"
-    ("age_groups_served_id", "member_id")
-VALUES(5, 1),(3, 1),(2, 1);
-
-INSERT INTO "public"."client_focus_pivot"
-    ("client_focus_id", "member_id")
-VALUES(4, 1), (17, 1), (11, 1); 
-
-INSERT INTO "public"."email_table"
-    ("business", "email", "member_id")
-VALUES(TRUE, 'John.Barosa@yahoo.com', 1);
-
-INSERT INTO "public"."insurance_pivot"
-    ("insurance_type_id", "member_id")
-VALUES(13, 1), (24, 1);
-
-INSERT INTO "public"."island_pivot"
-    ("island_id", "member_id")
-VALUES(2, 1);
-
-INSERT INTO "public"."languages_pivot"
-    ("language_id", "member_id")
-VALUES(11, 1), (1, 1);
-
-INSERT INTO "public"."phone_table"
-    ("number", "member_id", "business")
-VALUES('(573) 433-2395', 1, TRUE), ('(704) 857-6451', 1, FALSE);
-
-INSERT INTO "public"."session_format_pivot"
-    ("session_format_id", "member_id")
-VALUES(4, 1), (5, 1);
-
-INSERT INTO "public"."specialty_pivot"
-    ("specialty_id", "member_id")
-VALUES(22, 1),
-(22, 1);
-
-INSERT INTO "public"."treatment_preferences_pivot"
-    ("treatment_preferences_id", "member_id")
-VALUES(17, 1), (1, 1);
-
-
+    (1, 96701, 'Admin', 'Admin','Hawaii',  'This is the admin account.');
 
 UPDATE "public"."user" SET "admin"=TRUE WHERE "id"=1;

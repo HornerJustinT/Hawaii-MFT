@@ -286,6 +286,7 @@ class ProfileView extends Component {
 
               <>
               <div className="columnSide">
+                <div className="row">
               {!this.props.profile.student ?
                 <h3 className="island">
                   {this.props.profile.city}, {this.props.profile.island}
@@ -342,6 +343,7 @@ class ProfileView extends Component {
                   </Map>
                 </div>
                 )}
+              </div>
               </div>
               </>
             </div>
