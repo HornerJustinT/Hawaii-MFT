@@ -220,6 +220,7 @@ class AdminPage extends Component {
   render() {
     return (
       <>
+      <div className="main">
         <ReactTooltip />
         <div className="container search-bar">
           {Object.keys(this.state.criteria).map((Mainkey) => (
@@ -300,7 +301,7 @@ class AdminPage extends Component {
           </div>
         </div>
         <div className="container">
-          <Table striped bordered hover variant="">
+            <Table striped bordered hover variant="" className="table">
             <thead>
               <tr>
                 <th>ID</th>
@@ -354,7 +355,7 @@ class AdminPage extends Component {
           </Table>
           <div className="download flex-between">
             <ReactTooltip />
-            {this.state.csv && (
+            {/* {this.state.csv && ( */}
               <Button
                 variant="success"
                 data-tip="This buton will download all of the member info of the members on this page into an csv file."
@@ -364,11 +365,12 @@ class AdminPage extends Component {
                 Click to download
                 <ReactTooltip />
               </Button>
-            )}
+            {/* )} */}
 
             <RegistrationModal />
             <StudentRegistrationModal />
           </div>
+        </div>
         </div>
       </>
     );
