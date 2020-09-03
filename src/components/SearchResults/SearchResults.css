@@ -33,6 +33,10 @@
   padding-top: 2em;
 }
 
+.results{
+  padding-bottom: 2em;
+}
+
 .results-bin {
   background-color: whitesmoke;
   margin-right: 8em;

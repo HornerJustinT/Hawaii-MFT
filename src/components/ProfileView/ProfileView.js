@@ -19,7 +19,7 @@ var storage = firebase.storage().ref();
 const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY;
 
 const mapStyles = {
-  position: "static",
+  position: "relative",
   width: "250px",
   height: "250px"
 };
@@ -137,6 +137,7 @@ class ProfileView extends Component {
       this.setMAP();// sets the map
       return (
         <>
+        <div className="background">
           <Button onClick={this.home} className="btn-container">
             Back to search Results
           </Button>
@@ -323,7 +324,7 @@ class ProfileView extends Component {
                 </div>
                 
                 {!this.props.profile.student && (
-                <div style={mapStyles}>
+                <div style={mapStyles} className="map">
                   <Map // creates google map with the center being where google geocoding api locates lat and long from the address
                     style={mapStyles}
                     google={this.props.google}
@@ -347,6 +348,7 @@ class ProfileView extends Component {
               </div>
               </>
             </div>
+          </div>
           </div>
         </>
       );
