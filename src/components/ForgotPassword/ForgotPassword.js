@@ -36,7 +36,7 @@ class LoginPage extends Component {
     this.setState({
       [propertyName]: event.target.value,
     });
-  }//end handleInputChangeFor
+  };//end handleInputChangeFor
 
   render() {
     if (this.state.complete){
@@ -49,14 +49,14 @@ class LoginPage extends Component {
       );
     } else {
       return (
-        <div>
+        <div className="passwordForm">
           {this.props.errors.loginMessage && (
             <h2 className="alert" role="alert">
               {this.props.errors.loginMessage}
             </h2>
           )}
-          <Form onSubmit={this.login} className="form">
-            <h1>Forgot Password</h1>
+          <Form onSubmit={this.login} >
+            <h2>Forgot Password</h2>
 
             <Form.Group>
               <Form.Label htmlFor="username">Username</Form.Label>

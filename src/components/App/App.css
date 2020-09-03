@@ -14,12 +14,29 @@ body {
 
 .form {
     width: 30%;
-    height: 250px;
+    height: auto;
     margin: 20px auto;
     padding: 25px;
     border-radius: 2px;
 }
 
+.loginForm {
+    width: 30%;
+    height: 100%;
+    margin: 20px auto;
+    margin-bottom: 38em;
+    padding: 25px;
+    border-radius: 2px;
+}
+
+.passwordForm {
+    width: 30%;
+    height: 100%;
+    margin: 20px auto;
+    margin-bottom: 45em;
+    padding: 25px;
+    border-radius: 2px;
+}
 
 .input {
     margin: 5px;
@@ -135,15 +152,73 @@ h5 {
 .tag {
     font-weight: 600;
 }
-/* h6 {
-    font-family: 'Nunito', sans-serif;
-} */
-/* p {
-    font-family: 'Nunito', sans-serif;
+
+@media screen and (max-width: 1200px){
+    .form {
+        width: 95%;
+        height: auto;
+        margin: 20px auto;
+        padding: 25px;
+        border-radius: 2px;
+    }
+
+    .loginForm {
+        width: 30%;
+        height: 100%;
+        margin: 20px auto;
+        margin-bottom: 38em;
+        padding: 25px;
+        border-radius: 2px;
+    }
+
+    .passwordForm {
+        width: 95%;
+        height: 100%;
+        margin: 20px auto;
+        margin-bottom: 45em;
+        padding: 25px;
+        border-radius: 2px;
+    }
+
 }
-ul {
-    font-family: 'Nunito', sans-serif;
+
+@media only screen and (device-width: 768px) {
+    .loginForm {
+        width: 95%;
+        height: 100%;
+        margin: 20px auto;
+        margin-bottom: 28em;
+        border-radius: 2px;
+    }
+
+    .passwordForm {
+        width: 30%;
+        height: 100%;
+        margin: 20px auto;
+        margin-bottom: 45em;
+        padding: 25px;
+        border-radius: 2px;
+    }
 }
-li {
-    font-family: 'Nunito', sans-serif;
-} */
+
+/*for iphone*/
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .loginForm {
+        width: 95%;
+        height: 100%;
+        margin: 20px auto;
+        margin-bottom: 15em;
+        border-radius: 2px;
+    }
+
+    .passwordForm {
+        width: 95%;
+        height: 100%;
+        margin: 20px auto;
+        margin-bottom: 18em;
+        border-radius: 2px;
+    }
+}
