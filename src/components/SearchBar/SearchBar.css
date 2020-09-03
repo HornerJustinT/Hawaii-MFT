@@ -30,7 +30,7 @@ h3 {
 
 .cover-photo {
   background-image: url("../../Images/familyphoto.jpg");
-  /* background-size: cover; */
+  background-size: cover;
   padding-top: 0em;
   margin: 0;
   background-repeat: no-repeat;

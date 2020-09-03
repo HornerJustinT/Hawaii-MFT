@@ -160,9 +160,9 @@ class ProfileView extends Component {
               </div>
 
               <div className="bio-title columnThirds">
-                <h1>
+                <h2>
                   {this.props.profile.first_name} {this.props.profile.last_name}
-                </h1>
+                </h2>
                 {this.props.profile.student && (
                   <h4 className="student">Student Member</h4>
                 )}
@@ -286,18 +286,22 @@ class ProfileView extends Component {
                       
 
               <>
-              <div className="columnSide">
-                <div className="row">
+              <div className="columnSide location">
+
               {!this.props.profile.student ?
+              <div className="row">
                 <h3 className="island">
                   {this.props.profile.city}, {this.props.profile.island}
                 </h3>
+                </div>
                 :
+               <div className="row">
                 <h3 className="island">
                   {this.props.profile.island}
                 </h3>
+                </div>
                }
-                <div className="contact">
+                <div className="row contact">
                   <ul>
                       {!this.props.profile.student ? 
                         this.props.profile.phone[0]
@@ -324,7 +328,7 @@ class ProfileView extends Component {
                 </div>
                 
                 {!this.props.profile.student && (
-                <div style={mapStyles} className="map">
+                <div style={mapStyles} className="row map">
                   <Map // creates google map with the center being where google geocoding api locates lat and long from the address
                     style={mapStyles}
                     google={this.props.google}
@@ -344,7 +348,6 @@ class ProfileView extends Component {
                   </Map>
                 </div>
                 )}
-              </div>
               </div>
               </>
             </div>
