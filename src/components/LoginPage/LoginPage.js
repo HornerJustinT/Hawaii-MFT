@@ -35,54 +35,59 @@ class LoginPage extends Component {
     this.setState({
       [propertyName]: event.target.value,
     });
-  }//end handleInputChangeFor
+  };//end handleInputChangeFor
 
   render() {
-    return (
-      <div>
-        {this.props.errors.loginMessage && (
-          <h2 className="alert" role="alert">
-            {this.props.errors.loginMessage}
-          </h2>
-        )}
-        <Form onSubmit={this.login} className="form">
-          <h1>Login</h1>
+    return(
+      <>
+        <div>
+          {this.props.errors.loginMessage && (
+            <h2 className="alert" role="alert">
+              {this.props.errors.loginMessage}
+            </h2>
+          )}
 
-          <Form.Group>
-            <Form.Label htmlFor="username">Username</Form.Label>
-            <Form.Control
-              type="text"
-              name="username"
-              className="input"
-              value={this.state.username}
-              onChange={this.handleInputChangeFor("username")}
-            />
-          </Form.Group>
+        <Form onSubmit={this.login} className="loginForm">
+           <h2>Login</h2>
+            <Form.Group>
+              <Form.Label htmlFor="username">Username</Form.Label>
+              <Form.Control
+                type="text"
+                name="username"
+                className="input"
+                value={this.state.username}
+                onChange={this.handleInputChangeFor("username")}
+              />
+            </Form.Group>
 
-          <Form.Group>
-            <Form.Label htmlFor="password">Password</Form.Label>
-            <Form.Control
-              type="password"
-              name="password"
-              className="input"
-              value={this.state.password}
-              onChange={this.handleInputChangeFor("password")}
-            />
-          </Form.Group>
-          <div>
-            <a href="/#/forgotpassword">Forgot Password</a>
-          </div>
+            <Form.Group>
+              <Form.Label htmlFor="password">Password</Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                className="input"
+                value={this.state.password}
+                onChange={this.handleInputChangeFor("password")}
+              />
+            </Form.Group>
 
-          <Button
-            className="log-in input"
-            type="submit"
-            name="submit"
-            value="Log In"
-          >
-            Log In
-          </Button>
-        </Form>
-      </div>
+            <Form.Group>
+              <div>
+                <a href="/#/forgotpassword">Forgot Password</a>
+              </div>
+
+              <Button
+                className="log-in input"
+                type="submit"
+                name="submit"
+                value="Log In"
+              >
+                Log In
+              </Button>
+            </Form.Group>
+          </Form>
+        </div>
+      </>
     );
   }
 }
