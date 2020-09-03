@@ -1,17 +1,24 @@
-.rightside{
+/* .rightside{
     margin: 4em 4em 20em 0em;
     width: 20%;
+} */
+
+.background {
+    background-color: lightgrey;
+    padding: 1em;
+    margin-right: 0em;
+    padding-right: 0em;
 }
 
 .border {
     border: 5px black;
     padding-top: 2em;
-    padding-bottom: 2em;
     padding-right: 5em;
     padding-left: 3em;
     margin: 3em;
     border-radius: 20px;
     text-align: left;
+    background-color: white;
 }
 
 .map {
@@ -185,6 +192,10 @@ ul{
     color: red;
 }
 
+.map {
+    display: block;
+}
+
 @media screen and (max-width: 1200px){
     .bio-container {
         width: 95%;
@@ -208,4 +219,5 @@ ul{
     .columnSide{
         margin-left: 2em;
     }
+
 }
