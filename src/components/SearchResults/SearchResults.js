@@ -126,7 +126,7 @@ class SearchResults extends Component {
                                 <a
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  href={`https://${therapist.website}`}
+                                  href={`${therapist.website}`}
                                 >
                                   {therapist.website}
                                 </a>

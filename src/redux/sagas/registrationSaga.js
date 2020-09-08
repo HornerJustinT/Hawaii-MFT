@@ -12,8 +12,9 @@ function* registerUser(action) {
     yield axios.post('/api/user/register', action.payload);
     console.log(action.payload)
 
-    // KRISTEN - experiment with changing flow of registration***
+    // dispatches to createSaga to POST new member
     yield put({ type: 'ADD_MEMBER', payload: action.payload});
+
     // automatically log a user in after registration
     yield put({ type: 'REGLOGIN', payload: action.payload });
     

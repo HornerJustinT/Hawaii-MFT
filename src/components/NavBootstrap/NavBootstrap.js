@@ -26,6 +26,11 @@ class NavBar extends Component{
     this.props.history.push(`/edit-profile`);
   }
 
+  handleClickView = () => {
+    this.props.dispatch({ type: "PROFILE_RESET" });
+    this.props.history.push(`/profile/${this.props.user.id}`);
+  }
+
   render(){
     return (
       <>
@@ -61,7 +66,10 @@ class NavBar extends Component{
                 {this.props.user.id ? (
                   <>
                     <NavDropdown.Item onClick={this.handleClick}>
-                      My Profile
+                      Edit My Profile
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={this.handleClickView}>
+                      View My Profile
                     </NavDropdown.Item>
                     <NavDropdown.Item href="#contact">
                       Contact Us

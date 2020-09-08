@@ -323,7 +323,7 @@ componentDidUpdate = () => {
                   <Form.Control
                     type="text"
                     name="website"
-                    placeholder="Please fill in your Website"
+                    placeholder="Please fill in your Website. Ex. wwww.therapy.com"
                     value={this.state.website}
                     onChange={this.handleInputChangeFor("website")}
                   />
