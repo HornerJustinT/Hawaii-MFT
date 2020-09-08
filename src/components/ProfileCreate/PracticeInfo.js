@@ -272,14 +272,9 @@ class PracticeInfo extends Component {
         type: "REGISTER",
         payload: {
           username: this.props.reduxstate.saveUserReducer.username,
-          password: this.props.reduxstate.saveUserReducer.password
-        },
-      });
-
-      this.props.dispatch({
-        type: 'ADD_MEMBER',
-        payload: {
-          user: (this.state.newId+1),
+          password: this.props.reduxstate.saveUserReducer.password,
+          //moved up from second dispatch below
+          user: (this.state.newId + 1),
           prefix: this.props.createProfile.prefix,
           first_name: this.props.createProfile.first_name,
           last_name: this.props.createProfile.last_name,
@@ -316,8 +311,51 @@ class PracticeInfo extends Component {
           insurance_type_id: this.state.insurance_type_id,
           language_id: this.props.createProfile.language_id,
           student: false,
-        }
+        },
       });
+
+      // this.props.dispatch({
+      //   type: 'ADD_MEMBER',
+      //   payload: {
+      //     user: (this.state.newId+1),
+      //     prefix: this.props.createProfile.prefix,
+      //     first_name: this.props.createProfile.first_name,
+      //     last_name: this.props.createProfile.last_name,
+      //     age: this.props.createProfile.age,
+      //     hiamft_member_account_info: this.props.createProfile.hiamft_member_account_info,
+      //     license_state: this.state.license_state,
+      //     supervision_status: this.state.supervision_status,
+      //     fees: this.state.fees,
+      //     license_expiration: this.state.license_expiration,
+      //     license_number: this.state.license_number,
+      //     license_type: this.state.license_type,
+      //     credentials: this.state.credentials,
+      //     telehealth: this.state.telehealth,
+      //     statement: this.props.createProfile.statement,
+      //     title: this.state.title,
+      //     website: this.props.contactAddress.website,
+      //     city: this.props.contactAddress.city,
+      //     city_personal: this.props.contactAddress.city_personal,
+      //     zip_code: this.props.contactAddress.zip_code,
+      //     zip_code_personal: this.props.contactAddress.zip_code_personal,
+      //     island_id: this.props.contactAddress.island_id,
+      //     email: this.props.contactAddress.email,
+      //     personal_email: this.props.contactAddress.personal_email,
+      //     business_number: this.props.contactAddress.business_number,
+      //     personal_number: this.props.contactAddress.personal_number,
+      //     address_office: this.props.contactAddress.address_office,
+      //     address_home: this.props.contactAddress.address_home,
+      //     address_mailing: this.props.contactAddress.address_mailing,
+      //     session_format_id: this.state.session_format_id,
+      //     client_focus_id: this.state.client_focus_id,
+      //     specialty_id: this.state.specialty_id,
+      //     treatment_preferences_id: this.state.treatment_preferences_id,
+      //     age_groups_served_id: this.state.age_groups_served_id,
+      //     insurance_type_id: this.state.insurance_type_id,
+      //     language_id: this.props.createProfile.language_id,
+      //     student: false,
+      //   }
+      // });
 
       //this will reset the inputs on the parcticeinfo page
       this.setState({ shouldBlockNavigation: false }, () => {

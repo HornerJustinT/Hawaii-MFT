@@ -3,6 +3,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 //will post data from ADD_MEMBER action 
 function* addMember(action) {
+    console.log('KRISTEN CHECK USER');
     try {
        yield axios.post(`api/profile`, action.payload);
        yield put({ type: 'FETCH_PROFILE_REDUCER', payload: action.payload.id });

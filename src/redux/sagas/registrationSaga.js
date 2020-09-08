@@ -11,6 +11,9 @@ function* registerUser(action) {
     // passes the username and password from the payload to the server
     yield axios.post('/api/user/register', action.payload);
     console.log(action.payload)
+
+    // KRISTEN - experiment with changing flow of registration***
+    yield put({ type: 'ADD_MEMBER', payload: action.payload});
     // automatically log a user in after registration
     yield put({ type: 'REGLOGIN', payload: action.payload });
     
