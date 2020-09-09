@@ -12,30 +12,35 @@
 }
 
 .results {
-  margin-top: 5em;
+  margin-top: 1em;
 }
 
 .search {
   background-color: #f7b82c;
+  width: 27%;
   padding-left: 2em;
   padding-bottom: .5em;
   padding-right: 2em;
   margin-bottom: 0;
-  /* float:left; */
+  margin-left: 2em;
+  margin-top: 5em;
+  border-radius: 1em;
+}
+
+.search-bar {
+  margin-left: 6em;
+
+}
+
+.tagline{
+  color: white;
+  margin-left: 8em;
+  margin-top: 8em;
+  padding-top: 0;
 }
 
 h3 {
   color: #3f3f3f;
-}
-
-.cover-photo {
-  background-image: url("../../Images/familyphoto.jpg");
-  background-size: cover;
-  padding-top: 0em;
-  margin: 0;
-  background-repeat: no-repeat;
-  /* background-size: contain; */
-  overflow: hidden;
 }
 
 /* .content {
@@ -81,6 +86,21 @@ h3 {
   }
 
    .tagline {
+    margin-top: 2em;
     margin-left: 2em;
+    margin-right: .5em;
+    text-shadow: 2px 2px 2px rgb(94, 89, 89);
+    text-align: right;
+  }
+
+  .search {
+    background-color: #f7b82c;
+    width: 80%;
+    padding-bottom: .5em;
+    padding-top: 30em;
+    margin-bottom: 0;
+    border-radius: 1em;
+    padding: .5em;
+    margin: .5em;
   }
 }

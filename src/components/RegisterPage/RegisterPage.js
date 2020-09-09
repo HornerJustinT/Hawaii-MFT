@@ -51,7 +51,7 @@ class RegisterPage extends Component {
 
   render() {
     if (this.props.reduxstate.registrationKeyValidation === "") {
-      return <h1>Loading</h1>;
+      return <h3>Loading</h3>;
     }
     if (this.props.reduxstate.registrationKeyValidation === false) {
       return (
@@ -70,7 +70,7 @@ class RegisterPage extends Component {
             </h2>
           )}
           <Form onSubmit={this.registerUser} className="form">
-            <h1>Register User</h1>
+            <h2>Register User</h2>
             <div>
               <Form.Label htmlFor="username">
                 Username</Form.Label>

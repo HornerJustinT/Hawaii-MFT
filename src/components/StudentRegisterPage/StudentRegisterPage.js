@@ -68,7 +68,7 @@ class StudentRegisterPage extends Component {
             </h2>
           )}
           <Form onSubmit={this.registerUser} className="form">
-            <h1>Register Student User</h1>
+            <h2>Register Student User</h2>
             <div>
               <Form.Label htmlFor="username">
                 Username</Form.Label>

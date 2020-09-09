@@ -226,7 +226,7 @@ studentContactInfo = (e) =>{
                   <Form.Label>Website*</Form.Label>
                   <Form.Control type="text"
                     name="website"
-                    placeholder='Please fill in your Website'
+                    placeholder='Please fill in your Website. Ex. www.studentmember.com'
                     value={this.state.website}
                     onChange={this.handleInputChangeFor("website")} />
                   <Form.Text className="text-muted">Listed</Form.Text>
