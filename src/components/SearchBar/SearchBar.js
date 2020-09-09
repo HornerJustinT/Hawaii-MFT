@@ -178,10 +178,14 @@ class SearchBar extends Component {
   render() {
     return (
       <>
-        <div className="cover-photo">
-          <div>
+      <div className="cover-photo">
+          <div className="tagline ">
+            <h2>We Know</h2>
+            <h1>Family Matters</h1>
+          </div>
+        <div>
+          <div className="search-bar">
             <Form
-              style={{ width: "100%" }}
               className="search display-flex flex-between row-wrap"
             >
               <h3>Find a Therapist</h3>
@@ -300,6 +304,7 @@ class SearchBar extends Component {
                     Search
                   </Button>
                 </div>
+              
               ) : (
                 <Form.Group
                   controlId="simple-search"
@@ -334,6 +339,7 @@ class SearchBar extends Component {
                 />
               )}
             </Form>
+            </div>
             <div className="results">
               <SearchResults therapists={this.state.therapists} />
             </div>

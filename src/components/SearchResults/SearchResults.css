@@ -7,14 +7,6 @@
   width: 60%;
 }
 
-.tagline{
-  color: white;
-  margin-left: 8em;
-  padding-top: 0;
-  /* padding-left: 8em; */
-  /* padding-right: 8em; */
-}
-
 .center {
     text-align: center;
 }
@@ -85,3 +77,15 @@
   }
 }
 
+.cover-photo {
+  background: url("../../Images/familyphoto.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center 0px;
+  padding-top: 0em;
+  margin: 0;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
