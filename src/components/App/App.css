@@ -29,6 +29,24 @@ body {
     border-radius: 2px;
 }
 
+.registerForm {
+    width: 30%;
+    height: 100%;
+    margin: 20px auto;
+    margin-bottom: 38em;
+    padding: 25px;
+    border-radius: 2px;
+}
+
+.formStudentRegister {
+    width: 30%;
+    height: 100%;
+    margin: 20px auto;
+    margin-bottom: 38em;
+    padding: 25px;
+    border-radius: 2px;
+}
+
 .passwordForm {
     width: 30%;
     height: 100%;

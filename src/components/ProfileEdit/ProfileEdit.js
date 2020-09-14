@@ -256,7 +256,6 @@ class ProfileEdit extends Component {
           <div className="header">
             <h3>My Profile</h3>
           </div>
-
           {/**Here is Basic Info render */}
           {this.state.clickBasic ? (
             <div className="body">
@@ -423,18 +422,20 @@ class ProfileEdit extends Component {
                   name={this.props.user}
                 ></UploadModal>
               </div>
+
             </div>
+
           </div>
 
-          <div className="body">
-            {this.state.enabled ? (
+          <div>
+            {this.state.enabled ? 
               <Button
                 variant="danger"
                 className="disable"
                 onClick={() => {
                   if (
                     window.confirm(
-                      "Are you sure you want to disable this account? A disabled account will no longer appear in the search directory. You may re-enable it at any time."
+                      "Are you sure you want to disable this account? A disabled account will no longer appear in the directory. You may re-enable it at any time."
                     )
                   )
                     this.enablePress();
@@ -442,18 +443,18 @@ class ProfileEdit extends Component {
               >
                 Disable Account
               </Button>
-            ) : (
+             : 
               <Button className="disable" onClick={this.enablePress}>
                 Enable Account
               </Button>
-            )}
+            }
           </div>
         </>
       );
     } else if ( this.state.student === true){
       {this.pushStudent()}
     } else {
-      return <p> user not found </p>;
+      return <p>Loading...</p>;
     }
   }
 }

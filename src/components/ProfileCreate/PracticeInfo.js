@@ -160,12 +160,10 @@ class PracticeInfo extends Component {
     //   formIsValid = false;
     //   statementError = "Statement is invalid"
     // }
+
     if (this.state.license_number === '') {
       formIsValid = false;
       licenseNumberError = 'License Number is required.'
-    } else if (!isNaN(this.state.license_number) === false) {
-      formIsValid = false;
-      licenseNumberError = "License Number input is invalid."
     }
 
 
@@ -466,7 +464,6 @@ class PracticeInfo extends Component {
             <Form.Group>
               <Form.Label>License Number*</Form.Label>
               <Form.Control
-                type="number"
                 placeholder="Please fill in your License Number"
                 name="license_number"
                 value={this.state.license_number}
@@ -501,9 +498,7 @@ class PracticeInfo extends Component {
               >
                 <option value="None">None</option>
                 <option value="Hawai'i qualified">Hawai'i-Qualified</option>
-                <option value="MFT supervisor">MFT Supervisor</option>
                 <option value="AAMFT approved">AAMFT-approved</option>
-                <option value="Supervisor">Supervisor</option>
               </Form.Control>
               <Form.Text className="text-muted">Listed</Form.Text>
               <h4 className="error">{this.state.supervisionStatusError}</h4>

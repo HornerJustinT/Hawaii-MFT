@@ -230,7 +230,10 @@ componentDidUpdate = () => {
               <header>
                 <h1 className="text-center">Contact Info</h1>
               </header>
-              <ProgressBar now={50} />
+              <div className="progressbar">
+                <ProgressBar now={50} />
+              </div>
+              
               <div>
                 <Prompt
                   when={this.state.shouldBlockNavigation}
@@ -323,11 +326,11 @@ componentDidUpdate = () => {
                   <Form.Control
                     type="text"
                     name="website"
-                    placeholder="Please fill in your Website. Ex. wwww.therapy.com"
+                    placeholder="Please fill in your Website."
                     value={this.state.website}
                     onChange={this.handleInputChangeFor("website")}
                   />
-                  <Form.Text className="text-muted">Listed</Form.Text>
+                  <Form.Text className="text-muted">Listed - Do NOT include HTTPS in url.</Form.Text>
                   <h4 className="error">{this.state.websiteError}</h4>
                 </Form.Group>
 

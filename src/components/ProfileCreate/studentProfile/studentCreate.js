@@ -113,13 +113,15 @@ componentDidUpdate = () => {
             firstNameError = "First Name input is invalid."
         }
 
+        //disabled to allow for spaces and suffixes in last name input
         if(this.state.last_name === ''){
           formIsValid=false;
           lastNameError = 'Last Name is required.'
-        }else if(!this.state.last_name.match(/^[a-zA-Z_]+$/) ){
-            formIsValid=false;
-            lastNameError = "Last Name input is invalid."
         }
+        // }else if(!this.state.last_name.match(/^[a-zA-Z_]+$/) ){
+        //     formIsValid=false;
+        //     lastNameError = "Last Name input is invalid."
+        // }
 
 
         if(this.state.language_id === ''){
