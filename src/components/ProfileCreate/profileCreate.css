@@ -137,6 +137,7 @@ label{
     padding-top: 1.5em;
 }
 
+
 @media screen and (max-width: 900px){
     .container {
          border-style: solid;

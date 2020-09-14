@@ -229,7 +229,7 @@ studentContactInfo = (e) =>{
                     placeholder='Please fill in your Website. Ex. www.studentmember.com'
                     value={this.state.website}
                     onChange={this.handleInputChangeFor("website")} />
-                  <Form.Text className="text-muted">Listed</Form.Text>
+                  <Form.Text className="text-muted">Listed - Do NOT include HTTPS in url.</Form.Text>
                   <h4 className="error">{this.state.websiteError}</h4>
                 </Form.Group>
 

@@ -17,7 +17,7 @@
 
 .search {
   background-color: #f7b82c;
-  width: 27%;
+  width: 25%;
   padding-left: 2em;
   padding-bottom: .5em;
   padding-right: 2em;
@@ -29,7 +29,10 @@
 
 .search-bar {
   margin-left: 6em;
+}
 
+.h3{
+  padding-top: 1em;
 }
 
 .tagline{

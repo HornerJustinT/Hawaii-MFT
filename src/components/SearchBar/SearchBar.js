@@ -188,7 +188,7 @@ class SearchBar extends Component {
             <Form
               className="search display-flex flex-between row-wrap"
             >
-              <h3>Find a Therapist</h3>
+              <h3 className="h3">Find a Therapist</h3>
               {this.state.advanced ? (
                 <div className="content">
                   <div className="flex-between row-wrap">

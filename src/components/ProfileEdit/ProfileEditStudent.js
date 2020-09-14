@@ -462,7 +462,7 @@ class ProfileEditStudent extends Component {
     }else{
       return(
         <>
-          <p>404: page not found</p>
+          <p>Loading...</p>
         </>
       );
     }

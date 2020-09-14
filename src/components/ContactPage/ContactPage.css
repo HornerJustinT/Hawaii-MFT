@@ -1,22 +1,60 @@
-.body{
-    padding-left: 4em;
+.contact-background {
+  background: url("../../Images/couplephoto.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center;
+  padding-top: 0em;
+  margin: 0;
+  background-repeat: no-repeat;
+  overflow: auto;
+ } 
+
+.body-contact{
+    width: 100%;
+    height: 100%;
+    margin-bottom: 45em;
+    margin-top: 5em;
+    padding: 25px;
+    border-radius: 2px;
 }
 
-h1 {
-    padding-top: 2em;
+.address {
+    margin-left: 2em;
+    color: #3f3f3f;
+    border-radius: 1em;
+    padding-left: 1em;
+    padding-bottom: 1em;
+    width: 25%;
+    padding-right: 2em;
+    margin-bottom: 0;
 }
 
-h3 {
-    padding-top: 1em;
+.header {
+    padding-top: 3em;
 }
 
-h6 {
-    padding-top: 1em;
-}
-
-p {
-    padding-top: .5em;
-}
 .body2{
     padding-top: 2em;
+}
+
+.body3 {
+    padding-top: 1em;
+}
+
+@media only screen and (max-width: 900px) {
+  /* For Small Screens */
+    .address {
+        margin-left: 2em;
+        background-color: #f7b82c;
+        color: #3f3f3f;
+        border-radius: 1em;
+        padding-left: 1em;
+        padding-bottom: 1em;
+        width: 80%;
+        padding-right: 2em;
+        margin-bottom: 0;
+        margin-top: 5em;
+    }
 }

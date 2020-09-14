@@ -136,6 +136,7 @@
 
     
 .disable {
-    float: right;
+    /* float: right; */
     margin-bottom: 1em;
+    margin-left: 2em;
 }
