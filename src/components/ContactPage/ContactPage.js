@@ -12,7 +12,7 @@ import "../App/App.css";
 
 const AboutPage = () => (
   <div className="contact-background">
-  <div className="body-contacy">
+  <div className="body-contact">
     <div className="header">
       <h1>Get in touch!</h1>
       <div className="body2">
