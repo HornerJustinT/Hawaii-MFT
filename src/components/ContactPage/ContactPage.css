@@ -15,13 +15,12 @@
     width: 100%;
     height: 100%;
     margin-bottom: 45em;
-    margin-top: 5em;
     padding: 25px;
-    border-radius: 2px;
+
 }
 
 .address {
-    margin-left: 2em;
+    margin-left: 1em;
     color: #3f3f3f;
     border-radius: 1em;
     padding-left: 1em;
