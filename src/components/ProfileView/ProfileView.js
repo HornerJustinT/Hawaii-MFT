@@ -356,7 +356,7 @@ class ProfileView extends Component {
         </>
       );
     } else {
-      return <h1>Loading...</h1>;// wait for conditional rendering to load
+      return <p>Loading...</p>;// wait for conditional rendering to load
     }
   }
 }

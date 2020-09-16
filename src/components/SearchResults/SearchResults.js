@@ -28,9 +28,9 @@ class SearchResults extends Component {
 
               <div className="results-bin">
                 {this.props.therapists[0] && (
-                  <h4 className="results-number center">
+                  <h3 className="results-number center">
                     Hawaiian Islands Association for Marriage & Family Therapist Directory
-                  </h4>
+                  </h3>
                 )}
 
                 {this.props.therapists.map((therapist) => (
