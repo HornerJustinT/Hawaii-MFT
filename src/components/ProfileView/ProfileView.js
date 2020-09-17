@@ -57,7 +57,10 @@ class ProfileView extends Component {
   website=(website)=>{// checks if website is there function
     if(website){
       return (
-        <a href={this.props.profile.website}>
+        <a 
+          target="_blank"
+          rel="noopener noreferrer"
+          href={this.props.profile.website}>
           {this.props.profile.website}
         </a>
       );
