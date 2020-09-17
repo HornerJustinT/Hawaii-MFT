@@ -60,7 +60,8 @@ class ProfileView extends Component {
         <a 
           target="_blank"
           rel="noopener noreferrer"
-          href={this.props.profile.website}>
+          href={`https://${this.props.profile.website}`}
+        >
           {this.props.profile.website}
         </a>
       );
