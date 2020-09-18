@@ -29,7 +29,7 @@ router.post('/:username', async (req, res) => {
     });
 
     let message = `A password reset was requested by your account.
-To reset your password please go to this link: localhost:3000/passwordreset/${key}
+To reset your password please go to this link: www.directory/passwordreset/${key}/hawaiimft.org .
     
 If you weren't the person who requested this please ignore this email.`
 
