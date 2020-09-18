@@ -165,8 +165,8 @@ CREATE TABLE "email_table"(
 	FOREIGN KEY ("member_id") REFERENCES "members"("id"));
 
 CREATE TABLE password_reset (
-    id BIGINT PRIMARY KEY,
-    username text
+    username text,
+    "key" VARCHAR
 );
 
 -- Everything below is temporary data for our tables

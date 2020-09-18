@@ -55,7 +55,7 @@ router.get('/', async (req, res) => {
 			m.license_expiration, m.hiamft_member_account_info, m.supervision_status, m.fees, m.credentials,
 			m.telehealth, m.statement, m.website, m.title, m.city, m.city_personal, m.license_number, m.license_type, m.enabled, m.student;`;
 
-        const members = await connection.query(query);
+		const members = await connection.query(query);
         res.send(members.rows)
 
       } catch (error) {
