@@ -37,7 +37,7 @@ If you weren't the person who requested this please ignore this email.`
     await transporter.sendMail({
       from: `"Hawaiian Islands Association for Marriage & Family Therapy" <${process.env.EMAIL_AUTH}>`, // sender address
       to: userEmail.rows[0].email, // list of receivers
-      subject: "HIAMFT Password Reset", // Subject line
+      subject: "HIAMFT Directory Password Reset", // Subject line
       text: message, // plain text body
     });
 

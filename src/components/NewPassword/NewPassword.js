@@ -64,10 +64,6 @@ class LoginPage extends Component {
               />
             </Form.Group>
 
-            <div>
-              <a href="/#/login">Login</a>
-            </div>
-
             <Button
               className="log-in input"
               type="submit"
