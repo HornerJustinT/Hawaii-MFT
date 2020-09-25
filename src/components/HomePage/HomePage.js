@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 
 import SearchBar from '../SearchBar/SearchBar'
 
+import "../App/App.css";
+
+
 
 class HomePage extends Component{
     render(){

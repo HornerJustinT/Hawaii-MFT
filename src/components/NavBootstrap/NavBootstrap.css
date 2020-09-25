@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@562&display=swap');
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+.navbar-brand>img {
+  padding: 7px 14px;
+}
+
+.title {
+    font-family: 'Lora', serif;
+    margin-top: .5em;
+}
+
+.menu {
+    margin-right: 1em;
+}
+
+.login {
+    margin-left: 1em;
+    margin-right: 1em;
+}

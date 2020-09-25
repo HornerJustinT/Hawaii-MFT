@@ -2,9 +2,11 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
+import ReactTooltip from "react-tooltip";
 
 // Components
 import RegistrationModal from '../RegistrationModal/RegistrationModal';
+import StudentRegistrationModal from '../StudentRegistrationModal/StudentRegistrationModal';
 
 // Libraries
 import FileSaver from "file-saver";
@@ -18,10 +20,10 @@ import Form from "react-bootstrap/Form";
 
 // CSS
 import './AdminPage.css'
+import "../App/App.css";
 
 
 class AdminPage extends Component {
-
   // therapists is an array of therapists to loop through later
 
   // Criteria is all the possible search options the server allows.
@@ -46,15 +48,19 @@ class AdminPage extends Component {
       treatment_preferences: null,
     },
   };
-  resetProfile = (id) =>{
-    this.props.dispatch({type:"PROFILE_RESET"}) 
-    this.props.history.push(`/edit-profile/${id}`)
-  }
+  resetProfile = (id) => {
+    this.props.dispatch({ type: "PROFILE_RESET" });
+    this.props.history.push(`/admin-edit-profile/${id}`);
+  };
+
+  resetStudentProfile = (id) => {
+    this.props.dispatch({ type: "PROFILE_RESET" });
+    this.props.history.push(`/admin-edit-profile-student/${id}`);
+  };
   // When the page loads
   componentDidMount() {
     // Grab a complete list of members.
     this.props.dispatch({ type: "FETCH_MEMBERS_ADVANCED", payload: "" });
-
   }
 
   // Parses the state and makes the url query then sends the search
@@ -68,7 +74,6 @@ class AdminPage extends Component {
 
     // Loops through the possible search criteria in state
     for (const key in this.state.criteria) {
-
       // Makes sure the property actually exists (NEEDED)
       if (this.state.criteria.hasOwnProperty(key)) {
         const element = this.state.criteria[key];
@@ -109,7 +114,7 @@ class AdminPage extends Component {
     });
   };
 
-  // Replaces the criteria values as needed. 
+  // Replaces the criteria values as needed.
   // First it sets the new value to the same as the old one
   // then it sets the old one to null.
   onSelectChange = (event, Mainkey) => {
@@ -124,12 +129,17 @@ class AdminPage extends Component {
 
   // Sets the criteria to null essentially removing it
   deleteFilter = (Mainkey) => {
-    this.setState({
-      criteria: {
-        ...this.state.criteria,
-        [Mainkey]: null,
+    this.setState(
+      {
+        criteria: {
+          ...this.state.criteria,
+          [Mainkey]: null,
+        },
       },
-    });
+      () => {
+        this.searchTherapists();
+      }
+    );
   };
 
   // Shows another bar on the page
@@ -153,8 +163,8 @@ class AdminPage extends Component {
         }
       }
     }
+    this.searchTherapists();
   };
-
 
   // Converts an array of objects to CSV and makes it ready for download
   objectToCsv = (data) => {
@@ -183,10 +193,15 @@ class AdminPage extends Component {
   };
 
   switchChange = (event) => {
-    this.setState({
-      showDisabled: event.target.checked
-    })
-  }
+    this.setState(
+      {
+        showDisabled: event.target.checked,
+      },
+      () => {
+        this.searchTherapists();
+      }
+    );
+  };
 
   downloadClick = () => {
     const blob = new Blob([this.state.csv], { type: "text/csv" });
@@ -205,9 +220,8 @@ class AdminPage extends Component {
   render() {
     return (
       <>
-        <div className="reg-button">
-          <RegistrationModal />
-        </div>
+      <div className="main">
+        <ReactTooltip />
         <div className="container search-bar">
           {Object.keys(this.state.criteria).map((Mainkey) => (
             <>
@@ -256,7 +270,7 @@ class AdminPage extends Component {
               )}
             </>
           ))}
-          <div className="flex-between">
+          <div className="flex-between align-center">
             <Form.Check
               type="switch"
               id="custom-switch"
@@ -267,9 +281,10 @@ class AdminPage extends Component {
 
             <div>
               <Button
-                variant="primary"
+                variant="success"
                 onClick={this.addFilter}
                 className="btnFilter"
+                data-tip="This button adds filters to filter the members listed below. To search with these filters click the search button"
               >
                 Add Filter
               </Button>
@@ -278,6 +293,7 @@ class AdminPage extends Component {
                 variant="primary"
                 onClick={this.searchTherapists}
                 className="btnFilter"
+                data-tip="This button searchs the members table with the filters currently present"
               >
                 Search
               </Button>
@@ -285,13 +301,13 @@ class AdminPage extends Component {
           </div>
         </div>
         <div className="container">
-          <Table striped bordered hover variant="dark">
+            <Table striped bordered hover variant="" className="table">
             <thead>
               <tr>
                 <th>ID</th>
                 <th>Name</th>
                 <th>License #</th>
-                <th>License</th>
+                <th>Email Address</th>
                 <th></th>
               </tr>
             </thead>
@@ -303,27 +319,58 @@ class AdminPage extends Component {
                     <td>
                       {therapist.first_name} {therapist.last_name}
                     </td>
+                    {!therapist.student ?
                     <td>{therapist.license_number}</td>
-                    <td>{therapist.license_title}</td>
+                    :
+                    <td><i>Student Member</i></td>
+                    }
+                    {!therapist.student ? (
+                      <td>{therapist.email}</td>
+                    ) : (
+                      <td>{therapist.emailpersonal}</td>
+                    )}
                     <td style={{ textAlign: "right" }}>
+                    {therapist.student ? 
                       <Button
-                        variant="danger"
+                        variant="primary"
+                        onClick={() => this.resetStudentProfile(therapist.id)}
+                        data-tip="This button will direct you to the edit profile page for this member"
+                      >
+                        View
+                      </Button>                    
+                    :
+                      <Button
+                        variant="primary"
                         onClick={() => this.resetProfile(therapist.id)}
+                        data-tip="This button will direct you to the edit profile page for this member"
                       >
                         View
                       </Button>
+                    }
                     </td>
+                    <ReactTooltip />
                   </tr>
                 ))}
             </tbody>
           </Table>
-          <div className="download">
-            {this.state.csv && (
-              <Button onClick={this.downloadClick} download>
+          <div className="download flex-between">
+            <ReactTooltip />
+            {/* {this.state.csv && ( */}
+              <Button
+                variant="success"
+                data-tip="This buton will download all of the member info of the members on this page into an csv file."
+                onClick={this.downloadClick}
+                download
+              >
                 Click to download
+                <ReactTooltip />
               </Button>
-            )}
+            {/* )} */}
+
+            <RegistrationModal />
+            <StudentRegistrationModal />
           </div>
+        </div>
         </div>
       </>
     );

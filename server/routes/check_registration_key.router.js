@@ -12,16 +12,3 @@ router.get('/:id', (req, res) => {
 });
 
 module.exports = router;
-
-
-// router.get('/session', (req, res) => {
-  
-//     const queryText = `SELECT * FROM "session_format";`;
-//         pool.query(queryText)
-//             .then((result) => {
-//                 res.send(result.rows);
-//             }).catch((error) => {
-//                 console.log('Error in getting session format', error);
-//                 res.sendStatus(500);
-//             });
-// });
