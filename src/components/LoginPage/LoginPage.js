@@ -41,11 +41,7 @@ class LoginPage extends Component {
     return(
       <>
         <div>
-          {this.props.errors.loginMessage && (
-            <h2 className="alert" role="alert">
-              {this.props.errors.loginMessage}
-            </h2>
-          )}
+          
 
         <Form onSubmit={this.login} className="loginForm">
            <h2>Login</h2>
@@ -71,10 +67,13 @@ class LoginPage extends Component {
               />
             </Form.Group>
 
+            {this.props.errors.loginMessage && (
+              <h5 className="alert" role="alert">
+                {this.props.errors.loginMessage}
+              </h5>
+            )}
+
             <Form.Group>
-              <div>
-                <a href="/#/forgotpassword">Forgot Password</a>
-              </div>
 
               <Button
                 className="log-in input"
@@ -84,8 +83,16 @@ class LoginPage extends Component {
               >
                 Log In
               </Button>
+
             </Form.Group>
+
+            <div>
+              <a href="/#/forgotpassword">Forgot Password? Click here.</a>
+            </div>
+            
           </Form>
+
+
         </div>
       </>
     );

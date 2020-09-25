@@ -7,8 +7,12 @@ body {
 }
 
 .alert {
-    background-color: #ff4545;
-    margin: 50px;
+    color: #ff4545;
+    width: 100%;
+}
+
+.check{
+    margin-bottom: 45em;
 }
 
 

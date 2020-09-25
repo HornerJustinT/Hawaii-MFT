@@ -41,20 +41,15 @@ class LoginPage extends Component {
   render() {
     if (this.state.complete){
       return (
-        <div className="text-center">
+        <div className="text-center check">
           <br/>
           <h1>Check your email</h1>
-          <p>Please check your SPAM folder. An email was sent to the email associated with the username you entered.</p>
+          <p>An email was sent to the email associated with the username you entered. If you don't see it in your inbox, please check your SPAM folder.</p>
         </div>
       );
     } else {
       return (
         <div className="passwordForm">
-          {this.props.errors.loginMessage && (
-            <h2 className="alert" role="alert">
-              {this.props.errors.loginMessage}
-            </h2>
-          )}
           <Form onSubmit={this.login} >
             <h2>Forgot Password</h2>
 
