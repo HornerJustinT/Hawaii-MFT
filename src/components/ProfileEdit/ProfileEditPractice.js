@@ -258,9 +258,9 @@ class ProfileEdit extends Component {
           {this.state.clickPractice ? (
             <div className="body">
               <div className="flex-between row-wrap first">
-                <h4>Practice Info</h4>
+                <h4 className="edit-bucket">Practice Info</h4>
                 <Button
-                  className="flex-between row-wrap"
+                  className="flex-between row-wrap edit-bucket"
                   onClick={() => this.handleSavePractice()}
                 >
                   Save Changes
@@ -577,9 +577,9 @@ class ProfileEdit extends Component {
           ) : (
             <div className="body">
               <div className="flex-between row-wrap first">
-                <h4>Practice Info</h4>
+                <h4 className="edit-bucket">Practice Info</h4>
                 <Button
-                  className="flex-between row-wrap"
+                  className="flex-between row-wrap edit-bucket"
                   onClick={() => this.handleEditPractice()}
                 >
                   Edit Practice Info
