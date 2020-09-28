@@ -274,9 +274,9 @@ class ProfileEditContact extends Component {
                 {this.state.clickContact && this.props.profile ? (
                   <div className="body">
                     <div className="flex-between row-wrap first">
-                      <h4>Contact Info</h4>
+                      <h4 className="edit-bucket">Contact Info</h4>
                       <Button
-                        className="flex-between row-wrap"
+                        className="flex-between row-wrap edit-bucket"
                         onClick={() => this.handleSaveContact()}
                       >
                         Save Changes
@@ -453,9 +453,9 @@ class ProfileEditContact extends Component {
                 ) : (
                   <div className="body">
                     <div className="flex-between row-wrap first">
-                      <h4>Contact Info</h4>
+                      <h4 className="edit-bucket">Contact Info</h4>
                       <Button
-                        className="flex-between row-wrap first"
+                        className="flex-between row-wrap first edit-bucket"
                         onClick={() => this.handleEditContact()}
                       >
                         Edit Contact Info

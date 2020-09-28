@@ -260,9 +260,12 @@ class ProfileEdit extends Component {
           {this.state.clickBasic ? (
             <div className="body">
               <div className="flex-between row-wrap">
-                <h4>Basic Info</h4>
+                <div >
+                  <h4 className="edit-bucket">Basic Info</h4>
+                </div>
+                
                 <Button
-                  className="flex-between row-wrap"
+                  className="flex-between row-wrap edit-bucket"
                   onClick={() => this.handleSaveBasic()}
                 >
                   Save Changes
@@ -331,9 +334,9 @@ class ProfileEdit extends Component {
           ) : (
             <div className="body">
               <div className="flex-between row-wrap">
-                <h4>Basic Info</h4>
+                  <h4 className="edit-bucket">Basic Info</h4>
                 <Button
-                  className="flex-between row-wrap"
+                  className="flex-between row-wrap edit-bucket"
                   onClick={() => this.handleEditBasic()}
                 >
                   Edit Basic Info
