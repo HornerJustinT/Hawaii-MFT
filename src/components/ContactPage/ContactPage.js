@@ -37,7 +37,7 @@ const AboutPage = () => (
 
       <div className="body3">
         <h6><b>Working Hours</b></h6>
-        <p>Mon – Fri: 9:00 AM – 4:00 PM Sat-Sun: Closed</p>
+        <p>Mon – Fri: 9:00 AM – 4:00 PM; Sat-Sun: Closed</p>
       </div>
     </div>
     </div>

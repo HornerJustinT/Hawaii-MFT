@@ -17,8 +17,8 @@
     margin-bottom: 45em;
     padding: 25px;
     padding-left: 16em;
-
 }
+
 
 .address {
     margin-left: 1em;
@@ -26,7 +26,7 @@
     border-radius: 1em;
     padding-left: 1em;
     padding-bottom: 1em;
-    width: 25%;
+    width: 40%;
     padding-right: 2em;
     margin-bottom: 0;
 }
@@ -41,19 +41,20 @@
 
 .body3 {
     padding-top: 1em;
+    padding-left: 2em;
 }
 
 @media only screen and (max-width: 900px) {
   /* For Small Screens */
     .address {
-        margin-left: 2em;
+        margin-left: .5em;
+        margin-right: .5em;
         background-color: #f7b82c;
         color: #3f3f3f;
         border-radius: 1em;
-        padding-left: 1em;
+        padding-left: .5em;
         padding-bottom: 1em;
-        width: 80%;
-        padding-right: 2em;
+        width: 90%;
         margin-bottom: 0;
         margin-top: 5em;
     }
@@ -62,6 +63,8 @@
     height: 100%;
     margin-bottom: 45em;
     padding: 25px;
+    margin-left: .5em;
+    margin-right: .5em;
     }
     .header {
     padding-top: 1em;
