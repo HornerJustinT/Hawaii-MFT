@@ -14,7 +14,7 @@ The Hawaiian Islands Marriage and Family Therapy Directory is a web-based applic
 
 The aim of this web-based directory is to help HIAMFT members reach more clients, organize themselves better and promote their common professional interests. In doing so, the Hawaiian Islands Marriage and Family Therapy Directory will help increase mental health accesibility on the islands of Hawaii and help HIAMFT members become more successful in their profession.
  
-To see the fully functional site, please visit: [INSERT-LINK-HERE]
+To see the fully functional site, please visit: [http://directory.hawaiimft.org/#/home]
 
 ## Built with
 
