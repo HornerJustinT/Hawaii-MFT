@@ -31,7 +31,7 @@ class RegisterPage extends Component {
     this.props.dispatch({type:'RESET_NEW_ID'})
     if (this.state.username && this.state.password) {
       this.props.dispatch({
-        type: "SAVE_REGISTER",
+        type: "REGISTER",
         payload: {
           username: this.state.username,
           password: this.state.password,

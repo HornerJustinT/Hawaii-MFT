@@ -79,18 +79,18 @@ class ProfileView extends Component {
         `https://maps.googleapis.com/maps/api/geocode/json?address=${url_address}&key=${API_KEY}`
       )
         .then((data) => data.json())
-        .then((data) => {
-            console.log(data)
-            console.log(data.results[0].geometry.location);
-            console.log(this.state);
-            if (data.results[0]) {
-              this.setState({
-                lat: data.results[0].geometry.location.lat,
-                lng: data.results[0].geometry.location.lng,
-              });
-            }
-          }
-        );
+        // .then((data) => {
+        //     console.log('here is data', data);
+        //     console.log(data.results[0].geometry.location);
+        //     console.log(this.state);
+        //     if (data.results[0]) {
+        //       this.setState({
+        //         lat: data.results[0].geometry.location.lat,
+        //         lng: data.results[0].geometry.location.lng,
+        //       });
+          //   // }
+          // }
+        // );
     }
   };
   onMarkerClick = (props, marker, e) =>

@@ -167,18 +167,23 @@ componentDidUpdate = () => {
       return false
       }else{
         this.props.dispatch({
-              type:'ADD_CREATE_PROFILE',
+              type:'ADD_MEMBER',
               payload:{
+                  username: this.props.saveUserReducer.username,
+                  password: this.props.saveUserReducer.password,
                   prefix:this.state.prefix,
                   first_name:this.state.first_name,
                   last_name:this.state.last_name,
                   age:this.state.age,
                   statement:this.state.statement,
-                  language_id:this.state.language_id
+                  language_id:this.state.language_id,
+                  student: false,
+                  enabled: false,
+                  
               }
         });
         this.setState({shouldBlockNavigation:false}, (e)=>{
-          this.props.history.push("/contact-info");
+          this.props.history.push(`/edit-profile`)
         });
         return true;
       }

@@ -250,7 +250,9 @@ class ProfileEdit extends Component {
 
   render() {
 
-    if (this.props.profile && this.state.languages && this.state.student === false) {
+    {JSON.stringify(this.state)}
+    if (this.state) {
+    // if (this.props.profile && this.state.id && this.state.student === false) {
       return (
         <>
           <div className="header">
@@ -457,7 +459,7 @@ class ProfileEdit extends Component {
     } else if ( this.state.student === true){
       {this.pushStudent()}
     } else {
-      return <p>Loading...</p>;
+      return <p>Loading profile...</p>;
     }
   }
 }

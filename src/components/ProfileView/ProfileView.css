@@ -246,7 +246,7 @@ ul{
         margin-left: 2em;
     }
     .location{
-        margin-left: 3em;
+        /* margin-left: 3em; */
         margin-bottom: 1em;
     }
 }

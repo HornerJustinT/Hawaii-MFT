@@ -102,18 +102,6 @@ class PracticeInfo extends Component {
 
 
 
-  // validateT = () => {
-  //   console.log('I am in validate Function and I want to make it work');
-
-
-
-  //   let formIsValid = true;
-
-
-
-  // }
-
-
   validate = () => {
     console.log('I am in validate Function and I want to make it work');
 
