@@ -78,15 +78,13 @@ class PracticeInfo extends Component {
     } else {
       window.onbeforeunload = undefined
     }
-    console.log(this.props.reduxstate.getUsersReducer.length)
-    console.log(this.props.reduxstate.getUsersReducer)
     if (this.props.reduxstate.getUsersReducer[0]) {
       const o = this.props.reduxstate.getUsersReducer;
       const max = o.reduce(function (prev, current) {
         return (prev.id > current.id) ? prev : current
       })
       if (this.state.newId === "")
-        this.setState({ newId: (max.id) }, () => { console.log(this.state) })
+        this.setState({ newId: (max.id) }, () => { console.log('') })
     }
 
   }
@@ -103,7 +101,6 @@ class PracticeInfo extends Component {
 
 
   validate = () => {
-    console.log('I am in validate Function and I want to make it work');
 
 
     let licenseStateError = '';
@@ -248,7 +245,6 @@ class PracticeInfo extends Component {
     //this action will dispatch all the info collegeted from all three pages
     //and those are createprofile, contactinfo and practicinfo pages
     event.preventDefault();
-    console.log('I am in PracticeINFO')
 
     const isValid = this.validate();
     if (!isValid) {

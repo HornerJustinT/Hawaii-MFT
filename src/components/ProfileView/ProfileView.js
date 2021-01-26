@@ -10,6 +10,7 @@ import {
   Marker,
   GoogleApiWrapper
 } from "google-maps-react";
+import imagePlaceholder from '../../Images/imageplaceholder.png';
 
 //CSS import
 import "../App/App.css";
@@ -29,15 +30,17 @@ class ProfileView extends Component {
     lat: 0,
     lng: 0,
     profilePhoto: '',
+    id: 0,
   };
   
-  componentDidMount() {// fetchs profile info
-    this.props.dispatch({
-      type: "FETCH_PROFILE",
-      payload: this.props.match.params,
-    });
+  componentDidMount() {// fetches profile info
+      this.props.dispatch({
+        type: "FETCH_PROFILE",
+        payload: this.props.match.params,
+      });
     this.getImage(this.props.match.params.id)
   }
+
 
   telehealth=()=>{
     if (this.props.profile.telehealth){
@@ -47,6 +50,7 @@ class ProfileView extends Component {
       return <>No, I do not provide telehealth at this time.</>
     }
   }
+
   credentials=(credentials)=>{// checks if credentials are there function
     if(credentials){
       return<ul>{this.props.profile[0].credentials.map((credentials,key) =>
@@ -54,6 +58,7 @@ class ProfileView extends Component {
       </ul>
     }
   }
+
   website=(website)=>{// checks if website is there function
     if(website){
       return (
@@ -74,23 +79,19 @@ class ProfileView extends Component {
         /%20/g,
         "+"
       );
-      console.log(url_address)
       fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${url_address}&key=${API_KEY}`
       )
         .then((data) => data.json())
-        // .then((data) => {
-        //     console.log('here is data', data);
-        //     console.log(data.results[0].geometry.location);
-        //     console.log(this.state);
-        //     if (data.results[0]) {
-        //       this.setState({
-        //         lat: data.results[0].geometry.location.lat,
-        //         lng: data.results[0].geometry.location.lng,
-        //       });
-          //   // }
-          // }
-        // );
+        .then((data) => {
+            if (data.results[0]) {
+              this.setState({
+                lat: data.results[0].geometry.location.lat,
+                lng: data.results[0].geometry.location.lng,
+              });
+            }
+          }
+        );
     }
   };
   onMarkerClick = (props, marker, e) =>
@@ -108,7 +109,6 @@ class ProfileView extends Component {
     }
   };
   getImage = (id) => {
-    console.log(id)
     storage
       .child(`images/${id}photo`)
       .getDownloadURL()
@@ -122,7 +122,7 @@ class ProfileView extends Component {
           .child(`images/noFile.png`)
           .getDownloadURL()
           .then((url) =>{
-            this.setState({profilePhoto:url});
+            this.setState({profilePhoto:''});
           }).then(()=>{
             this.forceUpdate();
           })
@@ -166,10 +166,17 @@ class ProfileView extends Component {
                                 <div className="flex-between row-wrap row">
                                   <div className="columnSide">
                                     <div className="row">
+                                      {this.state.profilePhoto ?
                                       <img
                                         className="profile"
                                         src={this.state.profilePhoto}
                                       />
+                                      :
+                                      <img 
+                                        className="profile" 
+                                        src={imagePlaceholder}
+                                      />
+                                      }
                                     </div>
                                     <div className="row">
                                       {!this.props.profile.student && (
@@ -376,7 +383,7 @@ class ProfileView extends Component {
         </>
       );
     } else {
-      return <p>Loading...</p>;// wait for conditional rendering to load
+      return <p className="loading-error">Loading Profile. If loading is unsuccessful, please refresh the page.</p>;// wait for conditional rendering to load
     }
   }
 }

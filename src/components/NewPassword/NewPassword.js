@@ -26,7 +26,6 @@ class LoginPage extends Component {
 
   submitNewPassword = (event) => {
     event.preventDefault();
-    console.log('submit')
     if (this.state.password) {
       this.props.dispatch({
         type: "NEW_PASSWORD",

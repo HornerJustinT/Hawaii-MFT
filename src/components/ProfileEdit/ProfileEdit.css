@@ -162,6 +162,10 @@ p {
     font-style: italic;
 }
 
+.upload{
+    margin-bottom: 1em;
+}
+
 
 /*for iphone*/
 @media only screen 

@@ -69,15 +69,13 @@ componentDidUpdate = () => {
   } else {
     window.onbeforeunload = undefined
   }
-  console.log(this.props.reduxstate.getUsersReducer.length)
-  console.log(this.props.reduxstate.getUsersReducer)
   if (this.props.reduxstate.getUsersReducer[0]) {
     const o = this.props.reduxstate.getUsersReducer;
     const max = o.reduce(function (prev, current) {
       return (prev.id > current.id) ? prev : current
     })
     if (this.state.newId === "")
-      this.setState({ newId: (max.id) }, () => { console.log(this.state) })
+      this.setState({ newId: (max.id) }, () => { console.log('') })
   }
 
 }
@@ -205,7 +203,6 @@ if(!isValid){
 
   
     render (){
-      console.log('this is props.createProfile.statement', this.props.createProfile.statement)
         return(
             <>
             <div className='container'>

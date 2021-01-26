@@ -13,16 +13,11 @@ class RegisterPage extends Component {
     password: "",
   };
   componentDidMount() {
-    console.log(this.props.match.params.id);
-
-
     //checks that the registration key exists
     this.props.dispatch({
       type: "CHECK_REGISTRATION_KEY",
       payload: this.props.match.params.id,
     });
-    console.log(this.props.reduxstate.registrationKeyValidation);
-
   }
 
 

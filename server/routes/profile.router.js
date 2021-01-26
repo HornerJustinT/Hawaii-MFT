@@ -5,7 +5,6 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 // GET ROUTE for specific members gets all the info on a single person based on the param id
 router.get('/:id', async (req, res) => {
     const connection = await pool.connect();
-    console.log('req.params.id is', req.params.id)
     try {
          let query = `SELECT m.*, 
          array_agg(DISTINCT languages.title) AS languages,
@@ -61,8 +60,6 @@ router.get('/:id', async (req, res) => {
          m.telehealth, m.statement, m.website, m.title, m.city, m.city_personal, m.license_number, m.license_type, m.enabled, m.student;`;
         const members = await connection.query(query, [req.params.id]);
         res.send(members.rows)
-
-        console.log('here is members.rows', members.rows[0]);
 
       } catch (error) {
         console.log(`Error Selecting members`, error)
@@ -484,7 +481,6 @@ router.put("/enable", async (req, res) => {
 });
 
 router.put("/student", (req, res) => {
-  console.log('made it to server for student', req.body.student, req.user.id);
   const sqlQuery = 'UPDATE members SET "student" = $1 WHERE "id" = $2;';
 
   pool.query(sqlQuery, [req.body.student, req.user.id])

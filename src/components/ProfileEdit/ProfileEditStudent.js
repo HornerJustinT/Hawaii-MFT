@@ -28,7 +28,6 @@ class ProfileEditStudent extends Component {
   };
 
   getImage = (id) => {
-    console.log(id);
     storage
       .child(`images/${id}photo`)
       .getDownloadURL()

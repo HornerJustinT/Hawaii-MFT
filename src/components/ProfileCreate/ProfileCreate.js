@@ -41,8 +41,6 @@ class ProfileCreate extends Component {
 //from which users can choose the languages they speak
 componentDidMount(){
  this.getLanguages()
- console.log("user that will be added", this.props.saveUserReducer);
-
 }
 componentDidUpdate = () => {
   if (this.state.shouldBlockNavigation) {
@@ -203,7 +201,6 @@ componentDidUpdate = () => {
     }
     
     render (){
-      console.log("user that will be added", this.props.saveUserReducer);
       return (
         <>
           <div>

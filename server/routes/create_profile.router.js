@@ -130,14 +130,10 @@ router.get('/session', (req, res) => {
 router.post('/', async (req, res) => {
     //define the queries
     const member = await pool.connect();
-    console.log('here is req.user.id', req.user.id);
-    console.log('user',req.body);
 
     // if(req.body.telehealth==''){
     //     req.body.telehealth = true;
     // }
-
-    // console.log(req.body.telehealth)
 
     try {
       //consolidated all the push request using async await

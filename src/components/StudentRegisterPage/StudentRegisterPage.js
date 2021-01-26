@@ -13,7 +13,6 @@ class StudentRegisterPage extends Component {
     password: "",
   };
   componentDidMount() {
-    console.log(this.props.match.params.id);
     this.props.dispatch({
       type:"NEW_ID"
     });
@@ -22,7 +21,6 @@ class StudentRegisterPage extends Component {
       type: "CHECK_REGISTRATION_KEY",
       payload: this.props.match.params.id,
     });
-    console.log(this.props.reduxstate.registrationKeyValidation);
   }
   registerUser = (event) => {
     event.preventDefault();

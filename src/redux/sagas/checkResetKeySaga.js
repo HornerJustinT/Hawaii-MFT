@@ -18,7 +18,6 @@ function* checkResetKey(action) {
 
 // will be fired on "create Registration key" actions
 function* newPassword(action) {
-    console.log(action.payload)
   try {
     yield axios.post(`/api/user/passwordreset`, action.payload);
     action.props.history.push('/login')

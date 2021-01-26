@@ -19,7 +19,6 @@ router.get('/new', async (req, res) => {
     FROM "user"
     `
       const members = await connection.query(query);
-      console.log('in new ',members.rows)
       res.send(members.rows)
 
     } catch (error) {
@@ -33,8 +32,6 @@ router.get('/new', async (req, res) => {
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
 router.post('/register', (req, res, next) => {  
-  console.log(req.body)
-  console.log('this is req.user', req.user)
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
 
@@ -45,7 +42,6 @@ router.post('/register', (req, res, next) => {
 });
 
 router.post("/passwordreset", (req, res) => {
-  console.log(req.body);
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
 

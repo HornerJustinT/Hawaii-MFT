@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import firebase from "../../Firebase";
+import imagePlaceholder from '../../Images/imageplaceholder.png';
+
 // Components
 import ProfileEditContact from "./ProfileEditContact";
 import ProfileEditPractice from "./ProfileEditPractice";
@@ -25,14 +27,15 @@ class ProfileEdit extends Component {
   state = {
     id: 0,
     clickBasic: false,
+    updated: false,
     languages: [],
     languagesEdit: [],
     profilePhoto: "",
     student: this.props.profile.student,
+    enabled: this.props.profile.enabled,
   };
 
   getImage = (id) => {
-    console.log(id)
     storage
       .child(`images/${id}photo`)
       .getDownloadURL()
@@ -47,12 +50,11 @@ class ProfileEdit extends Component {
           .child(`images/noFile.png`)
           .getDownloadURL()
           .then((url) =>{
-            this.setState({profilePhoto:url});
+            this.setState({profilePhoto:''});
           }).then(()=>{
             this.forceUpdate();
           })
           .catch((error) => {
-            console.log('No file found photo also not found')
           })
         // Handle any errors
       });
@@ -60,13 +62,15 @@ class ProfileEdit extends Component {
   //mounting component - dispatching to redux sagas to call data from server for retreival from profile,
   //languages, islands & treatments reducers (props).
   componentDidMount() {
-    this.props.dispatch({ type: "FETCH_LANGUAGES" });
 
     this.props.dispatch({
       type: "FETCH_PROFILE",
       payload: { id: this.props.match.params.id || this.props.user.id },
       admin: this.props.match.params.id || false,
     });
+
+    this.props.dispatch({ type: "FETCH_LANGUAGES" });
+
     this.getImage(this.props.user.id);
 
     if(this.props.match.params.id){
@@ -75,15 +79,15 @@ class ProfileEdit extends Component {
     else{
       this.getImage(this.props.user.id)
     }
-
   } //end componentDidMount
 
   //updating component to ensure all the data makes it to props for render
   componentDidUpdate(previousProps) {
+
     if (
       this.state.id !== this.props.user.id &&
-      previousProps.profile.id !== this.props.profile.id &&
-      this.props.profile.phone
+      previousProps.profile.id !== this.props.profile.id ||
+      this.props.user & this.props.profile.phone
     ) {
       //setting state in component update with all of the properties retrieved from props from the database
       //for this particular member's profile view.
@@ -122,13 +126,16 @@ class ProfileEdit extends Component {
         specialty: this.props.profile.specialty,
         treatmentPreferences: this.props.profile.treatment_preferences,
         student: this.props.profile.student,
+        enabled: this.props.profile.enabled,
       });
 
       if (this.props.profile.student) {
           this.pushStudent();
         }
     }
+
   } //end componentDidUpdate
+
 
   pushStudent = () => {
     this.props.history.push('/edit-student');
@@ -248,9 +255,14 @@ class ProfileEdit extends Component {
     }
   };
 
+  refreshPage = () => {
+    // window.location.reload();
+  }
+  
+
   render() {
 
-    if (this.state) {
+    if (!this.state.updated && this.state.id && this.state.student === false) {
     // if (this.props.profile && this.state.id && this.state.student === false) {
       return (
         <>
@@ -455,9 +467,13 @@ class ProfileEdit extends Component {
           <div className="bodyPhoto">
             <h4>Profile Picture</h4>
             <div >
+              {this.state.profilePhoto ?
+             
               <img className="photo" src={this.state.profilePhoto}></img>
-
-              <div className="button">
+              :
+              <img className="photo" src={imagePlaceholder}></img>
+              }
+              <div className="button upload">
                 <UploadModal
                   refresh={this.getImage}
                   name={this.props.user}
@@ -472,6 +488,7 @@ class ProfileEdit extends Component {
     } else if ( this.state.student === true){
       {this.pushStudent()}
     } else {
+      {this.refreshPage()}
       return <p>Loading profile...</p>;
     }
   }

@@ -196,6 +196,10 @@ ul{
     display: block;
 }
 
+.loading-error{
+    padding: 3em;
+}
+
 @media screen and (max-width: 1200px){
     .bio-container {
         width: 95%;

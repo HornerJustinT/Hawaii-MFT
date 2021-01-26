@@ -29,7 +29,6 @@ class EmailModal extends Component {
   };
 
   handleShow = () => {
-    console.log('in handleShow EMAILMODAL', this.state);
     this.setState({
       show: true,
       message: 
@@ -56,7 +55,6 @@ class EmailModal extends Component {
   };
 
   componentDidMount() {
-    console.log("props", this.props);
   }
 
   render() {
