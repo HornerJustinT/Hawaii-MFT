@@ -274,7 +274,7 @@ class AdminPage extends Component {
             <Form.Check
               type="switch"
               id="custom-switch"
-              label="Show Disabled Accounts"
+              label="Show Accounts with Unpublished Profiles"
               className=""
               onChange={this.switchChange}
             />
