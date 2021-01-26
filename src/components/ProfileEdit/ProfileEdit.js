@@ -254,10 +254,6 @@ class ProfileEdit extends Component {
       );
     }
   };
-
-  refreshPage = () => {
-    // window.location.reload();
-  }
   
 
   render() {
@@ -488,8 +484,7 @@ class ProfileEdit extends Component {
     } else if ( this.state.student === true){
       {this.pushStudent()}
     } else {
-      {this.refreshPage()}
-      return <p>Loading profile...</p>;
+      return <p className="loading-error">Loading profile. If loading error occurs, please refresh the page.</p>;
     }
   }
 }
