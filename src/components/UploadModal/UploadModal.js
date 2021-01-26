@@ -130,7 +130,6 @@ function RegistrationModal(props) {
     );
   };
   const handleUpload = (image) => {
-    console.log(image);
     makePleaseWait(true);
     const uploadTask = storage.ref(`images/${props.name.id}photo`).put(image);
     uploadTask.on(

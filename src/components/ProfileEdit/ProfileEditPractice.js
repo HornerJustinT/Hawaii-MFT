@@ -52,7 +52,6 @@ class ProfileEdit extends Component {
   //languages, islands & treatments reducers (props).
 
   componentDidMount() {
-    console.log(this.props);
     this.props.dispatch({ type: "FETCH_AGE_GROUPS" });
     this.props.dispatch({ type: "FETCH_DEMOGRPHICS" });
     this.props.dispatch({ type: "FETCH_INSURANCE_TAKEN" });
@@ -146,7 +145,6 @@ class ProfileEdit extends Component {
 
   //handleChange resets state according to new data entered into form inputs
   handleChange = (event, propertyName) => {
-    console.log ('here is state @@@', this.state.licenseState)
     this.setState({
       [propertyName]: event.target.value,
     });

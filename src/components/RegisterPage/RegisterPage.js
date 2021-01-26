@@ -13,16 +13,11 @@ class RegisterPage extends Component {
     password: "",
   };
   componentDidMount() {
-    console.log(this.props.match.params.id);
-
-
     //checks that the registration key exists
     this.props.dispatch({
       type: "CHECK_REGISTRATION_KEY",
       payload: this.props.match.params.id,
     });
-    console.log(this.props.reduxstate.registrationKeyValidation);
-
   }
 
 
@@ -31,7 +26,7 @@ class RegisterPage extends Component {
     this.props.dispatch({type:'RESET_NEW_ID'})
     if (this.state.username && this.state.password) {
       this.props.dispatch({
-        type: "SAVE_REGISTER",
+        type: "REGISTER",
         payload: {
           username: this.state.username,
           password: this.state.password,

@@ -10,6 +10,7 @@ import {
   Marker,
   GoogleApiWrapper
 } from "google-maps-react";
+import imagePlaceholder from '../../Images/imageplaceholder.png';
 
 //CSS import
 import "../App/App.css";
@@ -29,24 +30,27 @@ class ProfileView extends Component {
     lat: 0,
     lng: 0,
     profilePhoto: '',
+    id: 0,
   };
   
-  componentDidMount() {// fetchs profile info
-    this.props.dispatch({
-      type: "FETCH_PROFILE",
-      payload: this.props.match.params,
-    });
+  componentDidMount() {// fetches profile info
+      this.props.dispatch({
+        type: "FETCH_PROFILE",
+        payload: this.props.match.params,
+      });
     this.getImage(this.props.match.params.id)
   }
 
-  telehealth=(doesTelehealth)=>{
-    if(doesTelehealth){
-      return <>Yes I do provide telehealth</>
+
+  telehealth=()=>{
+    if (this.props.profile.telehealth){
+      return <>Yes, I do provide telehealth.</>
     }
     else{
-      return <>No, I do not provide telehealth at this time</>
+      return <>No, I do not provide telehealth at this time.</>
     }
   }
+
   credentials=(credentials)=>{// checks if credentials are there function
     if(credentials){
       return<ul>{this.props.profile[0].credentials.map((credentials,key) =>
@@ -54,6 +58,7 @@ class ProfileView extends Component {
       </ul>
     }
   }
+
   website=(website)=>{// checks if website is there function
     if(website){
       return (
@@ -74,15 +79,11 @@ class ProfileView extends Component {
         /%20/g,
         "+"
       );
-      console.log(url_address)
       fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${url_address}&key=${API_KEY}`
       )
         .then((data) => data.json())
         .then((data) => {
-            console.log(data)
-            console.log(data.results[0].geometry.location);
-            console.log(this.state);
             if (data.results[0]) {
               this.setState({
                 lat: data.results[0].geometry.location.lat,
@@ -108,7 +109,6 @@ class ProfileView extends Component {
     }
   };
   getImage = (id) => {
-    console.log(id)
     storage
       .child(`images/${id}photo`)
       .getDownloadURL()
@@ -122,7 +122,7 @@ class ProfileView extends Component {
           .child(`images/noFile.png`)
           .getDownloadURL()
           .then((url) =>{
-            this.setState({profilePhoto:url});
+            this.setState({profilePhoto:''});
           }).then(()=>{
             this.forceUpdate();
           })
@@ -141,28 +141,51 @@ class ProfileView extends Component {
       this.setMAP();// sets the map
       return (
         <>
-        <div className="background">
-          <Button onClick={this.home} className="btn-container">
-            Back to search Results
-          </Button>
-          <div className="border">
-            <div className="flex-between row-wrap row">
-              <div className="columnSide">
-                <div className="row">
-                  <img
-                    className="profile"
-                    src={this.state.profilePhoto}
-                  />
-                </div>
-                <div className="row">
-                  {!this.props.profile.student && (
-                    <div className="emailModal">
-                      <EmailModal />
-                    </div>
-                  )}
+        {!this.props.profile.enabled && this.props.user.id === this.props.profile.id ? 
+        
+            <>
+              <div className="flex-between row-wrap enable-alert">
+                <div className="text">
+                  <p>Your profile is currently disabled and does not appear in the directory. 
+                    To publish your profile, navigate to <b>Edit My Profile</b> and click the <b>Enable</b> button at the top of the page.</p>
                 </div>
               </div>
-
+            </>
+        :
+        <div className="background">
+          <Button onClick={this.home} className="btn-container">
+            Back to Directory
+          </Button>
+        </div>
+            
+        }
+          
+            <div className="background">
+                            
+                              <div className="border">
+                                <div className="flex-between row-wrap row">
+                                  <div className="columnSide">
+                                    <div className="row">
+                                      {this.state.profilePhoto ?
+                                      <img
+                                        className="profile"
+                                        src={this.state.profilePhoto}
+                                      />
+                                      :
+                                      <img 
+                                        className="profile" 
+                                        src={imagePlaceholder}
+                                      />
+                                      }
+                                    </div>
+                                    <div className="row">
+                                      {!this.props.profile.student && (
+                                        <div className="emailModal">
+                                          <EmailModal />
+                                        </div>
+                                      )}
+                                    </div>
+                                  </div>
               <div className="bio-title columnThirds">
                 <h2>
                   {this.props.profile.first_name} {this.props.profile.last_name}
@@ -258,7 +281,7 @@ class ProfileView extends Component {
                       <h5>Telehealth</h5>
                       <ul className="flex-between row-wrap">
                         <li>{this.telehealth()}</li>
-                        {/* Checkes whether the Telehealth is true or not and then returns statement saying Telehealth is offered or not depending on profile.telehealth */}
+                        {/* Checks whether the Telehealth is true or not and then returns statement saying Telehealth is offered or not depending on profile.telehealth */}
                       </ul>
                     </div>
                     <div className="column">
@@ -360,7 +383,7 @@ class ProfileView extends Component {
         </>
       );
     } else {
-      return <p>Loading...</p>;// wait for conditional rendering to load
+      return <p className="loading-error">Loading Profile. If loading is unsuccessful, please refresh the page.</p>;// wait for conditional rendering to load
     }
   }
 }

@@ -323,7 +323,7 @@ class ProfileEditContact extends Component {
                             }
                           />
                         </Form.Group>
-                        <Form.Text className="text-muted">Listed</Form.Text>
+                        <Form.Text className="text-muted">Listed - Do NOT include "https://" in url. Ex. www.mywebsite.com</Form.Text>
                       </Form>
 
                       <Form className="flex-between row-wrap row">

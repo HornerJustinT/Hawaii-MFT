@@ -6,7 +6,6 @@ const nodemailer = require("nodemailer");
 router.post('/:username', async (req, res) => {  
 
   let key = Math.floor(Math.random() * 10000000000);
-  console.log(key, req.params.username);
   const member = await pool.connect();
   try {
     await member.query('BEGIN')

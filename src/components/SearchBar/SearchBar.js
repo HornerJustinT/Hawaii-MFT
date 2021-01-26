@@ -165,7 +165,6 @@ class SearchBar extends Component {
   }
 
   switchChange = (event) => {
-    console.log(this.state.advanced);
     this.setState({
       advanced: event.target.checked,
     },()=>{

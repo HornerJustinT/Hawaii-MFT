@@ -3,7 +3,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 // will be fired on "create Registration key" actions
 function* checkRegistrationKey(action) {
-    console.log(`/api/checkRegistrationKey/${action.payload}`)
     try {
         const results = yield axios.get(`/api/checkRegistrationKey/${action.payload}`);
         let allowed = false

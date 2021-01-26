@@ -175,6 +175,29 @@ h5 {
     font-weight: 600;
 }
 
+
+/*for iphone*/
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .loginForm {
+        width: 95%;
+        height: 100%;
+        margin: 20px auto;
+        margin-bottom: 15em;
+        border-radius: 2px;
+    }
+
+    .passwordForm {
+        width: 95%;
+        height: 100%;
+        margin: 20px auto;
+        margin-bottom: 18em;
+        border-radius: 2px;
+    }
+}
+
 @media screen and (max-width: 1200px){
     .form {
         width: 95%;
@@ -219,28 +242,6 @@ h5 {
         margin: 20px auto;
         margin-bottom: 45em;
         padding: 25px;
-        border-radius: 2px;
-    }
-}
-
-/*for iphone*/
-@media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 480px)
-  and (-webkit-min-device-pixel-ratio: 2) {
-    .loginForm {
-        width: 95%;
-        height: 100%;
-        margin: 20px auto;
-        margin-bottom: 15em;
-        border-radius: 2px;
-    }
-
-    .passwordForm {
-        width: 95%;
-        height: 100%;
-        margin: 20px auto;
-        margin-bottom: 18em;
         border-radius: 2px;
     }
 }

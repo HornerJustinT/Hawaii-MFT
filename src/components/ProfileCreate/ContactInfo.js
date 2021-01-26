@@ -54,7 +54,6 @@ class ContactInfo extends Component{
             this.props.dispatch({
                 type:'FETCH_ISLANDS'
             })
-            console.log(this.state)
            }
 //take in the information from the input
 //when users either choose options from drop down or put info into the input
@@ -223,7 +222,6 @@ componentDidUpdate = () => {
      }
    
     render (){
-        console.log('here is zip and city persona', this.state.city_personal, this.state.zip_code_personal)
         return (
           <>
             <div className="container">

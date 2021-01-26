@@ -41,8 +41,6 @@ class ProfileCreate extends Component {
 //from which users can choose the languages they speak
 componentDidMount(){
  this.getLanguages()
- console.log("user that will be added", this.props.saveUserReducer);
-
 }
 componentDidUpdate = () => {
   if (this.state.shouldBlockNavigation) {
@@ -167,18 +165,23 @@ componentDidUpdate = () => {
       return false
       }else{
         this.props.dispatch({
-              type:'ADD_CREATE_PROFILE',
+              type:'ADD_MEMBER',
               payload:{
+                  username: this.props.saveUserReducer.username,
+                  password: this.props.saveUserReducer.password,
                   prefix:this.state.prefix,
                   first_name:this.state.first_name,
                   last_name:this.state.last_name,
                   age:this.state.age,
                   statement:this.state.statement,
-                  language_id:this.state.language_id
+                  language_id:this.state.language_id,
+                  student: false,
+                  enabled: false,
+                  
               }
         });
         this.setState({shouldBlockNavigation:false}, (e)=>{
-          this.props.history.push("/contact-info");
+          this.props.history.push(`/edit-profile`)
         });
         return true;
       }
@@ -198,7 +201,6 @@ componentDidUpdate = () => {
     }
     
     render (){
-      console.log("user that will be added", this.props.saveUserReducer);
       return (
         <>
           <div>
@@ -210,7 +212,7 @@ componentDidUpdate = () => {
 
           <div className="container">
             <header>
-              <h1 className="text-center">Create New Profile</h1>
+              <h1 className="text-center">Complete Registration</h1>
             </header>
             <div className="progressbar">
               {" "}
@@ -330,7 +332,7 @@ componentDidUpdate = () => {
                 </Form.Row>
               </Form>
               <div className="next-button">
-                <Button type="submit">Next</Button>
+                <Button type="submit">Complete Registration</Button>
               </div>
             </Form>
           </div>
