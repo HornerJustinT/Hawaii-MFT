@@ -166,6 +166,9 @@ p {
     margin-bottom: 1em;
 }
 
+.loading-error{
+    padding: 3em;
+}
 
 /*for iphone*/
 @media only screen 
