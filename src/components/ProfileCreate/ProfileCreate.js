@@ -215,7 +215,7 @@ componentDidUpdate = () => {
 
           <div className="container">
             <header>
-              <h1 className="text-center">Create New Profile</h1>
+              <h1 className="text-center">Complete Registration</h1>
             </header>
             <div className="progressbar">
               {" "}
@@ -335,7 +335,7 @@ componentDidUpdate = () => {
                 </Form.Row>
               </Form>
               <div className="next-button">
-                <Button type="submit">Next</Button>
+                <Button type="submit">Complete Registration</Button>
               </div>
             </Form>
           </div>

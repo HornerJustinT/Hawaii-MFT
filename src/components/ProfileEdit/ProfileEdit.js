@@ -250,14 +250,50 @@ class ProfileEdit extends Component {
 
   render() {
 
-    {JSON.stringify(this.state)}
     if (this.state) {
     // if (this.props.profile && this.state.id && this.state.student === false) {
       return (
         <>
+          <div>
+            {this.state.enabled ?
+              <div className="flex-between row-wrap disable-alert">
+                <div className="text">
+                  <p>Your profile is currently enabled and appears in the directory. Click <b>Disable Account</b> to unpublish your profile.</p>
+                </div>
+                <Button
+                  variant="danger"
+                  className="disable"
+                  onClick={() => {
+                    if (
+                      window.confirm(
+                        "Are you sure you want to disable this account? A disabled account will no longer appear in the directory. You may re-enable it at any time."
+                      )
+                    )
+                      this.enablePress();
+                  }}
+                >
+                  Disable Account
+                </Button>
+              </div>
+              :
+              <>
+                <div className="flex-between row-wrap enable-alert">
+                  <div className="text">
+                    <p>Your profile is currently disabled and does not appear in the directory. Click <b>Enable Account</b> to publish your profile.</p>
+                  </div>
+                  <Button variant="danger" className="disable" onClick={this.enablePress}>
+                    Enable Account
+                  </Button>
+                </div>
+              </>
+            }
+          </div>
+
           <div className="header">
             <h3>My Profile</h3>
           </div>
+
+          
           {/**Here is Basic Info render */}
           {this.state.clickBasic ? (
             <div className="body">
@@ -430,29 +466,6 @@ class ProfileEdit extends Component {
 
             </div>
 
-          </div>
-
-          <div>
-            {this.state.enabled ? 
-              <Button
-                variant="danger"
-                className="disable"
-                onClick={() => {
-                  if (
-                    window.confirm(
-                      "Are you sure you want to disable this account? A disabled account will no longer appear in the directory. You may re-enable it at any time."
-                    )
-                  )
-                    this.enablePress();
-                }}
-              >
-                Disable Account
-              </Button>
-             : 
-              <Button className="disable" onClick={this.enablePress}>
-                Enable Account
-              </Button>
-            }
           </div>
         </>
       );

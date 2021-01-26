@@ -39,12 +39,12 @@ class ProfileView extends Component {
     this.getImage(this.props.match.params.id)
   }
 
-  telehealth=(doesTelehealth)=>{
-    if(doesTelehealth){
-      return <>Yes I do provide telehealth</>
+  telehealth=()=>{
+    if (this.props.profile.telehealth){
+      return <>Yes, I do provide telehealth.</>
     }
     else{
-      return <>No, I do not provide telehealth at this time</>
+      return <>No, I do not provide telehealth at this time.</>
     }
   }
   credentials=(credentials)=>{// checks if credentials are there function
@@ -141,28 +141,44 @@ class ProfileView extends Component {
       this.setMAP();// sets the map
       return (
         <>
-        <div className="background">
-          <Button onClick={this.home} className="btn-container">
-            Back to search Results
-          </Button>
-          <div className="border">
-            <div className="flex-between row-wrap row">
-              <div className="columnSide">
-                <div className="row">
-                  <img
-                    className="profile"
-                    src={this.state.profilePhoto}
-                  />
-                </div>
-                <div className="row">
-                  {!this.props.profile.student && (
-                    <div className="emailModal">
-                      <EmailModal />
-                    </div>
-                  )}
+        {!this.props.profile.enabled && this.props.user.id === this.props.profile.id ? 
+        
+            <>
+              <div className="flex-between row-wrap enable-alert">
+                <div className="text">
+                  <p>Your profile is currently disabled and does not appear in the directory. 
+                    To publish your profile, navigate to <b>Edit My Profile</b> and click the <b>Enable</b> button at the top of the page.</p>
                 </div>
               </div>
-
+            </>
+        :
+        <div className="background">
+          <Button onClick={this.home} className="btn-container">
+            Back to Directory
+          </Button>
+        </div>
+            
+        }
+          
+            <div className="background">
+                            
+                              <div className="border">
+                                <div className="flex-between row-wrap row">
+                                  <div className="columnSide">
+                                    <div className="row">
+                                      <img
+                                        className="profile"
+                                        src={this.state.profilePhoto}
+                                      />
+                                    </div>
+                                    <div className="row">
+                                      {!this.props.profile.student && (
+                                        <div className="emailModal">
+                                          <EmailModal />
+                                        </div>
+                                      )}
+                                    </div>
+                                  </div>
               <div className="bio-title columnThirds">
                 <h2>
                   {this.props.profile.first_name} {this.props.profile.last_name}
@@ -258,7 +274,7 @@ class ProfileView extends Component {
                       <h5>Telehealth</h5>
                       <ul className="flex-between row-wrap">
                         <li>{this.telehealth()}</li>
-                        {/* Checkes whether the Telehealth is true or not and then returns statement saying Telehealth is offered or not depending on profile.telehealth */}
+                        {/* Checks whether the Telehealth is true or not and then returns statement saying Telehealth is offered or not depending on profile.telehealth */}
                       </ul>
                     </div>
                     <div className="column">

@@ -1,3 +1,7 @@
+p {
+    margin-left: 1rem;
+}
+
 .flex-between {
     display: flex;
     justify-content: space-between;
@@ -14,6 +18,7 @@
 
 .header {
     margin: 4em;
+    margin-top: 0em;
 }
 .photo {
     height: 250px;
@@ -38,17 +43,6 @@
     padding-top: 0px;
     padding-bottom: 0px;
     text-align: center;
-}
-
-@media screen and (max-width: 1200px){
-    .body {
-        border-style: solid;
-        border: .5em black;
-        margin-top: 1em;
-        width: 90%;
-        padding-top: 0px;
-        padding-bottom: 0px;
-    }
 }
 
 .label {
@@ -140,7 +134,65 @@
 
     
 .disable {
-    /* float: right; */
+    margin-top: 1em;
     margin-bottom: 1em;
-    margin-left: 2em;
+    margin-left: .5em;
+    margin-right: 1em;
+}
+
+.disable-alert {
+    padding: 1em;
+    border-top: .5px solid green;
+    border-bottom: .5px solid green;
+    background-color:#d4ede9;
+}
+
+.enable-alert{
+    padding: 1em;
+    border-top: .5px solid #ff4136;
+    border-bottom: .5px solid #ff4136;
+    background-color: #fcccca;
+}
+
+.text{
+    margin-top: 1em;
+    margin-left: 4em;
+    font-weight: 400;
+    font-size: larger;
+    font-style: italic;
+}
+
+
+/*for iphone*/
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .loginForm {
+        width: 95%;
+        height: 100%;
+        margin: 20px auto;
+        margin-bottom: 15em;
+        border-radius: 2px;
+    }
+
+    .passwordForm {
+        width: 95%;
+        height: 100%;
+        margin: 20px auto;
+        margin-bottom: 18em;
+        border-radius: 2px;
+    }
+}
+
+
+@media screen and (max-width: 1200px){
+    .body {
+        border-style: solid;
+        border: .5em black;
+        margin-top: 1em;
+        width: 90%;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
 }
