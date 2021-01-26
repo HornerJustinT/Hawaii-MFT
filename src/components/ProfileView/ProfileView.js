@@ -146,8 +146,8 @@ class ProfileView extends Component {
             <>
               <div className="flex-between row-wrap enable-alert">
                 <div className="text">
-                  <p>Your profile is currently disabled and does not appear in the directory. 
-                    To publish your profile, navigate to <b>Edit My Profile</b> and click the <b>Enable</b> button at the top of the page.</p>
+                  <p>Your profile is currently hidden and does not appear in the directory. 
+                    To publish your profile, navigate to <b>Edit My Profile</b> and click the <b>Publish Profile</b> button at the top of the page.</p>
                 </div>
               </div>
             </>

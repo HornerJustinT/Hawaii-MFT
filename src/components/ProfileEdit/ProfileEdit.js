@@ -270,7 +270,7 @@ class ProfileEdit extends Component {
             {this.state.enabled ?
               <div className="flex-between row-wrap disable-alert">
                 <div className="text">
-                  <p>Your profile is currently enabled and appears in the directory. Click <b>Disable Account</b> to unpublish your profile.</p>
+                  <p>Your profile is currently published in the directory. Click <b>Hide Profile</b> to unpublish your profile.</p>
                 </div>
                 <Button
                   variant="danger"
@@ -284,17 +284,17 @@ class ProfileEdit extends Component {
                       this.enablePress();
                   }}
                 >
-                  Disable Account
+                  Hide Profile
                 </Button>
               </div>
               :
               <>
                 <div className="flex-between row-wrap enable-alert">
                   <div className="text">
-                    <p>Your profile is currently disabled and does not appear in the directory. Click <b>Enable Account</b> to publish your profile.</p>
+                    <p>Your profile is currently disabled and does not appear in the directory. Click <b>Publish Profile</b> to publish your profile.</p>
                   </div>
                   <Button variant="danger" className="disable" onClick={this.enablePress}>
-                    Enable Account
+                    Publish Profile
                   </Button>
                 </div>
               </>
