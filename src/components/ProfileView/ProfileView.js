@@ -133,6 +133,9 @@ class ProfileView extends Component {
       });
   }
   home = () => {
+    this.props.dispatch({
+      type: "PROFILE_RESET",
+    })
     this.props.history.push('/home')
   }
 

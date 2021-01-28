@@ -48,6 +48,14 @@ class AdminPage extends Component {
       treatment_preferences: null,
     },
   };
+
+  deleteProfile = (id) => {
+    this.props.dispatch({
+      type: 'DELETE_PROFILE', payload: id
+    })
+  }
+
+
   resetProfile = (id) => {
     this.props.dispatch({ type: "PROFILE_RESET" });
     this.props.history.push(`/admin-edit-profile/${id}`);
@@ -57,6 +65,8 @@ class AdminPage extends Component {
     this.props.dispatch({ type: "PROFILE_RESET" });
     this.props.history.push(`/admin-edit-profile-student/${id}`);
   };
+
+
   // When the page loads
   componentDidMount() {
     // Grab a complete list of members.
@@ -308,7 +318,8 @@ class AdminPage extends Component {
                 <th>Name</th>
                 <th>License #</th>
                 <th>Email Address</th>
-                <th></th>
+                <th style={{ textAlign: "center" }}>View/Edit Account Info</th>
+                <th style={{ textAlign: "center" }}>Delete Account</th>
               </tr>
             </thead>
             <tbody>
@@ -329,7 +340,7 @@ class AdminPage extends Component {
                     ) : (
                       <td>{therapist.emailpersonal}</td>
                     )}
-                    <td style={{ textAlign: "right" }}>
+                    <td style={{ textAlign: "center" }}>
                     {therapist.student ? 
                       <Button
                         variant="primary"
@@ -347,6 +358,22 @@ class AdminPage extends Component {
                         View
                       </Button>
                     }
+                    </td>
+                    <td style={{ textAlign: "center" }}><Button
+                      variant="danger"
+
+                        onClick={() => {
+                          if (
+                            window.confirm(
+                              "Are you sure you wish to delete this account? This action cannot be undone."
+                            )
+                          )
+                          {this.deleteProfile(therapist.id)}
+                        }}
+                        data-tip="This button will permanently delete this account. This action cannot be undone."
+                        >
+                        DELETE
+                        </Button>
                     </td>
                     <ReactTooltip />
                   </tr>

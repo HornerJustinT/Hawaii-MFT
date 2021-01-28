@@ -279,6 +279,7 @@ async function repeatingInserts (connection, table, row, member, values) {
   
   //Languages PUT & DELETE Queries
   await connection.query(deleteQuery, [member]);
+
   for (item of values) {
     await connection.query(insertQuery, [item, member]);
   }
@@ -292,8 +293,13 @@ router.put("/practice", async (req, res) => {
     await connection.query("BEGIN;");
 
     let queryText = `UPDATE "members" SET 
-      ("license_state", "license_expiration", "credentials", 
-      "fees", "license_number", "title", "telehealth", "license_type", "supervision_status")
+      ("prefix", "first_name", "last_name", "title", "age", 
+            "statement",
+            "license_state", 
+            "license_expiration", "hiamft_member_account_info", 
+            "supervision_status","fees", "credentials","telehealth", 
+             "license_number"
+             )
         =
       ($1, $2, $3, $4, $5, $6, $7, $8, $9)
       WHERE "id" = $10;`;
@@ -491,6 +497,127 @@ router.put("/student", (req, res) => {
           res.sendStatus(500);
       })
 });
+
+//DELETE Route
+//await connection.query(deleteQuery, [member]);
+
+
+async function repeatingDelete(connection, table, id, member) {
+
+  //Declaring variables for language queries
+  const deleteQuery = `DELETE FROM ${table} WHERE ${id} = $1;`;
+
+  //DELETE Query
+  await connection.query(deleteQuery, [member]);
+}
+
+router.delete('/:id', async (req, res) => {
+  const connection = await pool.connect();
+
+  try {
+    await connection.query("BEGIN;");
+
+    await repeatingDelete(
+      connection,
+      "address_table",
+      "member_id",
+      req.params.id,
+    );
+
+    await repeatingDelete(
+      connection,
+      "age_groups_served_pivot",
+      "member_id",
+      req.params.id,
+    );
+
+    await repeatingDelete(
+      connection,
+      "client_focus_pivot",
+      "member_id",
+      req.params.id,
+    );
+
+    await repeatingDelete(
+      connection,
+      "email_table",
+      "member_id",
+      req.params.id,
+    );
+
+    await repeatingDelete(
+      connection,
+      "insurance_pivot",
+      "member_id",
+      req.params.id,
+    );
+
+    await repeatingDelete(
+      connection,
+      "island_pivot",
+      "member_id",
+      req.params.id,
+    );
+
+    await repeatingDelete(
+      connection,
+      "languages_pivot",
+      "member_id",
+      req.params.id,
+    );
+
+    await repeatingDelete(
+      connection,
+      "phone_table",
+      "member_id",
+      req.params.id,
+    );
+
+    await repeatingDelete(
+      connection,
+      "session_format_pivot",
+      "member_id",
+      req.params.id,
+    );
+
+    await repeatingDelete(
+      connection,
+      "specialty_pivot",
+      "member_id",
+      req.params.id,
+    );
+
+    await repeatingDelete(
+      connection,
+      "treatment_preferences_pivot",
+      "member_id",
+      req.params.id,
+    );
+
+    await repeatingDelete(
+      connection,
+      "members",
+      "id",
+      req.params.id,
+    );
+
+    let queryText = `DELETE FROM "user" WHERE "id" = $1`;
+
+    await connection.query(queryText, [
+      req.params.id
+    ]);
+   
+    await connection.query("COMMIT;");
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(`Error on transaction`, error);
+    await connection.query("ROLLBACK;");
+    res.sendStatus(500);
+  } finally {
+    connection.release();
+  }
+});
+
 
 
 module.exports = router;
