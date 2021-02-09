@@ -22,17 +22,17 @@ class SearchResults extends Component {
         return (
           <>
           <div className="cover-photo">
-            <div >
-            </div>
-            
-
+        
               <div className="results-bin">
-                {this.props.therapists[0] && (
+                
+                {this.props.therapists[0] ?
                   <h3 className="results-number center">
                     Hawaiian Islands Association for Marriage & Family Therapist Directory
                   </h3>
-                )}
-
+                  :
+                  <p>Directory is loading...</p>
+                }
+                
                 {this.props.therapists.map((therapist) => (
                   // I made it a div to encapsulate the Card instead of just
                   // a Card so if needed we could add more to each result.
@@ -172,6 +172,7 @@ class SearchResults extends Component {
                     </Card>
                   </div>
                 ))}
+                        
               </div>
             </div>
           </>
