@@ -1,33 +1,58 @@
-.profileView-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+/* .rightside{
+    margin: 4em 4em 20em 0em;
+    width: 20%;
+} */
+
+.background {
+    background-color: lightgrey;
+    padding: 1em;
+    margin-right: 0em;
+    padding-right: 0em;
 }
 
-.rightside{
-    padding-top: 7em;
-    margin-right: 4em;
+.border {
+    border: 5px black;
+    padding-top: 2em;
+    padding-right: 5em;
+    padding-left: 3em;
+    margin: 3em;
+    border-radius: 20px;
+    text-align: left;
+    background-color: white;
 }
 
-.contact{
-    padding-top: .5em;
-
-}
 .map {
-    position: absolute;
+  position: static;
   width: 250px;
   height: 250px;
 }
+.profile {
+    margin-left: 1em;
+    margin-top: 1em;
+    min-width: 200px;
+    min-height: 200px;
+    width: 200px;
+    height:200px;
+  }
 .bio-container{
     display: flex;
     flex-direction: column;
-    margin: 4em;
+    padding-top: 0px;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin: 3em;
+    width: 65%;
+}
+
+.btn-container{
+    display: flex;
+    flex-direction: column;
+    margin: 1em 0em 0em 3em;
 }
 
 .bio{
     padding: 10;
     box-sizing: border-box;
-    align-content: center;
     position: relative;
     text-align: justify;
     flex:6;
@@ -37,7 +62,8 @@
 .bio-title{
     flex: 1;
     padding-top: 0px;
-    margin-top: 2em;
+    margin-left: 4em;
+    margin-right: 5em;
 }
 
 .backSearch{
@@ -49,6 +75,14 @@
 p{
     padding:0;
     margin:0em;
+}
+
+h1{
+    padding: 0;
+}
+
+h6{
+    padding: 0;
 }
 
 .clientFocus{
@@ -95,8 +129,9 @@ p{
     padding-bottom: 10px;
 }
 .emailModal{
-    padding-top: 10px;
+    margin-top: 2em;
     padding-bottom: 1em;
+    margin-left: 1.5em;
 }
 .ts{
     flex:left;
@@ -114,7 +149,149 @@ p{
     margin-right: 6em;
 }
 
-ul {
+li {
     padding: 0;
     margin: 0;
+    list-style: none;
+}
+
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.row {
+    display: flex;
+}
+
+.column {
+    flex: 50%;
+    padding: 1em;
+}
+
+.columnThirds {
+    flex: 60%;
+    padding: 1em;
+}
+
+.columnSide {
+    flex: 10%;
+}
+
+.credentials {
+    margin-bottom: 2em;
+}
+
+.clientFocus {
+    padding-left: 1em;
+    padding-bottom: 0;
+}
+
+.student {
+    color: red;
+}
+
+.map {
+    display: block;
+}
+
+.loading-error{
+    padding: 3em;
+}
+
+@media screen and (max-width: 1200px){
+    .bio-container {
+        width: 95%;
+        margin-left: 2em;
+    }
+    .rightside{
+        margin: auto;
+        width: 95%;
+    }
+    .border {
+        border: 5px black;
+        padding: 1em;
+        margin: 1em;
+        border-radius: 20px;
+        text-align: left;
+    }
+    .bio-title{
+        margin-left: 1em;
+        width: 100%;
+    }
+    .columnSide{
+        margin-left: 2em;
+    }
+
+}
+
+@media only screen and (device-width: 768px) {
+      .bio-container {
+        width: 95%;
+        margin-left: 2em;
+    }
+    .rightside{
+        margin: auto;
+        width: 95%;
+    }
+    .border {
+        border: 5px black;
+        padding: 1em;
+        margin: 1em;
+        border-radius: 20px;
+        text-align: left;
+    }
+    .bio-title{
+        margin-left: 1em;
+        width: 100%;
+    }
+    .columnSide{
+        margin-left: 2em;
+    }
+    .location{
+        /* margin-left: 3em; */
+        margin-bottom: 1em;
+    }
+}
+
+/*for iphone*/
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .bio-container {
+        width: 95%;
+        margin-left: 2em;
+    }
+    .rightside{
+        margin: auto;
+        width: 95%;
+    }
+    .border {
+        border: 5px black;
+        padding: 1em;
+        margin: 1em;
+        border-radius: 20px;
+        text-align: left;
+    }
+    .bio-title{
+        margin-left: 1em;
+        width: 100%;
+    }
+    .columnSide{
+        margin-left: 2em;
+    }
+    .location{
+        margin-left: 3em;
+        margin-bottom: 1em;
+    }
+    p{
+        word-wrap: break-word;
+        max-width: 16em;
+    }
+    h1{
+        word-wrap: break-word;
+        max-width: 16em;
+    }
 }

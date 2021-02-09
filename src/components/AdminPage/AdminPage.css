@@ -6,7 +6,76 @@
     margin: 2em;
 
 }
-.btnFilter {
-    margin: 0px 5px;
 
+.btnFilter {
+    margin: 5px 0px 5px 10px;
+}
+
+.main {
+    margin-bottom: 37em;
+}
+
+@media screen and (max-width: 1200px){
+    .search-bar {
+        margin: 20px 0px 40px 0px;
+    }
+
+    .reg-button {
+        margin: 2em;
+
+    }
+
+    .btnFilter {
+        margin: 5px 0px 5px 10px;
+    }
+    .main {
+        margin-bottom: 37em;
+    }
+
+}
+
+@media only screen and (device-width: 768px) {
+    .search-bar {
+        margin: 20px 0px 40px 0px;
+    }
+
+    .reg-button {
+        margin: 2em;
+
+    }
+
+    .btnFilter {
+        margin: 5px 0px 5px 10px;
+    }
+
+    .main {
+        margin-bottom: 37em;
+    }
+}
+
+/*for iphone*/
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .search-bar {
+        width: 95%;
+        margin: 20px 0px 40px 0px;
+    }
+    .reg-button { 
+        width: 95%;
+        margin: 2em;
+
+    }
+    .btnFilter {
+        width: 95%;
+        margin: 5px 0px 5px 10px;
+    }
+    .main {
+        width: 95%;
+        margin-bottom: 37em;
+    }
+    .table{
+        max-width: 95%;
+    }
 }

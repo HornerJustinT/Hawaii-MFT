@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Button from "react-bootstrap/Button";
+import Form from 'react-bootstrap/Form';
+import FormControl from 'react-bootstrap/FormControl';
+
+import "../App/App.css";
+
 
 class LoginPage extends Component {
   state = {
@@ -19,66 +24,77 @@ class LoginPage extends Component {
           username: this.state.username,
           password: this.state.password,
         },
+        props: this.props
       });
     } else {
       this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }
-    this.props.history.push(`/home`);
   } // end login
 
   handleInputChangeFor = propertyName => (event) => {
     this.setState({
       [propertyName]: event.target.value,
     });
-  }//end handleInputChangeFor
+  };//end handleInputChangeFor
 
   render() {
-    return (
-      <div>
-        {this.props.errors.loginMessage && (
-          <h2 className="alert" role="alert">
-            {this.props.errors.loginMessage}
-          </h2>
-        )}
-        <form onSubmit={this.login} className="form">
-          <h1>Login</h1>
-          <div>
-            <label htmlFor="username">
-              Username:
-              <input
+    return(
+      <>
+        <div>
+          
+
+        <Form onSubmit={this.login} className="loginForm">
+           <h2>Login</h2>
+            <Form.Group>
+              <Form.Label htmlFor="username">Username</Form.Label>
+              <Form.Control
                 type="text"
                 name="username"
                 className="input"
                 value={this.state.username}
                 onChange={this.handleInputChangeFor("username")}
               />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
-              <input
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label htmlFor="password">Password</Form.Label>
+              <Form.Control
                 type="password"
                 name="password"
                 className="input"
                 value={this.state.password}
                 onChange={this.handleInputChangeFor("password")}
               />
-            </label>
-          </div>
-          <div>
-            <Button
-              className="log-in input"
-              type="submit"
-              name="submit"
-              value="Log In"
-            >
-              Log In
-            </Button>
-          </div>
-        </form>
-        <center></center>
-      </div>
+            </Form.Group>
+
+            {this.props.errors.loginMessage && (
+              <h5 className="alert" role="alert">
+                {this.props.errors.loginMessage}
+              </h5>
+            )}
+
+            <Form.Group>
+
+              <Button
+                className="log-in input"
+                type="submit"
+                name="submit"
+                value="Log In"
+              >
+                Log In
+              </Button>
+
+            </Form.Group>
+
+            <div>
+              <a href="/#/forgotpassword">Forgot Password? Click here.</a>
+            </div>
+            
+          </Form>
+
+
+        </div>
+      </>
     );
   }
 }

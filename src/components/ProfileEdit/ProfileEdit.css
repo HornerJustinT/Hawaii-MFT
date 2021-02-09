@@ -1,19 +1,54 @@
-.header {
-    margin: 2em;
+p {
+    margin-left: 1rem;
 }
 
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.row-wrap {
+    flex-flow: row wrap;
+}
+
+.edit-bucket{
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+.header {
+    margin: 4em;
+    margin-top: 0em;
+}
+.photo {
+    height: 250px;
+    width: 250px;
+}
 .body {
     border-style: solid;
     border: .5em black;
     margin-top: 1em;
     margin-left: 2em;
-    margin-right: 4em;
+    margin-right: 2em;
     padding-top: 0px;
     padding-bottom: 0px;
 }
 
+.bodyPhoto {
+    border-style: solid;
+    border: .5em black;
+    margin-top: 1em;
+    margin-left: 40em;
+    margin-right: 40em;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    text-align: center;
+}
+
 .label {
     font-weight: 700;
+    /* min-width: .05em; */
+    max-width: 100em;
 }
 
 .first {
@@ -29,4 +64,142 @@
     padding: 2em;
     margin: 1em;
     border-radius: 10px;
+}
+
+.border {
+    border: 5px black;
+    padding: 2em;
+    margin: 1em;
+    border-radius: 10px;
+    /* text-align: center; */
+}
+.flex-container {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    align-items: left;
+}
+
+.flex-container > div {
+  margin: 10px;
+  min-width: 25em;
+  flex: 32%;
+  align-items: left;
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-evenly {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.flex-around {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.column {
+    float: left;
+    flex: 50%;
+    padding: 1em;
+}
+
+.columnThirds {
+    padding: 1em;
+    flex: 30%;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.button {
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+.flex-bucket {
+  margin: 10px;
+  min-width: 25em;
+  flex: 32%;
+  align-items: left;
+}
+
+    
+.disable {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: .5em;
+    margin-right: 1em;
+}
+
+.disable-alert {
+    padding: 1em;
+    border-top: .5px solid green;
+    border-bottom: .5px solid green;
+    background-color:#d4ede9;
+}
+
+.enable-alert{
+    padding: 1em;
+    border-top: .5px solid #ff4136;
+    border-bottom: .5px solid #ff4136;
+    background-color: #fcccca;
+}
+
+.text{
+    margin-top: 1em;
+    margin-left: 4em;
+    font-weight: 400;
+    font-size: larger;
+    font-style: italic;
+}
+
+.upload{
+    margin-bottom: 1em;
+}
+
+.loading-error{
+    padding: 3em;
+}
+
+/*for iphone*/
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    .loginForm {
+        width: 95%;
+        height: 100%;
+        margin: 20px auto;
+        margin-bottom: 15em;
+        border-radius: 2px;
+    }
+
+    .passwordForm {
+        width: 95%;
+        height: 100%;
+        margin: 20px auto;
+        margin-bottom: 18em;
+        border-radius: 2px;
+    }
+}
+
+
+@media screen and (max-width: 1200px){
+    .body {
+        border-style: solid;
+        border: .5em black;
+        margin-top: 1em;
+        width: 90%;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
 }

@@ -16,6 +16,29 @@
   white-space: nowrap;
 }
 
+.card {
+  box-shadow: 2px 2px 5px gray;
+}
+
+.results-number {
+  color: #3f3f3f;
+  padding-top: 2em;
+}
+
+.results{
+  padding-bottom: 2em;
+}
+
+.results-bin {
+  background-color: whitesmoke;
+  margin-right: 8em;
+  margin-left: 8em;
+  margin-top: 10em;
+  padding-bottom: 5em;
+  /* padding-top: 5em; */
+  border-radius: 10px;
+}
+
 @media only screen and (max-width: 900px) {
   /* For Small Screens */
   .contact-info {
@@ -27,15 +50,42 @@
   .description {
     width: 100%;
   }
+
+  .results-bin {
+    background-color: whitesmoke;
+    margin: 0.5em;
+    padding-bottom: 5em;
+    border-radius: 10px;
+    width: 100%;
+  }
 }
+
+
 
 @media only screen and (max-width: 500px) {
   /* For Smaller Screens */
   .mobile-padding {
       padding-bottom: 10px;
   }
+
+  .results-bin {
+    background-color: whitesmoke;
+    margin: auto;
+    padding-bottom: 5em;
+    border-radius: 10px;
+    width: 100%;
+  }
 }
 
-.card {
-  box-shadow: 2px 2px 5px gray;
+.cover-photo {
+  background: url("../../Images/familyphoto.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center 0px;
+  padding-top: 0em;
+  margin: 0;
+  background-repeat: no-repeat;
+  overflow: hidden;
 }

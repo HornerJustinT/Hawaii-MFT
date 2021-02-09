@@ -6,7 +6,10 @@ router.post('/:id', (req, res) => {
     const queryText =  `INSERT INTO "registration" ("registration_key", "used") VALUES ($1, false);`
     pool.query(queryText, [req.params.id])
       .then(() => res.sendStatus(201))
-      .catch(() => res.sendStatus(500));
+      .catch((err) => {
+        console.log(err)
+        res.sendStatus(500)
+      });
   });
   
 

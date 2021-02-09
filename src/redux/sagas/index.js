@@ -13,6 +13,10 @@ import registrationSaga from './registrationSaga';
 import userSaga from "./userSaga";
 import createRegistrationKeySaga from "./createRegistrationKeySaga";
 import checkRegistrationKeySaga from "./checkRegistrationKeySaga";
+import mailerSaga from "./mailerSaga";
+import studentSaga from "./studentSaga";
+import createResetKey from "./createResetKeySaga";
+import checkResetKey from "./checkResetKeySaga";
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -36,5 +40,9 @@ export default function* rootSaga() {
     userSaga(),
     createRegistrationKeySaga(),
     checkRegistrationKeySaga(),
+    mailerSaga(),
+    studentSaga(),
+    createResetKey(),
+    checkResetKey(),
   ]);
 }

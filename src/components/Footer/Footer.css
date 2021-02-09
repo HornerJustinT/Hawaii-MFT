@@ -1,3 +1,14 @@
-footer {
-    margin-top: 80px;
+#footer-content {
+  background: #343A40;
+  padding: 2em;
+  color: white;
+}
+
+.site-footer{
+    margin: 0em;
+    margin-bottom: 0em;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+
 }
