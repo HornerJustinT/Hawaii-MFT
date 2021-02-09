@@ -72,22 +72,17 @@ router.get('/:id', async (req, res) => {
  * PUT route
  */
 router.put('/', async (req, res) => {
+
   const connection = await pool.connect();
 
   try {
         await connection.query("BEGIN;");
         const memberQuery = `UPDATE "members" 
-        SET ("prefix", "first_name", "last_name", "title", "age", 
-            "statement",
-            "license_state", 
-            "license_expiration", "hiamft_member_account_info", 
-            "supervision_status","fees", "credentials","telehealth", 
-             "license_number")
+        SET ("prefix", "first_name", "last_name", "age", 
+            "statement")
         = 
-            ($1, $2, $3, $4, $5, $6, $7, $8,
-            $9, $10, $11, $12, $13, 
-            $14)
-        WHERE id = $15;`;
+            ($1, $2, $3, $4, $5)
+        WHERE id = $6;`;
 
         //declaring variables for language queries
         const languages = req.body.languagesEdit;
@@ -99,17 +94,8 @@ router.put('/', async (req, res) => {
           req.body.prefix,
           req.body.firstName,
           req.body.lastName,
-          req.body.title,
           req.body.age,
           req.body.statement,
-          req.body.licenseState,
-          req.body.licenseExpiration,
-          req.body.hiamftMemberInfo,
-          req.body.supervisionStatus,
-          req.body.fees,
-          req.body.credentials,
-          req.body.telehealth,
-          req.body.licenseNumber,
           req.body.id,
         ]);
         //Languages PUT & DELETE Queries
