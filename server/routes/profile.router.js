@@ -287,18 +287,23 @@ async function repeatingInserts (connection, table, row, member, values) {
 
 router.put("/practice", async (req, res) => {
 
+  console.log('here is req.body.licenseType', req.body.licenseType);
+  
   const connection = await pool.connect();
 
   try {
     await connection.query("BEGIN;");
 
     let queryText = `UPDATE "members" SET 
-      ("prefix", "first_name", "last_name", "title", "age", 
-            "statement",
-            "license_state", 
-            "license_expiration", "hiamft_member_account_info", 
-            "supervision_status","fees", "credentials","telehealth", 
-             "license_number"
+      ("license_state", 
+            "license_expiration",
+            "credentials",
+            "fees",
+            "license_number",
+            "title",
+            "telehealth",
+            "license_type",
+            "supervision_status"              
              )
         =
       ($1, $2, $3, $4, $5, $6, $7, $8, $9)
