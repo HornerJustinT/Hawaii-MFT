@@ -1,8 +1,5 @@
 # Hawaiian Islands Marriage and Family Therapy Directory
 
-![](public/SearchBar.png)
-![](public/ProfileView.png)
-
 
 ## Description 
 
