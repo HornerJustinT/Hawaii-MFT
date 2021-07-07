@@ -1,6 +1,7 @@
 import React,{ Component } from 'react';
 //this connects the component to th redux store
 import { connect } from 'react-redux';
+import "../profileCreate.css"
 
 //React-bootstrap import
 import ProgressBar from 'react-bootstrap/ProgressBar';
@@ -10,7 +11,7 @@ import Button from "react-bootstrap/Button";
 
 
 
-class studentProfile extends Component{
+class studentPractice extends Component{
      //create local state
 
      state = {
@@ -29,6 +30,12 @@ class studentProfile extends Component{
          specialty_id:'',
          treatment_preferences_id:'',
          age_groups_served_id:'',
+         //write the errors for all the practiceInfo inputs
+         clientFocusIdError:'',
+         specialtyIdError:'',
+         treatmentPreferencesIdError:'',
+         ageGroupsError:'',
+         shouldBlockNavigation : true,
 
      }
    
@@ -54,9 +61,51 @@ handleInputChangeFor = propertyName => (event) =>{
     });
   } 
 
+  validate = () => {
+      
+     
+    let  clientFocusIdError = '';
+    let specialtyIdError = '';
+    let treatmentPreferencesIdError = '';
+    let  ageGroupsError = '';
+    
+    let formIsValid = true;
+
+   
+      if(this.state.client_focus_id === ''){
+      formIsValid=false;
+      clientFocusIdError = 'Client Focus group is required'
+      }
+      if(this.state.specialty_id === ''){
+      formIsValid=false;
+     specialtyIdError = 'Specialty choice is required'
+      }
+      if(this.state.treatment_preferences_id === ''){
+      formIsValid=false;
+      treatmentPreferencesIdError = 'Treatment Preference is required'
+      }
+      if(this.state.age_groups_served_id === ''){
+      formIsValid=false;
+      ageGroupsError = 'Age Group is required'
+     }
+    
+
+    if(  clientFocusIdError||  specialtyIdError || treatmentPreferencesIdError|| ageGroupsError){
+      this.setState({ clientFocusIdError, specialtyIdError, treatmentPreferencesIdError, ageGroupsError});
+    
+    }else{
+      return true;
+    }
+
+  }
+
     addMembersInfo = (event) =>{
 //this action will dispatch all the info collegeted from all three pages
 //and those are createprofile, contactinfo and practicinfo pages
+const isValid = this.validate();
+if(!isValid){
+   return false
+   }else{
       event.preventDefault();
       this.props.dispatch({type:'ADD_MEMBER',
         payload:{
@@ -95,51 +144,32 @@ handleInputChangeFor = propertyName => (event) =>{
           language_id:this.props.createProfile.language_id
          }
         });
-//this will reset the inputs on the parcticeinfo page
-this.props.history.push(`/edit-profile/${this.props.user.id}`)
-     this.handleReset();
+        this.setState({shouldBlockNavigation:false},()=>{
+            this.props.history.push("/uploadimage");
+          });
+          //this will reset the inputs on the parcticeinfo page
+           return true;
+         }
+
     }
 
-    handleReset = ()=>{
-      this.setState({
-        license_state:'',
-        license_number:'',
-        license_type:'',
-        supervision_status:'',
-        fees:'',
-        license_expiration:'',
-        specialty:'',
-        credentials:'',
-        telehealth:'',
-        statement:'',
-        title:'',
-        session_format_id:'',
-        client_focus_id:'',
-        specialty_id:'',
-        treatment_preferences_id:'',
-        age_groups_served_id:'',
-        insurance_type_id:'',
-
-      })
-    }
+  
     render (){
         return(
             <>
             <div className='container'>
-        <header><h1>Student Info</h1></header>
+             
+            <header>
+              {" "}
+              <h1 className="text-center">Practice info</h1>
+            </header>
         <br/>
-        <ProgressBar now={75} />
+        <div className='progressbar'> <ProgressBar now={75} /></div>
         <br/>
         <Form onSubmit={this.addMembersInfo}>
         <br/>
-        <br/>
-        <Form.Label>Title </Form.Label><br/><input type="text"
-                  name="title"
-                  value={this.state.title}
-                  onChange={this.handleInputChangeFor("title")}/>
-        <br/>
-        <br/>
-        <Form.Label>Specialization</Form.Label><br/><select onChange={this.handleInputChangeFor("specialty_id")}>
+        <Form.Group>
+        <Form.Label>Specialization</Form.Label><br/><Form.Control   as="select" onChange={this.handleInputChangeFor("specialty_id")}>
                 {this.props.specialtys &&
                    
                    <>
@@ -153,11 +183,12 @@ this.props.history.push(`/edit-profile/${this.props.user.id}`)
                    </>
                    } 
             
-            </select>
+            </Form.Control>
+            <h4 className="error">{this.state.specialtyIdError}</h4>
+            </Form.Group>
         <br/>
-        <br/>
-        <br/>
-        <Form.Label>Treatment Approaches/Preferences</Form.Label><br/><select onChange={this.handleInputChangeFor("treatment_preferences_id")}>
+        <Form.Group>
+        <Form.Label>Treatment Approaches/Preferences</Form.Label><br/><Form.Control   as="select" onChange={this.handleInputChangeFor("treatment_preferences_id")}>
         {this.props.treatmentPreferences &&    
                    <>
                 <option value='' defaultValue='Select an Approach'>Select an Approach</option>
@@ -168,10 +199,12 @@ this.props.history.push(`/edit-profile/${this.props.user.id}`)
                     )}
                    </>
                    } 
-          </select>
+          </Form.Control>
+          <h4 className="error">{this.state.treatmentPreferencesIdError}</h4>
+          </Form.Group>
         <br/>
-        <br/>
-        <Form.Label>Client Focus</Form.Label><br/><select onChange={this.handleInputChangeFor("client_focus_id")}>
+        <Form.Group>
+        <Form.Label>Client Focus</Form.Label><br/><Form.Control  as="select" onChange={this.handleInputChangeFor("client_focus_id")}>
         {this.props.demographics &&    
                    <>
                
@@ -183,8 +216,11 @@ this.props.history.push(`/edit-profile/${this.props.user.id}`)
                     )}
                    </>
                    } 
-            </select>
-        <select onChange={this.handleInputChangeFor("age_groups_served_id")}>
+            </Form.Control>
+            <h4 className="error">{this.state.clientFocusIdError}</h4>
+            </Form.Group>
+            <Form.Group>
+        <Form.Control   as="select" onChange={this.handleInputChangeFor("age_groups_served_id")}>
         {this.props.ageGroups &&    
                    <>
                 <option value='NULL' defaultValue='Select an Age Group'>Select an Age Group</option>
@@ -195,13 +231,14 @@ this.props.history.push(`/edit-profile/${this.props.user.id}`)
                     )}
                    </>
                    } 
-           </select>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <Button className='save' type="submit">Save</Button>
+           </Form.Control>
+           <h4 className="error">{this.state.ageGroupsError}</h4>
+           </Form.Group>
+           <div  className="next-button">
+                  <Button type="submit">Next</Button>
+                  </div>
         </Form>
+       
             </div>
            
             </>
@@ -223,4 +260,4 @@ const mapStateToProps = reduxstate => ({
     contactAddress: reduxstate.contactAddress,
     user: reduxstate.user
   });
-export default connect(mapStateToProps)(studentProfile);
+export default connect(mapStateToProps)(studentPractice);

@@ -139,8 +139,8 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
       const insertMember = await  member.query(`INSERT INTO "members" 
         ("id","zip_code","first_name", "last_name", "prefix", "age","license_state", "license_expiration", "hiamft_member_account_info", "supervision_status","fees", 
         "credentials", "telehealth", "statement", "website", "title", "city", "license_number", "license_type")
-    VALUES($1,$2, $3, $4, $5, $6, $7, $8, $9, $10, $11,$12,$13,$14,$15,$16,$17,$18,$19);`, [req.user.id,req.body.zip_code, req.body.first_name,  req.body.last_name, req.body.prefix, req.body.age, req.body.license_state, req.body.license_expiration, 
-            req.body.hiamft_member_account_info, req.body.supervision_status,req.body.fees, req.body.credentials, req.body.telehealth, req.body.statement, req.body.website, req.body.title, req.body.city, req.body.license_number, req.body.license_type_id]);
+    VALUES($1,$2, $3, $4, $5, $6, $7, $8, $9, $10, $11,$12,$13,$14,$15,$16,$17,$18,$19);`, [req.body.user,req.body.zip_code, req.body.first_name,  req.body.last_name, req.body.prefix, req.body.age, req.body.license_state, req.body.license_expiration, 
+            req.body.hiamft_member_account_info, req.body.supervision_status,req.body.fees, req.body.credentials, req.body.telehealth, req.body.statement, req.body.website, req.body.title, req.body.city, req.body.license_number, req.body.license_type]);
         
         if (req.body.language_id[0]) {
             for (let language of req.body.language_id) {

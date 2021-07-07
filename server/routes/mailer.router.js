@@ -27,7 +27,6 @@ router.post("/modal", async (req, res) => {
         })
         .then(res.sendStatus(200))
         .catch(res.sendStatus(500))
-    
 });
 
 module.exports = router;

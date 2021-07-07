@@ -1,13 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+
 class RegisterPage extends Component {
   state = {
     username: "",
     password: "",
+    newId: ""
   };
   componentDidMount() {
     console.log(this.props.match.params.id);
+    this.props.dispatch({
+      type:"NEW_ID"
+    });
 
     //checks that the registration key exists
     this.props.dispatch({
@@ -15,6 +22,20 @@ class RegisterPage extends Component {
       payload: this.props.match.params.id,
     });
     console.log(this.props.reduxstate.registrationKeyValidation);
+
+  }
+  componentDidUpdate(){
+    console.log(this.props.reduxstate.getUsersReducer.length)
+    console.log(this.props.reduxstate.getUsersReducer)
+    if(this.props.reduxstate.getUsersReducer){
+      let o = this.props.reduxstate.getUsersReducer;
+      const max = o.reduce(function(prev, current) {
+        return (prev.id > current.id) ? prev : current
+    })
+    if(this.state.newId==="")
+    this.setState({newId:(max.id +1)},()=>{console.log(this.state)})
+    }
+
   }
 
   registerUser = (event) => {
@@ -22,10 +43,11 @@ class RegisterPage extends Component {
 
     if (this.state.username && this.state.password) {
       this.props.dispatch({
-        type: "REGISTER",
+        type: "SAVE_REGISTER",
         payload: {
           username: this.state.username,
           password: this.state.password,
+          id:this.state.newId
         },
       });
     } else {
@@ -60,41 +82,39 @@ class RegisterPage extends Component {
               {this.props.errors.registrationMessage}
             </h2>
           )}
-          <form onSubmit={this.registerUser} className="form">
+          <Form onSubmit={this.registerUser} className="form">
             <h1>Register User</h1>
             <div>
-              <label htmlFor="username">
-                Username:
-                <input
+              <Form.Label htmlFor="username">
+                Username</Form.Label>
+                <Form.Control
                   type="text"
                   name="username"
                   value={this.state.username}
                   className="input"
                   onChange={this.handleInputChangeFor("username")}
                 />
-              </label>
             </div>
             <div>
-              <label htmlFor="password">
-                Password:
-                <input
+              <Form.Label htmlFor="password">
+                Password</Form.Label>
+                <Form.Control
                   type="password"
                   name="password"
                   className="input"
                   value={this.state.password}
                   onChange={this.handleInputChangeFor("password")}
                 />
-              </label>
             </div>
             <div>
-              <input
+              <Button
                 className="register input"
                 type="submit"
                 name="submit"
                 value="Register"
-              />
+              >Register</Button>
             </div>
-          </form>
+          </Form>
           <center></center>
         </div>
       );

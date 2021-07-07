@@ -1,0 +1,140 @@
+.error{
+    color: red;
+    font-size:medium;
+    text-align: left;
+    width:20em;
+}
+
+form{
+    margin: 0 auto;
+}
+
+
+.photo {
+    height: 250px;
+    width: 250px;
+    margin: 10px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+
+label{
+    font: 15px;
+    font-weight: bolder;
+
+}
+
+.container{
+    margin-bottom: 0;
+    margin-top: 3em;
+    border:solid 0.00000005em #cccccc;
+    padding: 2em;
+    border-radius: 10px;
+    width:90%;
+    position: relative;
+}
+
+
+.container-box{
+    display: flex;
+    flex-direction: row;
+    display: inline-block;
+    width:90%;
+   
+}
+
+.label-container{
+    margin: 1em;
+   display: inline-block;
+    text-align: left;
+    padding: 14px 10px 0 0;
+    margin:0 0 7px 0;
+    
+}
+
+.container-input{
+    display: inline-block;
+    vertical-align: middle;
+    margin:0 0 7px 0;
+    width:90%;
+}
+
+.label {
+    width: 33%;
+}
+
+.inputs{
+    display: flex;
+    position: relative;
+   flex-direction: row;
+   padding-right: 15em;
+   padding-left: 0;
+   padding: 2em;
+   margin: 1em;
+   border-radius: 10px;
+   width:90%;
+   
+}
+
+.box-1{
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    width: 50%;
+    padding: 0em 1em;
+}
+
+.box-2{
+    flex:1;
+    position: relative;
+    display: inline-block;
+    text-align: right;
+    width: 50%;
+    padding: 0em 2em;
+}
+
+.header{
+    margin: 1em;
+}
+
+.header-container{
+    margin-top: 0;
+    margin-bottom: 2em;
+}
+
+.subtitle{
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+}
+
+.name-group {
+    padding: 0em 5em;
+}
+
+.next-button{
+    margin-top: 3em;
+    text-align: center;
+    padding-bottom: 2em;
+    
+}
+
+.progressbar{
+    padding-bottom: 1.5em;
+    padding-top: 1.5em;
+}
+
+@media screen and (max-width: 900px){
+    .container {
+         border-style: solid;
+        border: .5em black;
+        margin-top: 1em;
+        width: 90%;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+}

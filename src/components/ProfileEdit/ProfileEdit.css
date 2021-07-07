@@ -1,19 +1,56 @@
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.row-wrap {
+    flex-flow: row wrap;
+}
+
+
 .header {
     margin: 2em;
 }
-
+.photo {
+    height: 250px;
+    width: 250px;
+}
 .body {
     border-style: solid;
     border: .5em black;
     margin-top: 1em;
     margin-left: 2em;
-    margin-right: 4em;
+    margin-right: 2em;
     padding-top: 0px;
     padding-bottom: 0px;
 }
 
+.bodyPhoto {
+    border-style: solid;
+    border: .5em black;
+    margin-top: 1em;
+    margin-left: 40em;
+    margin-right: 40em;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    text-align: center;
+}
+
+@media screen and (max-width: 1200px){
+    .body {
+        border-style: solid;
+        border: .5em black;
+        margin-top: 1em;
+        width: 90%;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+}
+
 .label {
     font-weight: 700;
+    /* min-width: .05em; */
+    max-width: 100em;
 }
 
 .first {
@@ -29,4 +66,78 @@
     padding: 2em;
     margin: 1em;
     border-radius: 10px;
+}
+
+.border {
+    border: 5px black;
+    padding: 2em;
+    margin: 1em;
+    border-radius: 10px;
+    text-align: center;
+}
+.flex-container {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    align-items: left;
+}
+
+.flex-container > div {
+  margin: 10px;
+  min-width: 25em;
+  flex: 32%;
+  align-items: left;
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-evenly {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.flex-around {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.column {
+    float: left;
+    flex: 50%;
+    padding: 1em;
+}
+
+.columnThirds {
+    padding: 1em;
+    flex: 30%;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.button {
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+.flex-bucket {
+  margin: 10px;
+  min-width: 25em;
+  flex: 32%;
+  align-items: left;
+}
+
+header{
+}
+    
+.disable {
+    float: right;
+    margin-bottom: 1em;
 }
