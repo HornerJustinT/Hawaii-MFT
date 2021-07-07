@@ -33,6 +33,7 @@ import studentProfile from "../ProfileCreate/studentProfile/studentProfile";
 import ProfileEdit from '../ProfileEdit/ProfileEdit';
 import ProfileView from "../ProfileView/ProfileView";
 import RegisterPage from '../RegisterPage/RegisterPage';
+import ProfileEditStudent from '../ProfileEdit/ProfileEditStudent';
 
 
 // CSS
@@ -71,17 +72,18 @@ class App extends Component {
             {/*This is a route anyone can see, no login necessary */}
             <Route exact path="/login" component={LoginPage} />
             {/*This is a route anyone can see, no login necessary */}
-            <Route exact path="/create-profile" component={ProfileCreate} />
+            <ProtectedRoute exact path="/create-profile" component={ProfileCreate} />
 
             {/*User only sees these routes if logged in*/}
-            <ProtectedRoute exact path="/edit-profile/:id" component={ProfileEdit} />
+            <ProtectedRoute exact path="/edit-profile" component={ProfileEdit} />
+            <ProtectedRoute exact path="/edit-student" component={ProfileEditStudent} />
 
             <ProtectedRoute exact path="/contact-info" component={ContactInfo} />
             <ProtectedRoute exact path="/practice" component={PracticeInfo} />
             <ProtectedRoute exact path="/student" component={studentProfile} />
 
             {/* Admin View */}
-            <AdminRoute exact path="/edit-profile" component={ProfileEdit} />
+            <AdminRoute exact path="/admin-edit-profile/:id" component={ProfileEdit} />
             <Route exact path="/profile/:id" component={ProfileView} />
        
 

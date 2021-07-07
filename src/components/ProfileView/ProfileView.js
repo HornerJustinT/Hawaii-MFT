@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "./ProfileView.css";
 import { connect } from "react-redux";
 import Button from 'react-bootstrap/Button';
-// import EmailModal from '../EmailModal/EmailModal'
+import EmailModal from '../EmailModal/EmailModal'
+import firebase from "../../Firebase";
 import {
   Map,
   InfoWindow,
@@ -13,18 +14,20 @@ import {
 //CSS import
 import "../App/App.css";
 
+var storage = firebase.storage().ref();
 const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_KEY;
 
 const mapStyles = {
   position: "absolute",
   width: "250px",
-  height: "250px",
+  height: "250px"
 };
 
 class ProfileView extends Component {
   state = {
     lat: 0,
     lng: 0,
+    profilePhoto: '',
   };
   
   componentDidMount() {// fetchs profile info
@@ -32,21 +35,22 @@ class ProfileView extends Component {
       type: "FETCH_PROFILE",
       payload: this.props.match.params,
     });
+    this.getImage(this.props.match.params.id)
   }
 
   telehealth=(doesTelehealth)=>{
     if(doesTelehealth){
-      return <p>Yes I do provide telehealth</p>
+      return <>Yes I do provide telehealth</>
     }
     else{
-      return <p>No, I do not provide telehealth at this time</p>
+      return <>No, I do not provide telehealth at this time</>
     }
   }
   credentials=(credentials)=>{// checks if credentials are there function
     if(credentials){
       return<ul>{this.props.profile[0].credentials.map((credentials,key) =>
         <p key={key}>{credentials}</p>)}
-        </ul>
+      </ul>
     }
   }
   website=(website)=>{// checks if website is there function
@@ -61,19 +65,24 @@ class ProfileView extends Component {
 
   setMAP = () => { // function that sets the map latitudes only when it was unchanged to stop infinete loop. I do not know how to set up async for when the dispatch is done.
     if (this.state.lat === 0 && this.state.lng === 0 ) {
-      const url_address = encodeURI(this.props.profile.address[0]).replace(
+      const url_address = encodeURI(this.props.profile.address[0] + " " + this.props.profile.city + " Hawaii " + this.props.profile.zip_code).replace(
         /%20/g,
         "+"
       );
+      console.log(url_address)
       fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${url_address}&key=${API_KEY}`
       )
         .then((data) => data.json())
-        .then((data) =>
-          this.setState({
-            lat: data.results[0].geometry.location.lat,
-            lng: data.results[0].geometry.location.lng,
-          })
+        .then((data) => {
+            console.log(data)
+            if (data.results[0]) {
+              this.setState({
+                lat: data.results[0].geometry.location.lat,
+                lng: data.results[0].geometry.location.lng,
+              });
+            }
+          }
         );
     }
   };
@@ -91,6 +100,31 @@ class ProfileView extends Component {
       });
     }
   };
+  getImage = (id) => {
+    console.log(id)
+    storage
+      .child(`images/${id}photo`)
+      .getDownloadURL()
+      .then((url) => {
+        this.setState({ profilePhoto: url});
+      }).then(()=>{
+        this.forceUpdate();
+      })
+      .catch((error) => { // if no photo found
+        storage 
+          .child(`images/noFile.png`)
+          .getDownloadURL()
+          .then((url) =>{
+            this.setState({profilePhoto:url});
+          }).then(()=>{
+            this.forceUpdate();
+          })
+          .catch((error) => {
+            console.log('No file found photo also not found')
+          })
+        // Handle any errors
+      });
+  }
   home = () => {
     this.props.history.push('/home')
   }
@@ -100,11 +134,11 @@ class ProfileView extends Component {
       this.setMAP();// sets the map
       return (
         <>
-          <div className="profileView-container">
+          <Button onClick={this.home} className="btn-container">
+            Back to search Results
+          </Button>
+          <div className="flex-between row-wrap">
             <div className="bio-container">
-              <Button onClick={this.home} className="backSearch">
-                Back to search Results
-              </Button>
               <div className="bio-title">
                 <div className="leftside">
                   <h2>
@@ -132,7 +166,10 @@ class ProfileView extends Component {
               <div className="border-top">
                 <h4>Specialities</h4>
                 <ul>
-                  {this.props.profile.specialty.map((specialty, key) => (// maps through specialities of therapist
+                  {this.props.profile.specialty.map((
+                    specialty,
+                    key // maps through specialities of therapist
+                  ) => (
                     <p key={key}>{specialty}</p>
                   ))}
                 </ul>
@@ -141,7 +178,10 @@ class ProfileView extends Component {
                 <h4>Insurance Taken</h4>
                 <div className="box1 flex-between row-wrap">
                   <ul>
-                    {this.props.profile.insurance.map((age, key) => (// maps through ages served
+                    {this.props.profile.insurance.map((
+                      age,
+                      key // maps through ages served
+                    ) => (
                       <p key={key}>{age}</p>
                     ))}
                   </ul>
@@ -169,7 +209,10 @@ class ProfileView extends Component {
                 <div className="clientAge">
                   <h5>Age</h5>
                   <ul>
-                    {this.props.profile.ages_served.map((age, key) => (// maps through the ages served by the therapist
+                    {this.props.profile.ages_served.map((
+                      age,
+                      key // maps through the ages served by the therapist
+                    ) => (
                       <p key={key}>{age}</p>
                     ))}
                   </ul>
@@ -177,16 +220,22 @@ class ProfileView extends Component {
                 <div className="clientDemographics">
                   <h5>Demographics</h5>
                   <ul>
-                    {this.props.profile.client_focus.map((age, key) => (// maps through the client focuses of the therapist
+                    {this.props.profile.client_focus.map((
+                      age,
+                      key // maps through the client focuses of the therapist
+                    ) => (
                       <p key={key}>{age}</p>
                     ))}
                   </ul>
                 </div>
               </div>
               <div className="border-top">
-                <h4>Languages Spoken</h4> 
+                <h4>Languages Spoken</h4>
                 <ul>
-                  {this.props.profile.languages.map((language, key) => (// maps through the languages spoken
+                  {this.props.profile.languages.map((
+                    language,
+                    key // maps through the languages spoken
+                  ) => (
                     <p key={key}>{language}</p>
                   ))}
                 </ul>
@@ -194,7 +243,8 @@ class ProfileView extends Component {
               <div className="border-top">
                 <h4>Session Formats</h4>
                 <ul>
-                  {this.props.profile.session_format.map(// maps through the session_formats available
+                  {this.props.profile.session_format.map(
+                    // maps through the session_formats available
                     (session_format, key) => (
                       <p key={key}>{session_format}</p>
                     )
@@ -208,10 +258,12 @@ class ProfileView extends Component {
                   {this.props.profile.city}, {this.props.profile.island}
                 </h3>
               </div>
-
-              {/* <div className="emailModal">
-                <EmailModal props = {this.props.profile.id}></EmailModal>
-              </div> */}
+              <div>
+                   <img width ='200' height = '200' src ={this.state.profilePhoto}/>
+                   </div>
+              <div className="emailModal">
+                <EmailModal />
+              </div>
               <div className="contact">
                 <h4>Contact</h4>
                 <ul>
@@ -226,9 +278,8 @@ class ProfileView extends Component {
                   </p>
                 </ul>
 
-
                 <div style={mapStyles}>
-                  <Map  // creates google map with the center being where google geocoding api locates lat and long from the address
+                  <Map // creates google map with the center being where google geocoding api locates lat and long from the address
                     style={mapStyles}
                     google={this.props.google}
                     onClick={this.onMapClicked}
@@ -241,7 +292,9 @@ class ProfileView extends Component {
                     <Marker
                       position={{ lat: this.state.lat, lng: this.state.lng }}
                     />
-                    <InfoWindow></InfoWindow>
+                    <InfoWindow>
+                      <>Information</>
+                    </InfoWindow>
                   </Map>
                 </div>
               </div>
@@ -256,6 +309,7 @@ class ProfileView extends Component {
 }
 const mapStateToProps = (state) => ({// props
   profile: state.profile,
+  user: state.user
 });
 
 export default connect(mapStateToProps)(

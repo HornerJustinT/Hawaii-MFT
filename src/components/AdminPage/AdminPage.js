@@ -48,7 +48,7 @@ class AdminPage extends Component {
   };
   resetProfile = (id) =>{
     this.props.dispatch({type:"PROFILE_RESET"}) 
-    this.props.history.push(`/edit-profile/${id}`)
+    this.props.history.push(`/admin-edit-profile/${id}`)
   }
   // When the page loads
   componentDidMount() {
@@ -205,9 +205,6 @@ class AdminPage extends Component {
   render() {
     return (
       <>
-        <div className="reg-button">
-          <RegistrationModal />
-        </div>
         <div className="container search-bar">
           {Object.keys(this.state.criteria).map((Mainkey) => (
             <>
@@ -256,7 +253,7 @@ class AdminPage extends Component {
               )}
             </>
           ))}
-          <div className="flex-between">
+          <div className="flex-between align-center">
             <Form.Check
               type="switch"
               id="custom-switch"
@@ -267,7 +264,7 @@ class AdminPage extends Component {
 
             <div>
               <Button
-                variant="primary"
+                variant="success"
                 onClick={this.addFilter}
                 className="btnFilter"
               >
@@ -285,7 +282,7 @@ class AdminPage extends Component {
           </div>
         </div>
         <div className="container">
-          <Table striped bordered hover variant="dark">
+          <Table striped bordered hover variant="">
             <thead>
               <tr>
                 <th>ID</th>
@@ -307,7 +304,7 @@ class AdminPage extends Component {
                     <td>{therapist.license_title}</td>
                     <td style={{ textAlign: "right" }}>
                       <Button
-                        variant="danger"
+                        variant="primary"
                         onClick={() => this.resetProfile(therapist.id)}
                       >
                         View
@@ -317,12 +314,13 @@ class AdminPage extends Component {
                 ))}
             </tbody>
           </Table>
-          <div className="download">
+          <div className="download flex-between">
             {this.state.csv && (
-              <Button onClick={this.downloadClick} download>
+              <Button variant="success" onClick={this.downloadClick} download>
                 Click to download
               </Button>
             )}
+            <RegistrationModal />
           </div>
         </div>
       </>

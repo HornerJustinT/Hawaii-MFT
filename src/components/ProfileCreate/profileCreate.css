@@ -1,0 +1,143 @@
+.error{
+    color: red;
+    font-size:medium;
+    text-align: left;
+    width:20em;
+}
+
+form{
+    margin: 0 auto;
+}
+
+input{
+    width:20em;
+    height: 2em;
+    display: inline-block;
+   border-radius: 10px;
+   /* background-color: lightcyan; */
+   border:  0.15px solid black;
+   padding: 1.25em;
+   margin: 1em;
+}
+
+.photo {
+    height: 250px;
+    width: 250px;
+    margin: 10px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+select{
+    width:20em;
+    height: 10em;
+    border-radius: 5%;
+    background-color: lightcyan;
+    border: 0.15px solid black;
+    padding: 1em;
+    margin: 1em;
+}
+textarea{
+    width:20em;
+    height: 10em;
+    border-radius: 5%;
+    background-color: lightcyan;
+    font-weight: bold;
+    border:  0.15px solid black;
+    padding: 2em;
+    margin: 1em;
+}
+
+label{
+    font: 15px;
+    font-weight: bolder;
+
+}
+
+.container{
+    margin-bottom: 0;
+}
+
+
+.container-box{
+    display: flex;
+    flex-direction: row;
+    display: inline-block;
+   
+}
+
+.label-container{
+    margin: 1em;
+   display: inline-block;
+    text-align: left;
+    padding: 14px 10px 0 0;
+    margin:0 0 7px 0;
+    
+}
+
+.container-input{
+    display: inline-block;
+    vertical-align: middle;
+    margin:0 0 7px 0;
+}
+
+.label {
+    width: 33%;
+}
+
+.inputs{
+    display: flex;
+    position: relative;
+   flex-direction: row;
+   padding-right: 15em;
+   padding-left: 0;
+   padding: 2em;
+   margin: 1em;
+   border-radius: 10px;
+   
+}
+
+.box-1{
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    width: 50%;
+    padding: 0em 1em;
+}
+
+.box-2{
+    flex:1;
+    position: relative;
+    display: inline-block;
+    text-align: right;
+    width: 50%;
+    padding: 0em 2em;
+}
+
+.header{
+    margin: 1em;
+}
+
+.header-container{
+    margin-top: 0;
+    margin-bottom: 2em;
+}
+
+.subtitle{
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+}
+
+.name-group {
+    padding: 0em 5em;
+}
+
+.next-button{
+    margin-top: 3em;
+    text-align: center;
+    
+}
