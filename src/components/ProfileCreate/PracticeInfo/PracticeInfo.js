@@ -88,6 +88,7 @@ handleInputChangeFor = propertyName => (event) =>{
 //this action will dispatch all the info collegeted from all three pages
 //and those are createprofile, contactinfo and practicinfo pages
       event.preventDefault();
+      
       this.props.dispatch({type:'ADD_MEMBER',
         payload:{
           prefix:this.props.createProfile.prefix,
@@ -126,7 +127,7 @@ handleInputChangeFor = propertyName => (event) =>{
          }
         });
 //this will reset the inputs on the parcticeinfo page
-this.props.history.push(`/edit-profile/${this.props.user.id}`)
+this.props.history.push(`/edit-profile`)
      this.handleReset();
     }
 
@@ -153,207 +154,305 @@ this.props.history.push(`/edit-profile/${this.props.user.id}`)
       })
     }
     render (){
-        return(
-            <>
-            <div className='container'>
-        <header><h1>Practice Info</h1></header>
-        <br/>
-        <ProgressBar now={75} />
-        <br/>
-        <Form onSubmit={this.addMembersInfo}>
-        <br/>
-        <br/>
-        <Form.Label>Title </Form.Label><br/><input type="text"
-                  name="title"
-                  value={this.state.title}
-                  onChange={this.handleInputChangeFor("title")}/>
-        <br/>
-        <br/>
-        <Form.Label>Credentials </Form.Label><br/><input type="text"
-                  name="title"
-                  value={this.state.credentials}
-                  onChange={this.handleInputChangeFor("credentials")}/>
-        <br/>
-        <br/>
-        <Form.Label>License Type</Form.Label><br/><select onChange={this.handleInputChangeFor("license_type_id")}>
-        {this.props.license &&    
-                   <>
-                   <option value='' defaultValue='Select License Type'>Select License Type</option>
-                   {this.props.license.map(licensetype =>
-                    <option  value={licensetype.license_type_id}
-        
-                  key={licensetype.license_type_id}>{licensetype.title}</option>
-                    )}
-                   </>
-                   } 
-           </select>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <Form.Label>License State of Issue</Form.Label><br/><input type="text"
-                  name="license_state"
-                  value={this.state.license_state}
-                  onChange={this.handleInputChangeFor("license_state")}/>
-        <br/>
-        <br/>
-        <Form.Label>License Number</Form.Label><br/><input type="number"
-                  name="license_number"
-                  value={this.state.license_number}
-                  onChange={this.handleInputChangeFor("license_number")}/>
-        <br/>
-        <br/>
-        <Form.Label>License Expiration Date</Form.Label><br/><input 
-                  type='date'
-                  name="license_expiration"
-                  value={this.state.license_expiration}
-                  onChange={this.handleInputChangeFor("license_expiration")}/>
-        <br/>
-        <br/>
-        <Form.Label>Statement</Form.Label><br/><input type="text"
-                  name="statement"
-                  value={this.state.statement}
-                  onChange={this.handleInputChangeFor("statement")}/>
-                   <br/>
-                   <br/>
-        <Form.Label>Fees</Form.Label><br/><input type="text"
-                  name="fees"
-                  value={this.state.fees}
-                  onChange={this.handleInputChangeFor("fees")}/>
-                   <br/>
-                   <br/>
-        <Form.Label>Specialization</Form.Label><br/><select multiple='true' onChange={(event) => this.handleMultiChange(event, "specialty_id")}>
-                {this.props.specialtys &&
-                   
-                   <>
-                  
-            <option value='' defaultValue='Select a Speciality'>Select a Speciality</option>
-                   {this.props.specialtys.map(specialty =>
-                    <option value={specialty.specialty_id}
-        
-                  key={specialty.specialty_id}>{specialty.title}</option>
-                    )}
-                   </>
-                   } 
-            
-            </select>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <Form.Label>Supervision Status</Form.Label><br/><select onChange={this.handleInputChangeFor("supervision_status")}>
-                   <option value="None">None</option>
-                   <option value="Hawai'i qualified">Hawai'i qualified</option>
-                   <option value="MFT supervisor">MFT supervisor</option>
-                   <option value="AAMFT approved">AAMFT approved</option>
-                   <option value="Supervisor">Supervisor</option>
-           </select>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <Form.Label>Insurance Taken</Form.Label><br/><select multiple='true' onChange={(event) => this.handleMultiChange(event, "insurance_type_id")}>
-        {this.props.insuranceTaken &&    
-                   <>
-                  <option value='' defaultValue='Select Insurance Type'>Select Insurance Type</option>
-                   {this.props.insuranceTaken.map(insurance =>
-                    <option value={insurance.insurance_type_id}
-        
-                  key={insurance.insurance_type_id}>{insurance.title}</option>
-                    )}
-                   </>
-                   } 
-            </select>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <Form.Label>Are you providing telehealth?</Form.Label>
-        <br/>
-        <label>Yes</label><input 
-                              type='radio' 
-                              name='choice' 
-                              value='yes' 
-                              onChange={this.handleInputChangeFor("telehealth")}/>
-        <label>No</label><input 
-                              type='radio' 
-                              name='choice' 
-                              value='no'
-                              onChange={this.handleInputChangeFor("telehealth")}/>
-        <br/>
-        <br/>
-        <Form.Label>Treatment Approaches/Preferences</Form.Label><br/><select multiple='true' onChange={(event) => this.handleMultiChange(event, "treatment_preferences_id")}>
-        {this.props.treatmentPreferences &&    
-                   <>
-                <option value='' defaultValue='Select an Approach'>Select an Approach</option>
-                   {this.props.treatmentPreferences.map(treatment =>
-                    <option value={treatment.treatment_preferences_id}
-        
-                  key={treatment.treatment_preferences_id}>{treatment.title}</option>
-                    )}
-                   </>
-                   } 
-          </select>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <Form.Label>Client Focus</Form.Label><br/><select multiple='true' onChange={(event) => this.handleMultiChange(event, "client_focus_id")}>
-        {this.props.demographics &&    
-                   <>
-               
-                <option value='' defaultValue='Select a Demographic'>Select a Demographic</option>
-                   {this.props.demographics.map(group =>
-                    <option value={group.client_focus_id}
-        
-                  key={group.client_focus_id}>{group.title}</option>
-                    )}
-                   </>
-                   } 
-            </select>
-        <select multiple='true' onChange={(event) => this.handleMultiChange(event, "age_groups_served_id")}>
-        {this.props.ageGroups &&    
-                   <>
-                <option value='' defaultValue='Select an Age Group'>Select an Age Group</option>
-                   {this.props.ageGroups.map(agegroup=>
-                    <option value={agegroup.age_groups_served_id}
-        
-                  key={agegroup.age_groups_served_id}>{agegroup.title}</option>
-                    )}
-                   </>
-                   } 
-           </select>
-        <br/>
-        <br/>
+        return (
+          <>
+            <div className="container">
+              <header>
+                <h1 className="text-center">Practice Info</h1>
+              </header>
+              <ProgressBar now={75} />
 
+              <Form onSubmit={this.addMembersInfo}>
+                <Form.Group>
+                  <Form.Label>Title </Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="title"
+                    value={this.state.title}
+                    onChange={this.handleInputChangeFor("title")}
+                  />
+                </Form.Group>
 
-        <Form.Label>Session Format(s)</Form.Label><br/><select multiple='true' onChange={(event) => this.handleMultiChange(event, "session_format_id")}>
-        {this.props.sessionFormats &&    
-                   <>
-                 <option value='' defaultValue='Select a Session Format'>Select a Session Format</option>
-                   {this.props.sessionFormats.map(session =>
-                    <option value={session.session_format_id}
-        
-                  key={session.session_format_id}>{session.title}</option>
+                <Form.Group>
+                  <Form.Label>Credentials </Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="title"
+                    value={this.state.credentials}
+                    onChange={this.handleInputChangeFor("credentials")}
+                  />
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>License Type</Form.Label>
+                  <br />
+                  <Form.Control
+                    as="select"
+                    onChange={this.handleInputChangeFor("license_type_id")}
+                  >
+                    {this.props.license && (
+                      <>
+                        <option value="" defaultValue="Select License Type">
+                          Select License Type
+                        </option>
+                        {this.props.license.map((licensetype) => (
+                          <option
+                            value={licensetype.license_type_id}
+                            key={licensetype.license_type_id}
+                          >
+                            {licensetype.title}
+                          </option>
+                        ))}
+                      </>
                     )}
-                   </>
-                   } 
-           </select>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <Button className='save' type="submit">Save</Button>
-        </Form>
-            
-         
-           
-          
+                  </Form.Control>
+                </Form.Group>
 
+                <Form.Group>
+                  <Form.Label>License State of Issue</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="license_state"
+                    value={this.state.license_state}
+                    onChange={this.handleInputChangeFor("license_state")}
+                  />
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>License Number</Form.Label>
+                  <Form.Control
+                    type="number"
+                    name="license_number"
+                    value={this.state.license_number}
+                    onChange={this.handleInputChangeFor("license_number")}
+                  />
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>License Expiration Date</Form.Label>
+                  <Form.Control
+                    type="date"
+                    name="license_expiration"
+                    value={this.state.license_expiration}
+                    onChange={this.handleInputChangeFor("license_expiration")}
+                  />
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Statement</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="statement"
+                    value={this.state.statement}
+                    onChange={this.handleInputChangeFor("statement")}
+                  />
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Fees</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="fees"
+                    value={this.state.fees}
+                    onChange={this.handleInputChangeFor("fees")}
+                  />
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Specialization</Form.Label>
+                  <Form.Control
+                    as="select"
+                    multiple={true}
+                    onChange={(event) =>
+                      this.handleMultiChange(event, "specialty_id")
+                    }
+                  >
+                    {this.props.specialtys && (
+                      <>
+                        <option value="" defaultValue="Select a Speciality">
+                          Select a Speciality
+                        </option>
+                        {this.props.specialtys.map((specialty) => (
+                          <option
+                            value={specialty.specialty_id}
+                            key={specialty.specialty_id}
+                          >
+                            {specialty.title}
+                          </option>
+                        ))}
+                      </>
+                    )}
+                  </Form.Control>
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Supervision Status</Form.Label>
+                  <Form.Control
+                    as="select"
+                    onChange={this.handleInputChangeFor("supervision_status")}
+                  >
+                    <option value="None">None</option>
+                    <option value="Hawai'i qualified">Hawai'i qualified</option>
+                    <option value="MFT supervisor">MFT supervisor</option>
+                    <option value="AAMFT approved">AAMFT approved</option>
+                    <option value="Supervisor">Supervisor</option>
+                  </Form.Control>
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Insurance Taken</Form.Label>
+                  <Form.Control
+                    as="select"
+                    multiple={true}
+                    onChange={(event) =>
+                      this.handleMultiChange(event, "insurance_type_id")
+                    }
+                  >
+                    {this.props.insuranceTaken && (
+                      <>
+                        <option value="" defaultValue="Select Insurance Type">
+                          Select Insurance Type
+                        </option>
+                        {this.props.insuranceTaken.map((insurance) => (
+                          <option
+                            value={insurance.insurance_type_id}
+                            key={insurance.insurance_type_id}
+                          >
+                            {insurance.title}
+                          </option>
+                        ))}
+                      </>
+                    )}
+                  </Form.Control>
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Are you providing telehealth?</Form.Label>
+                  <Form.Control
+                    as="select"
+                    name="telehealth"
+                    value={this.state.telehealth}
+                    onChange={this.handleInputChangeFor("telehealth")}
+                  >
+                    <option>Yes</option>
+                    <option>No</option>
+                  </Form.Control>
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Treatment Approaches/Preferences</Form.Label>
+                  <Form.Control
+                    as="select"
+                    multiple={true}
+                    onChange={(event) =>
+                      this.handleMultiChange(event, "treatment_preferences_id")
+                    }
+                  >
+                    {this.props.treatmentPreferences && (
+                      <>
+                        <option value="" defaultValue="Select an Approach">
+                          Select an Approach
+                        </option>
+                        {this.props.treatmentPreferences.map((treatment) => (
+                          <option
+                            value={treatment.treatment_preferences_id}
+                            key={treatment.treatment_preferences_id}
+                          >
+                            {treatment.title}
+                          </option>
+                        ))}
+                      </>
+                    )}
+                  </Form.Control>
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Client Focus</Form.Label>
+                  <Form.Control
+                    as="select"
+                    multiple={true}
+                    onChange={(event) =>
+                      this.handleMultiChange(event, "client_focus_id")
+                    }
+                  >
+                    {this.props.demographics && (
+                      <>
+                        <option value="" defaultValue="Select a Demographic">
+                          Select a Demographic
+                        </option>
+                        {this.props.demographics.map((group) => (
+                          <option
+                            value={group.client_focus_id}
+                            key={group.client_focus_id}
+                          >
+                            {group.title}
+                          </option>
+                        ))}
+                      </>
+                    )}
+                  </Form.Control>
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Control
+                    as="select"
+                    multiple={true}
+                    onChange={(event) =>
+                      this.handleMultiChange(event, "age_groups_served_id")
+                    }
+                  >
+                    {this.props.ageGroups && (
+                      <>
+                        <option value="" defaultValue="Select an Age Group">
+                          Select an Age Group
+                        </option>
+                        {this.props.ageGroups.map((agegroup) => (
+                          <option
+                            value={agegroup.age_groups_served_id}
+                            key={agegroup.age_groups_served_id}
+                          >
+                            {agegroup.title}
+                          </option>
+                        ))}
+                      </>
+                    )}
+                  </Form.Control>
+                </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Session Format(s)</Form.Label>
+                  <Form.Control
+                    as="select"
+                    multiple={true}
+                    onChange={(event) =>
+                      this.handleMultiChange(event, "session_format_id")
+                    }
+                  >
+                    {this.props.sessionFormats && (
+                      <>
+                        <option value="" defaultValue="Select a Session Format">
+                          Select a Session Format
+                        </option>
+                        {this.props.sessionFormats.map((session) => (
+                          <option
+                            value={session.session_format_id}
+                            key={session.session_format_id}
+                          >
+                            {session.title}
+                          </option>
+                        ))}
+                      </>
+                    )}
+                  </Form.Control>
+                </Form.Group>
+
+                <Form.Group>
+                  <Button type="submit">Save</Button>
+                </Form.Group>
+              </Form>
             </div>
-           
-            </>
-        )
+          </>
+        );
     }
 
 }
